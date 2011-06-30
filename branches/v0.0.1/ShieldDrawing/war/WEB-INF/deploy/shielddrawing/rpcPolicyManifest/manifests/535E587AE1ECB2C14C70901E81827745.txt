@@ -1,0 +1,2 @@
+serviceClass: blazon.client.ShieldDrawingService
+path: ABF1304A34A0025F8E6BAF85208C5B81.gwt.rpc
