@@ -40,16 +40,16 @@ public class ColourTest {
 	public void testBuild() {
 		if (name == null || name.isEmpty() || colour == null || colour.isEmpty()) {
 			try {
-				Colour.Build(name, colour);
+				Colour.build(name, colour);
 				fail();
 			} catch (IllegalArgumentException e) {
 				assertThat(e.getMessage(), 
 						is(equalTo("Colour can not be built with null or empty argument")));
 			}
 		} else {
-			Tincture c = Colour.Build(name, colour);
+			Tincture c = Colour.build(name, colour);
 			assertThat(name, is(equalTo(c.getName())));
-			assertThat(colour, is(equalTo(c.getColour())));
+			assertThat(colour, is(equalTo(c.getPatternReference())));
 		}
 	}
 }
