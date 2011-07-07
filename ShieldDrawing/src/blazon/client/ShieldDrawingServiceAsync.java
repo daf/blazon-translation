@@ -7,6 +7,6 @@ import blazon.shared.shield.Shield;
  * The async counterpart of <code>GreetingService</code>.
  */
 public interface ShieldDrawingServiceAsync {
-	void drawShield(String input, AsyncCallback<Shield> callback)
+	void createShieldRepresentation(String input, AsyncCallback<Shield> callback)
 			throws IllegalArgumentException;
 }

@@ -21,7 +21,7 @@ public class ShieldDrawingServiceImpl extends RemoteServiceServlet implements
 	private static final long serialVersionUID = -1112781771348351096L;
 
 	@Override
-	public Shield drawShield(String blazon) throws IllegalArgumentException {
+	public Shield createShieldRepresentation(String blazon) throws IllegalArgumentException {
 		CharStream input = new ANTLRNoCaseStringStream(blazon);
         BlazonLexer lexer = new BlazonLexer(input);
         TokenStream tokenStream = new CommonTokenStream(lexer);

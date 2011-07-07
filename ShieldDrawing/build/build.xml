@@ -1,0 +1,22 @@
+<project name="CopyReferredClasses" default="main">
+	
+	<description>
+		Copies class files from BlazonGrammar and ShieldRepresentation projects into war/WEB-INF/classes
+	</description>
+	
+	<property name="ShieldRepresentationBin" location="./ShieldRepresentation/bin/" />
+	<property name="BlazonGrammarBin" location="./BlazonGrammar/bin/" />
+	<property name="ShieldDrawingBin" location="./ShieldDrawing/war/WEB-INF/classes/" />
+	
+	<target name="main">
+		<echo message="Starting copy"/>
+		<copy todir="${ShieldDrawingBin}" overwrite="true">
+			<fileset dir="${ShieldRepresentationBin}" />
+		</copy>
+		<copy todir="${ShieldDrawingBin}" overwrite="true">
+			<fileset dir="${BlazonGrammarBin}" />
+		</copy>
+		<echo message="Completed copy."/>
+	</target>
+	
+</project>

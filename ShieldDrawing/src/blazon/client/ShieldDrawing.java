@@ -1,7 +1,7 @@
 package blazon.client;
 
-import java.util.Iterator;
 
+import org.vectomatic.dom.svg.OMSVGDefsElement;
 import org.vectomatic.dom.svg.OMSVGDescElement;
 import org.vectomatic.dom.svg.OMSVGDocument;
 import org.vectomatic.dom.svg.OMSVGGElement;
@@ -9,15 +9,13 @@ import org.vectomatic.dom.svg.OMSVGLength;
 import org.vectomatic.dom.svg.OMSVGMaskElement;
 import org.vectomatic.dom.svg.OMSVGPathElement;
 import org.vectomatic.dom.svg.OMSVGPathSegList;
-import org.vectomatic.dom.svg.OMSVGRectElement;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
+import org.vectomatic.dom.svg.OMSVGTextElement;
 import org.vectomatic.dom.svg.OMSVGTitleElement;
 import org.vectomatic.dom.svg.utils.OMSVGParser;
 import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import blazon.shared.shield.Shield;
-import blazon.shared.shield.ShieldLayer;
-import blazon.shared.shield.tinctures.Tincture;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -26,7 +24,9 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.TextBox;
 
 /**
@@ -34,37 +34,100 @@ import com.google.gwt.user.client.ui.TextBox;
  */
 public class ShieldDrawing implements EntryPoint {
 	
-	private OMSVGDocument doc;
-    private OMSVGSVGElement svg;
-    private TextBox textBox;
-    private Button button;
-    private ShieldDrawingServiceAsync service = GWT.create(ShieldDrawingService.class);
+	private final ShieldDrawingServiceAsync service = GWT.create(ShieldDrawingService.class);
+	private final OMSVGDocument doc = OMSVGParser.currentDocument();
+    private final OMSVGSVGElement svg = doc.createSVGSVGElement();
+    
+    
+	private TextBox textBox;
+	private OMSVGGElement shieldContainer;
+	private OMSVGTextElement initialText;
+	private OMSVGTitleElement title;
+	private OMSVGDescElement desc;
+	private OMSVGDefsElement defs;
     private Element currentSVGElement;
-    /**
-     * This is the entry point method.
-     */
+
+    
     public void onModuleLoad() {
-        textBox = new TextBox();
+    	final Panel rootPanel = RootPanel.get();
+    	final Panel svgPanel = createAndInitializeSVGPanel();
+        rootPanel.add(svgPanel);
+        addTextBoxAndButtonToUI(rootPanel, svgPanel);
+    }
+
+    private Panel createAndInitializeSVGPanel() {
+    	Panel svgPanel = new SimplePanel();
+    	svgPanel.setSize("400px", "400px");
+    	svgPanel.addStyleName("svgPanel");
+        svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+        svg.setWidth(OMSVGLength.SVG_LENGTHTYPE_PX, 400);
+        svg.setHeight(OMSVGLength.SVG_LENGTHTYPE_PX, 400);
+        svg.setViewBox(0, 0, 400, 400);
+        createShieldShapeMask();
+        drawShieldOutline();
+        addInitialTextToShield();
+        svgPanel.getElement().appendChild(svg.getElement());
+        return svgPanel;
+    }
+    
+    private void drawShieldOutline() {
+        OMSVGPathElement shieldOutlinePath = doc.createSVGPathElement();
+        shieldOutlinePath.setAttribute(SVGConstants.CSS_FILL_VALUE, SVGConstants.CSS_NONE_VALUE);
+        shieldOutlinePath.setAttribute(SVGConstants.CSS_STROKE_VALUE, SVGConstants.CSS_BLACK_VALUE);
+        shieldOutlinePath.setAttribute(SVGConstants.CSS_STROKE_WIDTH_PROPERTY, "1");
+        createShieldShapeSegList(shieldOutlinePath);
+        svg.appendChild(shieldOutlinePath);
+    }
+
+    private void createShieldShapeMask() {
+        OMSVGMaskElement shieldShapeMask = doc.createSVGMaskElement();
+        shieldShapeMask.setId("shieldShape");
+        OMSVGGElement shieldShapeG = doc.createSVGGElement();
+        shieldShapeG.setAttribute(SVGConstants.CSS_FILL_VALUE, SVGConstants.CSS_WHITE_VALUE);
+        OMSVGPathElement shieldMaskPath = doc.createSVGPathElement();
+        shieldMaskPath.setId("shieldMaskPath");
+        createShieldShapeSegList(shieldMaskPath);
+        shieldShapeG.appendChild(shieldMaskPath);
+        shieldShapeMask.appendChild(shieldShapeG);
+        svg.appendChild(shieldShapeMask);
+    }
+
+    private void createShieldShapeSegList(OMSVGPathElement path) {
+        OMSVGPathSegList pathSegList = path.getPathSegList();
+        pathSegList.appendItem(path.createSVGPathSegMovetoAbs(10, 10));
+        pathSegList.appendItem(path.createSVGPathSegLinetoVerticalAbs(150));
+        pathSegList.appendItem(path.createSVGPathSegCurvetoCubicAbs(200, 390, 10, 340, 200, 390));
+        pathSegList.appendItem(path.createSVGPathSegCurvetoCubicAbs(390, 150, 200, 390, 390, 340));
+        pathSegList.appendItem(path.createSVGPathSegLinetoVerticalAbs(10));
+        pathSegList.appendItem(path.createSVGPathSegClosePath());
+    }
+    
+    private void addInitialTextToShield() {
+    	initialText = doc.createSVGTextElement(20, 190, OMSVGLength.SVG_LENGTHTYPE_PX, "Please Enter Blazon");
+    	initialText.setAttribute(SVGConstants.SVG_FILL_ATTRIBUTE, SVGConstants.CSS_BLACK_VALUE);
+    	initialText.setAttribute(SVGConstants.SVG_FONT_SIZE_ATTRIBUTE, "40");
+    	svg.appendChild(initialText);		
+	}
+    
+	private void addTextBoxAndButtonToUI(final Panel rootPanel, final Panel svgPanel) {
+		textBox = new TextBox();
+        rootPanel.add(textBox);
         
-        RootPanel.get().add(textBox);
-        button = new Button("DrawShield");
+        Button button = new Button("Draw Shield");
+        rootPanel.add(button);
         button.addClickHandler(new ClickHandler() {
             
             @Override
             public void onClick(ClickEvent event) {
-                drawShield();
+            	processInput(svgPanel);
             }
         });
-        RootPanel.get().add(button);
-    }
+	}
     
-    protected void drawShield() {
-        initializeSVG();
-        addTitleAndDesc();
-        createShieldOutlineMask();
-        drawShieldOutline();
+	protected void processInput(final Panel svgPanel) {
         String enteredText = textBox.getText();
-        service.drawShield(enteredText, new AsyncCallback<Shield>() {
+        addTitleAndDescriptionToSVG(enteredText);
+        service.createShieldRepresentation(enteredText, new AsyncCallback<Shield>() {
 
             @Override
             public void onFailure(Throwable caught) {
@@ -73,80 +136,58 @@ public class ShieldDrawing implements EntryPoint {
 
             @Override
             public void onSuccess(Shield shield) {
-                fillField(shield);
-                addSVGToRootPanel();
+            	removeInitialTextFromSVG();
+                drawShield(shield);
+                displayShield(svgPanel);
             }
             
         });
     }
+    
+    private void addTitleAndDescriptionToSVG(String blazon) {
+    	if (title != null) {
+    		svg.removeChild(title);
+    	}
+        title = doc.createSVGTitleElement(blazon);
+        svg.appendChild(title);
+    	
+        if (desc != null) {
+    		svg.removeChild(desc);
+    	}
+        desc = doc.createSVGDescElement("This is a shield described as '" + blazon + "'.");
+        svg.appendChild(desc);
 
-    private void fillField(Shield shield) {
-        OMSVGGElement gElement = doc.createSVGGElement();
-        gElement.setAttribute(SVGConstants.SVG_MASK_ATTRIBUTE, "url(#shieldOutline)");
-        OMSVGRectElement field = doc.createSVGRectElement(-50, -50, 100, 110, 0, 0);
-        ShieldLayer base = shield.getField();
-        Iterator<Tincture> tinctures = base.getTinctures().getTincturesOnLayerIterator();
-        Tincture t = tinctures.next();
-        field.setAttribute(SVGConstants.CSS_FILL_VALUE, t.getColour());
-        gElement.appendChild(field);
-        svg.appendChild(gElement);
     }
     
-    private void initializeSVG() {
-        doc = OMSVGParser.currentDocument();
-        svg = doc.createSVGSVGElement();
-        svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-        svg.setWidth(OMSVGLength.SVG_LENGTHTYPE_CM, 10);
-        svg.setHeight(OMSVGLength.SVG_LENGTHTYPE_CM, 11);
-        svg.setViewBox(-53, -53, 106, 116);
+    private void drawShield(Shield shield) {
+    	if (shieldContainer != null) {
+    		svg.removeChild(shieldContainer);
+    	}
+        shieldContainer = doc.createSVGGElement();
+        shieldContainer.setAttribute(SVGConstants.SVG_MASK_ATTRIBUTE, "url(#shieldShape)");
+        if (defs != null) {
+        	svg.removeChild(defs);
+        }
+        defs = doc.createSVGDefsElement();
+        ShieldSVGDrawer drawer = ShieldSVGDrawer.build(shield, doc, defs);
+        svg.appendChild(defs);
+        drawer.drawSVGShield(shieldContainer);
+        svg.appendChild(shieldContainer);
     }
 
-    private void drawShieldOutline() {
-        OMSVGPathElement shieldOutlinePath = doc.createSVGPathElement();
-        shieldOutlinePath.setAttribute(SVGConstants.CSS_FILL_VALUE, SVGConstants.CSS_NONE_VALUE);
-        shieldOutlinePath.setAttribute(SVGConstants.CSS_STROKE_VALUE, SVGConstants.CSS_BLACK_VALUE);
-        shieldOutlinePath.setAttribute(SVGConstants.CSS_STROKE_WIDTH_PROPERTY, "1");
-        createShieldOutlineSegList(shieldOutlinePath);
-        svg.appendChild(shieldOutlinePath);
-    }
-
-    private void createShieldOutlineMask() {
-        OMSVGMaskElement shieldOutlineMask = doc.createSVGMaskElement();
-        shieldOutlineMask.setId("shieldOutline");
-        OMSVGGElement shieldOutlineG = doc.createSVGGElement();
-        shieldOutlineG.setAttribute(SVGConstants.CSS_FILL_VALUE, SVGConstants.CSS_WHITE_VALUE);
-        OMSVGPathElement shieldMaskPath = doc.createSVGPathElement();
-        shieldMaskPath.setId("shieldMaskPath");
-        createShieldOutlineSegList(shieldMaskPath);
-        shieldOutlineG.appendChild(shieldMaskPath);
-        shieldOutlineMask.appendChild(shieldOutlineG);
-        svg.appendChild(shieldOutlineMask);
-    }
-
-    private void createShieldOutlineSegList(OMSVGPathElement path) {
-        OMSVGPathSegList pathSegList = path.getPathSegList();
-        pathSegList.appendItem(path.createSVGPathSegMovetoAbs(-50, -50));
-        pathSegList.appendItem(path.createSVGPathSegLinetoVerticalAbs(-14));
-        pathSegList.appendItem(path.createSVGPathSegCurvetoCubicAbs(0, 60, -50, 46, 0, 60));
-        pathSegList.appendItem(path.createSVGPathSegCurvetoCubicAbs(50, -14, 0, 60, 50, 46));
-        pathSegList.appendItem(path.createSVGPathSegLinetoVerticalAbs(-50));
-        pathSegList.appendItem(path.createSVGPathSegClosePath());
-    }
-
-    private void addSVGToRootPanel() {
-        RootPanel rootPanel = RootPanel.get();
+    private void displayShield(Panel svgPanel) {
         if (currentSVGElement != null) {
-            rootPanel.getElement().removeChild(currentSVGElement);
+            svgPanel.getElement().removeChild(currentSVGElement);
         }
         currentSVGElement = svg.getElement();
-        rootPanel.getElement().appendChild(currentSVGElement);
-        
+        svgPanel.getElement().appendChild(currentSVGElement);
     }
+    
+	private void removeInitialTextFromSVG() {
+		if (initialText != null) {
+			svg.removeChild(initialText);
+			initialText = null;
+    	}
+	}
 
-    private void addTitleAndDesc() {
-        OMSVGTitleElement title = doc.createSVGTitleElement("my shield");
-        svg.appendChild(title);
-        OMSVGDescElement desc = doc.createSVGDescElement("This is a shield");
-        svg.appendChild(desc);
-    }
 }
