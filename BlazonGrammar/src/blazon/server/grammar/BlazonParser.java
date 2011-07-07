@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:50:56 C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g 2011-06-30 10:12:22
+// $ANTLR 3.3 Nov 30, 2010 12:50:56 C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g 2011-07-07 13:15:49
 
   package blazon.server.grammar;
   import blazon.shared.shield.Shield;
@@ -59,7 +59,7 @@ public class BlazonParser extends Parser {
             state._fsp--;
 
 
-                        s = Shield.Build(field1);        
+                        s = Shield.build(field1);        
 
             }
 
@@ -113,7 +113,7 @@ public class BlazonParser extends Parser {
 
 
                         tinctures.addTincture(tincture2);
-                        layer = ShieldLayer.Build(tinctures);
+                        layer = ShieldLayer.build(tinctures);
                     
 
             }

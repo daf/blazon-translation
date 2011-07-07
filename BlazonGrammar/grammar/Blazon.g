@@ -18,7 +18,7 @@ options {
 
 shield returns [Shield s]
     :   field {
-            $s = Shield.Build($field.layer);        }
+            $s = Shield.build($field.layer);        }
     ;
 
 
@@ -26,7 +26,7 @@ field returns [ShieldLayer layer]
     :   { Tinctures tinctures = new Tinctures(); }
         tincture[tinctures] 'plain'? {
             tinctures.addTincture($tincture.tincture);
-            $layer = ShieldLayer.Build(tinctures);
+            $layer = ShieldLayer.build(tinctures);
         }
     ;
 
