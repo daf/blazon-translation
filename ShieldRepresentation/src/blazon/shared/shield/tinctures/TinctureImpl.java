@@ -5,6 +5,8 @@ public abstract class TinctureImpl implements Tincture {
 	private static final long serialVersionUID = -3533056694345483720L;
 
 	protected String name;
+	protected String colour1;
+	protected String colour2;
 	
 	@Override
     public String toString() {
@@ -12,9 +14,7 @@ public abstract class TinctureImpl implements Tincture {
         sb.append("Tincture : \n---------- ");
         sb.append(name);
         sb.append(":");
-        sb.append(getColour());
+        sb.append(getPatternReference());
         return sb.toString();
     }
-	
-	public abstract String getColour();
 }

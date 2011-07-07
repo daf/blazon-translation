@@ -5,7 +5,7 @@ public class Metal extends TinctureImpl {
 	private static final long serialVersionUID = 6266304772402209638L;
 	private String colour;
     
-    public static TinctureImpl Build(String name, String colour) {
+    public static TinctureImpl build(String name, String colour) {
         Metal m = new Metal();
         m.name = name;
         m.colour = colour;
@@ -13,7 +13,7 @@ public class Metal extends TinctureImpl {
     }
     
     @Override
-    public String getColour() {
+    public String getPatternReference() {
         return colour;
     }
 

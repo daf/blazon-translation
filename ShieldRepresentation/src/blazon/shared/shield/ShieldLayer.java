@@ -13,7 +13,7 @@ public class ShieldLayer implements Serializable {
 	private Tinctures tinctures = null;
     private ShieldLayer nextLayer = null;
     
-    public static ShieldLayer Build(Tinctures t) {
+    public static ShieldLayer build(Tinctures t) {
     	ShieldLayer shieldLayer = new ShieldLayer();
     	shieldLayer.tinctures = t;
     	return shieldLayer;

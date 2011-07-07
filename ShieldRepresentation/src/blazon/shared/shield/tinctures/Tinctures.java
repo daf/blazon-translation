@@ -12,33 +12,33 @@ import blazon.shared.numberconversion.NumberConversionException;
 import blazon.shared.numberconversion.NumberToOrdinalConverter;
 
 public class Tinctures implements Serializable {
-
+	
 	private static final long serialVersionUID = 7967425832023439242L;
 	private static final Map<String, Tincture> tinctureDefinitions;
     static {
         Map<String, Tincture> map = new HashMap<String, Tincture>();
         // add metals
-        map.put("or", Metal.Build("or", "gold"));
-        map.put("argent", Metal.Build("argent", "silver"));
+        map.put("or", Metal.build("or", "gold"));
+        map.put("argent", Metal.build("argent", "silver"));
         // add colours
-        map.put("gules", Colour.Build("gules", "red"));
-        map.put("azure", Colour.Build("azure", "blue"));
-        map.put("sable", Colour.Build("sable", "black"));
-        map.put("vert", Colour.Build("vert", "green"));
-        map.put("purpure", Colour.Build("purpure", "purple"));
+        map.put("gules", Colour.build("gules", "red"));
+        map.put("azure", Colour.build("azure", "blue"));
+        map.put("sable", Colour.build("sable", "black"));
+        map.put("vert", Colour.build("vert", "green"));
+        map.put("purpure", Colour.build("purpure", "purple"));
         // add fur
-        map.put("vair", Fur.Build("vair"));
-        map.put("counter-vair", Fur.Build("counter-vair"));
-        map.put("vair-en-point", Fur.Build("vair-en-point"));
-        map.put("vair-en-pall", Fur.Build("vair-en-pall"));
-        map.put("potent", Fur.Build("potent"));
-        map.put("counter-potent", Fur.Build("counter-potent"));
-        map.put("potent-en-point", Fur.Build("potent-en-point"));
-        map.put("potent-en-pall", Fur.Build("potent-en-pall"));
-        map.put("ermine", Fur.Build("ermine"));
-        map.put("ermines", Fur.Build("ermines"));
-        map.put("erminois", Fur.Build("erminois"));
-        map.put("pean", Fur.Build("pean"));
+        map.put("vair", Fur.build("vair", "blue", "white"));
+        map.put("counter-vair", Fur.build("counter-vair", "blue", "white"));
+        map.put("vair-en-point", Fur.build("vair-en-point", "blue", "white"));
+        map.put("vair-en-pale", Fur.build("vair-en-pale", "blue", "white"));
+        map.put("potent", Fur.build("potent", "blue", "white"));
+        map.put("counter-potent", Fur.build("counter-potent", "blue", "white"));
+        map.put("potent-en-point", Fur.build("potent-en-point", "blue", "white"));
+        map.put("potent-en-pale", Fur.build("potent-en-pale", "blue", "white"));
+        map.put("ermine", Fur.build("ermine", "silver", "black"));
+        map.put("ermines", Fur.build("ermines", "black", "silver"));
+        map.put("erminois", Fur.build("erminois", "yellow", "black"));
+        map.put("pean", Fur.build("pean", "black", "yellow"));
         // make map unmodifiable.
         tinctureDefinitions = Collections.unmodifiableMap(map);
     }

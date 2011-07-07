@@ -7,7 +7,7 @@ public class Shield implements Serializable {
 	private static final long serialVersionUID = 4665249893045885094L;
 	private ShieldLayer base;
 
-    public static Shield Build(ShieldLayer base) {
+    public static Shield build(ShieldLayer base) {
     	Shield shield = new Shield();
     	shield.base = base;
     	return shield;
