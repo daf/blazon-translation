@@ -63,7 +63,7 @@ public class NumberToOrdinalConverter {
      */
     public String convert(long number)
             throws NumberConversionException {
-        if (number >= 999999999999L || number <= 0) { throw new NumberConversionException(
+        if (number > 999999999999L || number <= 0) { throw new NumberConversionException(
                 "Can only convert positive numbers less than 1000000000000"); }
         String words = numberToWordsConverter.convert(number);
         words = replaceLastWordWithOrdinal(words);

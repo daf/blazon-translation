@@ -1,5 +1,8 @@
 package blazon.server;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.antlr.runtime.CharStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.TokenStream;
@@ -17,7 +20,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  */
 public class ShieldDrawingServiceImpl extends RemoteServiceServlet implements
 		ShieldDrawingService {
-
+	private static Logger logger = Logger.getLogger("");
 	private static final long serialVersionUID = -1112781771348351096L;
 
 	@Override
@@ -30,7 +33,7 @@ public class ShieldDrawingServiceImpl extends RemoteServiceServlet implements
         try {
             shield = parser.shield();
         } catch (Exception e) {
-            //TODO log
+        	logger.log(Level.SEVERE, "Grammar was unable to match given Blazon", e);
             return null;
         }
         return shield;

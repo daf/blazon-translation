@@ -39,11 +39,11 @@ public class ShieldSVGDrawer {
         Tincture t = tinctures.next();
         OMSVGRectElement rect = doc.createSVGRectElement(10, 10, 390, 390, 0, 0);
         if (t instanceof Metal || t instanceof Colour) {
-        	rect.setAttribute(SVGConstants.CSS_FILL_VALUE, t.getPatternReference());
+        	rect.setAttribute(SVGConstants.CSS_FILL_VALUE, t.getFillText());
         } else if (t instanceof Fur) {
         	FurSVGBuilder furBuilder = AbstractFurSVGBuilder.build(doc, defs, (Fur)t);
         	furBuilder.createPatternDefinition();
-        	rect.setAttribute(SVGConstants.CSS_FILL_VALUE, t.getPatternReference());
+        	rect.setAttribute(SVGConstants.CSS_FILL_VALUE, t.getFillText());
         }
         field.appendChild(rect);
         return field; 

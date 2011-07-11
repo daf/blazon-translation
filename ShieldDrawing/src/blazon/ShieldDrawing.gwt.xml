@@ -20,5 +20,5 @@
   <source path='client'/>
   <source path='shared'/>
   <inherits name='org.vectomatic.libgwtsvg'/>
-  <!-- <inherits name='org.antlr.AntLR'/> -->
+  
 </module>

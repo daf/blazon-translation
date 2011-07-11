@@ -13,6 +13,7 @@ import blazon.shared.numberconversion.NumberToOrdinalConverter;
 
 public class Tinctures implements Serializable {
 	
+	
 	private static final long serialVersionUID = 7967425832023439242L;
 	private static final Map<String, Tincture> tinctureDefinitions;
     static {
@@ -47,41 +48,43 @@ public class Tinctures implements Serializable {
     private List<Tincture> tincturesOnLayer = new ArrayList<Tincture>();
 
     public Tincture createTincture(String name) {
+    	if (name == null || name.isEmpty()) {
+    		throw new IllegalArgumentException("Can not create Tincture with null or empty name");
+    	}
         Tincture tincture = tinctureDefinitions.get(name);
         if (tincture == null) {
-            // TODO not found tincture - shouldn't have due to token matching.
+        	//"Tincture:createTincture - Could not find tincture definition for '" 
+        	//		+ name + "'. This should not have happened as the token should not have matched.");
         }
         return tincture;
     }
 
     public boolean addTincture(Tincture t) {
-        String position;
+    	if (t == null) {
+    		return false;
+    	}
+        NumberToOrdinalConverter positionFinder = new NumberToOrdinalConverter();
         try {
-            NumberToOrdinalConverter positionFinder = new NumberToOrdinalConverter();
-            position = positionFinder.convert(tincturesInUse.size() + 1);
-        } catch (NumberConversionException e) {
-            // TODO add logging
-            return false;
-        }
-        if (!tincturesInUse.containsKey(position)) {
-            tincturesInUse.put(position, t);
-            boolean addedToTincturesOnLayerList = tincturesOnLayer.add(t);
-            return addedToTincturesOnLayerList;
-        }
+        	String position = positionFinder.convert(tincturesInUse.size() + 1);
+			if (!tincturesInUse.containsKey(position)) {
+	            tincturesInUse.put(position, t);
+	            boolean addedToTincturesOnLayerList = tincturesOnLayer.add(t);
+	            return addedToTincturesOnLayerList;
+	        }
+		} catch (NumberConversionException e) {
+			//"Tincture:addTincture - Could not add tincture as NumberToOrdinalConverter threw exception: "
+			//		, e);
+		}
         return false;
     }
 
-    public Iterator<Tincture> getTincturesOnLayerIterator() {
-        return tincturesOnLayer.iterator();
-    }
-    
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Tinctures : \n");
-        for (Tincture tincture : tincturesOnLayer) {
-            sb.append("-------- ").append(tincture);
-        }
-        return sb.toString();
+		StringBuilder sb = new StringBuilder("Tinctures:tincturesOnLayer=");
+		return sb.append(tincturesOnLayer).toString();
     }
+
+	public Iterator<Tincture> getTincturesOnLayerIterator() {
+		return tincturesOnLayer.iterator();
+	}
 }

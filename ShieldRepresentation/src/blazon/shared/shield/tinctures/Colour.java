@@ -1,11 +1,11 @@
 package blazon.shared.shield.tinctures;
 
-public class Colour extends TinctureImpl {
+public class Colour extends AbstractTincture {
 
 	private static final long serialVersionUID = 6929245090350777329L;
 	private String colour;
     
-    public static TinctureImpl build(String name, String colour) {
+    static Tincture build(String name, String colour) {
     	if (name == null || name.isEmpty() || colour == null || colour.isEmpty()) {
     		throw new IllegalArgumentException("Colour can not be built with null or empty argument");
     	}
@@ -17,7 +17,7 @@ public class Colour extends TinctureImpl {
     }
     
     @Override
-    public String getPatternReference() {
+    public String getFillText() {
         return colour;
     }
 
