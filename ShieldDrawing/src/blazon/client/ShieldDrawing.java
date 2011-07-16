@@ -34,6 +34,15 @@ import com.google.gwt.user.client.ui.TextBox;
  */
 public class ShieldDrawing implements EntryPoint {
 	
+	public static final int SHIELD_MAX_X = 400;
+	public static final int SHIELD_MAX_Y = 400;
+	public static final int SHIELD_MIN_X = 0;
+	public static final int SHIELD_MIN_Y = 0;
+	
+	private static final int OFFSET = 10;
+	public static final int WIDTH = SHIELD_MAX_X + 2 * OFFSET;
+	public static final int HEIGHT = SHIELD_MAX_Y + 2 * OFFSET;
+	
 	private final ShieldDrawingServiceAsync service = GWT.create(ShieldDrawingService.class);
 	private final OMSVGDocument doc = OMSVGParser.currentDocument();
     private final OMSVGSVGElement svg = doc.createSVGSVGElement();
@@ -57,12 +66,12 @@ public class ShieldDrawing implements EntryPoint {
 
     private Panel createAndInitializeSVGPanel() {
     	Panel svgPanel = new SimplePanel();
-    	svgPanel.setSize("400px", "400px");
+    	svgPanel.setSize(SHIELD_MAX_X + "px", SHIELD_MAX_Y + "px");
     	svgPanel.addStyleName("svgPanel");
         svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-        svg.setWidth(OMSVGLength.SVG_LENGTHTYPE_PX, 400);
-        svg.setHeight(OMSVGLength.SVG_LENGTHTYPE_PX, 400);
-        svg.setViewBox(0, 0, 400, 400);
+        svg.setWidth(OMSVGLength.SVG_LENGTHTYPE_PX, SHIELD_MAX_X);
+        svg.setHeight(OMSVGLength.SVG_LENGTHTYPE_PX, SHIELD_MAX_Y);
+        svg.setViewBox(-OFFSET, -OFFSET, WIDTH, HEIGHT);
         createShieldShapeMask();
         drawShieldOutline();
         addInitialTextToShield();
@@ -94,11 +103,13 @@ public class ShieldDrawing implements EntryPoint {
 
     private void createShieldShapeSegList(OMSVGPathElement path) {
         OMSVGPathSegList pathSegList = path.getPathSegList();
-        pathSegList.appendItem(path.createSVGPathSegMovetoAbs(10, 10));
+        pathSegList.appendItem(path.createSVGPathSegMovetoAbs(SHIELD_MIN_X, SHIELD_MIN_Y));
         pathSegList.appendItem(path.createSVGPathSegLinetoVerticalAbs(150));
-        pathSegList.appendItem(path.createSVGPathSegCurvetoCubicAbs(200, 390, 10, 340, 200, 390));
-        pathSegList.appendItem(path.createSVGPathSegCurvetoCubicAbs(390, 150, 200, 390, 390, 340));
-        pathSegList.appendItem(path.createSVGPathSegLinetoVerticalAbs(10));
+        pathSegList.appendItem(path.createSVGPathSegCurvetoCubicAbs(
+        		200, SHIELD_MAX_Y, SHIELD_MIN_X, 340, 200, SHIELD_MAX_Y));
+        pathSegList.appendItem(path.createSVGPathSegCurvetoCubicAbs(
+        		SHIELD_MAX_X, 150, 200, SHIELD_MAX_Y, SHIELD_MAX_X, 340));
+        pathSegList.appendItem(path.createSVGPathSegLinetoVerticalAbs(SHIELD_MIN_Y));
         pathSegList.appendItem(path.createSVGPathSegClosePath());
     }
     

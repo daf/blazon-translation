@@ -6,7 +6,7 @@
 	<classpathentry kind="lib" path="C:/Users/Luke/Dropbox/project/jars/lib-gwt-svg/lib-gwt-svg-0.5.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Luke/Dropbox/project/jars/lib-gwt-svg/lib-gwt-svg-0.5.2-javadoc.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Luke/Dropbox/project/jars/lib-gwt-svg/lib-gwt-svg-0.5.2-sources.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/BlazonGrammar"/>
 	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/BlazonGrammar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

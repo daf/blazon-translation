@@ -68,7 +68,7 @@ public class WordToNumberConverter {
                 "WordToNumberConverter can not convert 'null' or empty string."); }
 
         // remove "-" and "and" and put in spaces
-        String stripped = text.trim().toLowerCase().replaceAll("[\\-,]", " ")
+        String stripped = text.trim().toLowerCase().replaceAll("[\\-,_]", " ")
                 .replaceAll(" and ", " ");
         if (stringContainsMinusOrWordLargerThanHundred(text)) { throw new IllegalArgumentException(
                 "WordToNumberConverter can only convert positive numbers smaller than 1000."); }

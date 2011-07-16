@@ -12,13 +12,13 @@
   <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
 
   <!-- Other module inherits                                      -->
-
+<inherits name='org.vectomatic.libgwtsvg'/>
   <!-- Specify the app entry point class.                         -->
   <entry-point class='blazon.client.ShieldDrawing'/>
 
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>
   <source path='shared'/>
-  <inherits name='org.vectomatic.libgwtsvg'/>
+  
   
 </module>

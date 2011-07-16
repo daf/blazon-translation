@@ -2,9 +2,9 @@ package blazon.shared.shield.tinctures;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +20,7 @@ public class Tinctures implements Serializable {
         Map<String, Tincture> map = new HashMap<String, Tincture>();
         // add metals
         map.put("or", Metal.build("or", "gold"));
-        map.put("argent", Metal.build("argent", "silver"));
+        map.put("argent", Metal.build("argent", "white"));
         // add colours
         map.put("gules", Colour.build("gules", "red"));
         map.put("azure", Colour.build("azure", "blue"));
@@ -36,8 +36,8 @@ public class Tinctures implements Serializable {
         map.put("counter-potent", Fur.build("counter-potent", "blue", "white"));
         map.put("potent-en-point", Fur.build("potent-en-point", "blue", "white"));
         map.put("potent-en-pale", Fur.build("potent-en-pale", "blue", "white"));
-        map.put("ermine", Fur.build("ermine", "silver", "black"));
-        map.put("ermines", Fur.build("ermines", "black", "silver"));
+        map.put("ermine", Fur.build("ermine", "white", "black"));
+        map.put("ermines", Fur.build("ermines", "black", "white"));
         map.put("erminois", Fur.build("erminois", "yellow", "black"));
         map.put("pean", Fur.build("pean", "black", "yellow"));
         // make map unmodifiable.
@@ -84,7 +84,7 @@ public class Tinctures implements Serializable {
 		return sb.append(tincturesOnLayer).toString();
     }
 
-	public Iterator<Tincture> getTincturesOnLayerIterator() {
-		return tincturesOnLayer.iterator();
+	public Collection<Tincture> getTincturesOnLayer() {
+		return Collections.unmodifiableCollection(tincturesOnLayer);
 	}
 }
