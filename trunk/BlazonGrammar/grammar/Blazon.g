@@ -31,7 +31,6 @@ options {
     }
 } 
 
-
 shield returns [Shield s]
 		    :   field { $s = Shield.build($field.layer); }
 		    ;
