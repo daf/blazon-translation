@@ -71,7 +71,7 @@ public class MetalTest {
 		String name = "or";
 		String fillText = "yellow";
 		Tincture t = Metal.build(name, fillText);
-		String toString = String.format("Tincture:name=%s:fillText=%s", name, fillText);
+		String toString = "Tincture{name=or:fillText=yellow}";
 		assertThat(t.toString(), is(equalTo(toString)));
 	}
 	

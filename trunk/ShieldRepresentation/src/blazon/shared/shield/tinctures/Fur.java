@@ -13,40 +13,42 @@ public class Fur extends AbstractTincture {
 	protected String colour2;
 
 	static Tincture build(String name, String colour1, String colour2) {
-		if (name == null || name.isEmpty() || colour1 == null || colour1.isEmpty()
-				|| colour2 == null || colour2.isEmpty()) {
-			throw new IllegalArgumentException("Fur can not be built with null or empty argument");
+		if (name == null || name.isEmpty() || colour1 == null
+				|| colour1.isEmpty() || colour2 == null || colour2.isEmpty()) {
+			throw new IllegalArgumentException(
+					"Fur can not be built with null or empty argument");
 		}
 		Fur f = new Fur();
 		if (name.contains(ERMIN) || name.equals(PEAN)) {
-        	f.furType = ERMINE;
-        } else if (name.contains(POTENT)) {
-        	f.furType = POTENT;
-        } else if (name.contains(VAIR)) {
-        	f.furType = VAIR;
-        } else {
-        	throw new IllegalArgumentException("Unrecognised fur name: '" + name + "'");
-        }
+			f.furType = ERMINE;
+		} else if (name.contains(POTENT)) {
+			f.furType = POTENT;
+		} else if (name.contains(VAIR)) {
+			f.furType = VAIR;
+		} else {
+			throw new IllegalArgumentException("Unrecognised fur name: '"
+					+ name + "'");
+		}
 		f.name = name;
-        f.colour1 = colour1;
-        f.colour2 = colour2;
-        
-        return f;
-    }
+		f.colour1 = colour1;
+		f.colour2 = colour2;
 
-    public String getFillText() {
-        return "url(#" + name + ")";
-    }
+		return f;
+	}
+
+	public String getFillText() {
+		return "url(#" + name + ")";
+	}
 
 	@Override
 	public String getName() {
 		return name;
 	}
-	
+
 	public String getColour1() {
 		return colour1;
 	}
-	
+
 	public String getColour2() {
 		return colour2;
 	}

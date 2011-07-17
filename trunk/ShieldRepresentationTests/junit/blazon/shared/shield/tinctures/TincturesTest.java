@@ -72,7 +72,7 @@ public class TincturesTest {
 	@Test
 	public void testThatGetTincturesOnLayerIteratorIsEmptyIfNoneAdded() {
 		Tinctures tinctures = new Tinctures();
-		Iterator<Tincture> iterator = tinctures.getTincturesOnLayerIterator();
+		Iterator<Tincture> iterator = tinctures.getTincturesOnLayer().iterator();
 		assertThat(iterator.hasNext(), is(false));
 	}
 	
@@ -81,7 +81,7 @@ public class TincturesTest {
 		Tinctures tinctures = new Tinctures();
 		Tincture or = tinctures.createTincture("or");
 		tinctures.addTincture(or);
-		Iterator<Tincture> iterator = tinctures.getTincturesOnLayerIterator();
+		Iterator<Tincture> iterator = tinctures.getTincturesOnLayer().iterator();
 		assertThat(iterator.hasNext(), is(true));
 		assertThat(iterator.next(), is(sameTinctureAs(or)));
 		assertThat(iterator.hasNext(), is(false));
@@ -94,7 +94,7 @@ public class TincturesTest {
 		Tincture vert = tinctures.createTincture("vert");
 		tinctures.addTincture(or);
 		tinctures.addTincture(vert);
-		Iterator<Tincture> iterator = tinctures.getTincturesOnLayerIterator();
+		Iterator<Tincture> iterator = tinctures.getTincturesOnLayer().iterator();
 		assertThat(iterator.hasNext(), is(true));
 		assertThat(iterator.next(), is(sameTinctureAs(or)));
 		assertThat(iterator.hasNext(), is(true));
@@ -105,7 +105,7 @@ public class TincturesTest {
 	@Test
 	public void testThatTinctureWithNoItemsHasToStringWithEmptyLayerList() {
 		Tinctures tinctures = new Tinctures();
-		String expectedToString = "Tinctures:tincturesOnLayer=[]";
+		String expectedToString = "Tinctures{tincturesOnLayer=[]}";
 		assertThat(tinctures.toString(), is(equalTo(expectedToString)));
 	}
 	
@@ -113,7 +113,7 @@ public class TincturesTest {
 	public void testThatTinctureWithOrHasToStringWithOrToStringInLayerList() {
 		Tinctures tinctures = new Tinctures();
 		tinctures.addTincture(tinctures.createTincture("or"));
-		String expectedToString = "Tinctures:tincturesOnLayer=[Tincture:name=or:fillText=gold]";
+		String expectedToString = "Tinctures{tincturesOnLayer=[Tincture{name=or:fillText=gold}]}";
 		assertThat(tinctures.toString(), is(equalTo(expectedToString)));
 	}
 	
@@ -122,7 +122,7 @@ public class TincturesTest {
 		Tinctures tinctures = new Tinctures();
 		tinctures.addTincture(tinctures.createTincture("or"));
 		tinctures.addTincture(tinctures.createTincture("counter-vair"));
-		String expectedToString = "Tinctures:tincturesOnLayer=[Tincture:name=or:fillText=gold, Tincture:name=counter-vair:fillText=url(#counter-vair)]";
+		String expectedToString = "Tinctures{tincturesOnLayer=[Tincture{name=or:fillText=gold}, Tincture{name=counter-vair:fillText=url(#counter-vair)}]}";
 		assertThat(tinctures.toString(), is(equalTo(expectedToString)));
 	}
 

@@ -22,8 +22,8 @@ public class IsSameTincturesAs extends TypeSafeMatcher<Tinctures> {
 
 	@Override
 	public boolean matchesSafely(Tinctures t2) {
-		Iterator<Tincture> iterator1 = t1.getTincturesOnLayerIterator();
-		Iterator<Tincture> iterator2 = t2.getTincturesOnLayerIterator();
+		Iterator<Tincture> iterator1 = t1.getTincturesOnLayer().iterator();
+		Iterator<Tincture> iterator2 = t2.getTincturesOnLayer().iterator();
 		
 		if (iterator1.hasNext() ^ iterator2.hasNext()) {
 			return false;

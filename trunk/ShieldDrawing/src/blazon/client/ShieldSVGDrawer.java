@@ -1,6 +1,5 @@
 package blazon.client;
 
-import java.util.Collection;
 import java.util.Iterator;
 
 import org.vectomatic.dom.svg.OMSVGDefsElement;
@@ -17,6 +16,7 @@ import blazon.client.svg.fur.AbstractFurSVGBuilder;
 import blazon.client.svg.shapes.Point;
 import blazon.client.svg.shapes.Triangle;
 import blazon.shared.shield.*;
+import blazon.shared.shield.ShieldDivision.ShieldDivisionType;
 import blazon.shared.shield.tinctures.*;
 
 public class ShieldSVGDrawer {
@@ -37,29 +37,30 @@ public class ShieldSVGDrawer {
 		OMSVGGElement field = doc.createSVGGElement();
         ShieldLayer base = shield.getField();
     	ShieldDivisionType division = base.getShieldDivision();
-    	Collection<Tincture> tinctures = base.getTinctures().getTincturesOnLayer();
+    	Tinctures tinctures = base.getTinctures();
     	createElementsForField(division, tinctures, field);
 		shieldContainer.appendChild(field);
 	}
 	
 	private void createElementsForField(ShieldDivisionType division,
-			Collection<Tincture> tinctures, OMSVGGElement field) {
+			Tinctures tinctures, OMSVGGElement field) {
 		final int xMax = ShieldDrawing.SHIELD_MAX_X;
 		final int yMax = ShieldDrawing.SHIELD_MAX_Y;
 		final int xMin = ShieldDrawing.SHIELD_MIN_X;
 		final int yMin = ShieldDrawing.SHIELD_MIN_Y;
 		final int xMid = ShieldDrawing.SHIELD_MAX_X/2;
 		final int yMid = ShieldDrawing.SHIELD_MAX_Y/2;
-		Iterator<Tincture> it = tinctures.iterator();
-		if (division.getName().equals("FESS")) {
+		Iterator<Tincture> it = tinctures.getTincturesOnLayer().iterator();
+		final String divisionName = division.getName();
+		if (divisionName.equals(ShieldDivision.FESS)) {
 			putNewRectElementOnGElement(field, xMin, yMin, xMax, yMid, it.next());
 			putNewRectElementOnGElement(field, xMin, yMid, xMax, yMid, it.next());
 		}
-		else if (division.getName().equals("PALE")) {
+		else if (divisionName.equals(ShieldDivision.PALE)) {
 			putNewRectElementOnGElement(field, xMin, yMin, xMid, yMax, it.next());
 			putNewRectElementOnGElement(field, xMid, yMin, xMid, yMax, it.next());
 		}
-		else if (division.getName().equals("BEND")) {
+		else if (divisionName.equals(ShieldDivision.BEND)) {
 			Point pointA = Point.build(xMin, yMin);
 			Point pointB = Point.build(xMax, yMin);
 			Point pointC = Point.build(xMax, yMax);
@@ -71,7 +72,7 @@ public class ShieldSVGDrawer {
 			triangle = Triangle.build(pointA, pointB, pointC);
 			putNewPolygonElementOnGElement(field, it.next(), triangle);
 		}
-		else if (division.getName().equals("BEND_SINISTER")) {
+		else if (divisionName.equals(ShieldDivision.BEND_SINISTER)) {
 			Point pointA = Point.build(xMin, yMin);
 			Point pointB = Point.build(xMin, yMax);
 			Point pointC = Point.build(xMax, yMin);
@@ -83,7 +84,7 @@ public class ShieldSVGDrawer {
 			triangle = Triangle.build(pointA, pointB, pointC);
 			putNewPolygonElementOnGElement(field, it.next(), triangle);
 		}
-		else if (division.getName().equals("CHEVRON")) {
+		else if (divisionName.equals(ShieldDivision.CHEVRON)) {
 			putNewRectElementOnGElement(field, xMin, yMin, xMax, yMax, it.next());
 			Point pointA = Point.build(xMin, yMax);
 			Point pointB = Point.build(xMid, yMid);
@@ -91,7 +92,7 @@ public class ShieldSVGDrawer {
 			Triangle triangle = Triangle.build(pointA, pointB, pointC);
 			putNewPolygonElementOnGElement(field, it.next(), triangle);
 		}
-		else if (division.getName().equals("CHEVRON_REVERSED")) {
+		else if (divisionName.equals(ShieldDivision.CHEVRON_REVERSED)) {
 			Tincture t = it.next();
 			putNewRectElementOnGElement(field, xMin, yMin, xMax, yMax, it.next());
 			Point pointA = Point.build(xMin, yMin);
@@ -100,7 +101,7 @@ public class ShieldSVGDrawer {
 			Triangle triangle = Triangle.build(pointA, pointB, pointC);
 			putNewPolygonElementOnGElement(field, t, triangle);
 		}
-		else if (division.getName().equals("PALL")) {
+		else if (divisionName.equals(ShieldDivision.PALL)) {
 			Tincture t = it.next();
 			putNewRectElementOnGElement(field, xMin, yMin, xMid, yMax, it.next());
 			putNewRectElementOnGElement(field, xMid, yMin, xMid, yMax, it.next());
@@ -110,7 +111,7 @@ public class ShieldSVGDrawer {
 			Triangle triangle = Triangle.build(pointA, pointB, pointC);
 			putNewPolygonElementOnGElement(field, t, triangle);
 		}
-		else if (division.getName().equals("PALL_REVERSED")) {
+		else if (divisionName.equals(ShieldDivision.PALL_REVERSED)) {
 			putNewRectElementOnGElement(field, xMin, yMin, xMid, yMax, it.next());
 			putNewRectElementOnGElement(field, xMid, yMin, xMid, yMax, it.next());
 			Point pointA = Point.build(xMin, yMax);
@@ -119,7 +120,7 @@ public class ShieldSVGDrawer {
 			Triangle triangle = Triangle.build(pointA, pointB, pointC);
 			putNewPolygonElementOnGElement(field, it.next(), triangle);
 		}
-		else if (division.getName().equals("CROSS")) {
+		else if (divisionName.equals(ShieldDivision.CROSS)) {
 			Tincture t = it.next();
 			putNewRectElementOnGElement(field, xMin, yMin, xMid, xMid, t);
 			putNewRectElementOnGElement(field, xMid, yMid, xMid, yMid, t);
@@ -127,7 +128,7 @@ public class ShieldSVGDrawer {
 			putNewRectElementOnGElement(field, xMin, yMid, xMid, yMid, t);
 			putNewRectElementOnGElement(field, xMid, yMin, xMid, yMid, t);			
 		}
-		else if (division.getName().equals("SALTIRE")) {
+		else if (divisionName.equals(ShieldDivision.SALTIRE)) {
 			Tincture t = it.next();
 			Point pointA = Point.build(xMin, yMin);
 			Point pointB = Point.build(xMid, yMid);
@@ -152,7 +153,7 @@ public class ShieldSVGDrawer {
 			triangle = Triangle.build(pointA, pointB, pointC);
 			putNewPolygonElementOnGElement(field, t, triangle);
 		}
-		else if (division.getName().startsWith("GYRONNY")) {
+		else if (divisionName.startsWith(ShieldDivision.GYRONNY)) {
 			putNewRectElementOnGElement(field, xMin, yMin, xMax, yMax, it.next());
 			Tincture t = it.next();
 			final double radPerDivision = 2 * Math.PI / division.getNumberOfSections();

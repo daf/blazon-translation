@@ -72,7 +72,7 @@ public class ColourTest {
 		String name = "sable";
 		String fillText = "black";
 		Tincture t = Colour.build(name, fillText);
-		String toString = String.format("Tincture:name=%s:fillText=%s", name, fillText);
+		String toString = "Tincture{name=sable:fillText=black}";
 		assertThat(t.toString(), is(equalTo(toString)));
 	}
 }
