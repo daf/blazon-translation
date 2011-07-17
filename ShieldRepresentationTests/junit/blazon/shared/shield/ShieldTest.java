@@ -47,7 +47,7 @@ public class ShieldTest {
 	public void testThatToStringIsCorrectForShieldWithBaseWhichHasNoTincturesAdded() {
 		ShieldLayer layer = ShieldLayer.build(new Tinctures());
 		Shield shield = Shield.build(layer);
-		String expected = "Shield:base=ShieldLayer:tinctures=Tinctures:tincturesOnLayer=[]:nextLayer=null";
+		String expected = "Shield{base=ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfAllowableTinctures=1}:nextLayer=null}}";
 		assertThat(shield.toString(), is(equalTo(expected)));
 	}
 	
@@ -57,7 +57,7 @@ public class ShieldTest {
 		tinctures.addTincture(tinctures.createTincture("or"));
 		ShieldLayer layer = ShieldLayer.build(tinctures);
 		Shield shield = Shield.build(layer);
-		String expected = "Shield:base=ShieldLayer:tinctures=Tinctures:tincturesOnLayer=[Tincture:name=or:fillText=gold]:nextLayer=null";
+		String expected = "Shield{base=ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[Tincture{name=or:fillText=gold}]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfAllowableTinctures=1}:nextLayer=null}}";
 		assertThat(shield.toString(), is(equalTo(expected)));
 	}
 	
@@ -71,7 +71,7 @@ public class ShieldTest {
 		ShieldLayer layer2 = ShieldLayer.build(tinctures);
 		layer1.addNextLayer(layer2);
 		Shield shield = Shield.build(layer1);
-		String expected = "Shield:base=ShieldLayer:tinctures=Tinctures:tincturesOnLayer=[Tincture:name=or:fillText=gold]:nextLayer=ShieldLayer:tinctures=Tinctures:tincturesOnLayer=[Tincture:name=vair:fillText=url(#vair)]:nextLayer=null";
+		String expected = "Shield{base=ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[Tincture{name=or:fillText=gold}]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfAllowableTinctures=1}:nextLayer=ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[Tincture{name=vair:fillText=url(#vair)}]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfAllowableTinctures=1}:nextLayer=null}}}";
 		assertThat(shield.toString(), is(equalTo(expected)));
 	}
 	

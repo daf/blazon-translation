@@ -8,6 +8,8 @@ import static blazon.shared.shield.tinctures.IsSameTincturesAs.sameTincturesAs;
 import static blazon.shared.shield.IsSameShieldLayerAs.sameShieldLayerAs;
 
 import org.junit.Test;
+
+import blazon.shared.shield.ShieldDivision.ShieldDivisionType;
 import blazon.shared.shield.tinctures.Tinctures;
 
 public class ShieldLayerTest {
@@ -37,6 +39,26 @@ public class ShieldLayerTest {
 		t.addTincture(t.createTincture("vair"));
 		ShieldLayer layer = ShieldLayer.build(t);
 		assertThat(layer.getTinctures(), is(sameTincturesAs(t)));
+	}
+	
+	@Test
+	public void testThatBuildWithShieldDivisionNoneSetsShieldDivisionToNone() {
+		Tinctures t = new Tinctures();
+		t.addTincture(t.createTincture("or"));
+		ShieldDivision division = new ShieldDivision();
+		ShieldDivisionType divType = division.getDivisionType("NONE");
+		ShieldLayer layer = ShieldLayer.build(t, divType);
+		assertThat(layer.getShieldDivision(), is(equalTo(divType)));
+	}
+	
+	@Test
+	public void testThatBuildWithShieldDivisionFessSetsShieldDivisionToFess() {
+		Tinctures t = new Tinctures();
+		t.addTincture(t.createTincture("or"));
+		ShieldDivision division = new ShieldDivision();
+		ShieldDivisionType divType = division.getDivisionType("FESS");
+		ShieldLayer layer = ShieldLayer.build(t, divType);
+		assertThat(layer.getShieldDivision(), is(equalTo(divType)));
 	}
 	
 	@Test
@@ -80,7 +102,7 @@ public class ShieldLayerTest {
 	public void testThatToStringIsSetCorrectlyWithEmptyTincturesAndLayers() {
 		Tinctures tinctures = new Tinctures();
 		ShieldLayer layer = ShieldLayer.build(tinctures);
-		String expected = "ShieldLayer:tinctures=Tinctures:tincturesOnLayer=[]:nextLayer=null";
+		String expected = "ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfAllowableTinctures=1}:nextLayer=null}";
 		assertThat(layer.toString(), is(equalTo(expected)));
 	}
 	
@@ -89,7 +111,7 @@ public class ShieldLayerTest {
 		Tinctures tinctures = new Tinctures();
 		tinctures.addTincture(tinctures.createTincture("or"));
 		ShieldLayer layer = ShieldLayer.build(tinctures);
-		String expected = "ShieldLayer:tinctures=Tinctures:tincturesOnLayer=[Tincture:name=or:fillText=gold]:nextLayer=null";
+		String expected = "ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[Tincture{name=or:fillText=gold}]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfAllowableTinctures=1}:nextLayer=null}";
 		assertThat(layer.toString(), is(equalTo(expected)));
 	}
 	
@@ -100,7 +122,7 @@ public class ShieldLayerTest {
 		Tinctures tinctures2 = new Tinctures();
 		ShieldLayer layer2 = ShieldLayer.build(tinctures2);
 		layer.addNextLayer(layer2);
-		String expected = "ShieldLayer:tinctures=Tinctures:tincturesOnLayer=[]:nextLayer=ShieldLayer:tinctures=Tinctures:tincturesOnLayer=[]:nextLayer=null";
+		String expected = "ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfAllowableTinctures=1}:nextLayer=ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfAllowableTinctures=1}:nextLayer=null}}";
 		assertThat(layer.toString(), is(equalTo(expected)));
 	}
 	
@@ -112,7 +134,7 @@ public class ShieldLayerTest {
 		Tinctures tinctures2 = new Tinctures();
 		ShieldLayer layer2 = ShieldLayer.build(tinctures2);
 		layer.addNextLayer(layer2);
-		String expected = "ShieldLayer:tinctures=Tinctures:tincturesOnLayer=[Tincture:name=or:fillText=gold]:nextLayer=ShieldLayer:tinctures=Tinctures:tincturesOnLayer=[]:nextLayer=null";
+		String expected = "ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[Tincture{name=or:fillText=gold}]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfAllowableTinctures=1}:nextLayer=ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfAllowableTinctures=1}:nextLayer=null}}";
 		assertThat(layer.toString(), is(equalTo(expected)));
 	}
 }

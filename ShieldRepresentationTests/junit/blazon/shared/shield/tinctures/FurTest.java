@@ -155,7 +155,7 @@ public class FurTest {
 	
 	@Test
 	public void testThatFurToStringForPeanIsAsExpected() {
-		String toString = "Tincture:name=vair-en-pale:fillText=url(#vair-en-pale)";
+		String toString = "Tincture{name=vair-en-pale:fillText=url(#vair-en-pale)}";
 		Fur f = (Fur) Fur.build("vair-en-pale", "blue", "white");
 		assertThat(f.toString(), is(equalTo(toString)));
 	}
