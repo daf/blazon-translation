@@ -1,7 +1,7 @@
 package blazon.shared.shield.tinctures;
 
-import static blazon.shared.shield.tinctures.IsSameTinctureAs.sameTinctureAs;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 import java.util.Iterator;
@@ -32,7 +32,7 @@ public class IsSameTincturesAs extends TypeSafeMatcher<Tinctures> {
 		while (iterator1.hasNext() && iterator2.hasNext()) {
 			Tincture tincture1 = iterator1.next();
 			Tincture tincture2 = iterator2.next();
-			assertThat(tincture1, is(sameTinctureAs(tincture2)));
+			assertThat(tincture1, is(equalTo(tincture2)));
 			if (iterator1.hasNext() ^ iterator2.hasNext()) {
 				return false;
 			}

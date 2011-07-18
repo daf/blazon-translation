@@ -11,9 +11,18 @@ import java.util.Map;
 import blazon.shared.numberconversion.NumberConversionException;
 import blazon.shared.numberconversion.NumberToOrdinalConverter;
 
+/**
+ * Represents a collection of tinctures to be placed on a
+ * layer of the shield.
+ * @author Luke Torjussen
+ *
+ */
 public class Tinctures implements Serializable {
 
 	private static final long serialVersionUID = 7967425832023439242L;
+	/**
+	 * A map of know tinctures which is syncronized and unmodifiable.
+	 */
 	private static final Map<String, Tincture> tinctureDefinitions;
 	static {
 		Map<String, Tincture> map = new HashMap<String, Tincture>();
@@ -40,27 +49,45 @@ public class Tinctures implements Serializable {
 		map.put("ermines", Fur.build("ermines", "black", "white"));
 		map.put("erminois", Fur.build("erminois", "yellow", "black"));
 		map.put("pean", Fur.build("pean", "black", "yellow"));
-		// make map unmodifiable.
-		tinctureDefinitions = Collections.unmodifiableMap(map);
+		// make map unmodifiable and synchronized.
+		tinctureDefinitions = Collections.synchronizedMap(Collections.unmodifiableMap(map));
 	}
 
-	private static Map<String, Tincture> tincturesInUse = new HashMap<String, Tincture>();
+	/**
+	 * A map of all of the tinctures that are currently in use on all layers.
+	 * Used to refer to the tinctures as, e.g. "of the first"
+	 */
+	private static Map<String, Tincture> tincturesInUse = Collections.synchronizedMap(new HashMap<String, Tincture>());
+	/**
+	 * A list of tinctures that are on this layer.
+	 */
 	private List<Tincture> tincturesOnLayer = new ArrayList<Tincture>();
 
-	public Tincture createTincture(String name) {
+	/**
+	 * Get a Tincture object that has a name that matches the given string.
+	 * @param name The name of the Tincture object you want to be returned.
+	 * @return A Tincture object with the name matching the given string.
+	 * @throws UnknownTinctureException thrown if the name given is not a 
+	 * recognised tincture.
+	 */
+	public Tincture getTincture(String name) throws UnknownTinctureException {
 		if (name == null || name.isEmpty()) {
 			throw new IllegalArgumentException(
-					"Can not create Tincture with null or empty name");
+					"Can not get Tincture with null or empty name");
 		}
 		Tincture tincture = tinctureDefinitions.get(name);
 		if (tincture == null) {
-			// "Tincture:createTincture - Could not find tincture definition for '"
-			// + name +
-			// "'. This should not have happened as the token should not have matched.");
+			throw new UnknownTinctureException("Could not get tincture with name '" + name + "'");
 		}
 		return tincture;
 	}
 
+	/**
+	 * Add a tincture to the current Tinctures object (used on a ShieldLayer)
+	 * @param t The tincture that you want to add to this Tinctures object.
+	 * @return true if the Tincture was successfully added; false otherwise.
+	 * @see ShieldLayer
+	 */
 	public boolean addTincture(Tincture t) {
 		if (t == null) {
 			return false;
@@ -80,13 +107,19 @@ public class Tinctures implements Serializable {
 		return false;
 	}
 
+	/**
+	 * Get the collection of tinctures that this Tinctures
+	 * object contains (the tinctures on this layer)
+	 * @return A collection of tinctures that have been added
+	 * to this via the addTincture method.
+	 */
+	public Collection<Tincture> getTincturesOnLayer() {
+		return Collections.unmodifiableCollection(tincturesOnLayer);
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder("Tinctures{tincturesOnLayer=");
 		return sb.append(tincturesOnLayer).append("}").toString();
-	}
-
-	public Collection<Tincture> getTincturesOnLayer() {
-		return Collections.unmodifiableCollection(tincturesOnLayer);
 	}
 }

@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import blazon.shared.shield.ShieldDivision.ShieldDivisionType;
 import blazon.shared.shield.tinctures.Tinctures;
+import blazon.shared.shield.tinctures.UnknownTinctureException;
 
 public class ShieldLayerTest {
 	
@@ -33,18 +34,20 @@ public class ShieldLayerTest {
 	}
 	
 	@Test
-	public void testThatBuildWithTincturesWithOrAndVairSetsTincturesToContainOrAndVair() {
+	public void testThatBuildWithTincturesWithOrAndVairSetsTincturesToContainOrAndVair() 
+			throws UnknownTinctureException {
 		Tinctures t = new Tinctures();
-		t.addTincture(t.createTincture("or"));
-		t.addTincture(t.createTincture("vair"));
+		t.addTincture(t.getTincture("or"));
+		t.addTincture(t.getTincture("vair"));
 		ShieldLayer layer = ShieldLayer.build(t);
 		assertThat(layer.getTinctures(), is(sameTincturesAs(t)));
 	}
 	
 	@Test
-	public void testThatBuildWithShieldDivisionNoneSetsShieldDivisionToNone() {
+	public void testThatBuildWithShieldDivisionNoneSetsShieldDivisionToNone()
+			throws UnknownTinctureException {
 		Tinctures t = new Tinctures();
-		t.addTincture(t.createTincture("or"));
+		t.addTincture(t.getTincture("or"));
 		ShieldDivision division = new ShieldDivision();
 		ShieldDivisionType divType = division.getDivisionType("NONE");
 		ShieldLayer layer = ShieldLayer.build(t, divType);
@@ -52,9 +55,10 @@ public class ShieldLayerTest {
 	}
 	
 	@Test
-	public void testThatBuildWithShieldDivisionFessSetsShieldDivisionToFess() {
+	public void testThatBuildWithShieldDivisionFessSetsShieldDivisionToFess()
+			throws UnknownTinctureException {
 		Tinctures t = new Tinctures();
-		t.addTincture(t.createTincture("or"));
+		t.addTincture(t.getTincture("or"));
 		ShieldDivision division = new ShieldDivision();
 		ShieldDivisionType divType = division.getDivisionType("FESS");
 		ShieldLayer layer = ShieldLayer.build(t, divType);
@@ -62,14 +66,15 @@ public class ShieldLayerTest {
 	}
 	
 	@Test
-	public void testThatAddNextLayerSetsNextLayerCorrectly() {
+	public void testThatAddNextLayerSetsNextLayerCorrectly()
+			throws UnknownTinctureException {
 		Tinctures tinctures1 = new Tinctures();
-		tinctures1.addTincture(tinctures1.createTincture("or"));
-		tinctures1.addTincture(tinctures1.createTincture("vair"));
+		tinctures1.addTincture(tinctures1.getTincture("or"));
+		tinctures1.addTincture(tinctures1.getTincture("vair"));
 		ShieldLayer layer1 = ShieldLayer.build(tinctures1);
 		
 		Tinctures tinctures2 = new Tinctures();
-		tinctures2.addTincture(tinctures2.createTincture("gules"));
+		tinctures2.addTincture(tinctures2.getTincture("gules"));
 		ShieldLayer layer2 = ShieldLayer.build(tinctures2);
 		
 		layer1.addNextLayer(layer2);
@@ -77,18 +82,19 @@ public class ShieldLayerTest {
 	}
 	
 	@Test
-	public void testThatAddNextLayerSetsNextLayerChainingCorrectly() {
+	public void testThatAddNextLayerSetsNextLayerChainingCorrectly()
+			throws UnknownTinctureException {
 		Tinctures tinctures1 = new Tinctures();
-		tinctures1.addTincture(tinctures1.createTincture("or"));
-		tinctures1.addTincture(tinctures1.createTincture("vair"));
+		tinctures1.addTincture(tinctures1.getTincture("or"));
+		tinctures1.addTincture(tinctures1.getTincture("vair"));
 		ShieldLayer layer1 = ShieldLayer.build(tinctures1);
 		
 		Tinctures tinctures2 = new Tinctures();
-		tinctures2.addTincture(tinctures2.createTincture("gules"));
+		tinctures2.addTincture(tinctures2.getTincture("gules"));
 		ShieldLayer layer2 = ShieldLayer.build(tinctures2);
 		
 		Tinctures tinctures3 = new Tinctures();
-		tinctures3.addTincture(tinctures3.createTincture("sable"));
+		tinctures3.addTincture(tinctures3.getTincture("sable"));
 		ShieldLayer layer3 = ShieldLayer.build(tinctures3);
 		
 		layer1.addNextLayer(layer2);
@@ -107,9 +113,10 @@ public class ShieldLayerTest {
 	}
 	
 	@Test
-	public void testThatToStringIsSetCorrectlyWithNonEmptyTincturesAndEmptyLayers() {
+	public void testThatToStringIsSetCorrectlyWithNonEmptyTincturesAndEmptyLayers()
+			throws UnknownTinctureException {
 		Tinctures tinctures = new Tinctures();
-		tinctures.addTincture(tinctures.createTincture("or"));
+		tinctures.addTincture(tinctures.getTincture("or"));
 		ShieldLayer layer = ShieldLayer.build(tinctures);
 		String expected = "ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[Tincture{name=or:fillText=gold}]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfAllowableTinctures=1}:nextLayer=null}";
 		assertThat(layer.toString(), is(equalTo(expected)));
@@ -127,9 +134,10 @@ public class ShieldLayerTest {
 	}
 	
 	@Test
-	public void testThatToStringIsSetCorrectlyWithNonEmptyTincturesAndLayers() {
+	public void testThatToStringIsSetCorrectlyWithNonEmptyTincturesAndLayers()
+			throws UnknownTinctureException {
 		Tinctures tinctures = new Tinctures();
-		tinctures.addTincture(tinctures.createTincture("or"));
+		tinctures.addTincture(tinctures.getTincture("or"));
 		ShieldLayer layer = ShieldLayer.build(tinctures);
 		Tinctures tinctures2 = new Tinctures();
 		ShieldLayer layer2 = ShieldLayer.build(tinctures2);

@@ -6,6 +6,8 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
+import blazon.shared.shield.tinctures.Fur.FurType;
+
 public class FurTest {
 	
 	@Test(expected=IllegalArgumentException.class)
@@ -113,28 +115,28 @@ public class FurTest {
 	
 	@Test
 	public void testThatBuildSetsFurTypeToVair() {
-		String furType = "vair";
+		FurType furType = FurType.VAIR;
 		Fur f = (Fur) Fur.build("vair", "blue", "silver");
 		assertThat(f.getFurType(), is(equalTo(furType)));
 	}
 	
 	@Test
 	public void testThatBuildSetsFurTypeToPotent() {
-		String furType = "potent";
+		FurType furType = FurType.POTENT;
 		Fur f = (Fur) Fur.build("potent-en-point", "blue", "silver");
 		assertThat(f.getFurType(), is(equalTo(furType)));
 	}
 	
 	@Test
 	public void testThatBuildErminoisSetsFurTypeToErmine() {
-		String furType = "ermine";
+		FurType furType = FurType.ERMINE;
 		Fur f = (Fur) Fur.build("erminois", "yellow", "black");
 		assertThat(f.getFurType(), is(equalTo(furType)));
 	}
 	
 	@Test
 	public void testThatBuildPeanSetsFurTypeToErmine() {
-		String furType = "ermine";
+		FurType furType = FurType.ERMINE;
 		Fur f = (Fur) Fur.build("pean", "black", "yellow");
 		assertThat(f.getFurType(), is(equalTo(furType)));
 	}
@@ -158,5 +160,100 @@ public class FurTest {
 		String toString = "Tincture{name=vair-en-pale:fillText=url(#vair-en-pale)}";
 		Fur f = (Fur) Fur.build("vair-en-pale", "blue", "white");
 		assertThat(f.toString(), is(equalTo(toString)));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsFalseForNull() {
+		Tincture t = Fur.build("vair", "blue", "white");
+		assertThat(t.equals(null), is(false));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsFalseWhenComparingWithObjectVariable() {
+		Tincture t = Fur.build("vair", "blue", "white");
+		assertThat(t.equals(new Object()), is(false));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsTrueWhenPassingReferenceToSameObject() {
+		Tincture t = Fur.build("vair", "blue", "white");
+		assertThat(t.equals(t), is(true));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsTrueConstistentlyWhenPassingReferenceToSameObject() {
+		Tincture t = Fur.build("vair", "blue", "white");
+		assertThat(t.equals(t), is(true));
+		assertThat(t.equals(t), is(true));
+		assertThat(t.equals(t), is(true));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsTrueWhenPassingObjectThatWasConstructedUsingTheSameParameters() {
+		Tincture t1 = Fur.build("vair", "blue", "white");
+		Tincture t2 = Fur.build("vair", "blue", "white");
+		assertThat(t1.equals(t2), is(true));
+		assertThat(t1.hashCode(), is(equalTo(t2.hashCode())));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsTrueConsistentlyWhenPassingObjectThatWasConstructedUsingTheSameParameters() {
+		Tincture t1 = Fur.build("vair", "blue", "white");
+		Tincture t2 = Fur.build("vair", "blue", "white");
+		assertThat(t1.equals(t2), is(true));
+		assertThat(t1.equals(t2), is(true));
+		assertThat(t1.equals(t2), is(true));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsTrueSymmetricallyForObjectsConstructedTheSameWay() {
+		Tincture t1 = Fur.build("vair", "blue", "white");
+		Tincture t2 = Fur.build("vair", "blue", "white");
+		assertThat(t1.equals(t2), is(true));
+		assertThat(t1.hashCode(), is(equalTo(t2.hashCode())));
+		assertThat(t2.equals(t1), is(true));
+		assertThat(t2.hashCode(), is(equalTo(t1.hashCode())));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsTrueTransitivelyForObjectsConstructedTheSameWay() {
+		Tincture t1 = Fur.build("vair", "blue", "white");
+		Tincture t2 = Fur.build("vair", "blue", "white");
+		Tincture t3 = Fur.build("vair", "blue", "white");
+		assertThat(t1.equals(t2), is(true));
+		assertThat(t1.hashCode(), is(equalTo(t2.hashCode())));
+		assertThat(t2.equals(t3), is(true));
+		assertThat(t2.hashCode(), is(equalTo(t3.hashCode())));
+		assertThat(t1.equals(t3), is(true));
+		assertThat(t1.hashCode(), is(equalTo(t3.hashCode())));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsFalseWhenConstructedWithDifferentNames() {
+		Tincture t1 = Fur.build("vair", "blue", "white");
+		Tincture t2 = Fur.build("potent", "blue", "white");
+		assertThat(t1.equals(t2), is(false));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsFalseConsistentlyWhenConstructedWithDifferentNames() {
+		Tincture t1 = Fur.build("vair", "blue", "white");
+		Tincture t2 = Fur.build("ermine", "silver", "black");
+		assertThat(t1.equals(t2), is(false));
+		assertThat(t1.equals(t2), is(false));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsFalseWhenConstructedWithDifferentColour() {
+		Tincture t1 = Fur.build("vair", "blue", "white");
+		Tincture t2 = Fur.build("vair", "azure", "white");
+		assertThat(t1.equals(t2), is(false));
+	}
+	
+	@Test
+	public void testThatFurTypesContainsErminePotentAndVair() {
+		assertThat(FurType.VAIR, is(equalTo(FurType.valueOf("VAIR"))));
+		assertThat(FurType.POTENT, is(equalTo(FurType.valueOf("POTENT"))));
+		assertThat(FurType.ERMINE, is(equalTo(FurType.valueOf("ERMINE"))));
 	}
 }

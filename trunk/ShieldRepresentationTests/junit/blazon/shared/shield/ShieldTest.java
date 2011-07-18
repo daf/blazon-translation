@@ -3,6 +3,7 @@ package blazon.shared.shield;
 import org.junit.Test;
 
 import blazon.shared.shield.tinctures.Tinctures;
+import blazon.shared.shield.tinctures.UnknownTinctureException;
 
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
@@ -25,19 +26,21 @@ public class ShieldTest {
 	}
 	
 	@Test
-	public void testThatBuildSetsBaseToThatGivenShieldLayerWhichHasTheOrTinctureAdded() {
+	public void testThatBuildSetsBaseToThatGivenShieldLayerWhichHasTheOrTinctureAdded()
+			throws UnknownTinctureException {
 		Tinctures tinctures = new Tinctures();
-		tinctures.addTincture(tinctures.createTincture("or"));
+		tinctures.addTincture(tinctures.getTincture("or"));
 		ShieldLayer layer = ShieldLayer.build(tinctures);
 		Shield shield = Shield.build(layer);
 		assertThat(shield.getField(), is(sameShieldLayerAs(layer)));
 	}
 	
 	@Test
-	public void testThatBuildSetsBaseToThatGivenShieldLayerWhichHasTheOrAndVairTinctureAdded() {
+	public void testThatBuildSetsBaseToThatGivenShieldLayerWhichHasTheOrAndVairTinctureAdded()
+			throws UnknownTinctureException {
 		Tinctures tinctures = new Tinctures();
-		tinctures.addTincture(tinctures.createTincture("or"));
-		tinctures.addTincture(tinctures.createTincture("vair"));
+		tinctures.addTincture(tinctures.getTincture("or"));
+		tinctures.addTincture(tinctures.getTincture("vair"));
 		ShieldLayer layer = ShieldLayer.build(tinctures);
 		Shield shield = Shield.build(layer);
 		assertThat(shield.getField(), is(sameShieldLayerAs(layer)));
@@ -52,9 +55,10 @@ public class ShieldTest {
 	}
 	
 	@Test
-	public void testThatToStringIsCorrectForShieldWithBaseWhichHasTheOrTinctureAdded() {
+	public void testThatToStringIsCorrectForShieldWithBaseWhichHasTheOrTinctureAdded()
+			throws UnknownTinctureException {
 		Tinctures tinctures = new Tinctures();
-		tinctures.addTincture(tinctures.createTincture("or"));
+		tinctures.addTincture(tinctures.getTincture("or"));
 		ShieldLayer layer = ShieldLayer.build(tinctures);
 		Shield shield = Shield.build(layer);
 		String expected = "Shield{base=ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[Tincture{name=or:fillText=gold}]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfAllowableTinctures=1}:nextLayer=null}}";
@@ -62,12 +66,13 @@ public class ShieldTest {
 	}
 	
 	@Test
-	public void testThatToStringIsCorrectForShieldWithBaseWhichHasTheOrTinctureAddedAndBaseHasALayerWithATinctureWithVairAdded() {
+	public void testThatToStringIsCorrectForShieldWithBaseWhichHasTheOrTinctureAddedAndBaseHasALayerWithATinctureWithVairAdded()
+			throws UnknownTinctureException {
 		Tinctures tinctures = new Tinctures();
-		tinctures.addTincture(tinctures.createTincture("or"));
+		tinctures.addTincture(tinctures.getTincture("or"));
 		ShieldLayer layer1 = ShieldLayer.build(tinctures);
 		tinctures = new Tinctures();
-		tinctures.addTincture(tinctures.createTincture("vair"));
+		tinctures.addTincture(tinctures.getTincture("vair"));
 		ShieldLayer layer2 = ShieldLayer.build(tinctures);
 		layer1.addNextLayer(layer2);
 		Shield shield = Shield.build(layer1);

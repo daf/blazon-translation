@@ -75,4 +75,95 @@ public class ColourTest {
 		String toString = "Tincture{name=sable:fillText=black}";
 		assertThat(t.toString(), is(equalTo(toString)));
 	}
+	
+	@Test
+	public void testThatEqualsReturnsFalseForNull() {
+		Tincture t = Colour.build("sable", "black");
+		assertThat(t.equals(null), is(false));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsFalseWhenComparingWithObjectVariable() {
+		Tincture t = Colour.build("sable", "black");
+		assertThat(t.equals(new Object()), is(false));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsTrueWhenPassingReferenceToSameObject() {
+		Tincture t = Colour.build("sable", "black");
+		assertThat(t.equals(t), is(true));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsTrueConstistentlyWhenPassingReferenceToSameObject() {
+		Tincture t = Colour.build("sable", "black");
+		assertThat(t.equals(t), is(true));
+		assertThat(t.equals(t), is(true));
+		assertThat(t.equals(t), is(true));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsTrueWhenPassingObjectThatWasConstructedUsingTheSameParameters() {
+		Tincture t1 = Colour.build("sable", "black");
+		Tincture t2 = Colour.build("sable", "black");
+		assertThat(t1.equals(t2), is(true));
+		assertThat(t1.hashCode(), is(equalTo(t2.hashCode())));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsTrueConsistentlyWhenPassingObjectThatWasConstructedUsingTheSameParameters() {
+		Tincture t1 = Colour.build("sable", "black");
+		Tincture t2 = Colour.build("sable", "black");
+		assertThat(t1.equals(t2), is(true));
+		assertThat(t1.hashCode(), is(equalTo(t2.hashCode())));
+		assertThat(t1.equals(t2), is(true));
+		assertThat(t1.hashCode(), is(equalTo(t2.hashCode())));
+		assertThat(t1.equals(t2), is(true));
+		assertThat(t1.hashCode(), is(equalTo(t2.hashCode())));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsTrueSymmetricallyForObjectsConstructedTheSameWay() {
+		Tincture t1 = Colour.build("sable", "black");
+		Tincture t2 = Colour.build("sable", "black");
+		assertThat(t1.equals(t2), is(true));
+		assertThat(t1.hashCode(), is(equalTo(t2.hashCode())));
+		assertThat(t2.equals(t1), is(true));
+		assertThat(t2.hashCode(), is(equalTo(t1.hashCode())));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsTrueTransitivelyForObjectsConstructedTheSameWay() {
+		Tincture t1 = Colour.build("sable", "black");
+		Tincture t2 = Colour.build("sable", "black");
+		Tincture t3 = Colour.build("sable", "black");
+		assertThat(t1.equals(t2), is(true));
+		assertThat(t1.hashCode(), is(equalTo(t2.hashCode())));
+		assertThat(t2.equals(t3), is(true));
+		assertThat(t2.hashCode(), is(equalTo(t3.hashCode())));
+		assertThat(t1.equals(t3), is(true));
+		assertThat(t1.hashCode(), is(equalTo(t2.hashCode())));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsFalseWhenConstructedWithDifferentNames() {
+		Tincture t1 = Colour.build("sable", "black");
+		Tincture t2 = Colour.build("black", "black");
+		assertThat(t1.equals(t2), is(false));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsFalseConsistentlyWhenConstructedWithDifferentNames() {
+		Tincture t1 = Colour.build("sable", "black");
+		Tincture t2 = Colour.build("black", "black");
+		assertThat(t1.equals(t2), is(false));
+		assertThat(t1.equals(t2), is(false));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsFalseWhenConstructedWithDifferentColour() {
+		Tincture t1 = Colour.build("sable", "black");
+		Tincture t2 = Colour.build("sable", "sable");
+		assertThat(t1.equals(t2), is(false));
+	}
 }
