@@ -8,6 +8,7 @@ import org.vectomatic.dom.svg.OMSVGRectElement;
 import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import blazon.shared.shield.tinctures.Fur;
+import blazon.shared.shield.tinctures.Fur.FurType;
 
 public abstract class AbstractFurSVGBuilder implements FurSVGBuilder {
 	protected static final String SHAPE = "-shape";
@@ -21,15 +22,15 @@ public abstract class AbstractFurSVGBuilder implements FurSVGBuilder {
 		}
 		
 		AbstractFurSVGBuilder furBuilder;
-		String furName = fur.getName();
-		if (furName.contains(Fur.VAIR)) {
+		FurType furType = fur.getFurType();
+		if (furType == FurType.VAIR) {
 			furBuilder = new VairSVGBuilder();
-		} else if (furName.contains(Fur.POTENT)) {
+		} else if (furType == FurType.POTENT) {
 			furBuilder = new PotentSVGBuilder();
-		} else if (furName.contains(Fur.ERMIN) || furName.equals(Fur.PEAN)) {
+		} else if (furType == FurType.ERMINE) {
 			furBuilder = new ErmineSVGBuilder();
 		} else {
-			throw new IllegalArgumentException("Could not create FurSVGBuilder due to unrecognise furName: " + furName);
+			throw new IllegalArgumentException("Could not create FurSVGBuilder due to unrecognised furType: " + furType);
 		}
 		
 		furBuilder.setDoc(doc);

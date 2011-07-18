@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:50:56 C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g 2011-07-17 20:21:13
+// $ANTLR 3.3 Nov 30, 2010 12:50:56 C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g 2011-07-18 14:47:14
 
   package blazon.server.grammar;
   import blazon.shared.shield.*;
@@ -640,7 +640,7 @@ public class BlazonParser extends Parser {
 
 
     // $ANTLR start "tincture"
-    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:126:1: tincture[Tinctures tinctures] returns [Tincture tincture] : ( COLOUR | METAL | FUR );
+    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:126:1: tincture[Tinctures tinctures] returns [Tincture tincture] : ( COLOUR | METAL | FUR ) ;
     public final Tincture tincture(Tinctures tinctures) throws RecognitionException {
         Tincture tincture = null;
 
@@ -649,7 +649,11 @@ public class BlazonParser extends Parser {
         Token FUR13=null;
 
         try {
-            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:127:9: ( COLOUR | METAL | FUR )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:127:9: ( ( COLOUR | METAL | FUR ) )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:127:13: ( COLOUR | METAL | FUR )
+            {
+             String tinctureName = ""; 
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:128:9: ( COLOUR | METAL | FUR )
             int alt10=3;
             switch ( input.LA(1) ) {
             case COLOUR:
@@ -676,31 +680,41 @@ public class BlazonParser extends Parser {
 
             switch (alt10) {
                 case 1 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:127:13: COLOUR
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:128:13: COLOUR
                     {
-                    COLOUR11=(Token)match(input,COLOUR,FOLLOW_COLOUR_in_tincture692); 
-                    tincture = tinctures.createTincture((COLOUR11!=null?COLOUR11.getText():null));
+                    COLOUR11=(Token)match(input,COLOUR,FOLLOW_COLOUR_in_tincture705); 
+                     tinctureName = (COLOUR11!=null?COLOUR11.getText():null); 
 
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:128:13: METAL
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:129:13: METAL
                     {
-                    METAL12=(Token)match(input,METAL,FOLLOW_METAL_in_tincture708); 
-                    tincture = tinctures.createTincture((METAL12!=null?METAL12.getText():null));
+                    METAL12=(Token)match(input,METAL,FOLLOW_METAL_in_tincture721); 
+                     tinctureName = (METAL12!=null?METAL12.getText():null); 
 
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:129:13: FUR
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:130:13: FUR
                     {
-                    FUR13=(Token)match(input,FUR,FOLLOW_FUR_in_tincture725); 
-                    tincture = tinctures.createTincture((FUR13!=null?FUR13.getText():null));
+                    FUR13=(Token)match(input,FUR,FOLLOW_FUR_in_tincture738); 
+                     tinctureName = (FUR13!=null?FUR13.getText():null); 
 
                     }
                     break;
 
             }
+
+               try {
+                            tincture = tinctures.getTincture(tinctureName);
+                        } catch (UnknownTinctureException e) {
+                            throw new MyRecognitionException("Unknown tincture found.", e);
+                        }
+                    
+
+            }
+
         }
 
             catch (MyRecognitionException re) {
@@ -743,8 +757,8 @@ public class BlazonParser extends Parser {
     public static final BitSet FOLLOW_NUMWORDS_in_number_digits_or_words647 = new BitSet(new long[]{0x0000000000000822L});
     public static final BitSet FOLLOW_AND_in_number_digits_or_words650 = new BitSet(new long[]{0x0000000000000800L});
     public static final BitSet FOLLOW_NUMWORDS_in_number_digits_or_words653 = new BitSet(new long[]{0x0000000000000822L});
-    public static final BitSet FOLLOW_COLOUR_in_tincture692 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_METAL_in_tincture708 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FUR_in_tincture725 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_COLOUR_in_tincture705 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_METAL_in_tincture721 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FUR_in_tincture738 = new BitSet(new long[]{0x0000000000000002L});
 
 }

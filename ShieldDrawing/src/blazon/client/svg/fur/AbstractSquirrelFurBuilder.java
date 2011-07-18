@@ -6,6 +6,7 @@ import org.vectomatic.dom.svg.OMSVGRectElement;
 import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import blazon.shared.shield.tinctures.Fur;
+import blazon.shared.shield.tinctures.Fur.FurType;
 
 public abstract class AbstractSquirrelFurBuilder extends AbstractFurSVGBuilder {
 	protected static final String COUNTER = "counter-";
@@ -18,7 +19,7 @@ public abstract class AbstractSquirrelFurBuilder extends AbstractFurSVGBuilder {
 	protected abstract int getHeight();
 	
 	public void createPatternDefinition() {
-		String furType = fur.getFurType();
+		FurType furType = fur.getFurType();
 		String furShape = furType + SHAPE;
 		String furName = fur.getName();
 		int width = getWidth();

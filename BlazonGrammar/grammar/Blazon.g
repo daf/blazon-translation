@@ -123,10 +123,18 @@ number_digits_or_words
         |   NUMWORDS (AND? NUMWORDS)*
         ;
 
-tincture [Tinctures tinctures] returns [Tincture tincture]    
-        :   COLOUR {$tincture = tinctures.createTincture($COLOUR.text);}
-        |   METAL  {$tincture = tinctures.createTincture($METAL.text);}
-        |   FUR    {$tincture = tinctures.createTincture($FUR.text);}
+tincture [Tinctures tinctures] returns [Tincture tincture]   
+        :   { String tinctureName = ""; }
+        (   COLOUR { tinctureName = $COLOUR.text; }
+        |   METAL  { tinctureName = $METAL.text; }
+        |   FUR    { tinctureName = $FUR.text; }
+        )
+        {   try {
+                $tincture = tinctures.getTincture(tinctureName);
+            } catch (UnknownTinctureException e) {
+                throw new MyRecognitionException("Unknown tincture found.", e);
+            }
+        }
         ;
 
 MODIFIER
@@ -149,7 +157,6 @@ COLOUR  :   'azure' | 'gules' | 'vert' | 'sable' | 'purpure'
 METAL   :   'or' | 'argent'
         ;
 
-//could be refactored - leave it for now to be easy to debug
 FUR     :   'ermine' | 'ermines' | 'erminois' | 'pean'
         |   'vair' | 'counter-vair' | 'vair-en-pale' | 'vair-en-point'
         |   'potent' | 'counter-potent' | 'potent-en-pale' | 'potent-en-point'

@@ -75,4 +75,91 @@ public class MetalTest {
 		assertThat(t.toString(), is(equalTo(toString)));
 	}
 	
+	@Test
+	public void testThatEqualsReturnsFalseForNull() {
+		Tincture t = Metal.build("or", "yellow");
+		assertThat(t.equals(null), is(false));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsFalseWhenComparingWithObjectVariable() {
+		Tincture t = Metal.build("or", "yellow");
+		assertThat(t.equals(new Object()), is(false));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsTrueWhenPassingReferenceToSameObject() {
+		Tincture t = Metal.build("or", "yellow");
+		assertThat(t.equals(t), is(true));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsTrueConstistentlyWhenPassingReferenceToSameObject() {
+		Tincture t = Metal.build("or", "yellow");
+		assertThat(t.equals(t), is(true));
+		assertThat(t.equals(t), is(true));
+		assertThat(t.equals(t), is(true));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsTrueWhenPassingObjectThatWasConstructedUsingTheSameParameters() {
+		Tincture t1 = Metal.build("or", "yellow");
+		Tincture t2 = Metal.build("or", "yellow");
+		assertThat(t1.equals(t2), is(true));
+		assertThat(t1.hashCode(), is(equalTo(t2.hashCode())));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsTrueConsistentlyWhenPassingObjectThatWasConstructedUsingTheSameParameters() {
+		Tincture t1 = Metal.build("or", "yellow");
+		Tincture t2 = Metal.build("or", "yellow");
+		assertThat(t1.equals(t2), is(true));
+		assertThat(t1.equals(t2), is(true));
+		assertThat(t1.equals(t2), is(true));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsTrueSymmetricallyForObjectsConstructedTheSameWay() {
+		Tincture t1 = Metal.build("or", "yellow");
+		Tincture t2 = Metal.build("or", "yellow");
+		assertThat(t1.equals(t2), is(true));
+		assertThat(t1.hashCode(), is(equalTo(t2.hashCode())));
+		assertThat(t2.equals(t1), is(true));
+		assertThat(t2.hashCode(), is(equalTo(t1.hashCode())));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsTrueTransitivelyForObjectsConstructedTheSameWay() {
+		Tincture t1 = Metal.build("or", "yellow");
+		Tincture t2 = Metal.build("or", "yellow");
+		Tincture t3 = Metal.build("or", "yellow");
+		assertThat(t1.equals(t2), is(true));
+		assertThat(t1.hashCode(), is(equalTo(t2.hashCode())));
+		assertThat(t2.equals(t3), is(true));
+		assertThat(t2.hashCode(), is(equalTo(t3.hashCode())));
+		assertThat(t1.equals(t3), is(true));
+		assertThat(t1.hashCode(), is(equalTo(t3.hashCode())));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsFalseWhenConstructedWithDifferentNames() {
+		Tincture t1 = Colour.build("or", "yellow");
+		Tincture t2 = Colour.build("yellow", "yellow");
+		assertThat(t1.equals(t2), is(false));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsFalseConsistentlyWhenConstructedWithDifferentNames() {
+		Tincture t1 = Colour.build("or", "yellow");
+		Tincture t2 = Colour.build("yellow", "yellow");
+		assertThat(t1.equals(t2), is(false));
+		assertThat(t1.equals(t2), is(false));
+	}
+	
+	@Test
+	public void testThatEqualsReturnsFalseWhenConstructedWithDifferentColour() {
+		Tincture t1 = Colour.build("or", "yellow");
+		Tincture t2 = Colour.build("or", "or");
+		assertThat(t1.equals(t2), is(false));
+	}
 }
