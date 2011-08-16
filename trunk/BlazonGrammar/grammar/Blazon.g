@@ -24,11 +24,12 @@ options {
     catch (MyRecognitionException re) {
         System.err.println("Caught MyRecognitionException:");
         System.err.println(re.message);
+        throw re;
     } 
-    catch (RecognitionException re) {
-        reportError(re);
-        recover(input,re);
-    }
+    //catch (RecognitionException re) {
+    //    reportError(re);
+    //    recover(input,re);
+    //}
 } 
 
 shield returns [Shield s]
@@ -66,8 +67,9 @@ plain_field returns [ShieldLayer layer]
 		    :   { Tinctures tinctures = new Tinctures(); }
 		        tincture[tinctures] ('plain')?
 		        {
+		        //TODO add plain lexer rule
 		            tinctures.addTincture($tincture.tincture);
-		            $layer = ShieldLayer.build(tinctures);
+		            $layer = ShieldLayer.buildUndividedShieldLayer(tinctures);
 		        }
 		    ;
 
@@ -76,20 +78,19 @@ some_tinctures [Tinctures tinctures, ShieldDivisionType division] returns [Shiel
             (
                 t = tincture[tinctures] 
                 { tinctures.addTincture($t.tincture); count++; }
-            )*
+            )+
             AND
             t = tincture[tinctures]
             {
 		            count++;
 		            tinctures.addTincture($t.tincture);
-		            int allowableNumberOfTinctures = division.getNumberOfAllowableTinctures();
-		            if (allowableNumberOfTinctures != count) {
-		                throw new MyRecognitionException(
-		                    "Incorrect number of tinctures specified. The '" + division 
-		                    + "' division type only allows the following number of tinctures: "
-		                    + allowableNumberOfTinctures + " but found " + count);
+		            int numberOfTinctures = division.getNumberOfTinctures();
+		            if (numberOfTinctures != count) {
+		                throw new MyRecognitionException("Incorrect number of tinctures specified. The '" 
+		                    + division + "' division type only allows the following number of tinctures: "
+		                    + numberOfTinctures + " but found " + count);
 		            }
-		            $layer = ShieldLayer.build(tinctures, division);
+		            $layer = ShieldLayer.buildDividedShieldLayer(tinctures, division);
 		        }
         ;
 

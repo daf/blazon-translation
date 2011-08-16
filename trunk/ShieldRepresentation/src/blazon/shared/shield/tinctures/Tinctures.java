@@ -49,15 +49,15 @@ public class Tinctures implements Serializable {
 		map.put("ermines", Fur.build("ermines", "black", "white"));
 		map.put("erminois", Fur.build("erminois", "yellow", "black"));
 		map.put("pean", Fur.build("pean", "black", "yellow"));
-		// make map unmodifiable and synchronized.
-		tinctureDefinitions = Collections.synchronizedMap(Collections.unmodifiableMap(map));
+		// make map unmodifiable.
+		tinctureDefinitions = Collections.unmodifiableMap(map);
 	}
 
 	/**
 	 * A map of all of the tinctures that are currently in use on all layers.
 	 * Used to refer to the tinctures as, e.g. "of the first"
 	 */
-	private static Map<String, Tincture> tincturesInUse = Collections.synchronizedMap(new HashMap<String, Tincture>());
+	private static Map<String, Tincture> tincturesInUse = new HashMap<String, Tincture>();
 	/**
 	 * A list of tinctures that are on this layer.
 	 */

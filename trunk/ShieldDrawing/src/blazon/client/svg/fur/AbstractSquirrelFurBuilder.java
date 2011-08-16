@@ -31,7 +31,7 @@ public abstract class AbstractSquirrelFurBuilder extends AbstractFurSVGBuilder {
 		setAttributesOnPattern(pattern, furName, width, height*2);
 		pattern.appendChild(rect);
 		
-		if (furName.equals(furType)) {
+		if (furName.equals(furType.toString())) {
 			String translate = "translate(-" + Integer.toString(width/2) + ")";
 			int w = (int) (width * 1.5);
 			createGElementForFur(pattern, translate, furShape, height, w, height);

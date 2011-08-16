@@ -15,7 +15,7 @@ public class ANTLRNoCaseStringStream extends ANTLRStringStream {
         if (i < 0) {
             i++; // e.g., translate LA(-1) to use offset 0
         }
-
+        
         if ((p + i - 1) >= n) {
 
         return CharStream.EOF; }
