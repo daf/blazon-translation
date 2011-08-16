@@ -1,0 +1,143 @@
+gunit Blazon;
+@header{package blazon.server.grammar;}
+/*
+ * all tests are for lower case only as I will be using my implementation
+ * of ANTLRNoCaseStringStream, which converts the string you pass
+ * in to lower case
+ */
+
+tincture
+        :   "gules"             OK
+            "sable"             OK
+            "vert"              OK
+            "azure"             OK
+            "purpure"           OK
+            "blue"              FAIL
+            "or"                OK
+            "argent"            OK
+            "gold"              FAIL
+            "ermine"            OK
+            "ermines"           OK
+            "erminois"          OK
+            "pean"              OK
+            "vair"              OK
+            "counter-vair"      OK
+            "vair-en-pale"      OK
+            "vair-en-point"     OK
+            "potent"            OK
+            "counter-potent"    OK
+            "potent-en-pale"    OK
+            "potent-en-point"   OK
+            "pean-en-pale"      FAIL
+            "ermine-en-point"   FAIL
+
+DIV     :   "fess"            OK
+            "pale"            OK
+            "bend"            OK
+            "cross"           OK
+            "saltire"         OK
+            "chevron"         OK
+            "pall"            OK
+            "bend sinister"   FAIL
+            "gyronny"         FAIL
+
+MODIFIER
+        :   "reversed"  OK
+            "sinister"  OK
+            "reversey"  FAIL
+
+GYRONNY 
+        :   "gyronny"   OK
+            "gyron"     FAIL
+
+PARTYPER
+        :   "per"           OK
+            "party per"     OK
+            "parted per"    OK
+            "part per"      FAIL
+
+COLOUR  :   "gules"     OK
+            "sable"     OK
+            "vert"      OK
+            "azure"     OK
+            "purpure"   OK
+            "or"        FAIL
+            "blue"      FAIL
+        
+METAL   :   "or"        OK
+            "argent"    OK
+            "azure"     FAIL
+            "gold"      FAIL
+        
+FUR     :   "ermine"            OK
+            "ermines"           OK
+            "erminois"          OK
+            "pean"              OK
+            "vair"              OK
+            "counter-vair"      OK
+            "vair-en-pale"      OK
+            "vair-en-point"     OK
+            "potent"            OK
+            "counter-potent"    OK
+            "potent-en-pale"    OK
+            "potent-en-point"   OK
+            "pean-en-pale"      FAIL
+            "ermine-en-point"   FAIL
+            "gules"             FAIL
+        
+AND     :   "and"       OK
+            "&"         FAIL
+            "+"         FAIL
+        
+OF      :   "of"        OK
+            "or"        FAIL
+
+DIGITS  :   "1"                 OK
+            "12"                OK
+            "1234567890"        OK
+            "0.1"               FAIL
+            ""                  FAIL
+            "one"               FAIL
+            
+NUMWORDS
+        :   "one"               OK
+            "eleven"            OK
+            "two"               OK
+            "twelve"            OK
+            "three"             OK
+            "thirteen"          OK
+            "four"              OK
+            "fourteen"          OK
+            "five"              OK
+            "fifteen"           OK
+            "six"               OK
+            "sixteen"           OK
+            "seven"             OK
+            "seventeen"         OK
+            "eight"             OK
+            "eighteen"          OK
+            "nine"              OK
+            "nineteen"          OK
+            "twenty"            OK
+            "thirty"            OK
+            "fourty"            OK
+            "fifty"             OK
+            "sixty"             OK
+            "seventy"           OK
+            "eighty"            OK
+            "ninety"            OK
+            "hundred"           OK
+            "thousand"          OK
+            "million"           OK
+            "billion"           OK
+            "oneteen"           FAIL
+            "fiveteen"          FAIL
+            "zero"              FAIL
+            "minus"             FAIL
+            "seventyeen"        FAIL
+            
+WS      :   " "             OK
+            "    "          OK
+            "\t"            OK
+            "\t\t"          OK
+            "\t \t   "      OK
