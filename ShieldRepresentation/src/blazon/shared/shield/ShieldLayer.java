@@ -12,12 +12,12 @@ public class ShieldLayer implements Serializable {
 	private ShieldLayer nextLayer = null;
 	private ShieldDivisionType division;
 
-	public static ShieldLayer build(Tinctures t) {
+	public static ShieldLayer buildUndividedShieldLayer(Tinctures t) {
 		ShieldDivision divisions = new ShieldDivision();
-		return build(t, divisions.getDivisionType(ShieldDivision.NONE));
+		return buildDividedShieldLayer(t, divisions.getDivisionType(ShieldDivision.NONE));
 	}
 
-	public static ShieldLayer build(Tinctures t, ShieldDivisionType division) {
+	public static ShieldLayer buildDividedShieldLayer(Tinctures t, ShieldDivisionType division) {
 		if (t == null) {
 			throw new IllegalArgumentException(
 					"Can not build a ShieldLayer with null tinctures");

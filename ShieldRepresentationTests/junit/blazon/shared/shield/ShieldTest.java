@@ -20,7 +20,7 @@ public class ShieldTest {
 	
 	@Test
 	public void testThatBuildSetsBaseToThatGivenShieldLayerWhichHasNoTincturesAdded() {
-		ShieldLayer layer = ShieldLayer.build(new Tinctures());
+		ShieldLayer layer = ShieldLayer.buildUndividedShieldLayer(new Tinctures());
 		Shield shield = Shield.build(layer);
 		assertThat(shield.getField(), is(sameShieldLayerAs(layer)));
 	}
@@ -30,7 +30,7 @@ public class ShieldTest {
 			throws UnknownTinctureException {
 		Tinctures tinctures = new Tinctures();
 		tinctures.addTincture(tinctures.getTincture("or"));
-		ShieldLayer layer = ShieldLayer.build(tinctures);
+		ShieldLayer layer = ShieldLayer.buildUndividedShieldLayer(tinctures);
 		Shield shield = Shield.build(layer);
 		assertThat(shield.getField(), is(sameShieldLayerAs(layer)));
 	}
@@ -41,16 +41,16 @@ public class ShieldTest {
 		Tinctures tinctures = new Tinctures();
 		tinctures.addTincture(tinctures.getTincture("or"));
 		tinctures.addTincture(tinctures.getTincture("vair"));
-		ShieldLayer layer = ShieldLayer.build(tinctures);
+		ShieldLayer layer = ShieldLayer.buildUndividedShieldLayer(tinctures);
 		Shield shield = Shield.build(layer);
 		assertThat(shield.getField(), is(sameShieldLayerAs(layer)));
 	}
 	
 	@Test
 	public void testThatToStringIsCorrectForShieldWithBaseWhichHasNoTincturesAdded() {
-		ShieldLayer layer = ShieldLayer.build(new Tinctures());
+		ShieldLayer layer = ShieldLayer.buildUndividedShieldLayer(new Tinctures());
 		Shield shield = Shield.build(layer);
-		String expected = "Shield{base=ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfAllowableTinctures=1}:nextLayer=null}}";
+		String expected = "Shield{field=ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfTinctures=1}:nextLayer=null}}";
 		assertThat(shield.toString(), is(equalTo(expected)));
 	}
 	
@@ -59,9 +59,9 @@ public class ShieldTest {
 			throws UnknownTinctureException {
 		Tinctures tinctures = new Tinctures();
 		tinctures.addTincture(tinctures.getTincture("or"));
-		ShieldLayer layer = ShieldLayer.build(tinctures);
+		ShieldLayer layer = ShieldLayer.buildUndividedShieldLayer(tinctures);
 		Shield shield = Shield.build(layer);
-		String expected = "Shield{base=ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[Tincture{name=or:fillText=gold}]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfAllowableTinctures=1}:nextLayer=null}}";
+		String expected = "Shield{field=ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[Tincture{name=or:fillText=gold}]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfTinctures=1}:nextLayer=null}}";
 		assertThat(shield.toString(), is(equalTo(expected)));
 	}
 	
@@ -70,13 +70,13 @@ public class ShieldTest {
 			throws UnknownTinctureException {
 		Tinctures tinctures = new Tinctures();
 		tinctures.addTincture(tinctures.getTincture("or"));
-		ShieldLayer layer1 = ShieldLayer.build(tinctures);
+		ShieldLayer layer1 = ShieldLayer.buildUndividedShieldLayer(tinctures);
 		tinctures = new Tinctures();
 		tinctures.addTincture(tinctures.getTincture("vair"));
-		ShieldLayer layer2 = ShieldLayer.build(tinctures);
+		ShieldLayer layer2 = ShieldLayer.buildUndividedShieldLayer(tinctures);
 		layer1.addNextLayer(layer2);
 		Shield shield = Shield.build(layer1);
-		String expected = "Shield{base=ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[Tincture{name=or:fillText=gold}]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfAllowableTinctures=1}:nextLayer=ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[Tincture{name=vair:fillText=url(#vair)}]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfAllowableTinctures=1}:nextLayer=null}}}";
+		String expected = "Shield{field=ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[Tincture{name=or:fillText=gold}]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfTinctures=1}:nextLayer=ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[Tincture{name=vair:fillText=url(#vair)}]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfTinctures=1}:nextLayer=null}}}";
 		assertThat(shield.toString(), is(equalTo(expected)));
 	}
 	

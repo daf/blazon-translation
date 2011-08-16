@@ -27,7 +27,7 @@ public class ShieldDivisionTest {
 		ShieldDivision division = new ShieldDivision();
 		ShieldDivisionType type = division.getDivisionType("bend sinister");
 		assertThat(type.getName(), is("BEND_SINISTER"));
-		assertThat(type.getNumberOfAllowableTinctures(), is(2));
+		assertThat(type.getNumberOfTinctures(), is(2));
 		assertThat(type.getNumberOfSections(), is(2));
 	}
 	
@@ -36,7 +36,7 @@ public class ShieldDivisionTest {
 		ShieldDivision division = new ShieldDivision();
 		ShieldDivisionType type = division.getDivisionType("bend_sinister");
 		assertThat(type.getName(), is("BEND_SINISTER"));
-		assertThat(type.getNumberOfAllowableTinctures(), is(2));
+		assertThat(type.getNumberOfTinctures(), is(2));
 		assertThat(type.getNumberOfSections(), is(2));
 	}
 	
@@ -45,7 +45,7 @@ public class ShieldDivisionTest {
 		ShieldDivision division = new ShieldDivision();
 		ShieldDivisionType type = division.getDivisionType("fess");
 		assertThat(type.getName(), is("FESS"));
-		assertThat(type.getNumberOfAllowableTinctures(), is(2));
+		assertThat(type.getNumberOfTinctures(), is(2));
 		assertThat(type.getNumberOfSections(), is(2));
 	}
 	
@@ -54,7 +54,7 @@ public class ShieldDivisionTest {
 		ShieldDivision division = new ShieldDivision();
 		ShieldDivisionType type = division.getDivisionType("BEND SINISTER");
 		assertThat(type.getName(), is("BEND_SINISTER"));
-		assertThat(type.getNumberOfAllowableTinctures(), is(2));
+		assertThat(type.getNumberOfTinctures(), is(2));
 		assertThat(type.getNumberOfSections(), is(2));
 	}
 	
@@ -63,7 +63,7 @@ public class ShieldDivisionTest {
 		ShieldDivision division = new ShieldDivision();
 		ShieldDivisionType type = division.getDivisionType("BEND_SINISTER");
 		assertThat(type.getName(), is("BEND_SINISTER"));
-		assertThat(type.getNumberOfAllowableTinctures(), is(2));
+		assertThat(type.getNumberOfTinctures(), is(2));
 		assertThat(type.getNumberOfSections(), is(2));
 	}
 	
@@ -72,7 +72,7 @@ public class ShieldDivisionTest {
 		ShieldDivision division = new ShieldDivision();
 		ShieldDivisionType type = division.getDivisionType("FESS");
 		assertThat(type.getName(), is("FESS"));
-		assertThat(type.getNumberOfAllowableTinctures(), is(2));
+		assertThat(type.getNumberOfTinctures(), is(2));
 		assertThat(type.getNumberOfSections(), is(2));
 	}
 	
@@ -81,7 +81,7 @@ public class ShieldDivisionTest {
 		ShieldDivision division = new ShieldDivision();
 		ShieldDivisionType type = division.getDivisionType("GYRONNY_OF_0");
 		assertThat(type.getName(), is("NONE"));
-		assertThat(type.getNumberOfAllowableTinctures(), is(1));
+		assertThat(type.getNumberOfTinctures(), is(1));
 		assertThat(type.getNumberOfSections(), is(1));
 	}
 	
@@ -90,7 +90,7 @@ public class ShieldDivisionTest {
 		ShieldDivision division = new ShieldDivision();
 		ShieldDivisionType type = division.getDivisionType("GYRONNY_OF_");
 		assertThat(type.getName(), is("NONE"));
-		assertThat(type.getNumberOfAllowableTinctures(), is(1));
+		assertThat(type.getNumberOfTinctures(), is(1));
 		assertThat(type.getNumberOfSections(), is(1));
 	}
 	
@@ -99,7 +99,7 @@ public class ShieldDivisionTest {
 		ShieldDivision division = new ShieldDivision();
 		ShieldDivisionType type = division.getDivisionType("GYRONNY_OF_6");
 		assertThat(type.getName(), is("GYRONNY_OF_6"));
-		assertThat(type.getNumberOfAllowableTinctures(), is(2));
+		assertThat(type.getNumberOfTinctures(), is(2));
 		assertThat(type.getNumberOfSections(), is(6));
 	}
 	
@@ -108,7 +108,7 @@ public class ShieldDivisionTest {
 		ShieldDivision division = new ShieldDivision();
 		ShieldDivisionType type = division.getDivisionType("GYRONNY_OF_8");
 		assertThat(type.getName(), is("GYRONNY_OF_8"));
-		assertThat(type.getNumberOfAllowableTinctures(), is(2));
+		assertThat(type.getNumberOfTinctures(), is(2));
 		assertThat(type.getNumberOfSections(), is(8));
 	}
 	
@@ -117,7 +117,7 @@ public class ShieldDivisionTest {
 		ShieldDivision division = new ShieldDivision();
 		ShieldDivisionType type = division.getDivisionType("GYRONNY_OF_4");
 		assertThat(type.getName(), is("CROSS"));
-		assertThat(type.getNumberOfAllowableTinctures(), is(2));
+		assertThat(type.getNumberOfTinctures(), is(2));
 		assertThat(type.getNumberOfSections(), is(4));
 	}
 	
@@ -126,7 +126,7 @@ public class ShieldDivisionTest {
 		ShieldDivision division = new ShieldDivision();
 		ShieldDivisionType type = division.getDivisionType("GYRONNY_OF_3");
 		assertThat(type.getName(), is("NONE"));
-		assertThat(type.getNumberOfAllowableTinctures(), is(1));
+		assertThat(type.getNumberOfTinctures(), is(1));
 		assertThat(type.getNumberOfSections(), is(1));
 	}
 	
@@ -135,7 +135,7 @@ public class ShieldDivisionTest {
 		ShieldDivision division = new ShieldDivision();
 		ShieldDivisionType type = division.getDivisionType("GYRONNY_OF_5");
 		assertThat(type.getName(), is("GYRONNY_OF_6"));
-		assertThat(type.getNumberOfAllowableTinctures(), is(2));
+		assertThat(type.getNumberOfTinctures(), is(2));
 		assertThat(type.getNumberOfSections(), is(6));
 	}	
 	
@@ -144,7 +144,7 @@ public class ShieldDivisionTest {
 		ShieldDivision division = new ShieldDivision();
 		ShieldDivisionType type = division.getDivisionType("GYRONNY_OF_EIGHT");
 		assertThat(type.getName(), is("GYRONNY_OF_8"));
-		assertThat(type.getNumberOfAllowableTinctures(), is(2));
+		assertThat(type.getNumberOfTinctures(), is(2));
 		assertThat(type.getNumberOfSections(), is(8));
 	}
 	
@@ -153,7 +153,7 @@ public class ShieldDivisionTest {
 		ShieldDivision division = new ShieldDivision();
 		ShieldDivisionType type = division.getDivisionType("GYRONNY_OF_FIVE");
 		assertThat(type.getName(), is("GYRONNY_OF_6"));
-		assertThat(type.getNumberOfAllowableTinctures(), is(2));
+		assertThat(type.getNumberOfTinctures(), is(2));
 		assertThat(type.getNumberOfSections(), is(6));
 	}
 	
@@ -162,7 +162,7 @@ public class ShieldDivisionTest {
 		ShieldDivision division = new ShieldDivision();
 		ShieldDivisionType type = division.getDivisionType("gyronny of thirty two");
 		assertThat(type.getName(), is("GYRONNY_OF_32"));
-		assertThat(type.getNumberOfAllowableTinctures(), is(2));
+		assertThat(type.getNumberOfTinctures(), is(2));
 		assertThat(type.getNumberOfSections(), is(32));
 	}
 	
@@ -171,7 +171,7 @@ public class ShieldDivisionTest {
 		ShieldDivision division = new ShieldDivision();
 		ShieldDivisionType type = division.getDivisionType("gyronny of random");
 		assertThat(type.getName(), is("NONE"));
-		assertThat(type.getNumberOfAllowableTinctures(), is(1));
+		assertThat(type.getNumberOfTinctures(), is(1));
 		assertThat(type.getNumberOfSections(), is(1));
 	}
 	
@@ -180,7 +180,7 @@ public class ShieldDivisionTest {
 		ShieldDivision division = new ShieldDivision();
 		ShieldDivisionType type = division.getDivisionType("RANDOM");
 		assertThat(type.getName(), is("NONE"));
-		assertThat(type.getNumberOfAllowableTinctures(), is(1));
+		assertThat(type.getNumberOfTinctures(), is(1));
 		assertThat(type.getNumberOfSections(), is(1));
 	}
 	
@@ -188,7 +188,7 @@ public class ShieldDivisionTest {
 	public void testThatDivisionTypeToStringContains3Members() {
 		ShieldDivision division = new ShieldDivision();
 		ShieldDivisionType type = division.getDivisionType("gyronny of thirty two");
-		String toString = "ShieldDivisionType{name=GYRONNY_OF_32:numberOfSections=32:numberOfAllowableTinctures=2}";
+		String toString = "ShieldDivisionType{name=GYRONNY_OF_32:numberOfSections=32:numberOfTinctures=2}";
 		assertThat(type.toString(), is(equalTo(toString)));
 	}
 }
