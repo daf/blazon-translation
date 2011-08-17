@@ -191,4 +191,74 @@ public class ShieldDivisionTest {
 		String toString = "ShieldDivisionType{name=GYRONNY_OF_32:numberOfSections=32:numberOfTinctures=2}";
 		assertThat(type.toString(), is(equalTo(toString)));
 	}
+	
+	@Test
+	public void testThatShieldDivisionTypeEqualsNullReturnsFalse() {
+		ShieldDivision division = new ShieldDivision();
+		ShieldDivisionType type = division.getDivisionType("saltire");
+		assertThat(type.equals(null), is(false));
+	}
+	
+	@Test
+	public void testThatShieldDivisionTypeEqualsSelfReturnsTrue() {
+		ShieldDivision division = new ShieldDivision();
+		ShieldDivisionType type = division.getDivisionType("saltire");
+		assertThat(type.equals(type), is(true));
+		assertThat(type.hashCode(), is(equalTo(type.hashCode())));
+	}
+	
+	@Test
+	public void testThatTwoSaltireShieldDivisionTypesEqualsReturnsTrueSymmetrically() {
+		ShieldDivision division = new ShieldDivision();
+		ShieldDivisionType type1 = division.getDivisionType("saltire");
+		ShieldDivisionType type2 = division.getDivisionType("saltire");
+		assertThat(type1.equals(type2), is(true));
+		assertThat(type2.equals(type1), is(true));
+		assertThat(type1.hashCode(), is(equalTo(type2.hashCode())));
+		assertThat(type2.hashCode(), is(equalTo(type1.hashCode())));
+	}
+	
+	@Test
+	public void testThatTwoSaltireShieldDivisionTypesEqualsReturnsTrueConsistently() {
+		ShieldDivision division = new ShieldDivision();
+		ShieldDivisionType type1 = division.getDivisionType("saltire");
+		ShieldDivisionType type2 = division.getDivisionType("saltire");
+		assertThat(type1.equals(type2), is(true));
+		assertThat(type1.equals(type2), is(true));
+		assertThat(type1.equals(type2), is(true));
+		assertThat(type1.hashCode(), is(equalTo(type2.hashCode())));
+		assertThat(type1.hashCode(), is(equalTo(type2.hashCode())));
+		assertThat(type1.hashCode(), is(equalTo(type2.hashCode())));
+	}
+	
+	@Test
+	public void testThatThreeSaltireShieldDivisionTypesEqualsReturnsTrueTransitively() {
+		ShieldDivision division = new ShieldDivision();
+		ShieldDivisionType type1 = division.getDivisionType("saltire");
+		ShieldDivisionType type2 = division.getDivisionType("saltire");
+		ShieldDivisionType type3 = division.getDivisionType("saltire");
+		assertThat(type1.equals(type2), is(true));
+		assertThat(type2.equals(type3), is(true));
+		assertThat(type1.equals(type3), is(true));
+		assertThat(type1.hashCode(), is(equalTo(type2.hashCode())));
+		assertThat(type2.hashCode(), is(equalTo(type3.hashCode())));
+		assertThat(type1.hashCode(), is(equalTo(type3.hashCode())));
+	}
+	
+	@Test
+	public void testThatBendSinisterAndFessShieldDivisionTypesEqualsReturnsFalse() {
+		ShieldDivision division = new ShieldDivision();
+		ShieldDivisionType type1 = division.getDivisionType("bend sinister");
+		ShieldDivisionType type2 = division.getDivisionType("fess");
+		assertThat(type1.equals(type2), is(false));
+	}
+	
+	@Test
+	public void testThatBendSinisterAndFessShieldDivisionTypesEqualsReturnsFalseConsistently() {
+		ShieldDivision division = new ShieldDivision();
+		ShieldDivisionType type1 = division.getDivisionType("bend sinister");
+		ShieldDivisionType type2 = division.getDivisionType("fess");
+		assertThat(type1.equals(type2), is(false));
+		assertThat(type1.equals(type2), is(false));
+	}
 }

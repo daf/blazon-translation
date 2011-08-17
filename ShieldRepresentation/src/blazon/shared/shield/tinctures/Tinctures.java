@@ -10,6 +10,7 @@ import java.util.Map;
 
 import blazon.shared.numberconversion.NumberConversionException;
 import blazon.shared.numberconversion.NumberToOrdinalConverter;
+import blazon.shared.shield.ShieldLayer;
 
 /**
  * Represents a collection of tinctures to be placed on a
@@ -121,5 +122,24 @@ public class Tinctures implements Serializable {
 	public String toString() {
 		StringBuilder sb = new StringBuilder("Tinctures{tincturesOnLayer=");
 		return sb.append(tincturesOnLayer).append("}").toString();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof Tinctures)) {
+			return false;
+		}
+		Tinctures other = (Tinctures)obj;
+		return tincturesOnLayer == other.tincturesOnLayer || tincturesOnLayer.equals(other.tincturesOnLayer);
+	}
+	
+	@Override
+	public int hashCode() {
+		int result = 17;
+		result = 31 * result + (tincturesOnLayer == null ? 0 : tincturesOnLayer.hashCode());
+		return result;
 	}
 }
