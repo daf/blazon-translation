@@ -12,6 +12,9 @@ public class Shield implements Serializable {
 	private static final long serialVersionUID = 4665249893045885094L;
 	private ShieldLayer field;
 
+	private Shield() {}
+	//TODO add diagnostics
+	
 	/**
 	 * Build a Shield setting the field to the given parameter.
 	 * @param field the ShieldLayer that will be the field of the shield.
@@ -41,6 +44,25 @@ public class Shield implements Serializable {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Shield{field=").append(field);
 		return sb.append("}").toString();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof Shield)) {
+			return false;
+		}
+		Shield other = (Shield)obj;
+		return field.equals(other.field);
+	}
+	
+	@Override
+	public int hashCode() {
+		int result = 17;
+		result = 31 * result + (field == null ? 0 : field.hashCode());
+		return result;
 	}
 
 }

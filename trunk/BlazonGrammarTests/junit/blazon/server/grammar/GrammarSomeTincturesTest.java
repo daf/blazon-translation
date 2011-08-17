@@ -25,8 +25,8 @@ public class GrammarSomeTincturesTest {
 	}
 	
 	@Test
-	public void testThatBendWithOrAndSableGivesALayerWithTheCorrectTinctures() throws RecognitionException {
-		BlazonParser parser = new ParserCreator().createParser("or and sable");
+	public void testThatBendWithPurpureAndSableGivesALayerWithTheCorrectTinctures() throws RecognitionException {
+		BlazonParser parser = new ParserCreator().createParser("purpure and sable");
 		Tinctures tinctures = new Tinctures();
 		ShieldDivisionType sdt = new ShieldDivision().getDivisionType("bend");
 		ShieldLayer layer = parser.some_tinctures(tinctures, sdt);
@@ -58,8 +58,8 @@ public class GrammarSomeTincturesTest {
 	}
 	
 	@Test
-	public void testThatPaleWithOrAndSableGivesALayerWithTheCorrectTinctures() throws RecognitionException {
-		BlazonParser parser = new ParserCreator().createParser("or and sable");
+	public void testThatPaleWithErmineAndErminoisGivesALayerWithTheCorrectTinctures() throws RecognitionException {
+		BlazonParser parser = new ParserCreator().createParser("ermine and erminois");
 		Tinctures tinctures = new Tinctures();
 		ShieldDivisionType sdt = new ShieldDivision().getDivisionType("pale");
 		ShieldLayer layer = parser.some_tinctures(tinctures, sdt);
@@ -100,8 +100,8 @@ public class GrammarSomeTincturesTest {
 	}
 	
 	@Test
-	public void testThatPallWithOrSableAndGulesGivesALayerWithTheCorrectTinctures() throws RecognitionException {
-		BlazonParser parser = new ParserCreator().createParser("or sable and gules");
+	public void testThatPallWithErminesPeanAndPotentGivesALayerWithTheCorrectTinctures() throws RecognitionException {
+		BlazonParser parser = new ParserCreator().createParser("ermines pean and potent");
 		Tinctures tinctures = new Tinctures();
 		ShieldDivisionType sdt = new ShieldDivision().getDivisionType("pall");
 		parser.some_tinctures(tinctures, sdt);

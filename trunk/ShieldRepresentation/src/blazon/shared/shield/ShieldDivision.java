@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import blazon.shared.numberconversion.WordToNumberConverter;
+import blazon.shared.shield.tinctures.Colour;
 
 /**
  * A class that represents the ways a shield can be divided.
@@ -102,7 +103,7 @@ public class ShieldDivision implements Serializable {
 					return map.get(CROSS);
 				}
 				
-				if (numSections % 2 == 1) {
+				if (numSections % 2 != 0) {
 					numSections++;
 					System.err.println("Can't have gyronny of an odd number. Using division GYRONNY_OF_"
 							+ numSections);
@@ -160,7 +161,7 @@ public class ShieldDivision implements Serializable {
 				throw new IllegalArgumentException(
 						"Can not construct ShieldDivision with numberOfSections < 1");
 			}
-			if (numberOfTinctures > numberOfTinctures) {
+			if (numberOfTinctures > numberOfSections) {
 				throw new IllegalArgumentException(
 						"Can not construct ShieldDivision with numberOfTinctures > numberOfSections");
 			}
@@ -214,6 +215,30 @@ public class ShieldDivision implements Serializable {
 			sb.append(":numberOfTinctures=");
 			sb.append(numberOfTinctures).append("}");
 			return sb.toString();
+		}
+		
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj) {
+				return true;
+			}
+			if (!(obj instanceof ShieldDivisionType)) {
+				return false;
+			}
+			ShieldDivisionType other = (ShieldDivisionType)obj;
+			boolean nameMatch = name == other.name || name.equals(other.name);
+			boolean numberOfSectionsMatch = numberOfSections == other.numberOfSections;
+			boolean numberOfTincturesMatch = numberOfTinctures == other.numberOfTinctures;
+			return nameMatch && numberOfSectionsMatch && numberOfTincturesMatch;
+		}
+		
+		@Override
+		public int hashCode() {
+			int result = 17;
+			result = 31 * result + (name == null ? 0 : name.hashCode());
+			result = 31 * result + numberOfSections;
+			result = 31 * result + numberOfTinctures;
+			return result;
 		}
 	}
 

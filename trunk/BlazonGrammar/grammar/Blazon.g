@@ -33,7 +33,10 @@ options {
 } 
 
 shield returns [Shield s]
-		    :   field { $s = Shield.build($field.layer); }
+		    :   field { $s = Shield.build($field.layer);
+		    //TODO add lozengy etc
+		    //TODO add charges
+		    }
 		    ;
 
 field returns [ShieldLayer layer]
@@ -65,9 +68,8 @@ divided_field returns [ShieldLayer layer]
     
 plain_field returns [ShieldLayer layer]
 		    :   { Tinctures tinctures = new Tinctures(); }
-		        tincture[tinctures] ('plain')?
+		        tincture[tinctures] PLAIN?
 		        {
-		        //TODO add plain lexer rule
 		            tinctures.addTincture($tincture.tincture);
 		            $layer = ShieldLayer.buildUndividedShieldLayer(tinctures);
 		        }
@@ -105,7 +107,7 @@ special_div returns [String text]
                 {
                     try {
                         int gyronnyOf = converter.convert($number_digits_or_words.text);
-                        if (gyronnyOf \% 2 == 1) {
+                        if (gyronnyOf \% 2 != 0) {
                             gyronnyOf++;
                             System.err.println("Parsing 'special_div', gyronny can only be of an"
                                     + " even number; incremented number of sections to " + gyronnyOf);
@@ -172,6 +174,9 @@ AND     :   'and'
 OF      :   'of'
         ;
 
+PLAIN   :   'plain'
+        ;
+        
 NUMWORDS
         :   'one' | 'eleven' | 'two' | 'twelve' | 'three' | 'thirteen' 
         |   'four''teen'? | 'five' | 'fifteen' | 'six''teen'? | 'seven''teen'?
