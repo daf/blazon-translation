@@ -22,10 +22,10 @@ import blazon.shared.shield.tinctures.*;
 public class ShieldSVGDrawer {
 	
 	private OMSVGDocument doc;
-	private Shield shield;
+	private ShieldImpl shield;
 	private OMSVGDefsElement defs;
 
-	public static ShieldSVGDrawer build(Shield shield, OMSVGDocument doc, OMSVGDefsElement defs) {
+	public static ShieldSVGDrawer build(ShieldImpl shield, OMSVGDocument doc, OMSVGDefsElement defs) {
 		ShieldSVGDrawer drawer = new ShieldSVGDrawer();
 		drawer.doc = doc;
 		drawer.shield = shield;

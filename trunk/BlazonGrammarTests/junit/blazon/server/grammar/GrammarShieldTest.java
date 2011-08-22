@@ -1,3 +1,4 @@
+package blazon.server.grammar;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -10,8 +11,7 @@ import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 
 import blazon.server.grammar.BlazonParser;
-import blazon.server.grammar.ParserCreator;
-import blazon.shared.shield.Shield;
+import blazon.shared.shield.ShieldImpl;
 import blazon.shared.shield.ShieldDivision;
 import blazon.shared.shield.ShieldLayer;
 import blazon.shared.shield.ShieldDivision.ShieldDivisionType;
@@ -25,7 +25,7 @@ public class GrammarShieldTest {
 	@Test
 	public void testThatGulesReturnsTheCorrectLayer() throws RecognitionException, UnknownTinctureException {
 		BlazonParser parser = new ParserCreator().createParser("gules");
-		Shield shield = parser.shield();
+		ShieldImpl shield = (ShieldImpl) parser.shield();
 		
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
@@ -42,7 +42,7 @@ public class GrammarShieldTest {
 	@Test
 	public void testThatGulesPlainReturnsTheCorrectLayer() throws RecognitionException, UnknownTinctureException {
 		BlazonParser parser = new ParserCreator().createParser("gules plain");
-		Shield shield = parser.shield();
+		ShieldImpl shield = (ShieldImpl) parser.shield();
 		
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
@@ -62,15 +62,15 @@ public class GrammarShieldTest {
 		BlazonParser gulesPlainParser = new ParserCreator().createParser("gules plain");
 		BlazonParser gulesParser = new ParserCreator().createParser("gules");
 		
-		Shield gulesShield = gulesParser.shield();
-		Shield gulesPlainShield = gulesPlainParser.shield();
+		ShieldImpl gulesShield = (ShieldImpl) gulesParser.shield();
+		ShieldImpl gulesPlainShield = (ShieldImpl) gulesPlainParser.shield();
 		assertThat(gulesShield, is(equalTo(gulesPlainShield)));
 	}
 	
 	@Test
 	public void testThatPerBendGulesAndArgentGivesTheCorrectLayer() throws RecognitionException, UnknownTinctureException {
 		BlazonParser parser = new ParserCreator().createParser("per bend gules and argent");
-		Shield shield = parser.shield();
+		ShieldImpl shield = (ShieldImpl) parser.shield();
 		
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
@@ -89,7 +89,7 @@ public class GrammarShieldTest {
 	@Test
 	public void testThatPerBendArgentAndGulesGivesTheCorrectLayer() throws RecognitionException, UnknownTinctureException {
 		BlazonParser parser = new ParserCreator().createParser("per bend argent and gules");
-		Shield shield = parser.shield();
+		ShieldImpl shield = (ShieldImpl) parser.shield();
 		
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
@@ -108,7 +108,7 @@ public class GrammarShieldTest {
 	@Test
 	public void testThatPartyPerBendGulesAndArgentGivesTheCorrectLayer() throws RecognitionException, UnknownTinctureException {
 		BlazonParser parser = new ParserCreator().createParser("party per bend gules and argent");
-		Shield shield = parser.shield();
+		ShieldImpl shield = (ShieldImpl) parser.shield();
 		
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
@@ -127,7 +127,7 @@ public class GrammarShieldTest {
 	@Test
 	public void testThatPartedPerBendGulesAndArgentGivesTheCorrectLayer() throws RecognitionException, UnknownTinctureException {
 		BlazonParser parser = new ParserCreator().createParser("parted per bend gules and argent");
-		Shield shield = parser.shield();
+		ShieldImpl shield = (ShieldImpl) parser.shield();
 		
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
@@ -149,9 +149,9 @@ public class GrammarShieldTest {
 		BlazonParser partyParser = new ParserCreator().createParser("party per bend gules and argent");
 		BlazonParser perParser = new ParserCreator().createParser("per bend gules and argent");
 		
-		Shield partedShield = partedParser.shield();
-		Shield partyShield = partyParser.shield();
-		Shield perShield = perParser.shield();
+		ShieldImpl partedShield = (ShieldImpl) partedParser.shield();
+		ShieldImpl partyShield = (ShieldImpl) partyParser.shield();
+		ShieldImpl perShield = (ShieldImpl) perParser.shield();
 		
 		assertThat(partedShield, is(equalTo(partyShield)));
 		assertThat(partyShield, is(equalTo(perShield)));
@@ -161,7 +161,7 @@ public class GrammarShieldTest {
 	@Test
 	public void testThatPerBendSinisterGulesAndArgentGivesTheCorrectLayer() throws RecognitionException, UnknownTinctureException {
 		BlazonParser parser = new ParserCreator().createParser("per bend sinister gules and argent");
-		Shield shield = parser.shield();
+		ShieldImpl shield = (ShieldImpl) parser.shield();
 		
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
@@ -180,7 +180,7 @@ public class GrammarShieldTest {
 	@Test
 	public void testThatGyronnyGulesAndArgentGivesTheCorrectLayer() throws RecognitionException, UnknownTinctureException {
 		BlazonParser parser = new ParserCreator().createParser("gyronny gules and argent");
-		Shield shield = parser.shield();
+		ShieldImpl shield = (ShieldImpl) parser.shield();
 		
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
@@ -199,7 +199,7 @@ public class GrammarShieldTest {
 	@Test
 	public void testThatGyronnyOfSixteenGulesAndArgentGivesTheCorrectShield() throws RecognitionException, UnknownTinctureException {
 		BlazonParser parser = new ParserCreator().createParser("gyronny of sixteen gules and argent");
-		Shield shield = parser.shield();
+		ShieldImpl shield = (ShieldImpl) parser.shield();
 		
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
@@ -218,6 +218,7 @@ public class GrammarShieldTest {
 	@Test(expected=MismatchedTokenException.class)
 	public void testThatPerGyronnyGulesAndArgentThrowsMismatchedTokenException() throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("per gyronny gules and argent");
-		parser.shield();
+		ShieldImpl s = (ShieldImpl) parser.shield();
+		System.out.println(s.getShieldDiagnostics());
 	}
 }

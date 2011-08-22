@@ -1,6 +1,8 @@
 package blazon.client;
 
 
+import java.util.List;
+
 import org.vectomatic.dom.svg.OMSVGDefsElement;
 import org.vectomatic.dom.svg.OMSVGDescElement;
 import org.vectomatic.dom.svg.OMSVGDocument;
@@ -15,7 +17,10 @@ import org.vectomatic.dom.svg.OMSVGTitleElement;
 import org.vectomatic.dom.svg.utils.OMSVGParser;
 import org.vectomatic.dom.svg.utils.SVGConstants;
 
+import blazon.shared.shield.InvalidShield;
 import blazon.shared.shield.Shield;
+import blazon.shared.shield.ShieldImpl;
+import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -24,6 +29,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
@@ -55,10 +61,11 @@ public class ShieldDrawing implements EntryPoint {
 	private OMSVGDescElement desc;
 	private OMSVGDefsElement defs;
     private Element currentSVGElement;
+    private FlexTable currentDiagnosticsTable;
 
     
     public void onModuleLoad() {
-    	final Panel rootPanel = RootPanel.get();
+    	final Panel rootPanel = RootPanel.get("svgPanel");
     	final Panel svgPanel = createAndInitializeSVGPanel();
         rootPanel.add(svgPanel);
         addTextBoxAndButtonToUI(rootPanel, svgPanel);
@@ -139,20 +146,46 @@ public class ShieldDrawing implements EntryPoint {
         String enteredText = textBox.getText();
         addTitleAndDescriptionToSVG(enteredText);
         service.createShieldRepresentation(enteredText, new AsyncCallback<Shield>() {
+	
+	        @Override
+	        public void onFailure(Throwable caught) {
+	        		//caught.printStackTrace();
+	        }
+	
+	        @Override
+	        public void onSuccess(Shield s) {
+	        	removeInitialTextFromSVG();
+	        	if (s instanceof ShieldImpl) {
+	        		ShieldImpl shield = (ShieldImpl) s;
+		            drawShield(shield);
+		            displayShield(svgPanel);
+		            displayDiagnostics(shield.getShieldDiagnostics());
+	        	} else {
+	        		InvalidShield shield = (InvalidShield) s;
+	        		displayDiagnostics(shield.getShieldDiagnostics());
+	        	}
+	        }
 
-            @Override
-            public void onFailure(Throwable caught) {
-                caught.printStackTrace();
-            }
-
-            @Override
-            public void onSuccess(Shield shield) {
-            	removeInitialTextFromSVG();
-                drawShield(shield);
-                displayShield(svgPanel);
-            }
-            
-        });
+			private void displayDiagnostics(List<ShieldDiagnostic> shieldDiagnostics) {
+	            Panel diagPanel = RootPanel.get("diagnosticsPanel");
+	            FlexTable diagTable = new FlexTable();
+	            diagTable.setText(0, 0, "Severity Level");
+	            diagTable.setText(0, 1, "Information");
+	            if (shieldDiagnostics != null) {
+	                for (int i = 0; i < shieldDiagnostics.size(); i++) {
+	                	ShieldDiagnostic diag = shieldDiagnostics.get(i);
+	                	diagTable.setText(i + 1, 0, diag.getSeverity().toString());
+	                	diagTable.setText(i + 1, 1, diag.getMessage());
+	                }
+	            }
+	            if (currentDiagnosticsTable != null) {
+	            	diagPanel.remove(currentDiagnosticsTable);
+	            }
+	            currentDiagnosticsTable = diagTable;
+	            diagPanel.add(diagTable);
+			}
+	        
+	    });
     }
     
     private void addTitleAndDescriptionToSVG(String blazon) {
@@ -170,7 +203,7 @@ public class ShieldDrawing implements EntryPoint {
 
     }
     
-    private void drawShield(Shield shield) {
+    private void drawShield(ShieldImpl shield) {
     	if (shieldContainer != null) {
     		svg.removeChild(shieldContainer);
     	}

@@ -10,5 +10,5 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  */
 @RemoteServiceRelativePath("draw")
 public interface ShieldDrawingService extends RemoteService {
-	Shield createShieldRepresentation(String blazon) throws IllegalArgumentException;
+	Shield createShieldRepresentation(String blazon);
 }
