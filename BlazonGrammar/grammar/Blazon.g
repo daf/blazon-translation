@@ -5,39 +5,51 @@ options {
 }
 
 @header {
-  package blazon.server.grammar;
-  import blazon.shared.shield.*;
-  import blazon.shared.shield.ShieldDivision.ShieldDivisionType;
-  import blazon.shared.shield.tinctures.*;
-  import blazon.shared.numberconversion.WordToNumberConverter;
+package blazon.server.grammar;
+import blazon.shared.shield.*;
+import blazon.shared.shield.ShieldDivision.ShieldDivisionType;
+import blazon.shared.shield.diagnostic.ShieldDiagnostic;
+import blazon.shared.shield.diagnostic.ShieldDiagnostic.LogLevel;
+import blazon.shared.shield.tinctures.*;
+import blazon.shared.numberconversion.WordToNumberConverter;
 }
 
 @members {
-  WordToNumberConverter converter = new WordToNumberConverter();
+  private WordToNumberConverter converter = new WordToNumberConverter();
+  private List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
+  
+  @Override
+  public void emitErrorMessage(String msg) {
+    diags.add(ShieldDiagnostic.build(LogLevel.ERROR, msg));
+  }
 }
 
 @lexer::header {
-  package blazon.server.grammar;
+package blazon.server.grammar;
 }
 
 @rulecatch {
     catch (MyRecognitionException re) {
-        System.err.println("Caught MyRecognitionException:");
-        System.err.println(re.message);
+        diags.add(ShieldDiagnostic.build(LogLevel.ERROR, re));
         throw re;
-    } 
-    //catch (RecognitionException re) {
-    //    reportError(re);
-    //    recover(input,re);
-    //}
+    } catch (RecognitionException re) {
+        throw re;
+    }
+    //catch (RecognitionException re) { reportError(re); recover(input,re); }
 } 
 
 shield returns [Shield s]
-		    :   field { $s = Shield.build($field.layer);
+		    :   field { 
+		    $s = ShieldImpl.build($field.layer);
 		    //TODO add lozengy etc
 		    //TODO add charges
+		    $s.addDiagnostics(diags);
 		    }
 		    ;
+		    catch [RecognitionException re] {
+		        reportError(re);
+            return InvalidShield.build(diags);
+        }
 
 field returns [ShieldLayer layer]
 		    :   plain_field { $layer = $plain_field.layer; }
@@ -109,8 +121,8 @@ special_div returns [String text]
                         int gyronnyOf = converter.convert($number_digits_or_words.text);
                         if (gyronnyOf \% 2 != 0) {
                             gyronnyOf++;
-                            System.err.println("Parsing 'special_div', gyronny can only be of an"
-                                    + " even number; incremented number of sections to " + gyronnyOf);
+                            diags.add(ShieldDiagnostic.build(LogLevel.WARN, "Parsing 'special_div', gyronny can only be of an"
+                                    + " even number; incremented number of sections to " + gyronnyOf));
                         }
                         text += " " + gyronnyOf;
                     } catch (Exception e) {
