@@ -60,6 +60,16 @@ public class ShieldSVGDrawer {
 			putNewRectElementOnGElement(field, xMin, yMin, xMid, yMax, it.next());
 			putNewRectElementOnGElement(field, xMid, yMin, xMid, yMax, it.next());
 		}
+		if (divisionName.equals(ShieldDivision.TIERCED_FESS)) {
+			putNewRectElementOnGElement(field, xMin, yMin, xMax, yMax/3, it.next());
+			putNewRectElementOnGElement(field, xMin, yMax/3, xMax, yMax/3, it.next());
+			putNewRectElementOnGElement(field, xMin, 2*yMax/3, xMax, yMax/3, it.next());
+		}
+		else if (divisionName.equals(ShieldDivision.TIERCED_PALE)) {
+			putNewRectElementOnGElement(field, xMin, yMin, xMax/3, yMax, it.next());
+			putNewRectElementOnGElement(field, xMax/3, yMin, xMax/3, yMax, it.next());
+			putNewRectElementOnGElement(field, 2*xMax/3, yMin, xMax/3, yMax, it.next());
+		}
 		else if (divisionName.equals(ShieldDivision.BEND)) {
 			Point pointA = Point.build(xMin, yMin);
 			Point pointB = Point.build(xMax, yMin);
@@ -192,8 +202,8 @@ public class ShieldSVGDrawer {
 		field.appendChild(polygonElement);
 	}
 
-	private void putNewRectElementOnGElement(OMSVGGElement gElement, int xMin, int yMin, int xMax, int yMax, Tincture t) {
-		OMSVGElement element = doc.createSVGRectElement(xMin, yMin, xMax, yMax, 0, 0);
+	private void putNewRectElementOnGElement(OMSVGGElement gElement, int xMin, int yMin, int width, int height, Tincture t) {
+		OMSVGElement element = doc.createSVGRectElement(xMin, yMin, width, height, 0, 0);
 		addFillToElement(t, element);
 		gElement.appendChild(element);
 	}

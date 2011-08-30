@@ -1,8 +1,10 @@
 package blazon.shared.shield;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import blazon.shared.shield.ShieldDivision.ShieldDivisionType;
+import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.tinctures.Tinctures;
 
 public class ShieldLayer implements Serializable {
@@ -16,7 +18,7 @@ public class ShieldLayer implements Serializable {
 	
 	public static ShieldLayer buildUndividedShieldLayer(Tinctures t) {
 		ShieldDivision divisions = new ShieldDivision();
-		return buildDividedShieldLayer(t, divisions.getDivisionType(ShieldDivision.NONE));
+		return buildDividedShieldLayer(t, divisions.getDivisionType(ShieldDivision.NONE, new ArrayList<ShieldDiagnostic>()));
 	}
 
 	public static ShieldLayer buildDividedShieldLayer(Tinctures t, ShieldDivisionType division) {

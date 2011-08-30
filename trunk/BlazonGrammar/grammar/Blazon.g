@@ -32,13 +32,13 @@ package blazon.server.grammar;
     catch (RecognitionException re) {
         throw re;
     }
-    //catch (RecognitionException re) { reportError(re); recover(input,re); }
 } 
 
 shield returns [Shield s]
-		    :   field { 
+		    :   
+		    field { 
 		    $s = ShieldImpl.build($field.layer);
-		    //TOOD make HTML pretty
+		    //TODO make HTML pretty
 		    //TODO add lozengy etc
 		    //TODO add charges
 		    $s.addDiagnostics(diags);
@@ -56,22 +56,9 @@ field returns [ShieldLayer layer]
     
 divided_field returns [ShieldLayer layer]
 		    : 
-		      {
-		        ShieldDivisionType division = null;
-		        Tinctures tinctures = new Tinctures();
-		        ShieldDivision divisions = new ShieldDivision();
-		      }
-			    (
-			        div {
-			            division = divisions.getDivisionType($div.text);
-			        }
-			    |
-			        special_div { 
-			            division = divisions.getDivisionType($special_div.text); 
-			        }
-			        
-			    )
-		        some_tinctures[tinctures, division] { $layer = $some_tinctures.layer; }
+		      { Tinctures tinctures = new Tinctures(); }
+			    div { ShieldDivisionType division = $div.division; }
+	        some_tinctures[tinctures, division] { $layer = $some_tinctures.layer; }
 		    ;    
     
 plain_field returns [ShieldLayer layer]
@@ -104,20 +91,22 @@ some_tinctures [Tinctures tinctures, ShieldDivisionType division] returns [Shiel
 		        }
         ;
 
-div returns [String text]
-        :   { text = ""; }
+div returns [ShieldDivisionType division]
+        :   { String text = ""; }
+        (    
             (
-                TIERCED { text = $TIERCED.text; }
+                TIERCED { text = $TIERCED.text + " "; }
             )?
             PARTYPER
-            DIV { text += " " + $DIV.text; }
+            DIV { text += $DIV.text; }
             (
-                MODIFIER { text += " " + $MODIFIER.text; }
+                divModifier1 = DIV_MODIFIER { text += " " + $divModifier1.text; }
             )?
-        ;
-
-special_div returns [String text]
-        :   GYRONNY { text = $GYRONNY.text; }
+        |
+            VARIABLE_DIV { text = $VARIABLE_DIV.text; }
+            (
+                divModifier2 = DIV_MODIFIER { text += " " + $divModifier2.text; }
+            )?
             (
                 OF { text += " " + $OF.text; }
                 number_digits_or_words
@@ -136,6 +125,14 @@ special_div returns [String text]
                     }
                 }
             )?
+        )
+        {
+            if (state.errorRecovery) {
+                throw new MyRecognitionException(null);
+            }
+            ShieldDivision divisions = new ShieldDivision();
+            $division = divisions.getDivisionType(text, diags);
+        }
         ;
 
 number_digits_or_words
@@ -157,7 +154,7 @@ tincture [Tinctures tinctures] returns [Tincture tincture]
         }
         ;
 
-MODIFIER
+DIV_MODIFIER
         :   'reversed' | 'sinister'
         ;
 
@@ -168,7 +165,7 @@ TIERCED
 DIV     :   'fess' | 'pale' | 'bend' | 'cross' | 'saltire' | 'chevron' | 'pall' | 'pairle'
         ;
         
-GYRONNY :   'gyronny'
+VARIABLE_DIV :   'gyronny' | 'barry' | 'paly' | 'bendy' | 'chevronny'
         ;
 
 PARTYPER

@@ -1,11 +1,14 @@
 package blazon.shared.shield;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import blazon.shared.numberconversion.WordToNumberConverter;
-import blazon.shared.shield.tinctures.Colour;
+import blazon.shared.shield.diagnostic.ShieldDiagnostic;
+import blazon.shared.shield.diagnostic.ShieldDiagnostic.LogLevel;
 
 /**
  * A class that represents the ways a shield can be divided.
@@ -15,8 +18,17 @@ import blazon.shared.shield.tinctures.Colour;
 public class ShieldDivision implements Serializable {
 
 	public static final String GYRONNY = "GYRONNY";
+	public static final String BENDY = "BENDY";
+	public static final String BENDY_SINISTER = "BENDY";
+	public static final String BARRY = "BARRY";
+	public static final String PALY = "PALY";
+	public static final String CHEVRONNY = "CHEVRONNY";
+	public static final String CHEVRONNY_REVERSED = "CHEVRONNY_REVERSED";
+	public static final String TIERCED_PALE = "TIERCED_PALE";
+	public static final String TIERCED_FESS = "TIERCED_FESS";
 	public static final String PALL_REVERSED = "PALL_REVERSED";
 	public static final String PALL = "PALL";
+	private static final String TIERCED_PAIRLE = "TIERCED_PAIRLE";
 	public static final String CHEVRON_REVERSED = "CHEVRON_REVERSED";
 	public static final String CHEVRON = "CHEVRON";
 	public static final String SALTIRE = "SALTIRE";
@@ -28,6 +40,7 @@ public class ShieldDivision implements Serializable {
 	public static final String NONE = "NONE";
 	private static final long serialVersionUID = 88067752583187630L;
 	private Map<String, ShieldDivisionType> map;
+	private List<String> variableDivs;
 
 	/**
 	 * Construct a ShieldDivision object and fill
@@ -35,6 +48,8 @@ public class ShieldDivision implements Serializable {
 	 */
 	public ShieldDivision() {
 		map = new HashMap<String, ShieldDivisionType>();
+		variableDivs = new ArrayList<String>();
+		
 		ShieldDivisionType div = ShieldDivisionType.build(NONE, 1, 1);
 		map.put(div.getName(), div);
 		div = ShieldDivisionType.build(PALE, 2, 2);
@@ -57,8 +72,32 @@ public class ShieldDivision implements Serializable {
 		map.put(div.getName(), div);
 		div = ShieldDivisionType.build(PALL_REVERSED, 3, 3);
 		map.put(div.getName(), div);
+		div = ShieldDivisionType.build(TIERCED_PALE, 3, 3);
+		map.put(div.getName(), div);
+		div = ShieldDivisionType.build(TIERCED_FESS, 3, 3);
+		map.put(div.getName(), div);
+		
 		div = ShieldDivisionType.build(GYRONNY, 8, 2);
 		map.put(div.getName(), div);
+		variableDivs.add(div.getName());
+		div = ShieldDivisionType.build(BENDY, 6, 2);
+		map.put(div.getName(), div);
+		variableDivs.add(div.getName());
+		div = ShieldDivisionType.build(BENDY_SINISTER, 6, 2);
+		map.put(div.getName(), div);
+		variableDivs.add(div.getName());
+		div = ShieldDivisionType.build(BARRY, 6, 2);
+		map.put(div.getName(), div);
+		variableDivs.add(div.getName());
+		div = ShieldDivisionType.build(PALY, 6, 2);
+		map.put(div.getName(), div);
+		variableDivs.add(div.getName());
+		div = ShieldDivisionType.build(CHEVRONNY, 6, 2);
+		map.put(div.getName(), div);
+		variableDivs.add(div.getName());
+		div = ShieldDivisionType.build(CHEVRONNY_REVERSED, 6, 2);
+		map.put(div.getName(), div);
+		variableDivs.add(div.getName());
 	}
 
 	/**
@@ -79,44 +118,100 @@ public class ShieldDivision implements Serializable {
 	 * If X is odd then this method will return a ShieldDivisionType
 	 * representing a shield divided "GYRONNY_OF_X+1"
 	 */
-	public ShieldDivisionType getDivisionType(String name) {
+	public ShieldDivisionType getDivisionType(String name, List<ShieldDiagnostic> errorsList) {
 		if (name == null || name.trim().isEmpty()) {
 			throw new IllegalArgumentException("Can not get ShieldDivisionType with null or empty name");
 		}
-		name = name.toUpperCase().trim().replace(' ', '_');;
+		name = name.toUpperCase().trim().replace(' ', '_');
+		name = name.replace(TIERCED_PAIRLE, PALL);
 		ShieldDivisionType div = map.get(name);
 		if (div != null) {
 			return div;
 		}
-		final String gyronnyOf = "GYRONNY_OF_";
-		if (name.startsWith(gyronnyOf)) {
-			try {
-				WordToNumberConverter converter = new WordToNumberConverter();
-				int numSections;
-				String numSectionsString = name.replaceFirst(gyronnyOf, "");
-				numSections = converter.convert(numSectionsString);
-				if (numSections < 4) {
-					System.err.println("Can't have gyronny of less than 6. Using division NONE");
-					return map.get(NONE);
-				} else if (numSections == 4) {
-					System.err.println("Can't have gyronny of less than 6. Using division CROSS");
-					return map.get(CROSS);
+		
+		final String of = "_OF_";
+		if (name.contains(of)) {
+			String divTypeName = name.substring(0, name.indexOf(of));
+			if (variableDivs.contains(divTypeName)) {
+				String numSectionsString = name.substring(name.indexOf(of) + of.length());
+				try {
+					WordToNumberConverter converter = new WordToNumberConverter();
+					int numSections = converter.convert(numSectionsString);
+
+					if (divTypeName.equals(GYRONNY)) {
+						if (numSections < 4) {
+							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have gyronny of less than 4; using division NONE"));
+							return map.get(NONE);
+						} else if (numSections == 4) {
+							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have gyronny of less than 6; using division CROSS"));
+							return map.get(CROSS);
+						}
+					} else if (divTypeName.equals(BARRY)) {
+						if (numSections == 2) {
+							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have barry less than 4; using division FESS"));
+							return map.get(FESS);
+						} else if (numSections < 2) {
+							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have barry of less than 2; using division NONE"));
+							return map.get(NONE);
+						}
+					} else if (divTypeName.equals(PALY)) {
+						if (numSections == 2) {
+							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have pall less than 4; using division PALE"));
+							return map.get(PALE);
+						} else if (numSections < 2) {
+							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have paly of less than 2; using division NONE"));
+							return map.get(NONE);
+						}
+					} else if (divTypeName.equals(BENDY)) {
+						if (numSections == 2) {
+							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have bendy less than 4; using division BEND"));
+							return map.get(BEND);
+						} else if (numSections < 2) {
+							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have bendy of less than 2; using division NONE"));
+							return map.get(NONE);
+						}
+					} else if (divTypeName.equals(BENDY_SINISTER)) {
+						if (numSections == 2) {
+							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have bendy sinister less than 4; using division BEND_SINISTER"));
+							return map.get(BEND_SINISTER);
+						} else if (numSections < 2) {
+							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have bendy sinister of less than 2; using division NONE"));
+							return map.get(NONE);
+						}
+					} else if (divTypeName.equals(CHEVRONNY)) {
+						if (numSections == 2) {
+							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have chevronny less than 4; using division CHEVRON"));
+							return map.get(CHEVRON);
+						} else if (numSections < 2) {
+							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have chevronny of less than 2; using division NONE"));
+							return map.get(NONE);
+						}
+					} else if (divTypeName.equals(CHEVRONNY_REVERSED)) {
+						if (numSections == 2) {
+							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have chevronny reversed less than 4; using division CHEVRONNY_REVERSED"));
+							return map.get(CHEVRON_REVERSED);
+						} else if (numSections < 2) {
+							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have chevronny reversed of less than 2; using division NONE"));
+							return map.get(NONE);
+						}
+					}
+					
+					if (numSections % 2 != 0) {
+						numSections++;
+						errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have division of an odd number; using division of "
+								+ numSections));
+					}
+					
+					name = divTypeName + of + numSections;
+					div = ShieldDivisionType.build(name, numSections, 2);
+					map.put(name, div);
+					return div;
+				} catch (Exception e) {
+					errorsList.add(ShieldDiagnostic.build(LogLevel.ERROR, "Caught: " + e + "; using division NONE"));
 				}
-				
-				if (numSections % 2 != 0) {
-					numSections++;
-					System.err.println("Can't have gyronny of an odd number. Using division GYRONNY_OF_"
-							+ numSections);
-				}
-				name = gyronnyOf + numSections;
-				div = ShieldDivisionType.build(name, numSections, 2);
-				map.put(name, div);
-				return div;
-			} catch (Exception e) {
-				System.err.println("Caught: " + e + "\nUsing division NONE");
 			}
-		} else {
-			System.err.println("Do not recognise division name '" + name + "'\nUsing division NONE");
+	    } else {
+	    	errorsList.add(ShieldDiagnostic.build(LogLevel.ERROR, "Do not recognise division name '" + name + "'; using division NONE"));
 		}
 		return map.get(NONE);
 	}
