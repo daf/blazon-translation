@@ -4,10 +4,10 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.antlr.runtime.MismatchedTokenException;
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 
@@ -32,7 +32,7 @@ public class GrammarShieldTest {
 		
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
-		ShieldDivisionType plain = new ShieldDivision().getDivisionType("none");
+		ShieldDivisionType plain = new ShieldDivision().getDivisionType("none", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
 		
@@ -49,7 +49,7 @@ public class GrammarShieldTest {
 		
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
-		ShieldDivisionType plain = new ShieldDivision().getDivisionType("none");
+		ShieldDivisionType plain = new ShieldDivision().getDivisionType("none", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
 		
@@ -78,7 +78,7 @@ public class GrammarShieldTest {
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
 		Tincture argent = tinctures.getTincture("argent");
-		ShieldDivisionType bend = new ShieldDivision().getDivisionType("bend");
+		ShieldDivisionType bend = new ShieldDivision().getDivisionType("bend", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
 		
@@ -97,7 +97,7 @@ public class GrammarShieldTest {
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
 		Tincture argent = tinctures.getTincture("argent");
-		ShieldDivisionType bend = new ShieldDivision().getDivisionType("bend");
+		ShieldDivisionType bend = new ShieldDivision().getDivisionType("bend", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
 		
@@ -116,7 +116,7 @@ public class GrammarShieldTest {
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
 		Tincture argent = tinctures.getTincture("argent");
-		ShieldDivisionType bend = new ShieldDivision().getDivisionType("bend");
+		ShieldDivisionType bend = new ShieldDivision().getDivisionType("bend", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
 		
@@ -135,7 +135,7 @@ public class GrammarShieldTest {
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
 		Tincture argent = tinctures.getTincture("argent");
-		ShieldDivisionType bend = new ShieldDivision().getDivisionType("bend");
+		ShieldDivisionType bend = new ShieldDivision().getDivisionType("bend", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
 		
@@ -169,7 +169,7 @@ public class GrammarShieldTest {
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
 		Tincture argent = tinctures.getTincture("argent");
-		ShieldDivisionType bendSinister = new ShieldDivision().getDivisionType("bend sinister");
+		ShieldDivisionType bendSinister = new ShieldDivision().getDivisionType("bend sinister", new ArrayList<ShieldDiagnostic>());
 
 		assertThat(shield.getField(), is(notNullValue()));
 		
@@ -188,7 +188,7 @@ public class GrammarShieldTest {
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
 		Tincture argent = tinctures.getTincture("argent");
-		ShieldDivisionType gyronny = new ShieldDivision().getDivisionType("gyronny");
+		ShieldDivisionType gyronny = new ShieldDivision().getDivisionType("gyronny", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
 		
@@ -207,7 +207,7 @@ public class GrammarShieldTest {
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
 		Tincture argent = tinctures.getTincture("argent");
-		ShieldDivisionType gyronny = new ShieldDivision().getDivisionType("gyronny of 16");
+		ShieldDivisionType gyronny = new ShieldDivision().getDivisionType("gyronny of 16", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
 		

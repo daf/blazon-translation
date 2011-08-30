@@ -5,9 +5,12 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 import blazon.shared.shield.ShieldDivision.ShieldDivisionType;
+import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.tinctures.Tinctures;
 import blazon.shared.shield.tinctures.UnknownTinctureException;
 
@@ -47,7 +50,7 @@ public class ShieldLayerTest {
 		Tinctures t = new Tinctures();
 		t.addTincture(t.getTincture("or"));
 		ShieldDivision division = new ShieldDivision();
-		ShieldDivisionType divType = division.getDivisionType("NONE");
+		ShieldDivisionType divType = division.getDivisionType("NONE", new ArrayList<ShieldDiagnostic>());
 		ShieldLayer layer = ShieldLayer.buildDividedShieldLayer(t, divType);
 		assertThat(layer.getShieldDivision(), is(equalTo(divType)));
 	}
@@ -58,7 +61,7 @@ public class ShieldLayerTest {
 		Tinctures t = new Tinctures();
 		t.addTincture(t.getTincture("or"));
 		ShieldDivision division = new ShieldDivision();
-		ShieldDivisionType divType = division.getDivisionType("FESS");
+		ShieldDivisionType divType = division.getDivisionType("FESS", new ArrayList<ShieldDiagnostic>());
 		ShieldLayer layer = ShieldLayer.buildDividedShieldLayer(t, divType);
 		assertThat(layer.getShieldDivision(), is(equalTo(divType)));
 	}
@@ -176,8 +179,8 @@ public class ShieldLayerTest {
 	
 	@Test
 	public void testThatTwoShieldLayersWithDifferentDivisionTypesEqualsReturnsFalse() {
-		ShieldDivisionType bend = new ShieldDivision().getDivisionType("bend");
-		ShieldDivisionType fess = new ShieldDivision().getDivisionType("fess");
+		ShieldDivisionType bend = new ShieldDivision().getDivisionType("bend", new ArrayList<ShieldDiagnostic>());
+		ShieldDivisionType fess = new ShieldDivision().getDivisionType("fess", new ArrayList<ShieldDiagnostic>());
 		ShieldLayer layer1 = ShieldLayer.buildDividedShieldLayer(new Tinctures(), bend);
 		ShieldLayer layer2 = ShieldLayer.buildDividedShieldLayer(new Tinctures(), fess);
 		assertThat(layer1.equals(layer2), is(false));
@@ -185,8 +188,8 @@ public class ShieldLayerTest {
 	
 	@Test
 	public void testThatTwoShieldLayersWithDifferentDivisionTypesEqualsReturnsFalseConsistently() {
-		ShieldDivisionType bend = new ShieldDivision().getDivisionType("bend");
-		ShieldDivisionType fess = new ShieldDivision().getDivisionType("fess");
+		ShieldDivisionType bend = new ShieldDivision().getDivisionType("bend", new ArrayList<ShieldDiagnostic>());
+		ShieldDivisionType fess = new ShieldDivision().getDivisionType("fess", new ArrayList<ShieldDiagnostic>());
 		ShieldLayer layer1 = ShieldLayer.buildDividedShieldLayer(new Tinctures(), bend);
 		ShieldLayer layer2 = ShieldLayer.buildDividedShieldLayer(new Tinctures(), fess);
 		assertThat(layer1.equals(layer2), is(false));
@@ -210,8 +213,8 @@ public class ShieldLayerTest {
 		tincturesWithOr1.addTincture(tincturesWithOr1.getTincture("or"));
 		Tinctures tincturesWithOr2 = new Tinctures();
 		tincturesWithOr2.addTincture(tincturesWithOr2.getTincture("or"));
-		ShieldDivisionType fess1 = new ShieldDivision().getDivisionType("fess");
-		ShieldDivisionType fess2 = new ShieldDivision().getDivisionType("fess");
+		ShieldDivisionType fess1 = new ShieldDivision().getDivisionType("fess", new ArrayList<ShieldDiagnostic>());
+		ShieldDivisionType fess2 = new ShieldDivision().getDivisionType("fess", new ArrayList<ShieldDiagnostic>());
 		ShieldLayer layer1 = ShieldLayer.buildDividedShieldLayer(tincturesWithOr1, fess1);
 		ShieldLayer layer2 = ShieldLayer.buildDividedShieldLayer(tincturesWithOr2, fess2);
 		assertThat(layer1.equals(layer2), is(true));
@@ -224,8 +227,8 @@ public class ShieldLayerTest {
 		tincturesWithOr1.addTincture(tincturesWithOr1.getTincture("or"));
 		Tinctures tincturesWithOr2 = new Tinctures();
 		tincturesWithOr2.addTincture(tincturesWithOr2.getTincture("or"));
-		ShieldDivisionType fess1 = new ShieldDivision().getDivisionType("fess");
-		ShieldDivisionType fess2 = new ShieldDivision().getDivisionType("fess");
+		ShieldDivisionType fess1 = new ShieldDivision().getDivisionType("fess", new ArrayList<ShieldDiagnostic>());
+		ShieldDivisionType fess2 = new ShieldDivision().getDivisionType("fess", new ArrayList<ShieldDiagnostic>());
 		ShieldLayer layer1 = ShieldLayer.buildDividedShieldLayer(tincturesWithOr1, fess1);
 		ShieldLayer layer2 = ShieldLayer.buildDividedShieldLayer(tincturesWithOr2, fess2);
 		assertThat(layer1.equals(layer2), is(true));
@@ -240,8 +243,8 @@ public class ShieldLayerTest {
 		tincturesWithOr1.addTincture(tincturesWithOr1.getTincture("or"));
 		Tinctures tincturesWithOr2 = new Tinctures();
 		tincturesWithOr2.addTincture(tincturesWithOr2.getTincture("or"));
-		ShieldDivisionType fess1 = new ShieldDivision().getDivisionType("fess");
-		ShieldDivisionType fess2 = new ShieldDivision().getDivisionType("fess");
+		ShieldDivisionType fess1 = new ShieldDivision().getDivisionType("fess", new ArrayList<ShieldDiagnostic>());
+		ShieldDivisionType fess2 = new ShieldDivision().getDivisionType("fess", new ArrayList<ShieldDiagnostic>());
 		ShieldLayer layer1 = ShieldLayer.buildDividedShieldLayer(tincturesWithOr1, fess1);
 		ShieldLayer layer2 = ShieldLayer.buildDividedShieldLayer(tincturesWithOr2, fess2);
 		assertThat(layer1.equals(layer2), is(true));
@@ -260,9 +263,9 @@ public class ShieldLayerTest {
 		tincturesWithOr2.addTincture(tincturesWithOr2.getTincture("or"));
 		Tinctures tincturesWithOr3 = new Tinctures();
 		tincturesWithOr3.addTincture(tincturesWithOr3.getTincture("or"));
-		ShieldDivisionType fess1 = new ShieldDivision().getDivisionType("fess");
-		ShieldDivisionType fess2 = new ShieldDivision().getDivisionType("fess");
-		ShieldDivisionType fess3 = new ShieldDivision().getDivisionType("fess");
+		ShieldDivisionType fess1 = new ShieldDivision().getDivisionType("fess", new ArrayList<ShieldDiagnostic>());
+		ShieldDivisionType fess2 = new ShieldDivision().getDivisionType("fess", new ArrayList<ShieldDiagnostic>());
+		ShieldDivisionType fess3 = new ShieldDivision().getDivisionType("fess", new ArrayList<ShieldDiagnostic>());
 		ShieldLayer layer1 = ShieldLayer.buildDividedShieldLayer(tincturesWithOr1, fess1);
 		ShieldLayer layer2 = ShieldLayer.buildDividedShieldLayer(tincturesWithOr2, fess2);
 		ShieldLayer layer3 = ShieldLayer.buildDividedShieldLayer(tincturesWithOr3, fess3);
@@ -280,7 +283,7 @@ public class ShieldLayerTest {
 		tincturesWithOr.addTincture(tincturesWithOr.getTincture("or"));
 		Tinctures tincturesWithGules = new Tinctures();
 		tincturesWithGules.addTincture(tincturesWithGules.getTincture("or"));
-		ShieldDivisionType fess = new ShieldDivision().getDivisionType("fess");
+		ShieldDivisionType fess = new ShieldDivision().getDivisionType("fess", new ArrayList<ShieldDiagnostic>());
 		
 		ShieldLayer layer1 = ShieldLayer.buildDividedShieldLayer(tincturesWithOr, fess);
 		ShieldLayer layer2 = ShieldLayer.buildDividedShieldLayer(tincturesWithOr, fess);
@@ -297,7 +300,7 @@ public class ShieldLayerTest {
 		tincturesWithOr.addTincture(tincturesWithOr.getTincture("or"));
 		Tinctures tincturesWithGules = new Tinctures();
 		tincturesWithGules.addTincture(tincturesWithGules.getTincture("or"));
-		ShieldDivisionType fess = new ShieldDivision().getDivisionType("fess");
+		ShieldDivisionType fess = new ShieldDivision().getDivisionType("fess", new ArrayList<ShieldDiagnostic>());
 		
 		ShieldLayer layer1 = ShieldLayer.buildDividedShieldLayer(tincturesWithOr, fess);
 		ShieldLayer layer2 = ShieldLayer.buildDividedShieldLayer(tincturesWithOr, fess);

@@ -1,5 +1,7 @@
 package blazon.server.grammar;
 
+import java.util.ArrayList;
+
 import org.antlr.runtime.MismatchedTokenException;
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
@@ -8,6 +10,7 @@ import org.antlr.runtime.NoViableAltException;
 import blazon.shared.shield.ShieldDivision;
 import blazon.shared.shield.ShieldDivision.ShieldDivisionType;
 import blazon.shared.shield.ShieldLayer;
+import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.tinctures.Tinctures;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -20,7 +23,7 @@ public class GrammarSomeTincturesTest {
 	public void testThatBendWithOrIsRejected() throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("or");
 		Tinctures tinctures = new Tinctures();
-		ShieldDivisionType sdt = new ShieldDivision().getDivisionType("bend");
+		ShieldDivisionType sdt = new ShieldDivision().getDivisionType("bend", new ArrayList<ShieldDiagnostic>());
 		parser.some_tinctures(tinctures, sdt);
 	}
 	
@@ -28,7 +31,7 @@ public class GrammarSomeTincturesTest {
 	public void testThatBendWithPurpureAndSableGivesALayerWithTheCorrectTinctures() throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("purpure and sable");
 		Tinctures tinctures = new Tinctures();
-		ShieldDivisionType sdt = new ShieldDivision().getDivisionType("bend");
+		ShieldDivisionType sdt = new ShieldDivision().getDivisionType("bend", new ArrayList<ShieldDiagnostic>());
 		ShieldLayer layer = parser.some_tinctures(tinctures, sdt);
 		assertThat(layer.getTinctures(), is(equalTo(tinctures)));
 	}
@@ -37,7 +40,7 @@ public class GrammarSomeTincturesTest {
 	public void testThatBendWithOrSableIsRejected() throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("or sable");
 		Tinctures tinctures = new Tinctures();
-		ShieldDivisionType sdt = new ShieldDivision().getDivisionType("bend");
+		ShieldDivisionType sdt = new ShieldDivision().getDivisionType("bend", new ArrayList<ShieldDiagnostic>());
 		parser.some_tinctures(tinctures, sdt);
 	}
 	
@@ -45,7 +48,7 @@ public class GrammarSomeTincturesTest {
 	public void testThatBendWithOrSableAndGulesIsRejected() throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("or sable and gules");
 		Tinctures tinctures = new Tinctures();
-		ShieldDivisionType sdt = new ShieldDivision().getDivisionType("bend");
+		ShieldDivisionType sdt = new ShieldDivision().getDivisionType("bend", new ArrayList<ShieldDiagnostic>());
 		parser.some_tinctures(tinctures, sdt);
 	}
 	
@@ -53,7 +56,7 @@ public class GrammarSomeTincturesTest {
 	public void testThatPaleWithOrIsRejected() throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("or");
 		Tinctures tinctures = new Tinctures();
-		ShieldDivisionType sdt = new ShieldDivision().getDivisionType("pale");
+		ShieldDivisionType sdt = new ShieldDivision().getDivisionType("pale", new ArrayList<ShieldDiagnostic>());
 		parser.some_tinctures(tinctures, sdt);
 	}
 	
@@ -61,7 +64,7 @@ public class GrammarSomeTincturesTest {
 	public void testThatPaleWithErmineAndErminoisGivesALayerWithTheCorrectTinctures() throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("ermine and erminois");
 		Tinctures tinctures = new Tinctures();
-		ShieldDivisionType sdt = new ShieldDivision().getDivisionType("pale");
+		ShieldDivisionType sdt = new ShieldDivision().getDivisionType("pale", new ArrayList<ShieldDiagnostic>());
 		ShieldLayer layer = parser.some_tinctures(tinctures, sdt);
 		assertThat(layer.getTinctures(), is(equalTo(tinctures)));
 	}
@@ -70,7 +73,7 @@ public class GrammarSomeTincturesTest {
 	public void testThatPaleWithOrSableIsRejected() throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("or sable");
 		Tinctures tinctures = new Tinctures();
-		ShieldDivisionType sdt = new ShieldDivision().getDivisionType("pale");
+		ShieldDivisionType sdt = new ShieldDivision().getDivisionType("pale", new ArrayList<ShieldDiagnostic>());
 		parser.some_tinctures(tinctures, sdt);
 	}
 	
@@ -78,7 +81,7 @@ public class GrammarSomeTincturesTest {
 	public void testThatPaleWithOrSableAndGulesIsRejected() throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("or sable and gules");
 		Tinctures tinctures = new Tinctures();
-		ShieldDivisionType sdt = new ShieldDivision().getDivisionType("pale");
+		ShieldDivisionType sdt = new ShieldDivision().getDivisionType("pale", new ArrayList<ShieldDiagnostic>());
 		parser.some_tinctures(tinctures, sdt);
 	}
 	
@@ -87,7 +90,7 @@ public class GrammarSomeTincturesTest {
 	public void testThatPallWithOrIsRejected() throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("or");
 		Tinctures tinctures = new Tinctures();
-		ShieldDivisionType sdt = new ShieldDivision().getDivisionType("pall");
+		ShieldDivisionType sdt = new ShieldDivision().getDivisionType("pall", new ArrayList<ShieldDiagnostic>());
 		parser.some_tinctures(tinctures, sdt);
 	}
 	
@@ -95,7 +98,7 @@ public class GrammarSomeTincturesTest {
 	public void testThatPallWithOrAndSableIsRejected() throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("or and sable");
 		Tinctures tinctures = new Tinctures();
-		ShieldDivisionType sdt = new ShieldDivision().getDivisionType("pall");
+		ShieldDivisionType sdt = new ShieldDivision().getDivisionType("pall", new ArrayList<ShieldDiagnostic>());
 		parser.some_tinctures(tinctures, sdt);
 	}
 	
@@ -103,7 +106,7 @@ public class GrammarSomeTincturesTest {
 	public void testThatPallWithErminesPeanAndPotentGivesALayerWithTheCorrectTinctures() throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("ermines pean and potent");
 		Tinctures tinctures = new Tinctures();
-		ShieldDivisionType sdt = new ShieldDivision().getDivisionType("pall");
+		ShieldDivisionType sdt = new ShieldDivision().getDivisionType("pall", new ArrayList<ShieldDiagnostic>());
 		parser.some_tinctures(tinctures, sdt);
 	}
 	
@@ -111,7 +114,7 @@ public class GrammarSomeTincturesTest {
 	public void testThatPallWithOrSableGulesAndArgentIsRejected() throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("or sable gules and argent");
 		Tinctures tinctures = new Tinctures();
-		ShieldDivisionType sdt = new ShieldDivision().getDivisionType("pall");
+		ShieldDivisionType sdt = new ShieldDivision().getDivisionType("pall", new ArrayList<ShieldDiagnostic>());
 		parser.some_tinctures(tinctures, sdt);
 	}
 	
@@ -119,7 +122,7 @@ public class GrammarSomeTincturesTest {
 	public void testThatGulesAndIsRejected() throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("gules and");
 		Tinctures tinctures = new Tinctures();
-		ShieldDivisionType sdt = new ShieldDivision().getDivisionType("bend");
+		ShieldDivisionType sdt = new ShieldDivision().getDivisionType("bend", new ArrayList<ShieldDiagnostic>());
 		parser.some_tinctures(tinctures, sdt);
 	}
 }

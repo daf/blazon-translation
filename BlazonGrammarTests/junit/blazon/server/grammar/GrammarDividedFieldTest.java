@@ -1,4 +1,5 @@
 package blazon.server.grammar;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.antlr.runtime.MismatchedTokenException;
@@ -9,6 +10,7 @@ import blazon.server.grammar.BlazonParser;
 import blazon.shared.shield.ShieldDivision;
 import blazon.shared.shield.ShieldLayer;
 import blazon.shared.shield.ShieldDivision.ShieldDivisionType;
+import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.tinctures.Tincture;
 import blazon.shared.shield.tinctures.Tinctures;
 import blazon.shared.shield.tinctures.UnknownTinctureException;
@@ -27,7 +29,7 @@ public class GrammarDividedFieldTest {
 		Tinctures tinctures = new Tinctures();
 		Tincture vairEnPale = tinctures.getTincture("vair-en-pale");
 		Tincture argent = tinctures.getTincture("argent");
-		ShieldDivisionType bend = new ShieldDivision().getDivisionType("bend");
+		ShieldDivisionType bend = new ShieldDivision().getDivisionType("bend", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(layer.getShieldDivision(), is(equalTo(bend)));
 		Iterator<Tincture> tincturesOnLayer = layer.getTinctures().getTincturesOnLayer().iterator();
@@ -43,7 +45,7 @@ public class GrammarDividedFieldTest {
 		Tinctures tinctures = new Tinctures();
 		Tincture vairEnPoint = tinctures.getTincture("vair-en-point");
 		Tincture argent = tinctures.getTincture("argent");
-		ShieldDivisionType bend = new ShieldDivision().getDivisionType("bend");
+		ShieldDivisionType bend = new ShieldDivision().getDivisionType("bend", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(layer.getShieldDivision(), is(equalTo(bend)));
 		Iterator<Tincture> tincturesOnLayer = layer.getTinctures().getTincturesOnLayer().iterator();
@@ -59,7 +61,7 @@ public class GrammarDividedFieldTest {
 		Tinctures tinctures = new Tinctures();
 		Tincture potentEnPale = tinctures.getTincture("potent-en-pale");
 		Tincture argent = tinctures.getTincture("argent");
-		ShieldDivisionType bend = new ShieldDivision().getDivisionType("bend");
+		ShieldDivisionType bend = new ShieldDivision().getDivisionType("bend", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(layer.getShieldDivision(), is(equalTo(bend)));
 		Iterator<Tincture> tincturesOnLayer = layer.getTinctures().getTincturesOnLayer().iterator();
@@ -75,7 +77,7 @@ public class GrammarDividedFieldTest {
 		Tinctures tinctures = new Tinctures();
 		Tincture potentEnPoint = tinctures.getTincture("potent-en-point");
 		Tincture argent = tinctures.getTincture("argent");
-		ShieldDivisionType bend = new ShieldDivision().getDivisionType("bend");
+		ShieldDivisionType bend = new ShieldDivision().getDivisionType("bend", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(layer.getShieldDivision(), is(equalTo(bend)));
 		Iterator<Tincture> tincturesOnLayer = layer.getTinctures().getTincturesOnLayer().iterator();
@@ -106,7 +108,7 @@ public class GrammarDividedFieldTest {
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
 		Tincture argent = tinctures.getTincture("argent");
-		ShieldDivisionType bendSinister = new ShieldDivision().getDivisionType("bend sinister");
+		ShieldDivisionType bendSinister = new ShieldDivision().getDivisionType("bend sinister", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(layer.getShieldDivision(), is(equalTo(bendSinister)));
 		Iterator<Tincture> tincturesOnLayer = layer.getTinctures().getTincturesOnLayer().iterator();
@@ -122,7 +124,7 @@ public class GrammarDividedFieldTest {
 		Tinctures tinctures = new Tinctures();
 		Tincture counterVair = tinctures.getTincture("counter-vair");
 		Tincture argent = tinctures.getTincture("argent");
-		ShieldDivisionType gyronny = new ShieldDivision().getDivisionType("gyronny");
+		ShieldDivisionType gyronny = new ShieldDivision().getDivisionType("gyronny", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(layer.getShieldDivision(), is(equalTo(gyronny)));
 		Iterator<Tincture> tincturesOnLayer = layer.getTinctures().getTincturesOnLayer().iterator();
@@ -138,7 +140,7 @@ public class GrammarDividedFieldTest {
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
 		Tincture argent = tinctures.getTincture("argent");
-		ShieldDivisionType gyronny = new ShieldDivision().getDivisionType("gyronny of 16");
+		ShieldDivisionType gyronny = new ShieldDivision().getDivisionType("gyronny of 16", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(layer.getShieldDivision(), is(equalTo(gyronny)));
 		Iterator<Tincture> tincturesOnLayer = layer.getTinctures().getTincturesOnLayer().iterator();

@@ -1,4 +1,6 @@
 package blazon.server.grammar;
+import java.util.ArrayList;
+
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 
@@ -6,6 +8,7 @@ import blazon.server.grammar.BlazonParser;
 import blazon.shared.shield.ShieldDivision;
 import blazon.shared.shield.ShieldDivision.ShieldDivisionType;
 import blazon.shared.shield.ShieldLayer;
+import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.tinctures.Tincture;
 import blazon.shared.shield.tinctures.Tinctures;
 import blazon.shared.shield.tinctures.UnknownTinctureException;
@@ -23,7 +26,7 @@ public class GrammarPlainFieldTest {
 		
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
-		ShieldDivisionType plain = new ShieldDivision().getDivisionType("none");
+		ShieldDivisionType plain = new ShieldDivision().getDivisionType("none", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(layer.getShieldDivision(), is(equalTo(plain)));
 		Tincture tinctureOnLayer = layer.getTinctures().getTincturesOnLayer().iterator().next();
@@ -37,7 +40,7 @@ public class GrammarPlainFieldTest {
 		
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
-		ShieldDivisionType plain = new ShieldDivision().getDivisionType("none");
+		ShieldDivisionType plain = new ShieldDivision().getDivisionType("none", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(layer.getShieldDivision(), is(equalTo(plain)));
 		Tincture tinctureOnLayer = layer.getTinctures().getTincturesOnLayer().iterator().next();
