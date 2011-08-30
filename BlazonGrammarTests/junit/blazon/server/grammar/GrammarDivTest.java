@@ -6,26 +6,32 @@ import org.junit.Test;
 public class GrammarDivTest {
 	
 	@Test
-	public void testThatDivAcceptsBend() throws RecognitionException {
-		BlazonParser parser = new ParserCreator().createParser("bend");
+	public void testThatDivAcceptsPerBend() throws RecognitionException {
+		BlazonParser parser = new ParserCreator().createParser("per bend");
 		parser.div();
 	}
 	
 	@Test
-	public void testThatDivAcceptsChevron() throws RecognitionException {
-		BlazonParser parser = new ParserCreator().createParser("chevron");
+	public void testThatDivAcceptsPerChevron() throws RecognitionException {
+		BlazonParser parser = new ParserCreator().createParser("per chevron");
 		parser.div();
 	}
 	
 	@Test
-	public void testThatDivAcceptsBendSinister() throws RecognitionException {
-		BlazonParser parser = new ParserCreator().createParser("bend sinister");
+	public void testThatDivAcceptsPerBendSinister() throws RecognitionException {
+		BlazonParser parser = new ParserCreator().createParser("per bend sinister");
 		parser.div();
 	}
 	
 	@Test
-	public void testThatDivAcceptsChevronReversed() throws RecognitionException {
-		BlazonParser parser = new ParserCreator().createParser("chevron reversed");
+	public void testThatDivAcceptsPerChevronReversed() throws RecognitionException {
+		BlazonParser parser = new ParserCreator().createParser("per chevron reversed");
+		parser.div();
+	}
+	
+	@Test
+	public void testThatDivAcceptsTiercedPerPale()  throws RecognitionException {
+		BlazonParser parser = new ParserCreator().createParser("tierced per pale");
 		parser.div();
 	}
 }

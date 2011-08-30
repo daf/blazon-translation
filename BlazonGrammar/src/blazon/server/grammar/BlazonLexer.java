@@ -1,6 +1,6 @@
-// $ANTLR 3.3 Nov 30, 2010 12:50:56 C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g 2011-08-17 18:52:21
+// $ANTLR 3.3 Nov 30, 2010 12:50:56 C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g 2011-08-30 11:07:58
 
-  package blazon.server.grammar;
+package blazon.server.grammar;
 
 
 import org.antlr.runtime.*;
@@ -10,19 +10,20 @@ import java.util.ArrayList;
 
 public class BlazonLexer extends Lexer {
     public static final int EOF=-1;
-    public static final int PARTYPER=4;
-    public static final int PLAIN=5;
-    public static final int AND=6;
-    public static final int DIV=7;
-    public static final int MODIFIER=8;
-    public static final int GYRONNY=9;
-    public static final int OF=10;
-    public static final int DIGITS=11;
-    public static final int NUMWORDS=12;
-    public static final int COLOUR=13;
-    public static final int METAL=14;
-    public static final int FUR=15;
-    public static final int WS=16;
+    public static final int PLAIN=4;
+    public static final int AND=5;
+    public static final int TIERCED=6;
+    public static final int PARTYPER=7;
+    public static final int DIV=8;
+    public static final int MODIFIER=9;
+    public static final int GYRONNY=10;
+    public static final int OF=11;
+    public static final int DIGITS=12;
+    public static final int NUMWORDS=13;
+    public static final int COLOUR=14;
+    public static final int METAL=15;
+    public static final int FUR=16;
+    public static final int WS=17;
 
     // delegates
     // delegators
@@ -42,7 +43,7 @@ public class BlazonLexer extends Lexer {
         try {
             int _type = MODIFIER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:144:9: ( 'reversed' | 'sinister' )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:161:9: ( 'reversed' | 'sinister' )
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -60,7 +61,7 @@ public class BlazonLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:144:13: 'reversed'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:161:13: 'reversed'
                     {
                     match("reversed"); 
 
@@ -68,7 +69,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:144:26: 'sinister'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:161:26: 'sinister'
                     {
                     match("sinister"); 
 
@@ -85,17 +86,38 @@ public class BlazonLexer extends Lexer {
     }
     // $ANTLR end "MODIFIER"
 
+    // $ANTLR start "TIERCED"
+    public final void mTIERCED() throws RecognitionException {
+        try {
+            int _type = TIERCED;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:165:9: ( 'tierced' )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:165:13: 'tierced'
+            {
+            match("tierced"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "TIERCED"
+
     // $ANTLR start "DIV"
     public final void mDIV() throws RecognitionException {
         try {
             int _type = DIV;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:147:9: ( 'fess' | 'pale' | 'bend' | 'cross' | 'saltire' | 'chevron' | 'pall' )
-            int alt2=7;
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:168:9: ( 'fess' | 'pale' | 'bend' | 'cross' | 'saltire' | 'chevron' | 'pall' | 'pairle' )
+            int alt2=8;
             alt2 = dfa2.predict(input);
             switch (alt2) {
                 case 1 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:147:13: 'fess'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:168:13: 'fess'
                     {
                     match("fess"); 
 
@@ -103,7 +125,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:147:22: 'pale'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:168:22: 'pale'
                     {
                     match("pale"); 
 
@@ -111,7 +133,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:147:31: 'bend'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:168:31: 'bend'
                     {
                     match("bend"); 
 
@@ -119,7 +141,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 4 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:147:40: 'cross'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:168:40: 'cross'
                     {
                     match("cross"); 
 
@@ -127,7 +149,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 5 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:147:50: 'saltire'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:168:50: 'saltire'
                     {
                     match("saltire"); 
 
@@ -135,7 +157,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 6 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:147:62: 'chevron'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:168:62: 'chevron'
                     {
                     match("chevron"); 
 
@@ -143,9 +165,17 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 7 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:147:74: 'pall'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:168:74: 'pall'
                     {
                     match("pall"); 
+
+
+                    }
+                    break;
+                case 8 :
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:168:83: 'pairle'
+                    {
+                    match("pairle"); 
 
 
                     }
@@ -165,8 +195,8 @@ public class BlazonLexer extends Lexer {
         try {
             int _type = GYRONNY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:150:9: ( 'gyronny' )
-            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:150:13: 'gyronny'
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:171:9: ( 'gyronny' )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:171:13: 'gyronny'
             {
             match("gyronny"); 
 
@@ -186,10 +216,10 @@ public class BlazonLexer extends Lexer {
         try {
             int _type = PARTYPER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:154:9: ( ( 'part' ( 'ed' | 'y' ) ' ' )? 'per' )
-            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:154:13: ( 'part' ( 'ed' | 'y' ) ' ' )? 'per'
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:175:9: ( ( 'part' ( 'ed' | 'y' ) ' ' )? 'per' )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:175:13: ( 'part' ( 'ed' | 'y' ) ' ' )? 'per'
             {
-            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:154:13: ( 'part' ( 'ed' | 'y' ) ' ' )?
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:175:13: ( 'part' ( 'ed' | 'y' ) ' ' )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -202,11 +232,11 @@ public class BlazonLexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:154:14: 'part' ( 'ed' | 'y' ) ' '
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:175:14: 'part' ( 'ed' | 'y' ) ' '
                     {
                     match("part"); 
 
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:154:20: ( 'ed' | 'y' )
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:175:20: ( 'ed' | 'y' )
                     int alt3=2;
                     int LA3_0 = input.LA(1);
 
@@ -224,7 +254,7 @@ public class BlazonLexer extends Lexer {
                     }
                     switch (alt3) {
                         case 1 :
-                            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:154:21: 'ed'
+                            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:175:21: 'ed'
                             {
                             match("ed"); 
 
@@ -232,7 +262,7 @@ public class BlazonLexer extends Lexer {
                             }
                             break;
                         case 2 :
-                            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:154:26: 'y'
+                            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:175:26: 'y'
                             {
                             match('y'); 
 
@@ -266,7 +296,7 @@ public class BlazonLexer extends Lexer {
         try {
             int _type = COLOUR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:157:9: ( 'azure' | 'gules' | 'vert' | 'sable' | 'purpure' )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:178:9: ( 'azure' | 'gules' | 'vert' | 'sable' | 'purpure' )
             int alt5=5;
             switch ( input.LA(1) ) {
             case 'a':
@@ -303,7 +333,7 @@ public class BlazonLexer extends Lexer {
 
             switch (alt5) {
                 case 1 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:157:13: 'azure'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:178:13: 'azure'
                     {
                     match("azure"); 
 
@@ -311,7 +341,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:157:23: 'gules'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:178:23: 'gules'
                     {
                     match("gules"); 
 
@@ -319,7 +349,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:157:33: 'vert'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:178:33: 'vert'
                     {
                     match("vert"); 
 
@@ -327,7 +357,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 4 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:157:42: 'sable'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:178:42: 'sable'
                     {
                     match("sable"); 
 
@@ -335,7 +365,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 5 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:157:52: 'purpure'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:178:52: 'purpure'
                     {
                     match("purpure"); 
 
@@ -357,7 +387,7 @@ public class BlazonLexer extends Lexer {
         try {
             int _type = METAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:160:9: ( 'or' | 'argent' )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:181:9: ( 'or' | 'argent' )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -375,7 +405,7 @@ public class BlazonLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:160:13: 'or'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:181:13: 'or'
                     {
                     match("or"); 
 
@@ -383,7 +413,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:160:20: 'argent'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:181:20: 'argent'
                     {
                     match("argent"); 
 
@@ -405,12 +435,12 @@ public class BlazonLexer extends Lexer {
         try {
             int _type = FUR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:163:9: ( 'ermine' | 'ermines' | 'erminois' | 'pean' | 'vair' | 'counter-vair' | 'vair-en-pale' | 'vair-en-point' | 'potent' | 'counter-potent' | 'potent-en-pale' | 'potent-en-point' )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:184:9: ( 'ermine' | 'ermines' | 'erminois' | 'pean' | 'vair' | 'counter-vair' | 'vair-en-pale' | 'vair-en-point' | 'potent' | 'counter-potent' | 'potent-en-pale' | 'potent-en-point' )
             int alt7=12;
             alt7 = dfa7.predict(input);
             switch (alt7) {
                 case 1 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:163:13: 'ermine'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:184:13: 'ermine'
                     {
                     match("ermine"); 
 
@@ -418,7 +448,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:163:24: 'ermines'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:184:24: 'ermines'
                     {
                     match("ermines"); 
 
@@ -426,7 +456,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:163:36: 'erminois'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:184:36: 'erminois'
                     {
                     match("erminois"); 
 
@@ -434,7 +464,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 4 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:163:49: 'pean'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:184:49: 'pean'
                     {
                     match("pean"); 
 
@@ -442,7 +472,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 5 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:164:13: 'vair'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:185:13: 'vair'
                     {
                     match("vair"); 
 
@@ -450,7 +480,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 6 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:164:22: 'counter-vair'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:185:22: 'counter-vair'
                     {
                     match("counter-vair"); 
 
@@ -458,7 +488,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 7 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:164:39: 'vair-en-pale'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:185:39: 'vair-en-pale'
                     {
                     match("vair-en-pale"); 
 
@@ -466,7 +496,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 8 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:164:56: 'vair-en-point'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:185:56: 'vair-en-point'
                     {
                     match("vair-en-point"); 
 
@@ -474,7 +504,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 9 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:165:13: 'potent'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:186:13: 'potent'
                     {
                     match("potent"); 
 
@@ -482,7 +512,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 10 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:165:24: 'counter-potent'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:186:24: 'counter-potent'
                     {
                     match("counter-potent"); 
 
@@ -490,7 +520,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 11 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:165:43: 'potent-en-pale'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:186:43: 'potent-en-pale'
                     {
                     match("potent-en-pale"); 
 
@@ -498,7 +528,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 12 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:165:62: 'potent-en-point'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:186:62: 'potent-en-point'
                     {
                     match("potent-en-point"); 
 
@@ -520,10 +550,10 @@ public class BlazonLexer extends Lexer {
         try {
             int _type = DIGITS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:168:9: ( ( '0' .. '9' )+ )
-            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:168:13: ( '0' .. '9' )+
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:189:9: ( ( '0' .. '9' )+ )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:189:13: ( '0' .. '9' )+
             {
-            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:168:13: ( '0' .. '9' )+
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:189:13: ( '0' .. '9' )+
             int cnt8=0;
             loop8:
             do {
@@ -537,7 +567,7 @@ public class BlazonLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:168:14: '0' .. '9'
+            	    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:189:14: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -569,8 +599,8 @@ public class BlazonLexer extends Lexer {
         try {
             int _type = AND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:171:9: ( 'and' )
-            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:171:13: 'and'
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:192:9: ( 'and' )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:192:13: 'and'
             {
             match("and"); 
 
@@ -590,8 +620,8 @@ public class BlazonLexer extends Lexer {
         try {
             int _type = OF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:174:9: ( 'of' )
-            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:174:13: 'of'
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:195:9: ( 'of' )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:195:13: 'of'
             {
             match("of"); 
 
@@ -611,8 +641,8 @@ public class BlazonLexer extends Lexer {
         try {
             int _type = PLAIN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:177:9: ( 'plain' )
-            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:177:13: 'plain'
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:198:9: ( 'plain' )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:198:13: 'plain'
             {
             match("plain"); 
 
@@ -632,12 +662,12 @@ public class BlazonLexer extends Lexer {
         try {
             int _type = NUMWORDS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:181:9: ( 'one' | 'eleven' | 'two' | 'twelve' | 'three' | 'thirteen' | 'four' ( 'teen' )? | 'five' | 'fifteen' | 'six' ( 'teen' )? | 'seven' ( 'teen' )? | 'eight' ( 'een' )? | 'nine' ( 'teen' )? | 'twenty' | 'thirty' | 'fourty' | 'fifty' | 'sixty' | 'seventy' | 'eighty' | 'ninety' | 'hundred' | 'thousand' | 'million' | 'billion' )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:202:9: ( 'one' | 'eleven' | 'two' | 'twelve' | 'three' | 'thirteen' | 'four' ( 'teen' )? | 'five' | 'fifteen' | 'six' ( 'teen' )? | 'seven' ( 'teen' )? | 'eight' ( 'een' )? | 'nine' ( 'teen' )? | 'twenty' | 'thirty' | 'fourty' | 'fifty' | 'sixty' | 'seventy' | 'eighty' | 'ninety' | 'hundred' | 'thousand' | 'million' | 'billion' )
             int alt14=25;
             alt14 = dfa14.predict(input);
             switch (alt14) {
                 case 1 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:181:13: 'one'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:202:13: 'one'
                     {
                     match("one"); 
 
@@ -645,7 +675,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:181:21: 'eleven'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:202:21: 'eleven'
                     {
                     match("eleven"); 
 
@@ -653,7 +683,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:181:32: 'two'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:202:32: 'two'
                     {
                     match("two"); 
 
@@ -661,7 +691,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 4 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:181:40: 'twelve'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:202:40: 'twelve'
                     {
                     match("twelve"); 
 
@@ -669,7 +699,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 5 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:181:51: 'three'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:202:51: 'three'
                     {
                     match("three"); 
 
@@ -677,7 +707,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 6 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:181:61: 'thirteen'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:202:61: 'thirteen'
                     {
                     match("thirteen"); 
 
@@ -685,11 +715,11 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 7 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:182:13: 'four' ( 'teen' )?
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:203:13: 'four' ( 'teen' )?
                     {
                     match("four"); 
 
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:182:19: ( 'teen' )?
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:203:19: ( 'teen' )?
                     int alt9=2;
                     int LA9_0 = input.LA(1);
 
@@ -698,7 +728,7 @@ public class BlazonLexer extends Lexer {
                     }
                     switch (alt9) {
                         case 1 :
-                            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:182:19: 'teen'
+                            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:203:19: 'teen'
                             {
                             match("teen"); 
 
@@ -712,7 +742,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 8 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:182:29: 'five'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:203:29: 'five'
                     {
                     match("five"); 
 
@@ -720,7 +750,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 9 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:182:38: 'fifteen'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:203:38: 'fifteen'
                     {
                     match("fifteen"); 
 
@@ -728,11 +758,11 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 10 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:182:50: 'six' ( 'teen' )?
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:203:50: 'six' ( 'teen' )?
                     {
                     match("six"); 
 
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:182:55: ( 'teen' )?
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:203:55: ( 'teen' )?
                     int alt10=2;
                     int LA10_0 = input.LA(1);
 
@@ -741,7 +771,7 @@ public class BlazonLexer extends Lexer {
                     }
                     switch (alt10) {
                         case 1 :
-                            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:182:55: 'teen'
+                            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:203:55: 'teen'
                             {
                             match("teen"); 
 
@@ -755,11 +785,11 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 11 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:182:65: 'seven' ( 'teen' )?
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:203:65: 'seven' ( 'teen' )?
                     {
                     match("seven"); 
 
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:182:72: ( 'teen' )?
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:203:72: ( 'teen' )?
                     int alt11=2;
                     int LA11_0 = input.LA(1);
 
@@ -768,7 +798,7 @@ public class BlazonLexer extends Lexer {
                     }
                     switch (alt11) {
                         case 1 :
-                            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:182:72: 'teen'
+                            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:203:72: 'teen'
                             {
                             match("teen"); 
 
@@ -782,11 +812,11 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 12 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:183:13: 'eight' ( 'een' )?
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:204:13: 'eight' ( 'een' )?
                     {
                     match("eight"); 
 
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:183:20: ( 'een' )?
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:204:20: ( 'een' )?
                     int alt12=2;
                     int LA12_0 = input.LA(1);
 
@@ -795,7 +825,7 @@ public class BlazonLexer extends Lexer {
                     }
                     switch (alt12) {
                         case 1 :
-                            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:183:20: 'een'
+                            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:204:20: 'een'
                             {
                             match("een"); 
 
@@ -809,11 +839,11 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 13 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:183:29: 'nine' ( 'teen' )?
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:204:29: 'nine' ( 'teen' )?
                     {
                     match("nine"); 
 
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:183:35: ( 'teen' )?
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:204:35: ( 'teen' )?
                     int alt13=2;
                     int LA13_0 = input.LA(1);
 
@@ -822,7 +852,7 @@ public class BlazonLexer extends Lexer {
                     }
                     switch (alt13) {
                         case 1 :
-                            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:183:35: 'teen'
+                            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:204:35: 'teen'
                             {
                             match("teen"); 
 
@@ -836,7 +866,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 14 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:183:45: 'twenty'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:204:45: 'twenty'
                     {
                     match("twenty"); 
 
@@ -844,7 +874,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 15 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:183:56: 'thirty'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:204:56: 'thirty'
                     {
                     match("thirty"); 
 
@@ -852,7 +882,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 16 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:183:67: 'fourty'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:204:67: 'fourty'
                     {
                     match("fourty"); 
 
@@ -860,7 +890,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 17 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:184:13: 'fifty'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:205:13: 'fifty'
                     {
                     match("fifty"); 
 
@@ -868,7 +898,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 18 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:184:23: 'sixty'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:205:23: 'sixty'
                     {
                     match("sixty"); 
 
@@ -876,7 +906,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 19 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:184:33: 'seventy'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:205:33: 'seventy'
                     {
                     match("seventy"); 
 
@@ -884,7 +914,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 20 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:184:45: 'eighty'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:205:45: 'eighty'
                     {
                     match("eighty"); 
 
@@ -892,7 +922,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 21 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:184:56: 'ninety'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:205:56: 'ninety'
                     {
                     match("ninety"); 
 
@@ -900,7 +930,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 22 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:184:67: 'hundred'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:205:67: 'hundred'
                     {
                     match("hundred"); 
 
@@ -908,7 +938,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 23 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:185:13: 'thousand'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:206:13: 'thousand'
                     {
                     match("thousand"); 
 
@@ -916,7 +946,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 24 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:185:26: 'million'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:206:26: 'million'
                     {
                     match("million"); 
 
@@ -924,7 +954,7 @@ public class BlazonLexer extends Lexer {
                     }
                     break;
                 case 25 :
-                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:185:38: 'billion'
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:206:38: 'billion'
                     {
                     match("billion"); 
 
@@ -946,10 +976,10 @@ public class BlazonLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:188:9: ( ( ' ' | '\\t' )+ )
-            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:188:13: ( ' ' | '\\t' )+
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:209:9: ( ( ' ' | '\\t' )+ )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:209:13: ( ' ' | '\\t' )+
             {
-            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:188:13: ( ' ' | '\\t' )+
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:209:13: ( ' ' | '\\t' )+
             int cnt15=0;
             loop15:
             do {
@@ -1000,8 +1030,8 @@ public class BlazonLexer extends Lexer {
     // $ANTLR end "WS"
 
     public void mTokens() throws RecognitionException {
-        // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:1:8: ( MODIFIER | DIV | GYRONNY | PARTYPER | COLOUR | METAL | FUR | DIGITS | AND | OF | PLAIN | NUMWORDS | WS )
-        int alt16=13;
+        // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:1:8: ( MODIFIER | TIERCED | DIV | GYRONNY | PARTYPER | COLOUR | METAL | FUR | DIGITS | AND | OF | PLAIN | NUMWORDS | WS )
+        int alt16=14;
         alt16 = dfa16.predict(input);
         switch (alt16) {
             case 1 :
@@ -1012,84 +1042,91 @@ public class BlazonLexer extends Lexer {
                 }
                 break;
             case 2 :
-                // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:1:19: DIV
+                // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:1:19: TIERCED
+                {
+                mTIERCED(); 
+
+                }
+                break;
+            case 3 :
+                // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:1:27: DIV
                 {
                 mDIV(); 
 
                 }
                 break;
-            case 3 :
-                // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:1:23: GYRONNY
+            case 4 :
+                // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:1:31: GYRONNY
                 {
                 mGYRONNY(); 
 
                 }
                 break;
-            case 4 :
-                // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:1:31: PARTYPER
+            case 5 :
+                // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:1:39: PARTYPER
                 {
                 mPARTYPER(); 
 
                 }
                 break;
-            case 5 :
-                // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:1:40: COLOUR
+            case 6 :
+                // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:1:48: COLOUR
                 {
                 mCOLOUR(); 
 
                 }
                 break;
-            case 6 :
-                // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:1:47: METAL
+            case 7 :
+                // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:1:55: METAL
                 {
                 mMETAL(); 
 
                 }
                 break;
-            case 7 :
-                // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:1:53: FUR
+            case 8 :
+                // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:1:61: FUR
                 {
                 mFUR(); 
 
                 }
                 break;
-            case 8 :
-                // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:1:57: DIGITS
+            case 9 :
+                // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:1:65: DIGITS
                 {
                 mDIGITS(); 
 
                 }
                 break;
-            case 9 :
-                // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:1:64: AND
+            case 10 :
+                // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:1:72: AND
                 {
                 mAND(); 
 
                 }
                 break;
-            case 10 :
-                // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:1:68: OF
+            case 11 :
+                // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:1:76: OF
                 {
                 mOF(); 
 
                 }
                 break;
-            case 11 :
-                // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:1:71: PLAIN
+            case 12 :
+                // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:1:79: PLAIN
                 {
                 mPLAIN(); 
 
                 }
                 break;
-            case 12 :
-                // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:1:77: NUMWORDS
+            case 13 :
+                // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:1:85: NUMWORDS
                 {
                 mNUMWORDS(); 
 
                 }
                 break;
-            case 13 :
-                // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:1:86: WS
+            case 14 :
+                // C:\\Users\\Luke\\Dropbox\\project\\workspace\\BlazonGrammar\\grammar\\Blazon.g:1:94: WS
                 {
                 mWS(); 
 
@@ -1106,20 +1143,20 @@ public class BlazonLexer extends Lexer {
     protected DFA14 dfa14 = new DFA14(this);
     protected DFA16 dfa16 = new DFA16(this);
     static final String DFA2_eotS =
-        "\14\uffff";
+        "\15\uffff";
     static final String DFA2_eofS =
-        "\14\uffff";
+        "\15\uffff";
     static final String DFA2_minS =
-        "\1\142\1\uffff\1\141\1\uffff\1\150\1\uffff\1\154\2\uffff\1\145"+
-        "\2\uffff";
+        "\1\142\1\uffff\1\141\1\uffff\1\150\1\uffff\1\151\2\uffff\1\145"+
+        "\3\uffff";
     static final String DFA2_maxS =
         "\1\163\1\uffff\1\141\1\uffff\1\162\1\uffff\1\154\2\uffff\1\154"+
-        "\2\uffff";
+        "\3\uffff";
     static final String DFA2_acceptS =
         "\1\uffff\1\1\1\uffff\1\3\1\uffff\1\5\1\uffff\1\4\1\6\1\uffff\1"+
-        "\2\1\7";
+        "\10\1\2\1\7";
     static final String DFA2_specialS =
-        "\14\uffff}>";
+        "\15\uffff}>";
     static final String[] DFA2_transitionS = {
             "\1\3\1\4\2\uffff\1\1\11\uffff\1\2\2\uffff\1\5",
             "",
@@ -1127,10 +1164,11 @@ public class BlazonLexer extends Lexer {
             "",
             "\1\10\11\uffff\1\7",
             "",
-            "\1\11",
+            "\1\12\2\uffff\1\11",
             "",
             "",
-            "\1\12\6\uffff\1\13",
+            "\1\13\6\uffff\1\14",
+            "",
             "",
             ""
     };
@@ -1165,7 +1203,7 @@ public class BlazonLexer extends Lexer {
             this.transition = DFA2_transition;
         }
         public String getDescription() {
-            return "147:1: DIV : ( 'fess' | 'pale' | 'bend' | 'cross' | 'saltire' | 'chevron' | 'pall' );";
+            return "168:1: DIV : ( 'fess' | 'pale' | 'bend' | 'cross' | 'saltire' | 'chevron' | 'pall' | 'pairle' );";
         }
     }
     static final String DFA7_eotS =
@@ -1267,7 +1305,7 @@ public class BlazonLexer extends Lexer {
             this.transition = DFA7_transition;
         }
         public String getDescription() {
-            return "163:1: FUR : ( 'ermine' | 'ermines' | 'erminois' | 'pean' | 'vair' | 'counter-vair' | 'vair-en-pale' | 'vair-en-point' | 'potent' | 'counter-potent' | 'potent-en-pale' | 'potent-en-point' );";
+            return "184:1: FUR : ( 'ermine' | 'ermines' | 'erminois' | 'pean' | 'vair' | 'counter-vair' | 'vair-en-pale' | 'vair-en-point' | 'potent' | 'counter-potent' | 'potent-en-pale' | 'potent-en-point' );";
         }
     }
     static final String DFA14_eotS =
@@ -1386,47 +1424,49 @@ public class BlazonLexer extends Lexer {
             this.transition = DFA14_transition;
         }
         public String getDescription() {
-            return "180:1: NUMWORDS : ( 'one' | 'eleven' | 'two' | 'twelve' | 'three' | 'thirteen' | 'four' ( 'teen' )? | 'five' | 'fifteen' | 'six' ( 'teen' )? | 'seven' ( 'teen' )? | 'eight' ( 'een' )? | 'nine' ( 'teen' )? | 'twenty' | 'thirty' | 'fourty' | 'fifty' | 'sixty' | 'seventy' | 'eighty' | 'ninety' | 'hundred' | 'thousand' | 'million' | 'billion' );";
+            return "201:1: NUMWORDS : ( 'one' | 'eleven' | 'two' | 'twelve' | 'three' | 'thirteen' | 'four' ( 'teen' )? | 'five' | 'fifteen' | 'six' ( 'teen' )? | 'seven' ( 'teen' )? | 'eight' ( 'een' )? | 'nine' ( 'teen' )? | 'twenty' | 'thirty' | 'fourty' | 'fifty' | 'sixty' | 'seventy' | 'eighty' | 'ninety' | 'hundred' | 'thousand' | 'million' | 'billion' );";
         }
     }
     static final String DFA16_eotS =
-        "\34\uffff";
+        "\36\uffff";
     static final String DFA16_eofS =
-        "\34\uffff";
+        "\36\uffff";
     static final String DFA16_minS =
-        "\1\11\1\uffff\1\141\1\145\1\141\1\145\1\150\1\165\1\156\1\141\1"+
-        "\146\1\151\3\uffff\1\156\1\142\1\uffff\1\154\1\141\10\uffff";
+        "\1\11\1\uffff\1\141\1\150\1\145\1\141\1\145\1\150\1\165\1\156\1"+
+        "\141\1\146\1\151\3\uffff\1\156\1\142\2\uffff\1\151\1\141\10\uffff";
     static final String DFA16_maxS =
-        "\1\166\1\uffff\1\151\1\157\1\165\1\151\1\162\1\171\1\172\1\145"+
-        "\2\162\3\uffff\1\170\1\154\1\uffff\2\162\10\uffff";
+        "\1\166\1\uffff\1\151\1\167\1\157\1\165\1\151\1\162\1\171\1\172"+
+        "\1\145\2\162\3\uffff\1\170\1\154\2\uffff\2\162\10\uffff";
     static final String DFA16_acceptS =
-        "\1\uffff\1\1\12\uffff\1\10\1\14\1\15\2\uffff\1\2\2\uffff\1\5\1"+
-        "\7\1\13\1\3\1\6\1\11\1\12\1\4";
+        "\1\uffff\1\1\13\uffff\1\11\1\15\1\16\2\uffff\1\2\1\3\2\uffff\1"+
+        "\6\1\10\1\14\1\4\1\7\1\12\1\13\1\5";
     static final String DFA16_specialS =
-        "\34\uffff}>";
+        "\36\uffff}>";
     static final String[] DFA16_transitionS = {
-            "\1\16\26\uffff\1\16\17\uffff\12\14\47\uffff\1\10\1\5\1\6\1"+
-            "\uffff\1\13\1\3\1\7\1\15\4\uffff\2\15\1\12\1\4\1\uffff\1\1\1"+
-            "\2\1\15\1\uffff\1\11",
+            "\1\17\26\uffff\1\17\17\uffff\12\15\47\uffff\1\11\1\6\1\7\1"+
+            "\uffff\1\14\1\4\1\10\1\16\4\uffff\2\16\1\13\1\5\1\uffff\1\1"+
+            "\1\2\1\3\1\uffff\1\12",
             "",
-            "\1\20\3\uffff\1\15\3\uffff\1\17",
-            "\1\21\3\uffff\1\15\5\uffff\1\15",
-            "\1\22\3\uffff\1\23\6\uffff\1\26\2\uffff\1\25\5\uffff\1\24",
-            "\1\21\3\uffff\1\15",
-            "\1\21\6\uffff\1\25\2\uffff\1\21",
-            "\1\24\3\uffff\1\27",
-            "\1\31\3\uffff\1\30\7\uffff\1\24",
-            "\1\25\3\uffff\1\24",
-            "\1\32\7\uffff\1\15\3\uffff\1\30",
-            "\1\15\2\uffff\1\15\5\uffff\1\25",
+            "\1\21\3\uffff\1\16\3\uffff\1\20",
+            "\1\16\1\22\15\uffff\1\16",
+            "\1\23\3\uffff\1\16\5\uffff\1\16",
+            "\1\24\3\uffff\1\25\6\uffff\1\30\2\uffff\1\27\5\uffff\1\26",
+            "\1\23\3\uffff\1\16",
+            "\1\23\6\uffff\1\27\2\uffff\1\23",
+            "\1\26\3\uffff\1\31",
+            "\1\33\3\uffff\1\32\7\uffff\1\26",
+            "\1\27\3\uffff\1\26",
+            "\1\34\7\uffff\1\16\3\uffff\1\32",
+            "\1\16\2\uffff\1\16\5\uffff\1\27",
             "",
             "",
             "",
-            "\1\1\11\uffff\1\15",
-            "\1\24\11\uffff\1\21",
+            "\1\1\11\uffff\1\16",
+            "\1\26\11\uffff\1\23",
             "",
-            "\1\21\5\uffff\1\33",
-            "\1\25\20\uffff\1\33",
+            "",
+            "\1\23\2\uffff\1\23\5\uffff\1\35",
+            "\1\27\20\uffff\1\35",
             "",
             "",
             "",
@@ -1467,7 +1507,7 @@ public class BlazonLexer extends Lexer {
             this.transition = DFA16_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( MODIFIER | DIV | GYRONNY | PARTYPER | COLOUR | METAL | FUR | DIGITS | AND | OF | PLAIN | NUMWORDS | WS );";
+            return "1:1: Tokens : ( MODIFIER | TIERCED | DIV | GYRONNY | PARTYPER | COLOUR | METAL | FUR | DIGITS | AND | OF | PLAIN | NUMWORDS | WS );";
         }
     }
  

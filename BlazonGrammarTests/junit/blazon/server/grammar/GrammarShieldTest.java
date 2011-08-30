@@ -5,16 +5,19 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 import java.util.Iterator;
+import java.util.List;
 
 import org.antlr.runtime.MismatchedTokenException;
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 
 import blazon.server.grammar.BlazonParser;
+import blazon.shared.shield.Shield;
 import blazon.shared.shield.ShieldImpl;
 import blazon.shared.shield.ShieldDivision;
 import blazon.shared.shield.ShieldLayer;
 import blazon.shared.shield.ShieldDivision.ShieldDivisionType;
+import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.tinctures.Tincture;
 import blazon.shared.shield.tinctures.Tinctures;
 import blazon.shared.shield.tinctures.UnknownTinctureException;
@@ -215,10 +218,14 @@ public class GrammarShieldTest {
 		assertThat(tincturesOnLayer.next(), is(equalTo(argent)));
 	}
 	
-	@Test(expected=MismatchedTokenException.class)
-	public void testThatPerGyronnyGulesAndArgentThrowsMismatchedTokenException() throws RecognitionException {
+	@Test
+	public void testThatPerGyronnyGulesAndArgentReturnsInvalidShieldContainingMismatchedTokenException() throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("per gyronny gules and argent");
-		ShieldImpl s = (ShieldImpl) parser.shield();
-		System.out.println(s.getShieldDiagnostics());
+		Shield s = parser.shield();
+		List<ShieldDiagnostic> diags = s.getShieldDiagnostics();
+		assertThat(diags.size(), is(equalTo(1)));
+		ShieldDiagnostic diag = diags.iterator().next();
+		assertThat(diag.getMessage(), is(equalTo("line 1:4 mismatched input 'gyronny' expecting DIV")));
+		
 	}
 }

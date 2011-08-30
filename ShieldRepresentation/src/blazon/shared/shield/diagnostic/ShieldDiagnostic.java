@@ -32,27 +32,9 @@ public class ShieldDiagnostic implements Serializable {
 	}
 	
 	private LogLevel level;
-	//private Exception exception;
 	private String message;
 	
 	private ShieldDiagnostic() {}
-	
-	/**
-	 * Build a ShieldDiagnostic setting the log level and exception to the given parameters.
-	 * @param level the severity of the diagnostic.
-	 * @param exception the exception that caused the construction of this diagnostic
-	 * @return a ShieldDiagnostic object representing the given exception.
-	 */
-	public static ShieldDiagnostic build(final LogLevel level, final Exception exception) {
-		if (level == null || exception == null) {
-			throw new IllegalArgumentException("Can not build a ShieldDiagnostic with null log level or exception.");
-		}
-		ShieldDiagnostic diag = new ShieldDiagnostic();
-		diag.level = level;
-		//diag.exception = exception;
-		diag.message = exception.toString();
-		return diag;
-	}
 	
 	/**
 	 * Build a ShieldDiagnostic setting the log level and message to the given parameters.

@@ -1,13 +1,19 @@
 package blazon.shared.shield;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 
+import blazon.shared.shield.diagnostic.ShieldDiagnostic;
+import blazon.shared.shield.diagnostic.ShieldDiagnostic.LogLevel;
 import blazon.shared.shield.tinctures.Tinctures;
 import blazon.shared.shield.tinctures.UnknownTinctureException;
 
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.nullValue;
 
 public class ShieldTest {
 
@@ -48,7 +54,7 @@ public class ShieldTest {
 	public void testThatToStringIsCorrectForShieldWithBaseWhichHasNoTincturesAdded() {
 		ShieldLayer layer = ShieldLayer.buildUndividedShieldLayer(new Tinctures());
 		ShieldImpl shield = (ShieldImpl) ShieldImpl.build(layer);
-		String expected = "Shield{field=ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfTinctures=1}:nextLayer=null}}";
+		String expected = "ShieldImpl{field=ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfTinctures=1}:nextLayer=null}}";
 		assertThat(shield.toString(), is(equalTo(expected)));
 	}
 	
@@ -59,7 +65,7 @@ public class ShieldTest {
 		tinctures.addTincture(tinctures.getTincture("or"));
 		ShieldLayer layer = ShieldLayer.buildUndividedShieldLayer(tinctures);
 		ShieldImpl shield = (ShieldImpl) ShieldImpl.build(layer);
-		String expected = "Shield{field=ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[Tincture{name=or:fillText=gold}]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfTinctures=1}:nextLayer=null}}";
+		String expected = "ShieldImpl{field=ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[Tincture{name=or:fillText=gold}]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfTinctures=1}:nextLayer=null}}";
 		assertThat(shield.toString(), is(equalTo(expected)));
 	}
 	
@@ -74,7 +80,7 @@ public class ShieldTest {
 		ShieldLayer layer2 = ShieldLayer.buildUndividedShieldLayer(tinctures);
 		layer1.addNextLayer(layer2);
 		ShieldImpl shield = (ShieldImpl) ShieldImpl.build(layer1);
-		String expected = "Shield{field=ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[Tincture{name=or:fillText=gold}]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfTinctures=1}:nextLayer=ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[Tincture{name=vair:fillText=url(#vair)}]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfTinctures=1}:nextLayer=null}}}";
+		String expected = "ShieldImpl{field=ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[Tincture{name=or:fillText=gold}]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfTinctures=1}:nextLayer=ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[Tincture{name=vair:fillText=url(#vair)}]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfTinctures=1}:nextLayer=null}}}";
 		assertThat(shield.toString(), is(equalTo(expected)));
 	}
 	
@@ -141,4 +147,103 @@ public class ShieldTest {
 		ShieldImpl shield2 = (ShieldImpl) ShieldImpl.build(layer2);
 		assertThat(shield1.equals(shield2), is(false));
 	}
+	
+	@Test
+	public void testThatIfYouAddANullListOfDiagnosticsToAShieldWithNoDiagnosticsGetDiagnosticsReturnsNull() {
+		Shield shield = ShieldImpl.build(ShieldLayer.buildUndividedShieldLayer(new Tinctures()));
+		shield.addDiagnostics(null);
+		assertThat(shield.getShieldDiagnostics(), is(nullValue()));
+	}
+	
+	@Test
+	public void testThatIfYouAddAnEmptyListOfDiagnosticsToAShieldWithNoDiagnosticsGetDiagnosticsReturnsNull() {
+		Shield shield = ShieldImpl.build(ShieldLayer.buildUndividedShieldLayer(new Tinctures()));
+		shield.addDiagnostics(new ArrayList<ShieldDiagnostic>());
+		assertThat(shield.getShieldDiagnostics(), is(nullValue()));
+	}
+	
+	@Test
+	public void testThatIfYouAddListOfOneDiagnosticToAShieldWithNoDiagnosticsGetDiagnosticsReturnsAListWithTheSameItems() {
+		Shield shield = ShieldImpl.build(ShieldLayer.buildUndividedShieldLayer(new Tinctures()));
+		List<ShieldDiagnostic> list = new ArrayList<ShieldDiagnostic>();
+		ShieldDiagnostic diag = ShieldDiagnostic.build(LogLevel.ERROR, "hello");
+		list.add(diag);
+		shield.addDiagnostics(list);
+		List<ShieldDiagnostic> actual = shield.getShieldDiagnostics();
+		assertThat(actual.size(), is(equalTo(list.size())));
+		assertThat(actual.get(0), is(equalTo(list.get(0))));
+	}
+	
+	@Test
+	public void testThatIfYouAddListOfTwoDiagnosticsToAShieldWithNoDiagnosticsGetDiagnosticsReturnsAListWithTheSameItems() {
+		Shield shield = ShieldImpl.build(ShieldLayer.buildUndividedShieldLayer(new Tinctures()));
+		List<ShieldDiagnostic> list = new ArrayList<ShieldDiagnostic>();
+		ShieldDiagnostic diag = ShieldDiagnostic.build(LogLevel.ERROR, "hello");
+		list.add(diag);
+		diag = ShieldDiagnostic.build(LogLevel.WARN, "hello world");
+		list.add(diag);
+		shield.addDiagnostics(list);
+		List<ShieldDiagnostic> actual = shield.getShieldDiagnostics();
+		assertThat(actual.size(), is(equalTo(list.size())));
+		assertThat(actual.size(), is(equalTo(2)));
+		assertThat(actual.get(0), is(equalTo(list.get(0))));
+		assertThat(actual.get(1), is(equalTo(list.get(1))));
+	}
+	
+	@Test
+	public void testThatIfYouAddANullListOfDiagnosticsToAShieldWithSomeDiagnosticsGetDiagnosticsReturnsAListWithTheSameItems() {
+		Shield shield = ShieldImpl.build(ShieldLayer.buildUndividedShieldLayer(new Tinctures()));
+		List<ShieldDiagnostic> list = new ArrayList<ShieldDiagnostic>();
+		ShieldDiagnostic diag = ShieldDiagnostic.build(LogLevel.ERROR, "hello");
+		list.add(diag);
+		diag = ShieldDiagnostic.build(LogLevel.WARN, "hello world");
+		list.add(diag);
+		shield.addDiagnostics(list);
+		List<ShieldDiagnostic> actual = shield.getShieldDiagnostics();
+		assertThat(actual.size(), is(equalTo(list.size())));
+		assertThat(actual.size(), is(equalTo(2)));
+		assertThat(actual.get(0), is(equalTo(list.get(0))));
+		assertThat(actual.get(1), is(equalTo(list.get(1))));
+		
+		shield.addDiagnostics(null);
+		assertThat(actual.size(), is(equalTo(list.size())));
+		assertThat(actual.size(), is(equalTo(2)));
+		assertThat(actual.get(0), is(equalTo(list.get(0))));
+		assertThat(actual.get(1), is(equalTo(list.get(1))));
+	}
+	
+	@Test
+	public void testThatIfYouAddAListOfTwoDiagnosticsToAShieldWithTwoDiagnosticsGetDiagnosticsReturnsAListContainingAllItems() {
+		Shield shield = ShieldImpl.build(ShieldLayer.buildUndividedShieldLayer(new Tinctures()));
+		
+		List<ShieldDiagnostic> list1 = new ArrayList<ShieldDiagnostic>();
+		ShieldDiagnostic diag = ShieldDiagnostic.build(LogLevel.ERROR, "hello");
+		list1.add(diag);
+		diag = ShieldDiagnostic.build(LogLevel.WARN, "hello world");
+		list1.add(diag);
+		shield.addDiagnostics(list1);
+
+		List<ShieldDiagnostic> actual = shield.getShieldDiagnostics();
+		assertThat(actual.size(), is(equalTo(list1.size())));
+		assertThat(actual.size(), is(equalTo(2)));
+		assertThat(actual.get(0), is(equalTo(list1.get(0))));
+		assertThat(actual.get(1), is(equalTo(list1.get(1))));
+		
+		List<ShieldDiagnostic> list2 = new ArrayList<ShieldDiagnostic>();
+		diag = ShieldDiagnostic.build(LogLevel.INFO, "third item");
+		list2.add(diag);
+		diag = ShieldDiagnostic.build(LogLevel.WARN, "fourth item");
+		list2.add(diag);
+		shield.addDiagnostics(list2);
+		
+		actual = shield.getShieldDiagnostics();
+		assertThat(actual.size(), is(equalTo(list1.size() + list2.size())));
+		assertThat(actual.size(), is(equalTo(4)));
+		assertThat(actual.get(0), is(equalTo(list1.get(0))));
+		assertThat(actual.get(1), is(equalTo(list1.get(1))));
+		assertThat(actual.get(2), is(equalTo(list2.get(0))));
+		assertThat(actual.get(3), is(equalTo(list2.get(1))));
+		
+	}
 }
+
