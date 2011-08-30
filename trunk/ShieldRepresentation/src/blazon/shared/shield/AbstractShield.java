@@ -10,13 +10,22 @@ public abstract class AbstractShield implements Shield, Serializable {
 
 	private static final long serialVersionUID = 6055643270596134156L;
 
-	protected List<ShieldDiagnostic> diagnostics;
+	private List<ShieldDiagnostic> diagnostics;
 	
 	public List<ShieldDiagnostic> getShieldDiagnostics() {
 		return diagnostics;
 	}
 	
 	public void addDiagnostics(List<ShieldDiagnostic> diagnostics) {
-		this.diagnostics = new ArrayList<ShieldDiagnostic>(diagnostics);
+		if (diagnostics == null || diagnostics.size() == 0) {
+			return;
+		} else {
+			if (this.diagnostics == null) {
+				this.diagnostics = new ArrayList<ShieldDiagnostic>(diagnostics);
+			} else {
+				this.diagnostics.addAll(diagnostics);
+			}
+		}
+		
 	}
 }

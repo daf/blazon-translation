@@ -11,18 +11,8 @@ import static org.junit.Assert.assertThat;
 public class ShieldDiagnosticTest {
 
 	@Test(expected=IllegalArgumentException.class)
-	public void testThatBuildingAShieldDiagnosticWithNullLogLevelAndException() {
-		ShieldDiagnostic.build(null, (Exception)null);
-	}
-	
-	@Test(expected=IllegalArgumentException.class)
 	public void testThatBuildingAShieldDiagnosticWithNullLogLevelAndMessage() {
 		ShieldDiagnostic.build(null, (String)null);
-	}
-	
-	@Test(expected=IllegalArgumentException.class)
-	public void testThatBuildingAShieldDiagnosticWithNullLogLevelButValidException() {
-		ShieldDiagnostic.build(null, new Exception("hello"));
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
@@ -31,30 +21,56 @@ public class ShieldDiagnosticTest {
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
-	public void testThatBuildingAShieldDiagnosticWithNullException() {
-		ShieldDiagnostic.build(LogLevel.ERROR, (Exception)null);
-	}
-	
-	@Test(expected=IllegalArgumentException.class)
 	public void testThatBuildingAShieldDiagnosticWithNullMessage() {
 		ShieldDiagnostic.build(LogLevel.ERROR, (String)null);
 	}
 	
 	@Test
-	public void testThatYouCanRetrieveTheLogLevelFromABuiltShieldDiagnostic() {
-		ShieldDiagnostic diag = ShieldDiagnostic.build(LogLevel.WARN, new Exception("hello"));
+	public void testThatYouCanRetrieveTheMessageHelloFromAShieldDiagnostic() {
+		ShieldDiagnostic diag = ShieldDiagnostic.build(LogLevel.WARN, "hello");
+		assertThat(diag.getMessage(), is(equalTo("hello")));
+	}
+	
+	@Test
+	public void testThatYouCanRetrieveTheMessageHelloWorldFromAShieldDiagnostic() {
+		ShieldDiagnostic diag = ShieldDiagnostic.build(LogLevel.INFO, "hello world");
+		assertThat(diag.getMessage(), is(equalTo("hello world")));
+	}
+	
+	@Test
+	public void testThatYouCanRetrieveErrorSeverityLevelFromAShieldDiagnostic() {
+		ShieldDiagnostic diag = ShieldDiagnostic.build(LogLevel.ERROR, "hello");
+		assertThat(diag.getSeverity(), is(equalTo(LogLevel.ERROR)));
+	}
+	
+	@Test
+	public void testThatYouCanRetrieveWarningSeverityLevelFromAShieldDiagnostic() {
+		ShieldDiagnostic diag = ShieldDiagnostic.build(LogLevel.WARN, "hello");
 		assertThat(diag.getSeverity(), is(equalTo(LogLevel.WARN)));
 	}
 	
 	@Test
-	public void testThatYouCanRetrieveTheMessageFromAShieldDiagnosticBuiltWithAMessage() {
+	public void testThatShieldDiagnosticWithErrorSeverityLevelAndHelloAsMessageHasExpectedToString() {
 		ShieldDiagnostic diag = ShieldDiagnostic.build(LogLevel.ERROR, "hello");
-		assertThat(diag.getMessage(), is(equalTo("hello")));
+		String expected = "ShieldDiagnostic{level=ERROR:message=hello}";
+		assertThat(diag.toString(), is(equalTo(expected)));
 	}
 	
 	@Test
-	public void testThatYouCanRetrieveTheMessageFromAShieldDiagnosticBuiltWithAnException() {
-		ShieldDiagnostic diag = ShieldDiagnostic.build(LogLevel.INFO, new Exception("hello"));
-		assertThat(diag.getMessage(), is(equalTo("hello")));
+	public void testThatShieldDiagnosticLogLevelParsesInfoToCorrectEnumValue() {
+		LogLevel logLevel = LogLevel.valueOf("INFO");
+		assertThat(logLevel, is(equalTo(LogLevel.INFO)));
+	}
+	
+	@Test
+	public void testThatShieldDiagnosticLogLevelParsesWarnToCorrectEnumValue() {
+		LogLevel logLevel = LogLevel.valueOf("WARN");
+		assertThat(logLevel, is(equalTo(LogLevel.WARN)));
+	}
+	
+	@Test
+	public void testThatShieldDiagnosticLogLevelParsesErrorToCorrectEnumValue() {
+		LogLevel logLevel = LogLevel.valueOf("ERROR");
+		assertThat(logLevel, is(equalTo(LogLevel.ERROR)));
 	}
 }

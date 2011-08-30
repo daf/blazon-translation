@@ -29,10 +29,7 @@ package blazon.server.grammar;
 }
 
 @rulecatch {
-    catch (MyRecognitionException re) {
-        diags.add(ShieldDiagnostic.build(LogLevel.ERROR, re));
-        throw re;
-    } catch (RecognitionException re) {
+    catch (RecognitionException re) {
         throw re;
     }
     //catch (RecognitionException re) { reportError(re); recover(input,re); }
@@ -41,6 +38,7 @@ package blazon.server.grammar;
 shield returns [Shield s]
 		    :   field { 
 		    $s = ShieldImpl.build($field.layer);
+		    //TOOD make HTML pretty
 		    //TODO add lozengy etc
 		    //TODO add charges
 		    $s.addDiagnostics(diags);
@@ -61,16 +59,14 @@ divided_field returns [ShieldLayer layer]
 		      {
 		        ShieldDivisionType division = null;
 		        Tinctures tinctures = new Tinctures();
+		        ShieldDivision divisions = new ShieldDivision();
 		      }
 			    (
-			        PARTYPER
 			        div {
-			            ShieldDivision divisions = new ShieldDivision();
 			            division = divisions.getDivisionType($div.text);
 			        }
 			    |
 			        special_div { 
-			            ShieldDivision divisions = new ShieldDivision();
 			            division = divisions.getDivisionType($special_div.text); 
 			        }
 			        
@@ -108,7 +104,16 @@ some_tinctures [Tinctures tinctures, ShieldDivisionType division] returns [Shiel
 		        }
         ;
 
-div     :   DIV MODIFIER?
+div returns [String text]
+        :   { text = ""; }
+            (
+                TIERCED { text = $TIERCED.text; }
+            )?
+            PARTYPER
+            DIV { text += " " + $DIV.text; }
+            (
+                MODIFIER { text += " " + $MODIFIER.text; }
+            )?
         ;
 
 special_div returns [String text]
@@ -156,7 +161,11 @@ MODIFIER
         :   'reversed' | 'sinister'
         ;
 
-DIV     :   'fess' | 'pale' | 'bend' | 'cross' | 'saltire' | 'chevron' | 'pall'
+TIERCED
+        :   'tierced'
+        ;
+
+DIV     :   'fess' | 'pale' | 'bend' | 'cross' | 'saltire' | 'chevron' | 'pall' | 'pairle'
         ;
         
 GYRONNY :   'gyronny'

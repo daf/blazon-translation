@@ -6,31 +6,6 @@ gunit Blazon;
  * in to lower case
  */
 
-tincture
-        :   "gules"             OK
-            "sable"             OK
-            "vert"              OK
-            "azure"             OK
-            "purpure"           OK
-            "blue"              FAIL
-            "or"                OK
-            "argent"            OK
-            "gold"              FAIL
-            "ermine"            OK
-            "ermines"           OK
-            "erminois"          OK
-            "pean"              OK
-            "vair"              OK
-            "counter-vair"      OK
-            "vair-en-pale"      OK
-            "vair-en-point"     OK
-            "potent"            OK
-            "counter-potent"    OK
-            "potent-en-pale"    OK
-            "potent-en-point"   OK
-            "pean-en-pale"      FAIL
-            "ermine-en-point"   FAIL
-
 DIV     :   "fess"            OK
             "pale"            OK
             "bend"            OK
@@ -38,8 +13,12 @@ DIV     :   "fess"            OK
             "saltire"         OK
             "chevron"         OK
             "pall"            OK
+            "pairle"          OK
             "bend sinister"   FAIL
             "gyronny"         FAIL
+
+TIERCED :   "tierced"         OK
+            "tierc"           FAIL
 
 MODIFIER
         :   "reversed"  OK
