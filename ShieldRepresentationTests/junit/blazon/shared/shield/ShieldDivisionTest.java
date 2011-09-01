@@ -203,9 +203,173 @@ public class ShieldDivisionTest {
 		assertTrue(diags.isEmpty());
 	}
 	
-	//TODO STUFF HERE
 	@Test
-	public void testThatGetDivisionTypeWithyBarryOfThirtyTwoReturnsBarryyOf32() {
+	public void testThatGetDivisionTypeWithBarryReturnsBarry() {
+		ShieldDivision division = new ShieldDivision();
+		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
+		ShieldDivisionType type = division.getDivisionType("barry", diags);
+		assertThat(type.getName(), is("BARRY"));
+		assertThat(type.getNumberOfTinctures(), is(2));
+		assertThat(type.getNumberOfSections(), is(6));
+		assertTrue(diags.isEmpty());
+	}
+	
+	@Test
+	public void testThatGetDivisionTypeWithBarryOf10ReturnsBarryOf10() {
+		ShieldDivision division = new ShieldDivision();
+		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
+		ShieldDivisionType type = division.getDivisionType("barry of 10", diags);
+		assertThat(type.getName(), is("BARRY_OF_10"));
+		assertThat(type.getNumberOfTinctures(), is(2));
+		assertThat(type.getNumberOfSections(), is(10));
+		assertTrue(diags.isEmpty());
+	}
+	
+	@Test
+	public void testThatGetDivisionTypeWithBarryOfBlankReturnsFieldDivisionOfNone() {
+		ShieldDivision division = new ShieldDivision();
+		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
+		ShieldDivisionType type = division.getDivisionType("BARRY_OF_", diags);
+		assertThat(type.getName(), is("NONE"));
+		assertThat(type.getNumberOfTinctures(), is(1));
+		assertThat(type.getNumberOfSections(), is(1));
+		assertThat(diags.size(), is(1));
+	}
+	
+	@Test
+	public void testThatGetDivisionTypeWithPalyReturnsPaly() {
+		ShieldDivision division = new ShieldDivision();
+		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
+		ShieldDivisionType type = division.getDivisionType("paly", diags);
+		assertThat(type.getName(), is("PALY"));
+		assertThat(type.getNumberOfTinctures(), is(2));
+		assertThat(type.getNumberOfSections(), is(6));
+		assertTrue(diags.isEmpty());
+	}
+	
+	@Test
+	public void testThatGetDivisionTypeWithPaly10ReturnsFieldDivisionOfNone() {
+		ShieldDivision division = new ShieldDivision();
+		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
+		ShieldDivisionType type = division.getDivisionType("paly 10", diags);
+		assertThat(type.getName(), is("NONE"));
+		assertThat(type.getNumberOfTinctures(), is(1));
+		assertThat(type.getNumberOfSections(), is(1));
+		assertThat(diags.size(), is(1));
+	}
+	
+	@Test
+	public void testThatGetDivisionTypeWithChevronnyReturnsChevronny() {
+		ShieldDivision division = new ShieldDivision();
+		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
+		ShieldDivisionType type = division.getDivisionType("chevronny", diags);
+		assertThat(type.getName(), is("CHEVRONNY"));
+		assertThat(type.getNumberOfTinctures(), is(2));
+		assertThat(type.getNumberOfSections(), is(6));
+		assertTrue(diags.isEmpty());
+	}
+	
+	@Test
+	public void testThatGetDivisionTypeWithBendOf6ReturnsNone() {
+		ShieldDivision division = new ShieldDivision();
+		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
+		ShieldDivisionType type = division.getDivisionType("bend of 6", diags);
+		assertThat(type.getName(), is("NONE"));
+		assertThat(type.getNumberOfTinctures(), is(1));
+		assertThat(type.getNumberOfSections(), is(1));
+		assertThat(diags.size(), is(1));
+	}
+	
+	@Test
+	public void testThatGetDivisionTypeWithyBarryOfTwoReturnsFess() {
+		ShieldDivision division = new ShieldDivision();
+		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
+		ShieldDivisionType type = division.getDivisionType("barry of two", diags);
+		assertThat(type.getName(), is("FESS"));
+		assertThat(type.getNumberOfTinctures(), is(2));
+		assertThat(type.getNumberOfSections(), is(2));
+		assertThat(diags.size(), is(1));
+	}
+	
+	@Test
+	public void testThatGetDivisionTypeWithyBendyOfTwoReturnsBend() {
+		ShieldDivision division = new ShieldDivision();
+		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
+		ShieldDivisionType type = division.getDivisionType("bendy of two", diags);
+		assertThat(type.getName(), is("BEND"));
+		assertThat(type.getNumberOfTinctures(), is(2));
+		assertThat(type.getNumberOfSections(), is(2));
+		assertThat(diags.size(), is(1));
+	}
+	
+	@Test
+	public void testThatGetDivisionTypeWithyPalyOfTwoReturnsPale() {
+		ShieldDivision division = new ShieldDivision();
+		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
+		ShieldDivisionType type = division.getDivisionType("paly of two", diags);
+		assertThat(type.getName(), is("PALE"));
+		assertThat(type.getNumberOfTinctures(), is(2));
+		assertThat(type.getNumberOfSections(), is(2));
+		assertThat(diags.size(), is(1));
+	}
+	
+	@Test
+	public void testThatGetDivisionTypeWithyBendySinisterOfTwoReturnsBendSinister() {
+		ShieldDivision division = new ShieldDivision();
+		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
+		ShieldDivisionType type = division.getDivisionType("bendy sinister of two", diags);
+		assertThat(type.getName(), is("BEND_SINISTER"));
+		assertThat(type.getNumberOfTinctures(), is(2));
+		assertThat(type.getNumberOfSections(), is(2));
+		assertThat(diags.size(), is(1));
+	}
+	
+	@Test
+	public void testThatGetDivisionTypeWithyChevronnyOfTwoReturnsChevron() {
+		ShieldDivision division = new ShieldDivision();
+		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
+		ShieldDivisionType type = division.getDivisionType("chevronny of two", diags);
+		assertThat(type.getName(), is("CHEVRON"));
+		assertThat(type.getNumberOfTinctures(), is(2));
+		assertThat(type.getNumberOfSections(), is(2));
+		assertThat(diags.size(), is(1));
+	}
+	
+	@Test
+	public void testThatGetDivisionTypeWithyChevronnyReversedOfTwoReturnsChevronReversed() {
+		ShieldDivision division = new ShieldDivision();
+		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
+		ShieldDivisionType type = division.getDivisionType("chevronny reversed of two", diags);
+		assertThat(type.getName(), is("CHEVRON_REVERSED"));
+		assertThat(type.getNumberOfTinctures(), is(2));
+		assertThat(type.getNumberOfSections(), is(2));
+		assertThat(diags.size(), is(1));
+	}
+
+	@Test
+	public void testThatGetDivisionTypeWithyChevronnyReversedOf3ReturnsChevronnyReversedOf4() {
+		ShieldDivision division = new ShieldDivision();
+		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
+		ShieldDivisionType type = division.getDivisionType("chevronny reversed of 3", diags);
+		assertThat(type.getName(), is("CHEVRONNY_REVERSED_OF_4"));
+		assertThat(type.getNumberOfTinctures(), is(2));
+		assertThat(type.getNumberOfSections(), is(4));
+		assertThat(diags.size(), is(1));
+	}
+	
+	@Test
+	public void testThatGetDivisionTypeWithyBarryOf1ReturnsNone() {
+		ShieldDivision division = new ShieldDivision();
+		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
+		ShieldDivisionType type = division.getDivisionType("barry of 1", diags);
+		assertThat(type.getName(), is("NONE"));
+		assertThat(type.getNumberOfTinctures(), is(1));
+		assertThat(type.getNumberOfSections(), is(1));
+		assertThat(diags.size(), is(1));
+	}
+	
+	@Test
+	public void testThatGetDivisionTypeWithyBarryTwoReturnsBarryyOf32() {
 		ShieldDivision division = new ShieldDivision();
 		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
 		ShieldDivisionType type = division.getDivisionType("barry of thirty two", diags);
@@ -214,7 +378,6 @@ public class ShieldDivisionTest {
 		assertThat(type.getNumberOfSections(), is(32));
 		assertTrue(diags.isEmpty());
 	}
-	// END
 	
 	@Test
 	public void testThatGetDivisionTypeWithGyronnyOfRandomReturnsShieldDivisionOfNone() {

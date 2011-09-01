@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:50:56 /Users/luketorjussen/Documents/workspace/BlazonGrammar/grammar/Blazon.g 2011-08-30 17:57:28
+// $ANTLR 3.3 Nov 30, 2010 12:50:56 /Users/luketorjussen/Documents/workspace/BlazonGrammar/grammar/Blazon.g 2011-09-01 22:34:07
 
 package blazon.server.grammar;
 import blazon.shared.shield.*;
@@ -80,9 +80,9 @@ public class BlazonParser extends Parser {
 
              
             		    s = ShieldImpl.build(field1);
-            		    //TODO make HTML pretty
-            		    //TODO add lozengy etc
-            		    //TODO add charges
+            		    //LATER make HTML pretty
+            		    //LATER add lozengy etc
+            		    //LATER add charges
             		    s.addDiagnostics(diags);
             		    
 

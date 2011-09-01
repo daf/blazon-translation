@@ -19,7 +19,7 @@ public class ShieldDivision implements Serializable {
 
 	public static final String GYRONNY = "GYRONNY";
 	public static final String BENDY = "BENDY";
-	public static final String BENDY_SINISTER = "BENDY";
+	public static final String BENDY_SINISTER = "BENDY_SINISTER";
 	public static final String BARRY = "BARRY";
 	public static final String PALY = "PALY";
 	public static final String CHEVRONNY = "CHEVRONNY";
@@ -122,6 +122,9 @@ public class ShieldDivision implements Serializable {
 		if (name == null || name.trim().isEmpty()) {
 			throw new IllegalArgumentException("Can not get ShieldDivisionType with null or empty name");
 		}
+		if (errorsList == null) {
+			errorsList = new ArrayList<ShieldDiagnostic>();
+		}
 		name = name.toUpperCase().trim().replace(' ', '_');
 		name = name.replace(TIERCED_PAIRLE, PALL);
 		ShieldDivisionType div = map.get(name);
@@ -146,53 +149,32 @@ public class ShieldDivision implements Serializable {
 							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have gyronny of less than 6; using division CROSS"));
 							return map.get(CROSS);
 						}
-					} else if (divTypeName.equals(BARRY)) {
-						if (numSections == 2) {
+					}
+					
+					if (numSections < 2) {
+						errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have " + divTypeName + " of less than 2; using division NONE"));
+						return map.get(NONE);
+					}
+					
+					if (numSections == 2) {
+						if (divTypeName.equals(BARRY)) {
 							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have barry less than 4; using division FESS"));
 							return map.get(FESS);
-						} else if (numSections < 2) {
-							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have barry of less than 2; using division NONE"));
-							return map.get(NONE);
-						}
-					} else if (divTypeName.equals(PALY)) {
-						if (numSections == 2) {
+						} else if (divTypeName.equals(PALY) && numSections == 2) {
 							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have pall less than 4; using division PALE"));
 							return map.get(PALE);
-						} else if (numSections < 2) {
-							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have paly of less than 2; using division NONE"));
-							return map.get(NONE);
-						}
-					} else if (divTypeName.equals(BENDY)) {
-						if (numSections == 2) {
+						} else if (divTypeName.equals(BENDY) && numSections == 2) {
 							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have bendy less than 4; using division BEND"));
 							return map.get(BEND);
-						} else if (numSections < 2) {
-							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have bendy of less than 2; using division NONE"));
-							return map.get(NONE);
-						}
-					} else if (divTypeName.equals(BENDY_SINISTER)) {
-						if (numSections == 2) {
+						} else if (divTypeName.equals(BENDY_SINISTER) && numSections == 2) {
 							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have bendy sinister less than 4; using division BEND_SINISTER"));
 							return map.get(BEND_SINISTER);
-						} else if (numSections < 2) {
-							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have bendy sinister of less than 2; using division NONE"));
-							return map.get(NONE);
-						}
-					} else if (divTypeName.equals(CHEVRONNY)) {
-						if (numSections == 2) {
+						} else if (divTypeName.equals(CHEVRONNY) && numSections == 2) {
 							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have chevronny less than 4; using division CHEVRON"));
 							return map.get(CHEVRON);
-						} else if (numSections < 2) {
-							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have chevronny of less than 2; using division NONE"));
-							return map.get(NONE);
-						}
-					} else if (divTypeName.equals(CHEVRONNY_REVERSED)) {
-						if (numSections == 2) {
+						} else if (divTypeName.equals(CHEVRONNY_REVERSED) && numSections == 2) {
 							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have chevronny reversed less than 4; using division CHEVRONNY_REVERSED"));
 							return map.get(CHEVRON_REVERSED);
-						} else if (numSections < 2) {
-							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have chevronny reversed of less than 2; using division NONE"));
-							return map.get(NONE);
 						}
 					}
 					
@@ -208,11 +190,11 @@ public class ShieldDivision implements Serializable {
 					return div;
 				} catch (Exception e) {
 					errorsList.add(ShieldDiagnostic.build(LogLevel.ERROR, "Caught: " + e + "; using division NONE"));
+					return map.get(NONE);
 				}
 			}
-	    } else {
-	    	errorsList.add(ShieldDiagnostic.build(LogLevel.ERROR, "Do not recognise division name '" + name + "'; using division NONE"));
 		}
+		errorsList.add(ShieldDiagnostic.build(LogLevel.ERROR, "Do not recognise division name '" + name + "'; using division NONE"));
 		return map.get(NONE);
 	}
 
