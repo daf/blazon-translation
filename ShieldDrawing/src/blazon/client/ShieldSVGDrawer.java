@@ -13,7 +13,10 @@ import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import blazon.client.svg.fur.FurSVGBuilder;
 import blazon.client.svg.fur.AbstractFurSVGBuilder;
+import blazon.client.svg.shapes.CubicBezierCurve;
 import blazon.client.svg.shapes.Point;
+import blazon.client.svg.shapes.RightAngleTriangle;
+import blazon.client.svg.shapes.StraightLine;
 import blazon.client.svg.shapes.Triangle;
 import blazon.shared.shield.*;
 import blazon.shared.shield.ShieldDivision.ShieldDivisionType;
@@ -33,17 +36,17 @@ public class ShieldSVGDrawer {
 		return drawer;
 	}
 
-	public void drawSVGShield(OMSVGGElement shieldContainer) {
+	public void drawSVGShield(OMSVGGElement shieldContainer, CubicBezierCurve bezCurve) {
 		OMSVGGElement field = doc.createSVGGElement();
         ShieldLayer base = shield.getField();
     	ShieldDivisionType division = base.getShieldDivision();
     	Tinctures tinctures = base.getTinctures();
-    	createElementsForField(division, tinctures, field);
+    	createElementsForField(division, tinctures, field, bezCurve);
 		shieldContainer.appendChild(field);
 	}
 	
 	private void createElementsForField(ShieldDivisionType division,
-			Tinctures tinctures, OMSVGGElement field) {
+			Tinctures tinctures, OMSVGGElement field, CubicBezierCurve bezCurve) {
 		final int xMax = ShieldDrawing.SHIELD_MAX_X;
 		final int yMax = ShieldDrawing.SHIELD_MAX_Y;
 		final int xMin = ShieldDrawing.SHIELD_MIN_X;
@@ -80,11 +83,11 @@ public class ShieldSVGDrawer {
 			Point pointA = Point.build(xMin, yMin);
 			Point pointB = Point.build(xMax, yMin);
 			Point pointC = Point.build(xMax, yMax);
-			Triangle triangle = Triangle.build(pointA, pointB, pointC);
+			RightAngleTriangle triangle = RightAngleTriangle.build(pointA, pointB, pointC);
 			putNewPolygonElementOnGElement(field, it.next(), triangle);
 			
 			pointB = Point.build(xMin, yMax);
-			triangle = Triangle.build(pointA, pointB, pointC);
+			triangle = RightAngleTriangle.build(pointA, pointB, pointC);
 			putNewPolygonElementOnGElement(field, it.next(), triangle);
 		}
 		else if (divisionName.startsWith(ShieldDivision.BENDY) && !divisionName.startsWith(ShieldDivision.BENDY_SINISTER)) {
@@ -92,8 +95,11 @@ public class ShieldSVGDrawer {
 			Tincture secondTincture = it.next();
 			
 			final int numberOfSections = division.getNumberOfSections();
-			final double cornerToMidPointOfCurve = 459;//FIXME find midpoint of curve
-			final double widthOfBendlet = cornerToMidPointOfCurve / numberOfSections;
+			Point curveMidPoint = bezCurve.findMidpointOnCurve();
+			StraightLine lineFromTopRightToMidPointOfCurve = StraightLine.build(curveMidPoint, Point.build(xMax, yMin));
+			
+			final double lengthFromTopRightCornerToMidPointOfCurve = lineFromTopRightToMidPointOfCurve.getLength();
+			final double widthOfBendlet = lengthFromTopRightCornerToMidPointOfCurve / numberOfSections;
 			
 			final Point topCorner = Point.build(xMax, yMin);
 			for (int i = numberOfSections; i > 0; i--) {
@@ -101,7 +107,7 @@ public class ShieldSVGDrawer {
 				float triangleSideLength = (float) Math.sqrt(2 * Math.pow(triangleHeight, 2));
 				Point leftCorner = Point.build(xMax - triangleSideLength, yMin);
 				Point bottomCorner = Point.build(xMax, triangleSideLength);
-				Triangle triangle = Triangle.build(topCorner, leftCorner, bottomCorner);
+				RightAngleTriangle triangle = RightAngleTriangle.build(topCorner, leftCorner, bottomCorner);
 				putNewPolygonElementOnGElement(field, i % 2 != 0 ? secondTincture : firstTincture, triangle);
 			}
 		}
@@ -109,10 +115,10 @@ public class ShieldSVGDrawer {
 			Point pointA = Point.build(xMin, yMax);
 			Point pointB = Point.build(xMin, yMin);
 			Point pointC = Point.build(xMax, yMin);
-			Triangle triangle = Triangle.build(pointA, pointB, pointC);
+			RightAngleTriangle triangle = RightAngleTriangle.build(pointA, pointB, pointC);
 			putNewPolygonElementOnGElement(field, it.next(), triangle);
 			pointB = Point.build(xMax, yMax);
-			triangle = Triangle.build(pointA, pointB, pointC);
+			triangle = RightAngleTriangle.build(pointA, pointB, pointC);
 			putNewPolygonElementOnGElement(field, it.next(), triangle);
 		}
 		else if (divisionName.startsWith(ShieldDivision.BENDY_SINISTER)) {
@@ -120,8 +126,11 @@ public class ShieldSVGDrawer {
 			Tincture secondTincture = it.next();
 			
 			final int numberOfSections = division.getNumberOfSections();
-			final double cornerToMidPointOfCurve = 459;//FIXME find midpoint of curve
-			final double widthOfBendlet = cornerToMidPointOfCurve / numberOfSections;
+			Point curveMidPoint = bezCurve.findMidpointOnCurve();
+			StraightLine lineFromTopRightToMidPointOfCurve = StraightLine.build(curveMidPoint, Point.build(xMax, yMin));
+			
+			final double lengthFromTopRightCornerToMidPointOfCurve = lineFromTopRightToMidPointOfCurve.getLength();
+			final double widthOfBendlet = lengthFromTopRightCornerToMidPointOfCurve / numberOfSections;
 			
 			final Point leftCorner = Point.build(xMin, yMin);
 			for (int i = numberOfSections; i > 0; i--) {
@@ -129,7 +138,7 @@ public class ShieldSVGDrawer {
 				float triangleSideLength = (float) Math.sqrt(2 * Math.pow(triangleHeight, 2));
 				Point rightCorner = Point.build(triangleSideLength, yMin);
 				Point bottomCorner = Point.build(xMin, triangleSideLength);
-				Triangle triangle = Triangle.build(rightCorner, leftCorner, bottomCorner);
+				RightAngleTriangle triangle = RightAngleTriangle.build(rightCorner, leftCorner, bottomCorner);
 				putNewPolygonElementOnGElement(field, i % 2 != 0 ? secondTincture : firstTincture, triangle);
 			}
 		}
@@ -138,7 +147,7 @@ public class ShieldSVGDrawer {
 			Point pointA = Point.build(xMin, yMax);
 			Point pointB = Point.build(xMid, yMid);
 			Point pointC = Point.build(xMax, yMax);
-			Triangle triangle = Triangle.build(pointA, pointB, pointC);
+			RightAngleTriangle triangle = RightAngleTriangle.build(pointA, pointB, pointC);
 			putNewPolygonElementOnGElement(field, it.next(), triangle);
 		}
 		else if (divisionName.startsWith(ShieldDivision.CHEVRONNY) && !divisionName.startsWith(ShieldDivision.CHEVRONNY_REVERSED)) {
@@ -158,7 +167,7 @@ public class ShieldSVGDrawer {
 				topPoint = Point.build(xMid, topYCoor);
 				leftPoint = Point.build(leftXCoor, yMax);
 				rightPoint = Point.build(rightXCoor, yMax);
-				Triangle triangle = Triangle.build(topPoint, leftPoint, rightPoint);
+				RightAngleTriangle triangle = RightAngleTriangle.build(topPoint, leftPoint, rightPoint);
 				putNewPolygonElementOnGElement(field, i % 2 != 0 ? secondTincture : firstTincture, triangle);
 			}
 		}
@@ -176,20 +185,18 @@ public class ShieldSVGDrawer {
 			Tincture secondTincture = it.next();
 			
 			final int numberOfSections = division.getNumberOfSections();
-			//FIXME find tangent of curve and get height and width
+			StraightLine tangent = bezCurve.getTangentToCurveAtMidpoint();
+			final double largestTriangleHeight = tangent.getYCoordinateWhenXIsKnown(xMid);
+			final double largestTriangleWidth = (Math.abs(tangent.getXCoordinateWhenYIsKnown(yMin)) * 2) + xMax;
 			
 			for (int i = numberOfSections; i > 0; i--) {
-				float tWidth = 1093.55f * i / numberOfSections;
-				float tHeight = 423.75f * i / numberOfSections;
-				Point bottomPoint;
-				Point leftPoint;
-				Point rightPoint;
-				float leftXCoor = xMin - (tWidth - xMax) / 2;
-				float rightXCoor = xMax + (tWidth - xMax) / 2;
-				bottomPoint = Point.build(200, tHeight);
-				leftPoint = Point.build(leftXCoor, 0);
-				rightPoint = Point.build(rightXCoor, 0);
-				
+				double tWidth = largestTriangleWidth * i / numberOfSections;
+				double tHeight = largestTriangleHeight * i / numberOfSections;
+				double leftXCoor = xMin - (tWidth - xMax) / 2;
+				double rightXCoor = xMax + (tWidth - xMax) / 2;
+				Point leftPoint = Point.build((float) leftXCoor, 0);
+				Point rightPoint = Point.build((float) rightXCoor, 0);
+				Point bottomPoint = Point.build(200, (float) tHeight);
 				Triangle triangle = Triangle.build(bottomPoint, leftPoint, rightPoint);
 				putNewPolygonElementOnGElement(field, i % 2 != 0 ? secondTincture : firstTincture, triangle);
 			}
@@ -201,7 +208,7 @@ public class ShieldSVGDrawer {
 			Point pointA = Point.build(xMin, yMin);
 			Point pointB = Point.build(xMid, yMid);
 			Point pointC = Point.build(xMax, yMin);
-			Triangle triangle = Triangle.build(pointA, pointB, pointC);
+			RightAngleTriangle triangle = RightAngleTriangle.build(pointA, pointB, pointC);
 			putNewPolygonElementOnGElement(field, t, triangle);
 		}
 		else if (divisionName.equals(ShieldDivision.PALL_REVERSED)) {
@@ -210,7 +217,7 @@ public class ShieldSVGDrawer {
 			Point pointA = Point.build(xMin, yMax);
 			Point pointB = Point.build(xMid, yMid);
 			Point pointC = Point.build(xMax, yMax);
-			Triangle triangle = Triangle.build(pointA, pointB, pointC);
+			RightAngleTriangle triangle = RightAngleTriangle.build(pointA, pointB, pointC);
 			putNewPolygonElementOnGElement(field, it.next(), triangle);
 		}
 		else if (divisionName.equals(ShieldDivision.CROSS)) {
@@ -226,45 +233,44 @@ public class ShieldSVGDrawer {
 			Point pointA = Point.build(xMin, yMin);
 			Point pointB = Point.build(xMid, yMid);
 			Point pointC = Point.build(xMax, yMin);
-			Triangle triangle = Triangle.build(pointA, pointB, pointC);
+			RightAngleTriangle triangle = RightAngleTriangle.build(pointA, pointB, pointC);
 			putNewPolygonElementOnGElement(field, t, triangle);
 			pointA = Point.build(xMin, yMax);
-			pointB = Point.build(xMid, yMid);
 			pointC = Point.build(xMax, yMax);
-			triangle = Triangle.build(pointA, pointB, pointC);
+			triangle = RightAngleTriangle.build(pointA, pointB, pointC);
 			putNewPolygonElementOnGElement(field, t, triangle);
 			
 			t = it.next();
 			pointA = Point.build(xMin, yMin);
-			pointB = Point.build(xMid, yMid);
 			pointC = Point.build(xMin, yMax);
-			triangle = Triangle.build(pointA, pointB, pointC);
+			triangle = RightAngleTriangle.build(pointA, pointB, pointC);
 			putNewPolygonElementOnGElement(field, t, triangle);
 			pointA = Point.build(xMax, yMin);
-			pointB = Point.build(xMid, yMid);
 			pointC = Point.build(xMax, yMax);
-			triangle = Triangle.build(pointA, pointB, pointC);
+			triangle = RightAngleTriangle.build(pointA, pointB, pointC);
 			putNewPolygonElementOnGElement(field, t, triangle);
 		}
 		else if (divisionName.startsWith(ShieldDivision.GYRONNY)) {
-			putNewRectElementOnGElement(field, xMin, yMin, xMax, yMax, it.next());
-			Tincture t = it.next();
-			final double radPerDivision = 2 * Math.PI / division.getNumberOfSections();
+			final Tincture firstTincture = it.next();
+			final Tincture secondTincture = it.next();
+			final int numberOfSections = division.getNumberOfSections();
+			final double radPerDivision = 2 * Math.PI / numberOfSections;
 			final double angleB = Math.PI / 2 - radPerDivision;
 			final double sinAngleA = Math.sin(radPerDivision);
 			final double sinAngleB = Math.sin(angleB);
 			final float lengthB = (float) Math.sqrt(Math.pow(xMid,2) + Math.pow(yMid,2));
 			final float lengthA = (float) Math.abs(lengthB * sinAngleA / sinAngleB);
 			final float yTop = yMid - lengthB;
-			Point rPoint = Point.build(xMid, yMid);
+			final Point rPoint = Point.build(xMid, yMid);
 			
-			for (double rotateBy = 0; rotateBy < 2 * Math.PI; rotateBy += radPerDivision * 2) {
+			for (int i = 0; i < numberOfSections; i++) {
+				double rotateBy = radPerDivision * i;
 				Point pointA = Point.build(xMid, yTop);
 				Point pointB = Point.build(xMid, yMid);
 				Point pointC = Point.build(xMid + lengthA, yTop);
 				Triangle triangle = Triangle.build(pointA, pointB, pointC);
 				triangle = triangle.rotate(rPoint, rotateBy);
-				putNewPolygonElementOnGElement(field, t, triangle);
+				putNewPolygonElementOnGElement(field, i % 2 != 0 ? firstTincture : secondTincture, triangle);
 			}
 		}
 		else {//NONE: default:
@@ -279,7 +285,7 @@ public class ShieldSVGDrawer {
 		for (Point point : triangle.getPoints()) {
 			points.appendItem(svgElement.createSVGPoint(point.getX(), point.getY()));
 		}
-		Point first = triangle.getPoints().iterator().next();;
+		Point first = triangle.getPoints().iterator().next();
 		points.appendItem(svgElement.createSVGPoint(first.getX(), first.getY()));
 		addFillToElement(t, polygonElement);
 		field.appendChild(polygonElement);

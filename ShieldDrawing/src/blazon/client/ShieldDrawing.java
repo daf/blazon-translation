@@ -17,6 +17,7 @@ import org.vectomatic.dom.svg.OMSVGTitleElement;
 import org.vectomatic.dom.svg.utils.OMSVGParser;
 import org.vectomatic.dom.svg.utils.SVGConstants;
 
+import blazon.client.svg.shapes.CubicBezierCurve;
 import blazon.shared.shield.InvalidShield;
 import blazon.shared.shield.Shield;
 import blazon.shared.shield.ShieldImpl;
@@ -215,7 +216,8 @@ public class ShieldDrawing implements EntryPoint {
         defs = doc.createSVGDefsElement();
         ShieldSVGDrawer drawer = ShieldSVGDrawer.build(shield, doc, defs);
         svg.appendChild(defs);
-        drawer.drawSVGShield(shieldContainer);
+        CubicBezierCurve curve = CubicBezierCurve.build(0, 150, 200, 400, 0, 340, 200, 400);//LATER refactor this to draw outline too
+        drawer.drawSVGShield(shieldContainer, curve);
         svg.appendChild(shieldContainer);
     }
 
