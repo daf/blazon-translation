@@ -3,6 +3,9 @@ package blazon.client.svg.shapes;
 public final class RightAngleTriangle extends Triangle {
 
 	public final static RightAngleTriangle build(Point pointA, Point pointB, Point pointC) {
+		if (pointA == null || pointB == null || pointC == null) {
+			throw new IllegalArgumentException("Can not construct a right angle triangle with null points.");
+		}
 		if (pointA.equals(pointB) || pointA.equals(pointC) || pointB.equals(pointC)) {
 			throw new IllegalArgumentException("Can not construct a right angle triangle if some of the points are equal.");
 		}
@@ -32,6 +35,8 @@ public final class RightAngleTriangle extends Triangle {
 			if (Math.abs(longestSideSquared - otherSidesSquared) > errorAllowance) {
 				triangleIsNotRightAngled = true;
 			}
+		} else {
+			triangleIsNotRightAngled = true;
 		}
 		
 		if (triangleIsNotRightAngled) {
@@ -53,10 +58,9 @@ public final class RightAngleTriangle extends Triangle {
 	
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder("{RightAngleTriangle:pointA=");
+		StringBuilder sb = new StringBuilder("RightAngleTriangle{pointA=");
 		sb.append(pointA).append(":pointB=").append(pointB);
 		sb.append(":pointC=").append(pointC).append("}");
 		return sb.toString();
 	}
 }
-//FIXME add tests for triangle

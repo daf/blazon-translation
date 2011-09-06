@@ -11,7 +11,7 @@ public class Triangle {
 	
 	public static Triangle build(Point pointA, Point pointB, Point pointC) {
 		if (pointA == null || pointB == null || pointC == null) {
-			throw new IllegalArgumentException("Can not construct a triangle with null points");
+			throw new IllegalArgumentException("Can not construct a triangle with null points.");
 		}
 		if (pointA.equals(pointB) || pointA.equals(pointC) || pointB.equals(pointC)) {
 			throw new IllegalArgumentException("Can not construct a triangle if some of the points are equal.");
@@ -49,4 +49,3 @@ public class Triangle {
 		return sb.toString();
 	}
 }
-//FIXME add tests for Triangle
