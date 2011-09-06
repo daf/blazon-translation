@@ -38,9 +38,8 @@ shield returns [Shield s]
 		    :   
 		    field { 
 		    $s = ShieldImpl.build($field.layer);
-		    //TODO make HTML pretty
-		    //TODO add lozengy etc
-		    //TODO add charges
+		    //LATER make HTML pretty
+		    //LATER add charges
 		    $s.addDiagnostics(diags);
 		    }
 		    ;
@@ -83,9 +82,10 @@ some_tinctures [Tinctures tinctures, ShieldDivisionType division] returns [Shiel
 		            tinctures.addTincture($t.tincture);
 		            int numberOfTinctures = division.getNumberOfTinctures();
 		            if (numberOfTinctures != count) {
-		                throw new MyRecognitionException("Incorrect number of tinctures specified. The '" 
-		                    + division + "' division type only allows the following number of tinctures: "
-		                    + numberOfTinctures + " but found " + count);
+		                diags.add(ShieldDiagnostic.build(LogLevel.ERROR, "Incorrect number of tinctures specified." +
+		                    "  The '" + division + "' division type only allows the following number of tinctures: "
+		                    + numberOfTinctures + " but found " + count));
+		                throw new RecognitionException(this.input);
 		            }
 		            $layer = ShieldLayer.buildDividedShieldLayer(tinctures, division);
 		        }
@@ -115,20 +115,25 @@ div returns [ShieldDivisionType division]
                         int gyronnyOf = converter.convert($number_digits_or_words.text);
                         if (gyronnyOf \% 2 != 0) {
                             gyronnyOf++;
-                            diags.add(ShieldDiagnostic.build(LogLevel.WARN, "Parsing 'special_div', gyronny can only be of an"
-                                    + " even number; incremented number of sections to " + gyronnyOf));
+                            diags.add(ShieldDiagnostic.build(LogLevel.WARN, "Parsing rule 'div'.  '" + $VARIABLE_DIV.text 
+                                    + "' can only be of an even number; incremented number of sections to " + gyronnyOf));
                         }
                         text += " " + gyronnyOf;
                     } catch (Exception e) {
-                    throw new MyRecognitionException("Unable to convert '" 
-                            + $number_digits_or_words.text + "' into an integer.", e);
+                        diags.add(ShieldDiagnostic.build(LogLevel.ERROR, "Unable to convert '" + $number_digits_or_words.text 
+                            + "' into an integer. Caught: " +  e));
+                        throw new RecognitionException(this.input);
                     }
                 }
             )?
+        |
+            CONTINUOUS_DIV { text = $CONTINUOUS_DIV.text; }
+        |
+            QUARTER { text = $QUARTER.text; }
         )
         {
             if (state.errorRecovery) {
-                throw new MyRecognitionException(null);
+                throw new RecognitionException(this.input);
             }
             ShieldDivision divisions = new ShieldDivision();
             $division = divisions.getDivisionType(text, diags);
@@ -149,7 +154,8 @@ tincture [Tinctures tinctures] returns [Tincture tincture]
         {   try {
                 $tincture = tinctures.getTincture(tinctureName);
             } catch (UnknownTinctureException e) {
-                throw new MyRecognitionException("Unknown tincture found.", e);
+                diags.add(ShieldDiagnostic.build(LogLevel.ERROR, "Unknown tincture found. Caught: " + e));
+                throw new RecognitionException(this.input);
             }
         }
         ;
@@ -165,9 +171,17 @@ TIERCED
 DIV     :   'fess' | 'pale' | 'bend' | 'cross' | 'saltire' | 'chevron' | 'pall' | 'pairle'
         ;
         
-VARIABLE_DIV :   'gyronny' | 'barry' | 'paly' | 'bendy' | 'chevronny'
+VARIABLE_DIV
+        :   'gyronny' | 'barry' | 'paly' | 'bendy' | 'chevronny'
         ;
-
+        
+CONTINUOUS_DIV
+        :   'chequy' | 'lozengy'
+        ;
+      
+QUARTER :   'quarter'('ed'|'ly')
+        ;
+      
 PARTYPER
         :   ('part'('ed'|'y')' ')? 'per'
         ;
@@ -203,5 +217,5 @@ NUMWORDS
         |   'thousand' | 'million' | 'billion'
         ;
         
-WS      :   (' '|'\t')+ {$channel=HIDDEN;}
+WS      :   (' '|'\t')+ { $channel=HIDDEN; }
         ;

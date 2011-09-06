@@ -8,6 +8,7 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
+import static blazon.client.svg.shapes.SameTriangleAs.sameTriangleAs;
 
 public class TriangleTest {
 	
@@ -94,10 +95,9 @@ public class TriangleTest {
 		Point c = Point.build(2, 2.5f);
 		Triangle t = Triangle.build(a, b, c);
 		Point origin = Point.build(0, 0);
-		assertThat(t.rotate(origin, 0), is(equalTo(t)));
+		assertThat(t.rotate(origin, 0), is(sameTriangleAs(t)));
 	}
 	
-	//FIXME update these for triangle
 	@Test
 	public void testThatRotatingTriangleAboutOriginBy2PiRadiansGivesItself() {
 		Point a = Point.build(10, -1);
@@ -105,7 +105,7 @@ public class TriangleTest {
 		Point c = Point.build(2, 2.5f);
 		Triangle t = Triangle.build(a, b, c);
 		Point origin = Point.build(0, 0);
-		assertThat(t.rotate(origin, 2 * Math.PI), is(equalTo(t)));
+		assertThat(t.rotate(origin, 2 * Math.PI), is(sameTriangleAs(t)));
 	}
 	
 	@Test
@@ -115,10 +115,9 @@ public class TriangleTest {
 		Point c = Point.build(2, 2.5f);
 		Triangle t = Triangle.build(a, b, c);
 		Point rPoint = Point.build(-1, 3);
-		assertThat(t.rotate(rPoint, 2 * Math.PI), is(equalTo(t)));
+		assertThat(t.rotate(rPoint, 2 * Math.PI), is(sameTriangleAs(t)));
 	}
 	
-	//FIXME add matcher for triangle tests
 	@Test
 	public void testThatRotatingTriangleAboutXMinus1Y3ByPiRadiansGivesSameResultAsRotatingEachPointByPiRadiansAndConstructingNewTriangle() {
 		Point a = Point.build(10, -1);
@@ -128,7 +127,7 @@ public class TriangleTest {
 		Point rPoint = Point.build(-1, 3);
 		double theta = Math.PI;
 		Triangle rt = Triangle.build(a.rotate(rPoint, theta), b.rotate(rPoint, theta), c.rotate(rPoint, theta));
-		assertThat(t.rotate(rPoint, theta), is(equalTo(rt)));
+		assertThat(t.rotate(rPoint, theta), is(sameTriangleAs(rt)));
 	}
 	
 	@Test
@@ -141,9 +140,8 @@ public class TriangleTest {
 		double theta = Math.PI / 3;
 		Triangle rt = Triangle.build(a.rotate(rPoint, theta), b.rotate(rPoint, theta), c.rotate(rPoint, theta));
 
-		assertThat(t.rotate(rPoint, theta), is(equalTo(rt)));
+		assertThat(t.rotate(rPoint, theta), is(sameTriangleAs(rt)));
 	}
-	
 	
 	@Test
 	public void testThatTriangleToStringIsAsExpected() {

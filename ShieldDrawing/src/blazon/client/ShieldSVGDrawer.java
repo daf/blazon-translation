@@ -28,6 +28,8 @@ public class ShieldSVGDrawer {
 	private ShieldImpl shield;
 	private OMSVGDefsElement defs;
 
+	//TODO refactor to have field drawer
+	//LATER reuse elements in chequy etc but translate them to save rendering..?
 	public static ShieldSVGDrawer build(ShieldImpl shield, OMSVGDocument doc, OMSVGDefsElement defs) {
 		ShieldSVGDrawer drawer = new ShieldSVGDrawer();
 		drawer.doc = doc;
@@ -54,30 +56,30 @@ public class ShieldSVGDrawer {
 		final int xMid = ShieldDrawing.SHIELD_MAX_X/2;
 		final int yMid = ShieldDrawing.SHIELD_MAX_Y/2;
 		Iterator<Tincture> it = tinctures.getTincturesOnLayer().iterator();
+		final int numberOfSections = division.getNumberOfSections();
 		final String divisionName = division.getName();
-		if (divisionName.equals(ShieldDivision.FESS)) { //TODO refactor fess, tierced fess, and barry - together
-			putNewRectElementOnGElement(field, xMin, yMin, xMax, yMid, it.next());
-			putNewRectElementOnGElement(field, xMin, yMid, xMax, yMid, it.next());
+		
+		if (divisionName.startsWith(ShieldDivision.BARRY) || divisionName.equals(ShieldDivision.TIERCED_FESS) || divisionName.equals(ShieldDivision.FESS)) {
+			final int heightOfBar = (int) Math.ceil(yMax / (double) numberOfSections);
+			final Tincture[] tincturesOnLayer = tinctures.getTincturesOnLayer().toArray(new Tincture[0]);
+			final int numberOfTinctures = division.getNumberOfTinctures();
+			
+			for (int i = 0; i < numberOfSections; i++) {
+				int yPos = i * heightOfBar;
+				Tincture currentTincture = tincturesOnLayer[i % numberOfTinctures];
+				putNewRectElementOnGElement(field, xMin, yPos, xMax, heightOfBar, currentTincture);
+			}
 		}
-		else if (divisionName.equals(ShieldDivision.TIERCED_FESS)) {
-			putNewRectElementOnGElement(field, xMin, yMin, xMax, yMax/3, it.next());
-			putNewRectElementOnGElement(field, xMin, yMax/3, xMax, yMax/3, it.next());
-			putNewRectElementOnGElement(field, xMin, 2*yMax/3, xMax, yMax/3, it.next());
-		}
-		else if (divisionName.equals(ShieldDivision.BARRY)) {
-			//TODO draw barry
-		}
-		else if (divisionName.equals(ShieldDivision.PALE)) { //TODO refactor pale, tierced pale, and paly - together
-			putNewRectElementOnGElement(field, xMin, yMin, xMid, yMax, it.next());
-			putNewRectElementOnGElement(field, xMid, yMin, xMid, yMax, it.next());
-		}
-		else if (divisionName.equals(ShieldDivision.TIERCED_PALE)) {
-			putNewRectElementOnGElement(field, xMin, yMin, xMax/3, yMax, it.next());
-			putNewRectElementOnGElement(field, xMax/3, yMin, xMax/3, yMax, it.next());
-			putNewRectElementOnGElement(field, 2*xMax/3, yMin, xMax/3, yMax, it.next());
-		}
-		else if (divisionName.equals(ShieldDivision.PALY)) {
-			//TODO draw paly
+		else if (divisionName.startsWith(ShieldDivision.PALY) || divisionName.equals(ShieldDivision.TIERCED_PALE) || divisionName.equals(ShieldDivision.PALE)) {
+			final int widthOfBar = (int) Math.ceil(xMax / (double) numberOfSections);
+			final Tincture[] tincturesOnLayer = tinctures.getTincturesOnLayer().toArray(new Tincture[0]);
+			final int numberOfTinctures = division.getNumberOfTinctures();
+			
+			for (int i = 0; i < numberOfSections; i++) {
+				int xPos = i * widthOfBar;
+				Tincture currentTincture = tincturesOnLayer[i % numberOfTinctures];
+				putNewRectElementOnGElement(field, xPos, yMin, widthOfBar, yMax, currentTincture);
+			}
 		}
 		else if (divisionName.equals(ShieldDivision.BEND)){
 			Point pointA = Point.build(xMin, yMin);
@@ -94,7 +96,6 @@ public class ShieldSVGDrawer {
 			Tincture firstTincture = it.next();
 			Tincture secondTincture = it.next();
 			
-			final int numberOfSections = division.getNumberOfSections();
 			Point curveMidPoint = bezCurve.findMidpointOnCurve();
 			StraightLine lineFromTopRightToMidPointOfCurve = StraightLine.build(curveMidPoint, Point.build(xMax, yMin));
 			
@@ -125,7 +126,6 @@ public class ShieldSVGDrawer {
 			Tincture firstTincture = it.next();
 			Tincture secondTincture = it.next();
 			
-			final int numberOfSections = division.getNumberOfSections();
 			Point curveMidPoint = bezCurve.findMidpointOnCurve();
 			StraightLine lineFromTopRightToMidPointOfCurve = StraightLine.build(curveMidPoint, Point.build(xMax, yMin));
 			
@@ -154,7 +154,6 @@ public class ShieldSVGDrawer {
 			Tincture firstTincture = it.next();
 			Tincture secondTincture = it.next();
 			
-			final int numberOfSections = division.getNumberOfSections();
 			Point topPoint;
 			Point leftPoint;
 			Point rightPoint;
@@ -184,7 +183,6 @@ public class ShieldSVGDrawer {
 			Tincture firstTincture = it.next();
 			Tincture secondTincture = it.next();
 			
-			final int numberOfSections = division.getNumberOfSections();
 			StraightLine tangent = bezCurve.getTangentToCurveAtMidpoint();
 			final double largestTriangleHeight = tangent.getYCoordinateWhenXIsKnown(xMid);
 			final double largestTriangleWidth = (Math.abs(tangent.getXCoordinateWhenYIsKnown(yMin)) * 2) + xMax;
@@ -253,7 +251,6 @@ public class ShieldSVGDrawer {
 		else if (divisionName.startsWith(ShieldDivision.GYRONNY)) {
 			final Tincture firstTincture = it.next();
 			final Tincture secondTincture = it.next();
-			final int numberOfSections = division.getNumberOfSections();
 			final double radPerDivision = 2 * Math.PI / numberOfSections;
 			final double angleB = Math.PI / 2 - radPerDivision;
 			final double sinAngleA = Math.sin(radPerDivision);
@@ -273,6 +270,26 @@ public class ShieldSVGDrawer {
 				putNewPolygonElementOnGElement(field, i % 2 != 0 ? firstTincture : secondTincture, triangle);
 			}
 		}
+		else if (divisionName.equals(ShieldDivision.CHEQUY)) {
+			final Tincture firstTincture = it.next();
+			final Tincture secondTincture = it.next();
+			int rootOfNumberOfSectionsRoundedToPerfectSquare = (int)Math.sqrt(numberOfSections) + 1;
+			final int heightOfRect = (int) Math.ceil(yMax / (double) rootOfNumberOfSectionsRoundedToPerfectSquare);
+			final int widthOfRect = (int) Math.ceil(xMax / (double) rootOfNumberOfSectionsRoundedToPerfectSquare);
+			
+			for (int i = 0; i < rootOfNumberOfSectionsRoundedToPerfectSquare; i++) {
+				for (int j = 0; j < rootOfNumberOfSectionsRoundedToPerfectSquare; j++) {
+					int xPos = i * widthOfRect;
+					int yPos = j * heightOfRect;
+					Tincture currentTincture = (i % 2 == j % 2) ? firstTincture : secondTincture;
+					putNewRectElementOnGElement(field, xPos, yPos, widthOfRect, heightOfRect, currentTincture);
+				}
+			}
+		}
+		else if (divisionName.equals(ShieldDivision.LOZENGY)) {
+			//FIXME draw lozengy
+		}
+		
 		else {//NONE: default:
 			putNewRectElementOnGElement(field, xMin, yMin, xMax, yMax, it.next());
 		}

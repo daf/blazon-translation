@@ -37,6 +37,8 @@ public class ShieldDivision implements Serializable {
 	public static final String BEND = "BEND";
 	public static final String FESS = "FESS";
 	public static final String PALE = "PALE";
+	public static final String CHEQUY = "CHEQUY";
+	public static final String LOZENGY = "LOZENGY";
 	public static final String NONE = "NONE";
 	private static final long serialVersionUID = 88067752583187630L;
 	private Map<String, ShieldDivisionType> map;
@@ -62,6 +64,10 @@ public class ShieldDivision implements Serializable {
 		map.put(div.getName(), div);
 		div = ShieldDivisionType.build(CROSS, 4, 2);
 		map.put(div.getName(), div);
+		div = ShieldDivisionType.build(CROSS, 4, 2);
+		map.put("QUARTERLY", div);
+		div = ShieldDivisionType.build(CROSS, 4, 2);
+		map.put("QUARTERED", div);
 		div = ShieldDivisionType.build(SALTIRE, 4, 2);
 		map.put(div.getName(), div);
 		div = ShieldDivisionType.build(CHEVRON, 2, 2);
@@ -98,6 +104,11 @@ public class ShieldDivision implements Serializable {
 		div = ShieldDivisionType.build(CHEVRONNY_REVERSED, 6, 2);
 		map.put(div.getName(), div);
 		variableDivs.add(div.getName());
+		
+		div = ShieldDivisionType.build(CHEQUY, 36, 2);
+		map.put(div.getName(), div);
+		div = ShieldDivisionType.build(LOZENGY, 36, 2);
+		map.put(div.getName(), div);
 	}
 
 	/**
