@@ -1,4 +1,4 @@
-package blazon.client.svg.fur;
+package blazon.client.drawing.shield.fur;
 
 import org.vectomatic.dom.svg.OMSVGDefsElement;
 import org.vectomatic.dom.svg.OMSVGDocument;

@@ -1,9 +1,9 @@
-package blazon.client.svg.shapes;
+package blazon.client.drawing.shapes;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class Triangle {
+public class Triangle implements Polygon {
 	
 	protected Point pointA;
 	protected Point pointB;
@@ -33,6 +33,7 @@ public class Triangle {
 		return build(newA, newB, newC);
 	}
 	
+	@Override
 	public final Collection<Point> getPoints() {
 		Collection<Point> points = new ArrayList<Point>();
 		points.add(pointA);
