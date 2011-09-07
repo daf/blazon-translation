@@ -1,4 +1,4 @@
-package blazon.client.svg.shapes;
+package blazon.client.drawing.shapes;
 
 public class StraightLine {
 

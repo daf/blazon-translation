@@ -17,7 +17,7 @@ import org.vectomatic.dom.svg.OMSVGTitleElement;
 import org.vectomatic.dom.svg.utils.OMSVGParser;
 import org.vectomatic.dom.svg.utils.SVGConstants;
 
-import blazon.client.svg.shapes.CubicBezierCurve;
+import blazon.client.drawing.shapes.CubicBezierCurve;
 import blazon.shared.shield.InvalidShield;
 import blazon.shared.shield.Shield;
 import blazon.shared.shield.ShieldImpl;
@@ -54,7 +54,6 @@ public class ShieldDrawing implements EntryPoint {
 	private final OMSVGDocument doc = OMSVGParser.currentDocument();
     private final OMSVGSVGElement svg = doc.createSVGSVGElement();
     
-    
 	private TextBox textBox;
 	private OMSVGGElement shieldContainer;
 	private OMSVGTextElement initialText;
@@ -63,7 +62,6 @@ public class ShieldDrawing implements EntryPoint {
 	private OMSVGDefsElement defs;
     private Element currentSVGElement;
     private FlexTable currentDiagnosticsTable;
-
     
     public void onModuleLoad() {
     	final Panel rootPanel = RootPanel.get("svgPanel");

@@ -11,13 +11,15 @@ import org.vectomatic.dom.svg.OMSVGPolygonElement;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.utils.SVGConstants;
 
-import blazon.client.svg.fur.FurSVGBuilder;
-import blazon.client.svg.fur.AbstractFurSVGBuilder;
-import blazon.client.svg.shapes.CubicBezierCurve;
-import blazon.client.svg.shapes.Point;
-import blazon.client.svg.shapes.RightAngleTriangle;
-import blazon.client.svg.shapes.StraightLine;
-import blazon.client.svg.shapes.Triangle;
+import blazon.client.drawing.shapes.CubicBezierCurve;
+import blazon.client.drawing.shapes.FourPointedPolygon;
+import blazon.client.drawing.shapes.Point;
+import blazon.client.drawing.shapes.Polygon;
+import blazon.client.drawing.shapes.RightAngleTriangle;
+import blazon.client.drawing.shapes.StraightLine;
+import blazon.client.drawing.shapes.Triangle;
+import blazon.client.drawing.shield.fur.AbstractFurSVGBuilder;
+import blazon.client.drawing.shield.fur.FurSVGBuilder;
 import blazon.shared.shield.*;
 import blazon.shared.shield.ShieldDivision.ShieldDivisionType;
 import blazon.shared.shield.tinctures.*;
@@ -28,8 +30,8 @@ public class ShieldSVGDrawer {
 	private ShieldImpl shield;
 	private OMSVGDefsElement defs;
 
-	//TODO refactor to have field drawer
-	//LATER reuse elements in chequy etc but translate them to save rendering..?
+	//FIXME refactor to have field drawer
+	//TODO reuse elements in chequy etc but translate them to save rendering..?
 	public static ShieldSVGDrawer build(ShieldImpl shield, OMSVGDocument doc, OMSVGDefsElement defs) {
 		ShieldSVGDrawer drawer = new ShieldSVGDrawer();
 		drawer.doc = doc;
@@ -154,18 +156,14 @@ public class ShieldSVGDrawer {
 			Tincture firstTincture = it.next();
 			Tincture secondTincture = it.next();
 			
-			Point topPoint;
-			Point leftPoint;
-			Point rightPoint;
-			
 			for (int i = numberOfSections; i > 0; i--) {
 				float topYCoor = yMax - (1.5f * i * yMax / numberOfSections);
 				float triangleWidth = 3f * i * xMax / numberOfSections;
 				float rightXCoor = xMax + (triangleWidth - xMax) / 2;
 				float leftXCoor = xMin - (triangleWidth - xMax) / 2;
-				topPoint = Point.build(xMid, topYCoor);
-				leftPoint = Point.build(leftXCoor, yMax);
-				rightPoint = Point.build(rightXCoor, yMax);
+				Point topPoint = Point.build(xMid, topYCoor);
+				Point leftPoint = Point.build(leftXCoor, yMax);
+				Point rightPoint = Point.build(rightXCoor, yMax);
 				RightAngleTriangle triangle = RightAngleTriangle.build(topPoint, leftPoint, rightPoint);
 				putNewPolygonElementOnGElement(field, i % 2 != 0 ? secondTincture : firstTincture, triangle);
 			}
@@ -176,7 +174,7 @@ public class ShieldSVGDrawer {
 			Point pointA = Point.build(xMin, yMin);
 			Point pointB = Point.build(xMid, yMid);
 			Point pointC = Point.build(xMax, yMin);
-			Triangle triangle = Triangle.build(pointA, pointB, pointC);
+			Polygon triangle = Triangle.build(pointA, pointB, pointC);
 			putNewPolygonElementOnGElement(field, t, triangle);
 		}
 		else if (divisionName.startsWith(ShieldDivision.CHEVRONNY_REVERSED)) {
@@ -195,7 +193,7 @@ public class ShieldSVGDrawer {
 				Point leftPoint = Point.build((float) leftXCoor, 0);
 				Point rightPoint = Point.build((float) rightXCoor, 0);
 				Point bottomPoint = Point.build(200, (float) tHeight);
-				Triangle triangle = Triangle.build(bottomPoint, leftPoint, rightPoint);
+				Polygon triangle = Triangle.build(bottomPoint, leftPoint, rightPoint);
 				putNewPolygonElementOnGElement(field, i % 2 != 0 ? secondTincture : firstTincture, triangle);
 			}
 		}
@@ -255,31 +253,34 @@ public class ShieldSVGDrawer {
 			final double angleB = Math.PI / 2 - radPerDivision;
 			final double sinAngleA = Math.sin(radPerDivision);
 			final double sinAngleB = Math.sin(angleB);
+			
 			final float lengthB = (float) Math.sqrt(Math.pow(xMid,2) + Math.pow(yMid,2));
 			final float lengthA = (float) Math.abs(lengthB * sinAngleA / sinAngleB);
+			
 			final float yTop = yMid - lengthB;
+			final Point pointA = Point.build(xMid, yTop);
+			final Point pointB = Point.build(xMid, yMid);
+			final Point pointC = Point.build(xMid + lengthA, yTop);
+			final Triangle triangle = RightAngleTriangle.build(pointA, pointB, pointC);
+			
 			final Point rPoint = Point.build(xMid, yMid);
 			
 			for (int i = 0; i < numberOfSections; i++) {
 				double rotateBy = radPerDivision * i;
-				Point pointA = Point.build(xMid, yTop);
-				Point pointB = Point.build(xMid, yMid);
-				Point pointC = Point.build(xMid + lengthA, yTop);
-				Triangle triangle = Triangle.build(pointA, pointB, pointC);
-				triangle = triangle.rotate(rPoint, rotateBy);
-				putNewPolygonElementOnGElement(field, i % 2 != 0 ? firstTincture : secondTincture, triangle);
+				Triangle rotatedTriangle = triangle.rotate(rPoint, rotateBy);
+				putNewPolygonElementOnGElement(field, i % 2 != 0 ? firstTincture : secondTincture, rotatedTriangle);
 			}
 		}
 		else if (divisionName.equals(ShieldDivision.CHEQUY)) {
 			final Tincture firstTincture = it.next();
 			final Tincture secondTincture = it.next();
-			int rootOfNumberOfSectionsRoundedToPerfectSquare = (int)Math.sqrt(numberOfSections) + 1;
-			final int heightOfRect = (int) Math.ceil(yMax / (double) rootOfNumberOfSectionsRoundedToPerfectSquare);
-			final int widthOfRect = (int) Math.ceil(xMax / (double) rootOfNumberOfSectionsRoundedToPerfectSquare);
+			final double rootOfNumberOfSectionsRoundedToPerfectSquare = Math.ceil(Math.sqrt(numberOfSections));
+			final int heightOfRect = (int) Math.ceil(yMax / rootOfNumberOfSectionsRoundedToPerfectSquare);
+			final int widthOfRect = (int) Math.ceil(xMax / rootOfNumberOfSectionsRoundedToPerfectSquare);
 			
 			for (int i = 0; i < rootOfNumberOfSectionsRoundedToPerfectSquare; i++) {
+				int xPos = i * widthOfRect;
 				for (int j = 0; j < rootOfNumberOfSectionsRoundedToPerfectSquare; j++) {
-					int xPos = i * widthOfRect;
 					int yPos = j * heightOfRect;
 					Tincture currentTincture = (i % 2 == j % 2) ? firstTincture : secondTincture;
 					putNewRectElementOnGElement(field, xPos, yPos, widthOfRect, heightOfRect, currentTincture);
@@ -287,22 +288,40 @@ public class ShieldSVGDrawer {
 			}
 		}
 		else if (divisionName.equals(ShieldDivision.LOZENGY)) {
-			//FIXME draw lozengy
+			final Tincture firstTincture = it.next();
+			final Tincture secondTincture = it.next();
+			final double rootOfNumberOfSectionsRoundedToPerfectSquare = Math.ceil(Math.sqrt(numberOfSections));
+			final int heightOfLozenge = (int) Math.ceil(yMax / rootOfNumberOfSectionsRoundedToPerfectSquare);
+			final int widthOfLozenge = (int) Math.ceil(xMax / rootOfNumberOfSectionsRoundedToPerfectSquare);
+			final float halfWidthOfLozenge = widthOfLozenge / 2f;
+			final float halfHeightOfLozenge = heightOfLozenge / 2f;
+			
+			for (int i = 0; i <= rootOfNumberOfSectionsRoundedToPerfectSquare; i++) {
+				for (int j = 0; j <= rootOfNumberOfSectionsRoundedToPerfectSquare; j++) {
+					float xPos = (i * widthOfLozenge) - halfWidthOfLozenge;
+					float yPos = (j * heightOfLozenge) - halfHeightOfLozenge;
+					Polygon polygon = FourPointedPolygon.build(Point.build(xPos, yPos), Point.build(xPos + widthOfLozenge, yPos), Point.build(xPos, yPos + heightOfLozenge), Point.build(xPos + widthOfLozenge, yPos + heightOfLozenge));
+					putNewPolygonElementOnGElement(field, firstTincture, polygon);
+					xPos += halfWidthOfLozenge;
+					yPos += halfHeightOfLozenge;
+					polygon = FourPointedPolygon.build(Point.build(xPos, yPos), Point.build(xPos + widthOfLozenge, yPos), Point.build(xPos, yPos + heightOfLozenge), Point.build(xPos + widthOfLozenge, yPos + heightOfLozenge));
+					putNewPolygonElementOnGElement(field, secondTincture, polygon);
+				}
+			}
 		}
-		
 		else {//NONE: default:
 			putNewRectElementOnGElement(field, xMin, yMin, xMax, yMax, it.next());
 		}
 	}
 
-	private void putNewPolygonElementOnGElement(OMSVGGElement field, Tincture t, Triangle triangle) {
+	private void putNewPolygonElementOnGElement(OMSVGGElement field, Tincture t, Polygon polygon) {
 		OMSVGSVGElement svgElement = doc.createSVGSVGElement();
 		OMSVGPolygonElement polygonElement = doc.createSVGPolygonElement();
 		OMSVGPointList points = polygonElement.getPoints();
-		for (Point point : triangle.getPoints()) {
+		for (Point point : polygon.getPoints()) {
 			points.appendItem(svgElement.createSVGPoint(point.getX(), point.getY()));
 		}
-		Point first = triangle.getPoints().iterator().next();
+		Point first = polygon.getPoints().iterator().next();
 		points.appendItem(svgElement.createSVGPoint(first.getX(), first.getY()));
 		addFillToElement(t, polygonElement);
 		field.appendChild(polygonElement);

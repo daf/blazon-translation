@@ -1,4 +1,4 @@
-package blazon.client.svg.fur;
+package blazon.client.drawing.shield.fur;
 
 public interface FurSVGBuilder {
 
