@@ -1,4 +1,4 @@
-package blazon.client;
+package blazon.client.drawing;
 
 import java.util.Iterator;
 
@@ -24,7 +24,7 @@ import blazon.shared.shield.*;
 import blazon.shared.shield.ShieldDivision.ShieldDivisionType;
 import blazon.shared.shield.tinctures.*;
 
-public class ShieldSVGDrawer {
+public class SVGFieldDrawer {
 	
 	private OMSVGDocument doc;
 	private ShieldImpl shield;
@@ -32,15 +32,15 @@ public class ShieldSVGDrawer {
 
 	//FIXME refactor to have field drawer
 	//TODO reuse elements in chequy etc but translate them to save rendering..?
-	public static ShieldSVGDrawer build(ShieldImpl shield, OMSVGDocument doc, OMSVGDefsElement defs) {
-		ShieldSVGDrawer drawer = new ShieldSVGDrawer();
+	public static SVGFieldDrawer build(ShieldImpl shield, OMSVGDocument doc, OMSVGDefsElement defs) {
+		SVGFieldDrawer drawer = new SVGFieldDrawer();
 		drawer.doc = doc;
 		drawer.shield = shield;
 		drawer.defs = defs;
 		return drawer;
 	}
 
-	public void drawSVGShield(OMSVGGElement shieldContainer, CubicBezierCurve bezCurve) {
+	public void drawField(OMSVGGElement shieldContainer, CubicBezierCurve bezCurve) {
 		OMSVGGElement field = doc.createSVGGElement();
         ShieldLayer base = shield.getField();
     	ShieldDivisionType division = base.getShieldDivision();
@@ -51,12 +51,12 @@ public class ShieldSVGDrawer {
 	
 	private void createElementsForField(ShieldDivisionType division,
 			Tinctures tinctures, OMSVGGElement field, CubicBezierCurve bezCurve) {
-		final int xMax = ShieldDrawing.SHIELD_MAX_X;
-		final int yMax = ShieldDrawing.SHIELD_MAX_Y;
-		final int xMin = ShieldDrawing.SHIELD_MIN_X;
-		final int yMin = ShieldDrawing.SHIELD_MIN_Y;
-		final int xMid = ShieldDrawing.SHIELD_MAX_X/2;
-		final int yMid = ShieldDrawing.SHIELD_MAX_Y/2;
+		final int xMax = 400;// SVGDrawer.SHIELD_MAX_X;FIXME pass size values into field drawer
+		final int yMax = 400;// SVGDrawer.SHIELD_MAX_Y;
+		final int xMin = 0;// SVGDrawer.SHIELD_MIN_X;
+		final int yMin = 0;// SVGDrawer.SHIELD_MIN_Y;
+		final int xMid = 200;// SVGDrawer.SHIELD_MAX_X/2;
+		final int yMid = 200;// SVGDrawer.SHIELD_MAX_Y/2;
 		Iterator<Tincture> it = tinctures.getTincturesOnLayer().iterator();
 		final int numberOfSections = division.getNumberOfSections();
 		final String divisionName = division.getName();

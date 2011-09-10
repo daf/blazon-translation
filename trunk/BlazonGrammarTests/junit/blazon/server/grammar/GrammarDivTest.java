@@ -136,7 +136,7 @@ public class GrammarDivTest {
 		assertThat(result.getNumberOfTinctures(), is(2));
 	}
 	
-	@Test(expected=MyRecognitionException.class)
+	@Test(expected=RecognitionException.class)
 	public void testThatDivThrowsMyRecognitionExceptionForUnrecognisedNumbers() throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("gyronny of one million million");
 		parser.div();

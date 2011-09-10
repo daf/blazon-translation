@@ -11,6 +11,7 @@ public abstract class AbstractShield implements Shield, Serializable {
 	private static final long serialVersionUID = 6055643270596134156L;
 
 	private List<ShieldDiagnostic> diagnostics;
+	protected String blazon;
 	
 	public List<ShieldDiagnostic> getShieldDiagnostics() {
 		return diagnostics;
@@ -27,5 +28,9 @@ public abstract class AbstractShield implements Shield, Serializable {
 			}
 		}
 		
+	}
+	
+	public final String getBlazon() {
+		return blazon;
 	}
 }

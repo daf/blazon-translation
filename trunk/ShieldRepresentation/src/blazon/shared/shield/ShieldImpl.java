@@ -17,13 +17,14 @@ public class ShieldImpl extends AbstractShield {
 	 * @param field the ShieldLayer that will be the field of the shield.
 	 * @return
 	 */
-	public static Shield build(ShieldLayer field) {
+	public static Shield build(ShieldLayer field, String blazon) {
 		if (field == null) {
 			throw new IllegalArgumentException(
 					"Can not create shield with null base shield layer");
 		}
 		ShieldImpl shield = new ShieldImpl();
 		shield.field = field;
+		shield.blazon = blazon;
 		return shield;
 	}
 

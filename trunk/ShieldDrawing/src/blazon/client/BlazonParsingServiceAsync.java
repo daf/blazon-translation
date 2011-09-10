@@ -7,7 +7,7 @@ import blazon.shared.shield.Shield;
 /**
  * The async counterpart of <code>GreetingService</code>.
  */
-public interface ShieldDrawingServiceAsync {
+public interface BlazonParsingServiceAsync {
 	void createShieldRepresentation(String blazon,
 			AsyncCallback<Shield> callback);
 }

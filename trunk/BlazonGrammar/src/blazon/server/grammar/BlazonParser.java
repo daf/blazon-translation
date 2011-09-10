@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:50:56 /Users/luketorjussen/Documents/workspace/BlazonGrammar/grammar/Blazon.g 2011-09-06 17:57:34
+// $ANTLR 3.3 Nov 30, 2010 12:50:56 /Users/luketorjussen/Documents/workspace/BlazonGrammar/grammar/Blazon.g 2011-09-09 16:45:05
 
 package blazon.server.grammar;
 import blazon.shared.shield.*;
@@ -73,15 +73,16 @@ public class BlazonParser extends Parser {
 
         try {
             // /Users/luketorjussen/Documents/workspace/BlazonGrammar/grammar/Blazon.g:38:7: ( field )
-            // /Users/luketorjussen/Documents/workspace/BlazonGrammar/grammar/Blazon.g:39:7: field
+            // /Users/luketorjussen/Documents/workspace/BlazonGrammar/grammar/Blazon.g:38:11: field
             {
-            pushFollow(FOLLOW_field_in_shield71);
+             String blazon = input.toString(); 
+            pushFollow(FOLLOW_field_in_shield73);
             field1=field();
 
             state._fsp--;
 
              
-            		    s = ShieldImpl.build(field1);
+            		    s = ShieldImpl.build(field1, blazon);
             		    //LATER make HTML pretty
             		    //LATER add charges
             		    s.addDiagnostics(diags);
@@ -134,7 +135,7 @@ public class BlazonParser extends Parser {
                 case 1 :
                     // /Users/luketorjussen/Documents/workspace/BlazonGrammar/grammar/Blazon.g:52:11: plain_field
                     {
-                    pushFollow(FOLLOW_plain_field_in_field112);
+                    pushFollow(FOLLOW_plain_field_in_field114);
                     plain_field2=plain_field();
 
                     state._fsp--;
@@ -146,7 +147,7 @@ public class BlazonParser extends Parser {
                 case 2 :
                     // /Users/luketorjussen/Documents/workspace/BlazonGrammar/grammar/Blazon.g:53:11: divided_field
                     {
-                    pushFollow(FOLLOW_divided_field_in_field126);
+                    pushFollow(FOLLOW_divided_field_in_field128);
                     divided_field3=divided_field();
 
                     state._fsp--;
@@ -184,13 +185,13 @@ public class BlazonParser extends Parser {
             // /Users/luketorjussen/Documents/workspace/BlazonGrammar/grammar/Blazon.g:58:9: div some_tinctures[tinctures, division]
             {
              Tinctures tinctures = new Tinctures(); 
-            pushFollow(FOLLOW_div_in_divided_field175);
+            pushFollow(FOLLOW_div_in_divided_field177);
             div4=div();
 
             state._fsp--;
 
              ShieldDivisionType division = div4; 
-            pushFollow(FOLLOW_some_tinctures_in_divided_field188);
+            pushFollow(FOLLOW_some_tinctures_in_divided_field190);
             some_tinctures5=some_tinctures(tinctures, division);
 
             state._fsp--;
@@ -224,7 +225,7 @@ public class BlazonParser extends Parser {
             // /Users/luketorjussen/Documents/workspace/BlazonGrammar/grammar/Blazon.g:64:11: tincture[tinctures] ( PLAIN )?
             {
              Tinctures tinctures = new Tinctures(); 
-            pushFollow(FOLLOW_tincture_in_plain_field238);
+            pushFollow(FOLLOW_tincture_in_plain_field240);
             tincture6=tincture(tinctures);
 
             state._fsp--;
@@ -240,7 +241,7 @@ public class BlazonParser extends Parser {
                 case 1 :
                     // /Users/luketorjussen/Documents/workspace/BlazonGrammar/grammar/Blazon.g:65:31: PLAIN
                     {
-                    match(input,PLAIN,FOLLOW_PLAIN_in_plain_field241); 
+                    match(input,PLAIN,FOLLOW_PLAIN_in_plain_field243); 
 
                     }
                     break;
@@ -295,7 +296,7 @@ public class BlazonParser extends Parser {
             	case 1 :
             	    // /Users/luketorjussen/Documents/workspace/BlazonGrammar/grammar/Blazon.g:75:17: t= tincture[tinctures]
             	    {
-            	    pushFollow(FOLLOW_tincture_in_some_tinctures325);
+            	    pushFollow(FOLLOW_tincture_in_some_tinctures327);
             	    t=tincture(tinctures);
 
             	    state._fsp--;
@@ -314,8 +315,8 @@ public class BlazonParser extends Parser {
                 cnt3++;
             } while (true);
 
-            match(input,AND,FOLLOW_AND_in_some_tinctures374); 
-            pushFollow(FOLLOW_tincture_in_some_tinctures392);
+            match(input,AND,FOLLOW_AND_in_some_tinctures376); 
+            pushFollow(FOLLOW_tincture_in_some_tinctures394);
             t=tincture(tinctures);
 
             state._fsp--;
@@ -414,7 +415,7 @@ public class BlazonParser extends Parser {
                         case 1 :
                             // /Users/luketorjussen/Documents/workspace/BlazonGrammar/grammar/Blazon.g:98:17: TIERCED
                             {
-                            TIERCED7=(Token)match(input,TIERCED,FOLLOW_TIERCED_in_div484); 
+                            TIERCED7=(Token)match(input,TIERCED,FOLLOW_TIERCED_in_div486); 
                              text = (TIERCED7!=null?TIERCED7.getText():null) + " "; 
 
                             }
@@ -422,8 +423,8 @@ public class BlazonParser extends Parser {
 
                     }
 
-                    match(input,PARTYPER,FOLLOW_PARTYPER_in_div515); 
-                    DIV8=(Token)match(input,DIV,FOLLOW_DIV_in_div529); 
+                    match(input,PARTYPER,FOLLOW_PARTYPER_in_div517); 
+                    DIV8=(Token)match(input,DIV,FOLLOW_DIV_in_div531); 
                      text += (DIV8!=null?DIV8.getText():null); 
                     // /Users/luketorjussen/Documents/workspace/BlazonGrammar/grammar/Blazon.g:102:13: (divModifier1= DIV_MODIFIER )?
                     int alt5=2;
@@ -436,7 +437,7 @@ public class BlazonParser extends Parser {
                         case 1 :
                             // /Users/luketorjussen/Documents/workspace/BlazonGrammar/grammar/Blazon.g:103:17: divModifier1= DIV_MODIFIER
                             {
-                            divModifier1=(Token)match(input,DIV_MODIFIER,FOLLOW_DIV_MODIFIER_in_div567); 
+                            divModifier1=(Token)match(input,DIV_MODIFIER,FOLLOW_DIV_MODIFIER_in_div569); 
                              text += " " + (divModifier1!=null?divModifier1.getText():null); 
 
                             }
@@ -450,7 +451,7 @@ public class BlazonParser extends Parser {
                 case 2 :
                     // /Users/luketorjussen/Documents/workspace/BlazonGrammar/grammar/Blazon.g:106:13: VARIABLE_DIV (divModifier2= DIV_MODIFIER )? ( OF number_digits_or_words )?
                     {
-                    VARIABLE_DIV9=(Token)match(input,VARIABLE_DIV,FOLLOW_VARIABLE_DIV_in_div608); 
+                    VARIABLE_DIV9=(Token)match(input,VARIABLE_DIV,FOLLOW_VARIABLE_DIV_in_div610); 
                      text = (VARIABLE_DIV9!=null?VARIABLE_DIV9.getText():null); 
                     // /Users/luketorjussen/Documents/workspace/BlazonGrammar/grammar/Blazon.g:107:13: (divModifier2= DIV_MODIFIER )?
                     int alt6=2;
@@ -463,7 +464,7 @@ public class BlazonParser extends Parser {
                         case 1 :
                             // /Users/luketorjussen/Documents/workspace/BlazonGrammar/grammar/Blazon.g:108:17: divModifier2= DIV_MODIFIER
                             {
-                            divModifier2=(Token)match(input,DIV_MODIFIER,FOLLOW_DIV_MODIFIER_in_div646); 
+                            divModifier2=(Token)match(input,DIV_MODIFIER,FOLLOW_DIV_MODIFIER_in_div648); 
                              text += " " + (divModifier2!=null?divModifier2.getText():null); 
 
                             }
@@ -482,9 +483,9 @@ public class BlazonParser extends Parser {
                         case 1 :
                             // /Users/luketorjussen/Documents/workspace/BlazonGrammar/grammar/Blazon.g:111:17: OF number_digits_or_words
                             {
-                            OF10=(Token)match(input,OF,FOLLOW_OF_in_div695); 
+                            OF10=(Token)match(input,OF,FOLLOW_OF_in_div697); 
                              text += " " + (OF10!=null?OF10.getText():null); 
-                            pushFollow(FOLLOW_number_digits_or_words_in_div715);
+                            pushFollow(FOLLOW_number_digits_or_words_in_div717);
                             number_digits_or_words11=number_digits_or_words();
 
                             state._fsp--;
@@ -516,7 +517,7 @@ public class BlazonParser extends Parser {
                 case 3 :
                     // /Users/luketorjussen/Documents/workspace/BlazonGrammar/grammar/Blazon.g:130:13: CONTINUOUS_DIV
                     {
-                    CONTINUOUS_DIV12=(Token)match(input,CONTINUOUS_DIV,FOLLOW_CONTINUOUS_DIV_in_div772); 
+                    CONTINUOUS_DIV12=(Token)match(input,CONTINUOUS_DIV,FOLLOW_CONTINUOUS_DIV_in_div774); 
                      text = (CONTINUOUS_DIV12!=null?CONTINUOUS_DIV12.getText():null); 
 
                     }
@@ -524,7 +525,7 @@ public class BlazonParser extends Parser {
                 case 4 :
                     // /Users/luketorjussen/Documents/workspace/BlazonGrammar/grammar/Blazon.g:132:13: QUARTER
                     {
-                    QUARTER13=(Token)match(input,QUARTER,FOLLOW_QUARTER_in_div798); 
+                    QUARTER13=(Token)match(input,QUARTER,FOLLOW_QUARTER_in_div800); 
                      text = (QUARTER13!=null?QUARTER13.getText():null); 
 
                     }
@@ -583,14 +584,14 @@ public class BlazonParser extends Parser {
                 case 1 :
                     // /Users/luketorjussen/Documents/workspace/BlazonGrammar/grammar/Blazon.g:144:13: DIGITS
                     {
-                    match(input,DIGITS,FOLLOW_DIGITS_in_number_digits_or_words847); 
+                    match(input,DIGITS,FOLLOW_DIGITS_in_number_digits_or_words849); 
 
                     }
                     break;
                 case 2 :
                     // /Users/luketorjussen/Documents/workspace/BlazonGrammar/grammar/Blazon.g:145:13: NUMWORDS ( ( AND )? NUMWORDS )*
                     {
-                    match(input,NUMWORDS,FOLLOW_NUMWORDS_in_number_digits_or_words861); 
+                    match(input,NUMWORDS,FOLLOW_NUMWORDS_in_number_digits_or_words863); 
                     // /Users/luketorjussen/Documents/workspace/BlazonGrammar/grammar/Blazon.g:145:22: ( ( AND )? NUMWORDS )*
                     loop10:
                     do {
@@ -617,14 +618,14 @@ public class BlazonParser extends Parser {
                     	        case 1 :
                     	            // /Users/luketorjussen/Documents/workspace/BlazonGrammar/grammar/Blazon.g:145:23: AND
                     	            {
-                    	            match(input,AND,FOLLOW_AND_in_number_digits_or_words864); 
+                    	            match(input,AND,FOLLOW_AND_in_number_digits_or_words866); 
 
                     	            }
                     	            break;
 
                     	    }
 
-                    	    match(input,NUMWORDS,FOLLOW_NUMWORDS_in_number_digits_or_words867); 
+                    	    match(input,NUMWORDS,FOLLOW_NUMWORDS_in_number_digits_or_words869); 
 
                     	    }
                     	    break;
@@ -696,7 +697,7 @@ public class BlazonParser extends Parser {
                 case 1 :
                     // /Users/luketorjussen/Documents/workspace/BlazonGrammar/grammar/Blazon.g:150:13: COLOUR
                     {
-                    COLOUR14=(Token)match(input,COLOUR,FOLLOW_COLOUR_in_tincture919); 
+                    COLOUR14=(Token)match(input,COLOUR,FOLLOW_COLOUR_in_tincture921); 
                      tinctureName = (COLOUR14!=null?COLOUR14.getText():null); 
 
                     }
@@ -704,7 +705,7 @@ public class BlazonParser extends Parser {
                 case 2 :
                     // /Users/luketorjussen/Documents/workspace/BlazonGrammar/grammar/Blazon.g:151:13: METAL
                     {
-                    METAL15=(Token)match(input,METAL,FOLLOW_METAL_in_tincture935); 
+                    METAL15=(Token)match(input,METAL,FOLLOW_METAL_in_tincture937); 
                      tinctureName = (METAL15!=null?METAL15.getText():null); 
 
                     }
@@ -712,7 +713,7 @@ public class BlazonParser extends Parser {
                 case 3 :
                     // /Users/luketorjussen/Documents/workspace/BlazonGrammar/grammar/Blazon.g:152:13: FUR
                     {
-                    FUR16=(Token)match(input,FUR,FOLLOW_FUR_in_tincture952); 
+                    FUR16=(Token)match(input,FUR,FOLLOW_FUR_in_tincture954); 
                      tinctureName = (FUR16!=null?FUR16.getText():null); 
 
                     }
@@ -746,32 +747,32 @@ public class BlazonParser extends Parser {
 
  
 
-    public static final BitSet FOLLOW_field_in_shield71 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_plain_field_in_field112 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_divided_field_in_field126 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_div_in_divided_field175 = new BitSet(new long[]{0x0000000000070000L});
-    public static final BitSet FOLLOW_some_tinctures_in_divided_field188 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_tincture_in_plain_field238 = new BitSet(new long[]{0x0000000000000012L});
-    public static final BitSet FOLLOW_PLAIN_in_plain_field241 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_tincture_in_some_tinctures325 = new BitSet(new long[]{0x0000000000070020L});
-    public static final BitSet FOLLOW_AND_in_some_tinctures374 = new BitSet(new long[]{0x0000000000070000L});
-    public static final BitSet FOLLOW_tincture_in_some_tinctures392 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TIERCED_in_div484 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_PARTYPER_in_div515 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_DIV_in_div529 = new BitSet(new long[]{0x0000000000000202L});
-    public static final BitSet FOLLOW_DIV_MODIFIER_in_div567 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_VARIABLE_DIV_in_div608 = new BitSet(new long[]{0x0000000000000A02L});
-    public static final BitSet FOLLOW_DIV_MODIFIER_in_div646 = new BitSet(new long[]{0x0000000000000802L});
-    public static final BitSet FOLLOW_OF_in_div695 = new BitSet(new long[]{0x000000000000C000L});
-    public static final BitSet FOLLOW_number_digits_or_words_in_div715 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CONTINUOUS_DIV_in_div772 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_QUARTER_in_div798 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DIGITS_in_number_digits_or_words847 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NUMWORDS_in_number_digits_or_words861 = new BitSet(new long[]{0x0000000000008022L});
-    public static final BitSet FOLLOW_AND_in_number_digits_or_words864 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_NUMWORDS_in_number_digits_or_words867 = new BitSet(new long[]{0x0000000000008022L});
-    public static final BitSet FOLLOW_COLOUR_in_tincture919 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_METAL_in_tincture935 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FUR_in_tincture952 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_field_in_shield73 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_plain_field_in_field114 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_divided_field_in_field128 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_div_in_divided_field177 = new BitSet(new long[]{0x0000000000070000L});
+    public static final BitSet FOLLOW_some_tinctures_in_divided_field190 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_tincture_in_plain_field240 = new BitSet(new long[]{0x0000000000000012L});
+    public static final BitSet FOLLOW_PLAIN_in_plain_field243 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_tincture_in_some_tinctures327 = new BitSet(new long[]{0x0000000000070020L});
+    public static final BitSet FOLLOW_AND_in_some_tinctures376 = new BitSet(new long[]{0x0000000000070000L});
+    public static final BitSet FOLLOW_tincture_in_some_tinctures394 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TIERCED_in_div486 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_PARTYPER_in_div517 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_DIV_in_div531 = new BitSet(new long[]{0x0000000000000202L});
+    public static final BitSet FOLLOW_DIV_MODIFIER_in_div569 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_VARIABLE_DIV_in_div610 = new BitSet(new long[]{0x0000000000000A02L});
+    public static final BitSet FOLLOW_DIV_MODIFIER_in_div648 = new BitSet(new long[]{0x0000000000000802L});
+    public static final BitSet FOLLOW_OF_in_div697 = new BitSet(new long[]{0x000000000000C000L});
+    public static final BitSet FOLLOW_number_digits_or_words_in_div717 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CONTINUOUS_DIV_in_div774 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_QUARTER_in_div800 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DIGITS_in_number_digits_or_words849 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NUMWORDS_in_number_digits_or_words863 = new BitSet(new long[]{0x0000000000008022L});
+    public static final BitSet FOLLOW_AND_in_number_digits_or_words866 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_NUMWORDS_in_number_digits_or_words869 = new BitSet(new long[]{0x0000000000008022L});
+    public static final BitSet FOLLOW_COLOUR_in_tincture921 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_METAL_in_tincture937 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FUR_in_tincture954 = new BitSet(new long[]{0x0000000000000002L});
 
 }
