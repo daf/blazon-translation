@@ -9,6 +9,6 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  * The client side stub for the RPC service.
  */
 @RemoteServiceRelativePath("draw")
-public interface ShieldDrawingService extends RemoteService {
+public interface BlazonParsingService extends RemoteService {
 	Shield createShieldRepresentation(String blazon);
 }

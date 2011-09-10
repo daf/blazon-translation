@@ -17,6 +17,7 @@ public class InvalidShield extends AbstractShield {
 	public static Shield build(List<ShieldDiagnostic> diagnostics) {
 		InvalidShield shield = new InvalidShield();
 		shield.addDiagnostics(diagnostics);
+		shield.blazon = "ERROR - Invalid Blazon";
 		return shield;
 	}
 	

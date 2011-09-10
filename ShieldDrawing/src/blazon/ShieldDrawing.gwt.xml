@@ -14,7 +14,7 @@
   <!-- Other module inherits                                      -->
 <inherits name='org.vectomatic.libgwtsvg'/>
   <!-- Specify the app entry point class.                         -->
-  <entry-point class='blazon.client.ShieldDrawing'/>
+  <entry-point class='blazon.client.ui.BlazonToImageConverter'/>
 
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>

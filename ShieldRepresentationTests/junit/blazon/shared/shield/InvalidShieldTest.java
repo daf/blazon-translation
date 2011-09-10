@@ -60,7 +60,7 @@ public class InvalidShieldTest {
 	@Test
 	public void testThatAnInvalidShieldCanNotBeEqualToAShieldImpl() {
 		Shield invalid = InvalidShield.build();
-		Shield valid = ShieldImpl.build(ShieldLayer.buildUndividedShieldLayer(new Tinctures()));
+		Shield valid = ShieldImpl.build(ShieldLayer.buildUndividedShieldLayer(new Tinctures()), null);
 		assertThat(invalid.equals(valid), is(false));
 	}
 	

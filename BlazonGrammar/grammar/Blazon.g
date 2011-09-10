@@ -35,9 +35,9 @@ package blazon.server.grammar;
 } 
 
 shield returns [Shield s]
-		    :   
+		    :   { String blazon = input.toString(); } // parser uses Interpreter pattern
 		    field { 
-		    $s = ShieldImpl.build($field.layer);
+		    $s = ShieldImpl.build($field.layer, blazon);
 		    //LATER make HTML pretty
 		    //LATER add charges
 		    $s.addDiagnostics(diags);

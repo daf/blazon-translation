@@ -7,4 +7,5 @@ import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 public interface Shield {
 	List<ShieldDiagnostic> getShieldDiagnostics();
 	void addDiagnostics(List<ShieldDiagnostic> diagnostics);
+	String getBlazon();
 }
