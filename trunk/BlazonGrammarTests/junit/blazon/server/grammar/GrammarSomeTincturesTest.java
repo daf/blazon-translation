@@ -44,7 +44,7 @@ public class GrammarSomeTincturesTest {
 		parser.some_tinctures(tinctures, sdt);
 	}
 	
-	@Test(expected=MyRecognitionException.class)
+	@Test(expected=RecognitionException.class)
 	public void testThatBendWithOrSableAndGulesIsRejected() throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("or sable and gules");
 		Tinctures tinctures = new Tinctures();
@@ -77,7 +77,7 @@ public class GrammarSomeTincturesTest {
 		parser.some_tinctures(tinctures, sdt);
 	}
 	
-	@Test(expected=MyRecognitionException.class)
+	@Test(expected=RecognitionException.class)
 	public void testThatPaleWithOrSableAndGulesIsRejected() throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("or sable and gules");
 		Tinctures tinctures = new Tinctures();
@@ -94,7 +94,7 @@ public class GrammarSomeTincturesTest {
 		parser.some_tinctures(tinctures, sdt);
 	}
 	
-	@Test(expected=MyRecognitionException.class)
+	@Test(expected=RecognitionException.class)
 	public void testThatPallWithOrAndSableIsRejected() throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("or and sable");
 		Tinctures tinctures = new Tinctures();
@@ -110,7 +110,7 @@ public class GrammarSomeTincturesTest {
 		parser.some_tinctures(tinctures, sdt);
 	}
 	
-	@Test(expected=MyRecognitionException.class)
+	@Test(expected=RecognitionException.class)
 	public void testThatPallWithOrSableGulesAndArgentIsRejected() throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("or sable gules and argent");
 		Tinctures tinctures = new Tinctures();
