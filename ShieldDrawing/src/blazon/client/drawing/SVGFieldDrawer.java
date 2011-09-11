@@ -9,6 +9,7 @@ import org.vectomatic.dom.svg.OMSVGGElement;
 import org.vectomatic.dom.svg.OMSVGPointList;
 import org.vectomatic.dom.svg.OMSVGPolygonElement;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
+import org.vectomatic.dom.svg.utils.OMSVGParser;
 import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import blazon.client.drawing.shapes.CubicBezierCurve;
@@ -26,40 +27,36 @@ import blazon.shared.shield.tinctures.*;
 
 public class SVGFieldDrawer {
 	
-	private OMSVGDocument doc;
-	private ShieldImpl shield;
-	private OMSVGDefsElement defs;
+	private final OMSVGDocument doc = OMSVGParser.currentDocument();
+	private final ShieldImpl shield;
+	private final OMSVGDefsElement defs;
+	private final int xMax;
+	private final int xMin;
+	private final int yMax;
+	private final int yMin;
 
-	//FIXME refactor to have field drawer
-	//TODO reuse elements in chequy etc but translate them to save rendering..?
-	public static SVGFieldDrawer build(ShieldImpl shield, OMSVGDocument doc, OMSVGDefsElement defs) {
-		SVGFieldDrawer drawer = new SVGFieldDrawer();
-		drawer.doc = doc;
-		drawer.shield = shield;
-		drawer.defs = defs;
-		return drawer;
+	public SVGFieldDrawer(ShieldImpl shield, OMSVGDefsElement defs, final int shieldWidth, final int shieldHeight) {
+		this.shield = shield;
+		this.defs = defs;
+		this.xMax = shieldWidth;
+		this.yMax = shieldHeight;
+		this.xMin = 0;
+		this.yMin = 0;
 	}
 
 	public void drawField(OMSVGGElement shieldContainer, CubicBezierCurve bezCurve) {
-		OMSVGGElement field = doc.createSVGGElement();
-        ShieldLayer base = shield.getField();
-    	ShieldDivisionType division = base.getShieldDivision();
-    	Tinctures tinctures = base.getTinctures();
-    	createElementsForField(division, tinctures, field, bezCurve);
-		shieldContainer.appendChild(field);
+		shieldContainer.appendChild(createField(shield.getField(), bezCurve));
 	}
 	
-	private void createElementsForField(ShieldDivisionType division,
-			Tinctures tinctures, OMSVGGElement field, CubicBezierCurve bezCurve) {
-		final int xMax = 400;// SVGDrawer.SHIELD_MAX_X;FIXME pass size values into field drawer
-		final int yMax = 400;// SVGDrawer.SHIELD_MAX_Y;
-		final int xMin = 0;// SVGDrawer.SHIELD_MIN_X;
-		final int yMin = 0;// SVGDrawer.SHIELD_MIN_Y;
-		final int xMid = 200;// SVGDrawer.SHIELD_MAX_X/2;
-		final int yMid = 200;// SVGDrawer.SHIELD_MAX_Y/2;
-		Iterator<Tincture> it = tinctures.getTincturesOnLayer().iterator();
-		final int numberOfSections = division.getNumberOfSections();
+	private OMSVGGElement createField(ShieldLayer base, CubicBezierCurve bezCurve) {
+		final OMSVGGElement field = doc.createSVGGElement();
+		final int xMid = xMax/2;
+		final int yMid = yMax/2;
+		final ShieldDivisionType division = base.getShieldDivision();
+    	final int numberOfSections = division.getNumberOfSections();
 		final String divisionName = division.getName();
+		final Tinctures tinctures = base.getTinctures();
+		final Iterator<Tincture> it = tinctures.getTincturesOnLayer().iterator();
 		
 		if (divisionName.startsWith(ShieldDivision.BARRY) || divisionName.equals(ShieldDivision.TIERCED_FESS) || divisionName.equals(ShieldDivision.FESS)) {
 			final int heightOfBar = (int) Math.ceil(yMax / (double) numberOfSections);
@@ -83,79 +80,76 @@ public class SVGFieldDrawer {
 				putNewRectElementOnGElement(field, xPos, yMin, widthOfBar, yMax, currentTincture);
 			}
 		}
-		else if (divisionName.equals(ShieldDivision.BEND)){
-			Point pointA = Point.build(xMin, yMin);
-			Point pointB = Point.build(xMax, yMin);
-			Point pointC = Point.build(xMax, yMax);
-			RightAngleTriangle triangle = RightAngleTriangle.build(pointA, pointB, pointC);
+		else if (divisionName.equals(ShieldDivision.BEND) || divisionName.equals(ShieldDivision.BEND_SINISTER)) {
+			RightAngleTriangle triangle = null;
+			Point pointA, pointB, pointC;
+			if (divisionName.equals(ShieldDivision.BEND)) {
+				pointA = Point.build(xMin, yMin);
+				pointB = Point.build(xMax, yMin);
+				pointC = Point.build(xMax, yMax);
+			} else {
+				pointA = Point.build(xMin, yMax);
+				pointB = Point.build(xMin, yMin);
+				pointC = Point.build(xMax, yMin);
+			}
+			triangle = RightAngleTriangle.build(pointA, pointB, pointC);
 			putNewPolygonElementOnGElement(field, it.next(), triangle);
-			
-			pointB = Point.build(xMin, yMax);
+			pointB = (division.equals(ShieldDivision.BEND)) ? Point.build(xMin, yMax) : Point.build(xMax, yMax);
 			triangle = RightAngleTriangle.build(pointA, pointB, pointC);
 			putNewPolygonElementOnGElement(field, it.next(), triangle);
 		}
-		else if (divisionName.startsWith(ShieldDivision.BENDY) && !divisionName.startsWith(ShieldDivision.BENDY_SINISTER)) {
+		else if (divisionName.startsWith(ShieldDivision.BENDY)) {
 			Tincture firstTincture = it.next();
 			Tincture secondTincture = it.next();
-			
 			Point curveMidPoint = bezCurve.findMidpointOnCurve();
 			StraightLine lineFromTopRightToMidPointOfCurve = StraightLine.build(curveMidPoint, Point.build(xMax, yMin));
-			
 			final double lengthFromTopRightCornerToMidPointOfCurve = lineFromTopRightToMidPointOfCurve.getLength();
 			final double widthOfBendlet = lengthFromTopRightCornerToMidPointOfCurve / numberOfSections;
 			
-			final Point topCorner = Point.build(xMax, yMin);
-			for (int i = numberOfSections; i > 0; i--) {
-				double triangleHeight = widthOfBendlet * i;
-				float triangleSideLength = (float) Math.sqrt(2 * Math.pow(triangleHeight, 2));
-				Point leftCorner = Point.build(xMax - triangleSideLength, yMin);
-				Point bottomCorner = Point.build(xMax, triangleSideLength);
-				RightAngleTriangle triangle = RightAngleTriangle.build(topCorner, leftCorner, bottomCorner);
-				putNewPolygonElementOnGElement(field, i % 2 != 0 ? secondTincture : firstTincture, triangle);
+			if (divisionName.startsWith(ShieldDivision.BENDY_SINISTER)) {
+				final Point leftCorner = Point.build(xMin, yMin);
+				for (int i = numberOfSections; i > 0; i--) {
+					double triangleHeight = widthOfBendlet * i;
+					float triangleSideLength = (float) Math.sqrt(2 * Math.pow(triangleHeight, 2));
+					Point rightCorner = Point.build(triangleSideLength, yMin);
+					Point bottomCorner = Point.build(xMin, triangleSideLength);
+					RightAngleTriangle triangle = RightAngleTriangle.build(rightCorner, leftCorner, bottomCorner);
+					putNewPolygonElementOnGElement(field, i % 2 != 0 ? secondTincture : firstTincture, triangle);
+				}
+			} else {
+				final Point topCorner = Point.build(xMax, yMin);
+				for (int i = numberOfSections; i > 0; i--) {
+					double triangleHeight = widthOfBendlet * i;
+					float triangleSideLength = (float) Math.sqrt(2 * Math.pow(triangleHeight, 2));
+					Point leftCorner = Point.build(xMax - triangleSideLength, yMin);
+					Point bottomCorner = Point.build(xMax, triangleSideLength);
+					RightAngleTriangle triangle = RightAngleTriangle.build(topCorner, leftCorner, bottomCorner);
+					putNewPolygonElementOnGElement(field, i % 2 != 0 ? secondTincture : firstTincture, triangle);
+				}
 			}
 		}
-		else if (divisionName.equals(ShieldDivision.BEND_SINISTER)) {
-			Point pointA = Point.build(xMin, yMax);
-			Point pointB = Point.build(xMin, yMin);
-			Point pointC = Point.build(xMax, yMin);
-			RightAngleTriangle triangle = RightAngleTriangle.build(pointA, pointB, pointC);
-			putNewPolygonElementOnGElement(field, it.next(), triangle);
-			pointB = Point.build(xMax, yMax);
-			triangle = RightAngleTriangle.build(pointA, pointB, pointC);
-			putNewPolygonElementOnGElement(field, it.next(), triangle);
-		}
-		else if (divisionName.startsWith(ShieldDivision.BENDY_SINISTER)) {
-			Tincture firstTincture = it.next();
-			Tincture secondTincture = it.next();
-			
-			Point curveMidPoint = bezCurve.findMidpointOnCurve();
-			StraightLine lineFromTopRightToMidPointOfCurve = StraightLine.build(curveMidPoint, Point.build(xMax, yMin));
-			
-			final double lengthFromTopRightCornerToMidPointOfCurve = lineFromTopRightToMidPointOfCurve.getLength();
-			final double widthOfBendlet = lengthFromTopRightCornerToMidPointOfCurve / numberOfSections;
-			
-			final Point leftCorner = Point.build(xMin, yMin);
-			for (int i = numberOfSections; i > 0; i--) {
-				double triangleHeight = widthOfBendlet * i;
-				float triangleSideLength = (float) Math.sqrt(2 * Math.pow(triangleHeight, 2));
-				Point rightCorner = Point.build(triangleSideLength, yMin);
-				Point bottomCorner = Point.build(xMin, triangleSideLength);
-				RightAngleTriangle triangle = RightAngleTriangle.build(rightCorner, leftCorner, bottomCorner);
-				putNewPolygonElementOnGElement(field, i % 2 != 0 ? secondTincture : firstTincture, triangle);
-			}
-		}
-		else if (divisionName.equals(ShieldDivision.CHEVRON)) {
-			putNewRectElementOnGElement(field, xMin, yMin, xMax, yMax, it.next());
-			Point pointA = Point.build(xMin, yMax);
+		else if (divisionName.equals(ShieldDivision.CHEVRON) || divisionName.equals(ShieldDivision.CHEVRON_REVERSED)) {
 			Point pointB = Point.build(xMid, yMid);
-			Point pointC = Point.build(xMax, yMax);
-			RightAngleTriangle triangle = RightAngleTriangle.build(pointA, pointB, pointC);
-			putNewPolygonElementOnGElement(field, it.next(), triangle);
+			Point pointA, pointC;
+			Tincture firstTincture = it.next();
+			Tincture secondTincture = it.next();
+			if (divisionName.equals(ShieldDivision.CHEVRON)) {
+				putNewRectElementOnGElement(field, xMin, yMin, xMax, yMax, firstTincture);
+				pointA = Point.build(xMin, yMax);
+				pointC = Point.build(xMax, yMax);
+				Triangle triangle = RightAngleTriangle.build(pointA, pointB, pointC);
+				putNewPolygonElementOnGElement(field, secondTincture, triangle);
+			} else {
+				putNewRectElementOnGElement(field, xMin, yMin, xMax, yMax, secondTincture);
+				pointA = Point.build(xMin, yMin);
+				pointC = Point.build(xMax, yMin);
+				Triangle triangle = Triangle.build(pointA, pointB, pointC);
+				putNewPolygonElementOnGElement(field, firstTincture, triangle);
+			}
 		}
 		else if (divisionName.startsWith(ShieldDivision.CHEVRONNY) && !divisionName.startsWith(ShieldDivision.CHEVRONNY_REVERSED)) {
 			Tincture firstTincture = it.next();
 			Tincture secondTincture = it.next();
-			
 			for (int i = numberOfSections; i > 0; i--) {
 				float topYCoor = yMax - (1.5f * i * yMax / numberOfSections);
 				float triangleWidth = 3f * i * xMax / numberOfSections;
@@ -168,19 +162,9 @@ public class SVGFieldDrawer {
 				putNewPolygonElementOnGElement(field, i % 2 != 0 ? secondTincture : firstTincture, triangle);
 			}
 		}
-		else if (divisionName.equals(ShieldDivision.CHEVRON_REVERSED)) {
-			Tincture t = it.next();
-			putNewRectElementOnGElement(field, xMin, yMin, xMax, yMax, it.next());
-			Point pointA = Point.build(xMin, yMin);
-			Point pointB = Point.build(xMid, yMid);
-			Point pointC = Point.build(xMax, yMin);
-			Polygon triangle = Triangle.build(pointA, pointB, pointC);
-			putNewPolygonElementOnGElement(field, t, triangle);
-		}
 		else if (divisionName.startsWith(ShieldDivision.CHEVRONNY_REVERSED)) {
 			Tincture firstTincture = it.next();
 			Tincture secondTincture = it.next();
-			
 			StraightLine tangent = bezCurve.getTangentToCurveAtMidpoint();
 			final double largestTriangleHeight = tangent.getYCoordinateWhenXIsKnown(xMid);
 			final double largestTriangleWidth = (Math.abs(tangent.getXCoordinateWhenYIsKnown(yMin)) * 2) + xMax;
@@ -197,54 +181,47 @@ public class SVGFieldDrawer {
 				putNewPolygonElementOnGElement(field, i % 2 != 0 ? secondTincture : firstTincture, triangle);
 			}
 		}
-		else if (divisionName.equals(ShieldDivision.PALL)) {
-			Tincture t = it.next();
-			putNewRectElementOnGElement(field, xMin, yMin, xMid, yMax, it.next());
-			putNewRectElementOnGElement(field, xMid, yMin, xMid, yMax, it.next());
-			Point pointA = Point.build(xMin, yMin);
+		else if (divisionName.startsWith(ShieldDivision.PALL)) {
 			Point pointB = Point.build(xMid, yMid);
-			Point pointC = Point.build(xMax, yMin);
+			Tincture t = it.next();
+			Point pointA = null, pointC = null;
+			if (divisionName.equals(ShieldDivision.PALL)) {
+				putNewRectElementOnGElement(field, xMin, yMin, xMid, yMax, it.next());
+				putNewRectElementOnGElement(field, xMid, yMin, xMid, yMax, it.next());
+				pointA = Point.build(xMin, yMin);
+				pointC = Point.build(xMax, yMin);
+			}
+			else if (divisionName.equals(ShieldDivision.PALL_REVERSED)) {
+				putNewRectElementOnGElement(field, xMin, yMin, xMid, yMax, t);
+				putNewRectElementOnGElement(field, xMid, yMin, xMid, yMax, it.next());
+				pointA = Point.build(xMin, yMax);
+				pointC = Point.build(xMax, yMax);
+				t = it.next();
+			}
 			RightAngleTriangle triangle = RightAngleTriangle.build(pointA, pointB, pointC);
 			putNewPolygonElementOnGElement(field, t, triangle);
-		}
-		else if (divisionName.equals(ShieldDivision.PALL_REVERSED)) {
-			putNewRectElementOnGElement(field, xMin, yMin, xMid, yMax, it.next());
-			putNewRectElementOnGElement(field, xMid, yMin, xMid, yMax, it.next());
-			Point pointA = Point.build(xMin, yMax);
-			Point pointB = Point.build(xMid, yMid);
-			Point pointC = Point.build(xMax, yMax);
-			RightAngleTriangle triangle = RightAngleTriangle.build(pointA, pointB, pointC);
-			putNewPolygonElementOnGElement(field, it.next(), triangle);
 		}
 		else if (divisionName.equals(ShieldDivision.CROSS)) {
-			Tincture t = it.next();
-			putNewRectElementOnGElement(field, xMin, yMin, xMid, xMid, t);
-			putNewRectElementOnGElement(field, xMid, yMid, xMid, yMid, t);
-			t = it.next();
-			putNewRectElementOnGElement(field, xMin, yMid, xMid, yMid, t);
-			putNewRectElementOnGElement(field, xMid, yMin, xMid, yMid, t);			
+			Tincture firstTincture = it.next();
+			Tincture secondTincture = it.next();
+			putNewRectElementOnGElement(field, xMin, yMin, xMid, xMid, firstTincture);
+			putNewRectElementOnGElement(field, xMid, yMid, xMid, yMid, firstTincture);
+			putNewRectElementOnGElement(field, xMin, yMid, xMid, yMid, secondTincture);
+			putNewRectElementOnGElement(field, xMid, yMin, xMid, yMid, secondTincture);			
 		}
 		else if (divisionName.equals(ShieldDivision.SALTIRE)) {
-			Tincture t = it.next();
-			Point pointA = Point.build(xMin, yMin);
 			Point pointB = Point.build(xMid, yMid);
-			Point pointC = Point.build(xMax, yMin);
-			RightAngleTriangle triangle = RightAngleTriangle.build(pointA, pointB, pointC);
-			putNewPolygonElementOnGElement(field, t, triangle);
-			pointA = Point.build(xMin, yMax);
-			pointC = Point.build(xMax, yMax);
-			triangle = RightAngleTriangle.build(pointA, pointB, pointC);
-			putNewPolygonElementOnGElement(field, t, triangle);
-			
-			t = it.next();
-			pointA = Point.build(xMin, yMin);
-			pointC = Point.build(xMin, yMax);
-			triangle = RightAngleTriangle.build(pointA, pointB, pointC);
-			putNewPolygonElementOnGElement(field, t, triangle);
-			pointA = Point.build(xMax, yMin);
-			pointC = Point.build(xMax, yMax);
-			triangle = RightAngleTriangle.build(pointA, pointB, pointC);
-			putNewPolygonElementOnGElement(field, t, triangle);
+			for (int i = 0; i < 2; i++) {
+				Tincture t = it.next();
+				Point pointA = Point.build(xMin, yMin);
+				Point pointC = (i == 0) ? Point.build(xMax, yMin) : Point.build(xMin, yMax);;
+				RightAngleTriangle triangle = RightAngleTriangle.build(pointA, pointB, pointC);
+				putNewPolygonElementOnGElement(field, t, triangle);
+				pointA = (i == 0) ? Point.build(xMin, yMax) : Point.build(xMax, yMin);
+				pointC = Point.build(xMax, yMax);
+				triangle = RightAngleTriangle.build(pointA, pointB, pointC);
+				putNewPolygonElementOnGElement(field, t, triangle);
+			}
 		}
 		else if (divisionName.startsWith(ShieldDivision.GYRONNY)) {
 			final Tincture firstTincture = it.next();
@@ -253,16 +230,13 @@ public class SVGFieldDrawer {
 			final double angleB = Math.PI / 2 - radPerDivision;
 			final double sinAngleA = Math.sin(radPerDivision);
 			final double sinAngleB = Math.sin(angleB);
-			
 			final float lengthB = (float) Math.sqrt(Math.pow(xMid,2) + Math.pow(yMid,2));
 			final float lengthA = (float) Math.abs(lengthB * sinAngleA / sinAngleB);
-			
 			final float yTop = yMid - lengthB;
 			final Point pointA = Point.build(xMid, yTop);
 			final Point pointB = Point.build(xMid, yMid);
 			final Point pointC = Point.build(xMid + lengthA, yTop);
 			final Triangle triangle = RightAngleTriangle.build(pointA, pointB, pointC);
-			
 			final Point rPoint = Point.build(xMid, yMid);
 			
 			for (int i = 0; i < numberOfSections; i++) {
@@ -312,6 +286,8 @@ public class SVGFieldDrawer {
 		else {//NONE: default:
 			putNewRectElementOnGElement(field, xMin, yMin, xMax, yMax, it.next());
 		}
+		
+		return field;
 	}
 
 	private void putNewPolygonElementOnGElement(OMSVGGElement field, Tincture t, Polygon polygon) {

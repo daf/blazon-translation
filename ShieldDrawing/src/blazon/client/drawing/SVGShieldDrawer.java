@@ -28,7 +28,8 @@ public class SVGShieldDrawer {
 		height = svgPanelHeight;
         float topOfCurve = height * 0.375f;
         float curveMidpoint = height * 0.85f;
-		curve = CubicBezierCurve.build(0, topOfCurve, width/2, height, 0, curveMidpoint, width/2, height);
+        float halfWidth = width/2f;
+		curve = CubicBezierCurve.build(0, topOfCurve, halfWidth, height, 0, curveMidpoint, halfWidth, height);
 	}
 
 	public void drawInitialShield(OMSVGSVGElement svg) {
@@ -39,15 +40,13 @@ public class SVGShieldDrawer {
     public void draw(Shield shield, OMSVGSVGElement svg) {
     	if (shield instanceof ShieldImpl) {
     		svg.appendChild(createShieldShapePath());
-    		
     		svg.appendChild(createShieldShapeMask());
-    		
 	    	addTitleAndDescriptionToSVG(shield.getBlazon(), svg);
 	        
 	    	OMSVGGElement shieldContainer = doc.createSVGGElement();
 	    	shieldContainer.setAttribute(SVGConstants.SVG_MASK_ATTRIBUTE, "url(#ShieldMask)");
-	        SVGFieldDrawer drawer = SVGFieldDrawer.build((ShieldImpl)shield, doc, doc.createSVGDefsElement());
-	        drawer.drawField(shieldContainer, curve);
+	        SVGFieldDrawer fieldDrawer = new SVGFieldDrawer((ShieldImpl)shield, doc.createSVGDefsElement(), width, height);
+	        fieldDrawer.drawField(shieldContainer, curve);
 	        
 	        svg.appendChild(shieldContainer);
     	}

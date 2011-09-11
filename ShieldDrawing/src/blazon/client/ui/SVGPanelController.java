@@ -8,7 +8,6 @@ import org.vectomatic.dom.svg.utils.OMSVGParser;
 import blazon.client.drawing.SVGShieldDrawer;
 import blazon.shared.shield.Shield;
 
-import com.google.gwt.dom.client.Node;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.SimplePanel;
@@ -45,10 +44,9 @@ public class SVGPanelController {
 
 	public void displayShield(Shield shield) {
 		Element element = svgPanel.getElement();
-		Node cloneNode = element.cloneNode(false);
-		svgPanel.getParent().getElement().replaceChild(cloneNode, element);
+		element.removeChild(element.getChild(0));
 		OMSVGSVGElement svg = createAndInitializeSVGElement();
 		shieldDrawer.draw(shield, svg);
-		cloneNode.appendChild(svg.getElement());
+		element.appendChild(svg.getElement());
 	}
 }

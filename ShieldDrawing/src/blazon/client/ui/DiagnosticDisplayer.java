@@ -4,12 +4,12 @@ import java.util.List;
 
 import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 
+import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
 
 public class DiagnosticDisplayer {
-	private FlexTable currentDiagnosticsTable;
 
 	public void displayDiagnostics(List<ShieldDiagnostic> shieldDiagnostics) {
 		Panel diagPanel = RootPanel.get("diagnosticsPanel");
@@ -22,12 +22,8 @@ public class DiagnosticDisplayer {
 				diagTable.setText(i + 1, 0, diag.getSeverity().toString());
 				diagTable.setText(i + 1, 1, diag.getMessage());
 			}
-		} // TODO change this to clone element without child element
-		if (currentDiagnosticsTable != null) {
-			diagPanel.remove(currentDiagnosticsTable);
 		}
-		currentDiagnosticsTable = diagTable;
-		diagPanel.add(diagTable);
+		removeOldElementAndAddNew(diagPanel.getElement(), diagTable.getElement());
 	}
 
 	public void displayThrowable(Throwable caught) {
@@ -37,10 +33,13 @@ public class DiagnosticDisplayer {
 			diagTable.setText(0, 0, "Throwable Caught");
 			diagTable.setText(1, 0, caught.toString());
 		}
-		if (currentDiagnosticsTable != null) {
-			diagPanel.remove(currentDiagnosticsTable);
+		removeOldElementAndAddNew(diagPanel.getElement(), diagTable.getElement());
+	}
+	
+	private void removeOldElementAndAddNew(Element parent, Element newChild) {
+		if (parent.getChildCount() != 0) {
+			parent.removeChild(parent.getChild(0));
 		}
-		currentDiagnosticsTable = diagTable;
-		diagPanel.add(diagTable);
+		parent.appendChild(newChild);
 	}
 }

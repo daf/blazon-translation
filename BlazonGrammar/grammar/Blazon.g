@@ -39,7 +39,7 @@ shield returns [Shield s]
 		    field { 
 		    $s = ShieldImpl.build($field.layer, blazon);
 		    //LATER make HTML pretty
-		    //LATER add charges
+		    //TODO add charges
 		    $s.addDiagnostics(diags);
 		    }
 		    ;
