@@ -2,18 +2,11 @@ package blazon.client.drawing.shapes;
 
 public final class RightAngleTriangle extends Triangle {
 
-	public final static RightAngleTriangle build(Point pointA, Point pointB, Point pointC) {
-		if (pointA == null || pointB == null || pointC == null) {
-			throw new IllegalArgumentException("Can not construct a right angle triangle with null points.");
-		}
-		if (pointA.equals(pointB) || pointA.equals(pointC) || pointB.equals(pointC)) {
-			throw new IllegalArgumentException("Can not construct a right angle triangle if some of the points are equal.");
-		}
-		RightAngleTriangle t = new RightAngleTriangle();
-		
-		double aToB = StraightLine.build(pointA, pointB).getLength();
-		double aToC = StraightLine.build(pointA, pointC).getLength();
-		double bToC = StraightLine.build(pointB, pointC).getLength();
+	public RightAngleTriangle(Point pointA, Point pointB, Point pointC) {
+		super(pointA, pointB, pointC);
+		double aToB = new StraightLine(this.pointA, this.pointB).getLength();
+		double aToC = new StraightLine(this.pointA, this.pointC).getLength();
+		double bToC = new StraightLine(this.pointB, this.pointC).getLength();
 		
 		boolean triangleIsNotRightAngled = false;
 		double errorAllowance = 0.000001;
@@ -42,17 +35,12 @@ public final class RightAngleTriangle extends Triangle {
 		if (triangleIsNotRightAngled) {
 			throw new IllegalArgumentException("The points given to not form a right angle triangle.");
 		}
-		
-		t.pointA = pointA;
-		t.pointB = pointB;
-		t.pointC = pointC;
-		return t;
 	}
 	
 	public final double getLengthOfHypotenuse() {
-		double aToB = StraightLine.build(pointA, pointB).getLength();
-		double aToC = StraightLine.build(pointA, pointC).getLength();
-		double bToC = StraightLine.build(pointB, pointC).getLength();
+		double aToB = new StraightLine(pointA, pointB).getLength();
+		double aToC = new StraightLine(pointA, pointC).getLength();
+		double bToC = new StraightLine(pointB, pointC).getLength();
 		return Math.max(aToB, Math.max(aToC, bToC));
 	}
 	

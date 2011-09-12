@@ -5,11 +5,9 @@ public final class Point {
 	private float x;
 	private float y;
 	
-	public final static Point build(final float x, final float y) {
-		Point p = new Point();
-		p.x = x;
-		p.y = y;
-		return p;
+	public Point(final float x, final float y) {
+		this.x = x;
+		this.y = y;
 	}
 	
 	final Point rotate(final Point rPoint, final double theta) {
@@ -24,7 +22,7 @@ public final class Point {
 		double yTemp = newX * sinTheta + newY * cosTheta;
 		newX = (float) xTemp + rPoint.getX();
 		newY = (float) yTemp + rPoint.getY();
-		return build(newX, newY);
+		return new Point(newX, newY);
 	}
 	
 	public final float getX() {

@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+import org.antlr.runtime.NoViableAltException;
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 
@@ -12,11 +13,47 @@ import blazon.shared.shield.ShieldDivision.ShieldDivisionType;
 public class GrammarDivTest {
 	
 	@Test
+	public void testThatDivCreatesPerCross() throws RecognitionException {
+		BlazonParser parser = new ParserCreator().createParser("per cross");
+		ShieldDivisionType result = parser.div();
+		assertThat(result.getName(), is(equalTo("CROSS")));
+		assertThat(result.getNumberOfSections(), is(4));
+		assertThat(result.getNumberOfTinctures(), is(2));
+	}
+	
+	@Test
+	public void testThatDivCreatesCrossFromQuarterly() throws RecognitionException {
+		BlazonParser parser = new ParserCreator().createParser("quarterly");
+		ShieldDivisionType result = parser.div();
+		assertThat(result.getName(), is(equalTo("CROSS")));
+		assertThat(result.getNumberOfSections(), is(4));
+		assertThat(result.getNumberOfTinctures(), is(2));
+	}	
+	
+	@Test
+	public void testThatDivCreatesCrossFromQuartered() throws RecognitionException {
+		BlazonParser parser = new ParserCreator().createParser("quartered");
+		ShieldDivisionType result = parser.div();
+		assertThat(result.getName(), is(equalTo("CROSS")));
+		assertThat(result.getNumberOfSections(), is(4));
+		assertThat(result.getNumberOfTinctures(), is(2));
+	}
+
+	@Test
 	public void testThatDivCreatesPerBend() throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("per bend");
 		ShieldDivisionType result = parser.div();
 		assertThat(result.getName(), is(equalTo("BEND")));
 		assertThat(result.getNumberOfSections(), is(2));
+		assertThat(result.getNumberOfTinctures(), is(2));
+	}
+	
+	@Test
+	public void testThatDivCreatesBendy() throws RecognitionException {
+		BlazonParser parser = new ParserCreator().createParser("bendy");
+		ShieldDivisionType result = parser.div();
+		assertThat(result.getName(), is(equalTo("BENDY")));
+		assertThat(result.getNumberOfSections(), is(6));
 		assertThat(result.getNumberOfTinctures(), is(2));
 	}
 
@@ -30,11 +67,29 @@ public class GrammarDivTest {
 	}
 	
 	@Test
+	public void testThatDivAcceptsChevronny() throws RecognitionException {
+		BlazonParser parser = new ParserCreator().createParser("chevronny");
+		ShieldDivisionType result = parser.div();
+		assertThat(result.getName(), is(equalTo("CHEVRONNY")));
+		assertThat(result.getNumberOfSections(), is(6));
+		assertThat(result.getNumberOfTinctures(), is(2));
+	}
+	
+	@Test
 	public void testThatDivAcceptsPerBendSinister() throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("per bend sinister");
 		ShieldDivisionType result = parser.div();
 		assertThat(result.getName(), is(equalTo("BEND_SINISTER")));
 		assertThat(result.getNumberOfSections(), is(2));
+		assertThat(result.getNumberOfTinctures(), is(2));
+	}
+	
+	@Test
+	public void testThatDivAcceptsBendySinister() throws RecognitionException {
+		BlazonParser parser = new ParserCreator().createParser("bendy sinister");
+		ShieldDivisionType result = parser.div();
+		assertThat(result.getName(), is(equalTo("BENDY_SINISTER")));
+		assertThat(result.getNumberOfSections(), is(6));
 		assertThat(result.getNumberOfTinctures(), is(2));
 	}
 	
@@ -48,12 +103,39 @@ public class GrammarDivTest {
 	}
 	
 	@Test
+	public void testThatDivAcceptsChevronnyReversed() throws RecognitionException {
+		BlazonParser parser = new ParserCreator().createParser("chevronny reversed");
+		ShieldDivisionType result = parser.div();
+		assertThat(result.getName(), is(equalTo("CHEVRONNY_REVERSED")));
+		assertThat(result.getNumberOfSections(), is(6));
+		assertThat(result.getNumberOfTinctures(), is(2));
+	}
+	
+	@Test
 	public void testThatDivAcceptsTiercedPerPale()  throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("tierced per pale");
 		ShieldDivisionType result = parser.div();
 		assertThat(result.getName(), is(equalTo("TIERCED_PALE")));
 		assertThat(result.getNumberOfSections(), is(3));
 		assertThat(result.getNumberOfTinctures(), is(3));
+	}
+	
+	@Test
+	public void testThatDivAcceptsChequy()  throws RecognitionException {
+		BlazonParser parser = new ParserCreator().createParser("chequy");
+		ShieldDivisionType result = parser.div();
+		assertThat(result.getName(), is(equalTo("CHEQUY")));
+		assertThat(result.getNumberOfSections(), is(36));
+		assertThat(result.getNumberOfTinctures(), is(2));
+	}
+	
+	@Test
+	public void testThatDivAcceptsLozengy()  throws RecognitionException {
+		BlazonParser parser = new ParserCreator().createParser("lozengy");
+		ShieldDivisionType result = parser.div();
+		assertThat(result.getName(), is(equalTo("LOZENGY")));
+		assertThat(result.getNumberOfSections(), is(36));
+		assertThat(result.getNumberOfTinctures(), is(2));
 	}
 	
 	@Test
@@ -151,6 +233,12 @@ public class GrammarDivTest {
 	@Test(expected=RecognitionException.class)
 	public void testThatDivThrowsRecognitionExceptionForPerGyronnyGulesAndOr() throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("per gyronny gules and or");
+		parser.div();
+	}
+	
+	@Test(expected=NoViableAltException.class)
+	public void testThatDivThrowsNoViableAltExceptionForBlah() throws RecognitionException {
+		BlazonParser parser = new ParserCreator().createParser("blah");
 		parser.div();
 	}
 }

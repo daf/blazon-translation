@@ -9,18 +9,16 @@ public class Triangle implements Polygon {
 	protected Point pointB;
 	protected Point pointC;
 	
-	public static Triangle build(Point pointA, Point pointB, Point pointC) {
+	public Triangle(Point pointA, Point pointB, Point pointC) {
 		if (pointA == null || pointB == null || pointC == null) {
 			throw new IllegalArgumentException("Can not construct a triangle with null points.");
 		}
 		if (pointA.equals(pointB) || pointA.equals(pointC) || pointB.equals(pointC)) {
 			throw new IllegalArgumentException("Can not construct a triangle if some of the points are equal.");
 		}
-		Triangle t = new Triangle();
-		t.pointA = pointA;
-		t.pointB = pointB;
-		t.pointC = pointC;
-		return t;
+		this.pointA = pointA;
+		this.pointB = pointB;
+		this.pointC = pointC;
 	}
 	
 	public final Triangle rotate(Point rPoint, double theta) {
@@ -30,7 +28,7 @@ public class Triangle implements Polygon {
 		Point newA = pointA.rotate(rPoint, theta);
 		Point newB = pointB.rotate(rPoint, theta);
 		Point newC = pointC.rotate(rPoint, theta);
-		return build(newA, newB, newC);
+		return new Triangle(newA, newB, newC);
 	}
 	
 	@Override

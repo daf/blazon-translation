@@ -17,22 +17,43 @@ DIV     :   "fess"            OK
             "bend sinister"   FAIL
             "gyronny"         FAIL
 
-TIERCED :   "tierced"         OK
-            "tierc"           FAIL
+TIERCED :   "tierced"  OK
+            "tierc"    FAIL
+            "blah"     FAIL
 
-MODIFIER
+DIV_MODIFIER
         :   "reversed"  OK
             "sinister"  OK
             "reversey"  FAIL
+            "blah"      FAIL
 
-GYRONNY 
+QUARTER
+        :   "quarterly" OK
+            "quartered" OK
+            "quarter"   FAIL
+            "blah"      FAIL
+            
+CONTINUOUS_DIV
+        :   "chequy"    OK
+            "lozengy"   OK
+            "blah"      FAIL
+        
+VARIABLE_DIV 
         :   "gyronny"   OK
+            "barry"     OK
+            "bendy"     OK
+            "paly"      OK
+            "chevronny" OK
+            "blah"      FAIL
+            "bend"     FAIL
             "gyron"     FAIL
+            "random"    FAIL
 
 PARTYPER
         :   "per"           OK
             "party per"     OK
             "parted per"    OK
+            "partie per"    FAIL
             "part per"      FAIL
 
 COLOUR  :   "gules"     OK
@@ -120,3 +141,5 @@ WS      :   " "             OK
             "\t"            OK
             "\t\t"          OK
             "\t \t   "      OK
+            "blah"          FAIL
+            " a "           FAIL

@@ -29,7 +29,7 @@ public class SVGShieldDrawer {
         float topOfCurve = height * 0.375f;
         float curveMidpoint = height * 0.85f;
         float halfWidth = width/2f;
-		curve = CubicBezierCurve.build(0, topOfCurve, halfWidth, height, 0, curveMidpoint, halfWidth, height);
+		curve = new CubicBezierCurve(0, topOfCurve, halfWidth, height, 0, curveMidpoint, halfWidth, height);
 	}
 
 	public void drawInitialShield(OMSVGSVGElement svg) {
