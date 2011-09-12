@@ -2,7 +2,9 @@ package blazon.server.grammar;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import org.antlr.runtime.EarlyExitException;
 import org.antlr.runtime.MismatchedTokenException;
+import org.antlr.runtime.NoViableAltException;
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 
@@ -151,6 +153,18 @@ public class GrammarDividedFieldTest {
 	@Test(expected=MismatchedTokenException.class)
 	public void testThatPerGyronnyGulesAndArgentThrowsMismatchedTokenException() throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("per gyronny gules and argent");
+		parser.divided_field();
+	}
+	
+	@Test(expected=EarlyExitException.class)
+	public void testThatGyronnyBlahThrowsEarlyExitException() throws RecognitionException {
+		BlazonParser parser = new ParserCreator().createParser("gyronny blah");
+		parser.divided_field();
+	}
+	
+	@Test(expected=NoViableAltException.class)
+	public void testThatGyronnyGulesAndBlahThrowsNoViableAltException() throws RecognitionException {
+		BlazonParser parser = new ParserCreator().createParser("gyronny gules and blah");
 		parser.divided_field();
 	}
 	

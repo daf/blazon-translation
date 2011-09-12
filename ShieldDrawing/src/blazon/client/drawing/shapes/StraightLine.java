@@ -7,24 +7,20 @@ public class StraightLine {
 	private double gradient;
 	private double offset;
 	
-	private StraightLine() {}
-	
-	public static final StraightLine build(Point a, Point b) {
-		StraightLine line = new StraightLine();
-		line.a = a;
-		line.b = b;
+	public StraightLine(Point a, Point b) {
+		this.a = a;
+		this.b = b;
 		double diffX = a.getX() - b.getX();
 		double diffY = a.getY() - b.getY();
 		
-		line.gradient = (diffX == 0) ? Double.NaN : diffY / diffX;
-		line.offset = (Double.isNaN(line.gradient)) ? -a.getX() : -((line.gradient * a.getX()) - a.getY());
-		return line;
+		this.gradient = (diffX == 0) ? Double.NaN : diffY / diffX;
+		this.offset = (Double.isNaN(this.gradient)) ? -a.getX() : -((this.gradient * a.getX()) - a.getY());
 	}
 
 	public final Point getMidPointOfLine() {
 		float newX = (a.getX() + b.getX()) / 2;
 		float newY = (a.getY() + b.getY()) / 2;
-		return Point.build(newX, newY);
+		return new Point(newX, newY);
 	}
 	
 	public final double getXCoordinateWhenYIsKnown(double y) {

@@ -1,6 +1,7 @@
 package blazon.server.grammar;
 import java.util.ArrayList;
 
+import org.antlr.runtime.NoViableAltException;
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 
@@ -55,6 +56,12 @@ public class GrammarPlainFieldTest {
 		ShieldLayer gulesLayer = gulesParser.plain_field();
 		ShieldLayer gulesPlainLayer = gulesPlainParser.plain_field();
 		assertThat(gulesLayer, is(equalTo(gulesPlainLayer)));
+	}
+	
+	@Test(expected=NoViableAltException.class)
+	public void testThatBlahPlainGivesANoViableAltException() throws RecognitionException {
+		BlazonParser gulesPlainParser = new ParserCreator().createParser("blah plain");
+		gulesPlainParser.plain_field();
 	}
 	
 }

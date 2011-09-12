@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.antlr.runtime.MismatchedTokenException;
+import org.antlr.runtime.NoViableAltException;
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 
@@ -191,6 +192,12 @@ public class GrammarFieldTest {
 	@Test(expected=MismatchedTokenException.class)
 	public void testThatPerGyronnyGulesAndArgentThrowsMismatchedTokenException() throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("per gyronny gules and argent");
+		parser.field();
+	}
+	
+	@Test(expected=NoViableAltException.class)
+	public void testThatRandomThrowsNoViableAltException() throws RecognitionException {
+		BlazonParser parser = new ParserCreator().createParser("random");
 		parser.field();
 	}
 }
