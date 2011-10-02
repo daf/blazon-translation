@@ -6,22 +6,26 @@ gunit Blazon;
  * in to lower case
  */
 
-DIV     :   "fess"            OK
+ORDINARY     :   "fess"            OK
             "pale"            OK
             "bend"            OK
             "cross"           OK
             "saltire"         OK
             "chevron"         OK
-            "pall"            OK
-            "pairle"          OK
+            "pall"            FAIL
             "bend sinister"   FAIL
             "gyronny"         FAIL
+
+OTHER_DIV
+     :      "pall"     OK
+            "pale"     FAIL
+            "bend"     FAIL
 
 TIERCED :   "tierced"  OK
             "tierc"    FAIL
             "blah"     FAIL
 
-DIV_MODIFIER
+MODIFIER
         :   "reversed"  OK
             "sinister"  OK
             "reversey"  FAIL

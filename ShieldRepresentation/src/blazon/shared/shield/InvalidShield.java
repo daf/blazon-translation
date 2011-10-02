@@ -55,4 +55,9 @@ public class InvalidShield extends AbstractShield {
 		result = 31 * result + (getShieldDiagnostics() == null ? 0 : getShieldDiagnostics().hashCode());
 		return result;
 	}
+
+	@Override
+	public ShieldLayer getField() {
+		return null;
+	}
 }

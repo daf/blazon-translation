@@ -5,6 +5,7 @@ import org.vectomatic.dom.svg.OMSVGDocument;
 import org.vectomatic.dom.svg.OMSVGGElement;
 import org.vectomatic.dom.svg.OMSVGPatternElement;
 import org.vectomatic.dom.svg.OMSVGRectElement;
+import org.vectomatic.dom.svg.utils.OMSVGParser;
 import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import blazon.shared.shield.tinctures.Fur;
@@ -12,28 +13,31 @@ import blazon.shared.shield.tinctures.Fur.FurType;
 
 public abstract class AbstractFurSVGBuilder implements FurSVGBuilder {
 	protected static final String SHAPE = "-shape";
-	protected OMSVGDocument doc;
+	protected OMSVGDocument doc = OMSVGParser.currentDocument();
 	protected OMSVGDefsElement defs;
 	protected Fur fur;
 	
-	public static FurSVGBuilder build(OMSVGDocument doc, OMSVGDefsElement defs, Fur fur) {
-		if (doc == null || defs == null || fur == null) {
+	public static FurSVGBuilder build(OMSVGDefsElement defs, Fur fur) {
+		if (defs == null || fur == null) {
 			throw new IllegalArgumentException("Could not create FurSVGBuilder due to null argument");
 		}
 		
 		AbstractFurSVGBuilder furBuilder;
 		FurType furType = fur.getFurType();
-		if (furType == FurType.VAIR) {
+		switch(furType) {
+		case VAIR:
 			furBuilder = new VairSVGBuilder();
-		} else if (furType == FurType.POTENT) {
+			break;
+		case POTENT:
 			furBuilder = new PotentSVGBuilder();
-		} else if (furType == FurType.ERMINE) {
+			break;
+		case ERMINE:
 			furBuilder = new ErmineSVGBuilder();
-		} else {
+			break;
+		default:
 			throw new IllegalArgumentException("Could not create FurSVGBuilder due to unrecognised furType: " + furType);
 		}
 		
-		furBuilder.setDoc(doc);
 		furBuilder.setDefs(defs);
 		furBuilder.setFur(fur);
 		return furBuilder;

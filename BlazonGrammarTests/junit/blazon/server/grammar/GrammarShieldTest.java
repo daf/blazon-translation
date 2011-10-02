@@ -225,7 +225,7 @@ public class GrammarShieldTest {
 		List<ShieldDiagnostic> diags = s.getShieldDiagnostics();
 		assertThat(diags.size(), is(equalTo(1)));
 		ShieldDiagnostic diag = diags.iterator().next();
-		assertThat(diag.getMessage(), is(equalTo("line 1:4 mismatched input 'gyronny' expecting DIV")));
+		assertThat(diag.getMessage(), is(equalTo("line 1:4 mismatched input 'gyronny' expecting set null")));
 		
 	}
 }

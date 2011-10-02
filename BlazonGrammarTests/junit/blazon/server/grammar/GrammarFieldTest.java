@@ -6,6 +6,8 @@ import static org.junit.Assert.assertThat;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import org.antlr.runtime.EarlyExitException;
+import org.antlr.runtime.MismatchedSetException;
 import org.antlr.runtime.MismatchedTokenException;
 import org.antlr.runtime.NoViableAltException;
 import org.antlr.runtime.RecognitionException;
@@ -60,6 +62,12 @@ public class GrammarFieldTest {
 		ShieldLayer gulesLayer = gulesParser.field();
 		ShieldLayer gulesPlainLayer = gulesPlainParser.field();
 		assertThat(gulesLayer, is(equalTo(gulesPlainLayer)));
+	}
+	
+	@Test(expected=NoViableAltException.class)
+	public void testThatBlahPlainGivesANoViableAltException() throws RecognitionException {
+		BlazonParser gulesPlainParser = new ParserCreator().createParser("blah plain");
+		gulesPlainParser.field();
 	}
 	
 	@Test
@@ -189,8 +197,8 @@ public class GrammarFieldTest {
 		assertThat(tincturesOnLayer.next(), is(equalTo(argent)));
 	}
 	
-	@Test(expected=MismatchedTokenException.class)
-	public void testThatPerGyronnyGulesAndArgentThrowsMismatchedTokenException() throws RecognitionException {
+	@Test(expected=MismatchedSetException.class)
+	public void testThatPerGyronnyGulesAndArgentThrowsMismatchedSetException() throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("per gyronny gules and argent");
 		parser.field();
 	}
@@ -200,4 +208,85 @@ public class GrammarFieldTest {
 		BlazonParser parser = new ParserCreator().createParser("random");
 		parser.field();
 	}
+	
+	@Test
+	public void testThatPerBendVairEnPaleAndArgentGivesTheCorrectLayer() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("per bend vair-en-pale and argent");
+		ShieldLayer layer = parser.field();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture vairEnPale = tinctures.getTincture("vair-en-pale");
+		Tincture argent = tinctures.getTincture("argent");
+		ShieldDivisionType bend = new ShieldDivision().getDivisionType("bend", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(layer.getShieldDivision(), is(equalTo(bend)));
+		Iterator<Tincture> tincturesOnLayer = layer.getTinctures().getTincturesOnLayer().iterator();
+		assertThat(tincturesOnLayer.next(), is(equalTo(vairEnPale)));
+		assertThat(tincturesOnLayer.next(), is(equalTo(argent)));
+	}
+	
+	@Test
+	public void testThatPerBendArgentAndVairEnPointGivesTheCorrectLayer() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("per bend argent and vair-en-point");
+		ShieldLayer layer = parser.field();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture vairEnPoint = tinctures.getTincture("vair-en-point");
+		Tincture argent = tinctures.getTincture("argent");
+		ShieldDivisionType bend = new ShieldDivision().getDivisionType("bend", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(layer.getShieldDivision(), is(equalTo(bend)));
+		Iterator<Tincture> tincturesOnLayer = layer.getTinctures().getTincturesOnLayer().iterator();
+		assertThat(tincturesOnLayer.next(), is(equalTo(argent)));
+		assertThat(tincturesOnLayer.next(), is(equalTo(vairEnPoint)));
+	}
+	
+	@Test
+	public void testThatPartyPerBendPotentEnPaleAndArgentGivesTheCorrectLayer() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("party per bend potent-en-pale and argent");
+		ShieldLayer layer = parser.field();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture potentEnPale = tinctures.getTincture("potent-en-pale");
+		Tincture argent = tinctures.getTincture("argent");
+		ShieldDivisionType bend = new ShieldDivision().getDivisionType("bend", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(layer.getShieldDivision(), is(equalTo(bend)));
+		Iterator<Tincture> tincturesOnLayer = layer.getTinctures().getTincturesOnLayer().iterator();
+		assertThat(tincturesOnLayer.next(), is(equalTo(potentEnPale)));
+		assertThat(tincturesOnLayer.next(), is(equalTo(argent)));
+	}
+	
+	@Test
+	public void testThatPartedPerBendPotentEnPointAndArgentGivesTheCorrectLayer() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("parted per bend potent-en-point and argent");
+		ShieldLayer layer = parser.field();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture potentEnPoint = tinctures.getTincture("potent-en-point");
+		Tincture argent = tinctures.getTincture("argent");
+		ShieldDivisionType bend = new ShieldDivision().getDivisionType("bend", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(layer.getShieldDivision(), is(equalTo(bend)));
+		Iterator<Tincture> tincturesOnLayer = layer.getTinctures().getTincturesOnLayer().iterator();
+		assertThat(tincturesOnLayer.next(), is(equalTo(potentEnPoint)));
+		assertThat(tincturesOnLayer.next(), is(equalTo(argent)));
+	}
+	
+	@Test
+	public void testThatGyronnyCounterVairAndArgentGivesTheCorrectLayer() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("gyronny counter-vair and argent");
+		ShieldLayer layer = parser.field();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture counterVair = tinctures.getTincture("counter-vair");
+		Tincture argent = tinctures.getTincture("argent");
+		ShieldDivisionType gyronny = new ShieldDivision().getDivisionType("gyronny", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(layer.getShieldDivision(), is(equalTo(gyronny)));
+		Iterator<Tincture> tincturesOnLayer = layer.getTinctures().getTincturesOnLayer().iterator();
+		assertThat(tincturesOnLayer.next(), is(equalTo(counterVair)));
+		assertThat(tincturesOnLayer.next(), is(equalTo(argent)));
+	}
+	
 }

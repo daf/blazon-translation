@@ -32,6 +32,7 @@ public class ShieldImpl extends AbstractShield {
 	 * Get the bottom layer from the shield.
 	 * @return a ShieldLayer object representing the field.
 	 */
+	@Override
 	public ShieldLayer getField() {
 		return field;
 	}

@@ -10,11 +10,11 @@ import blazon.shared.shield.tinctures.Tinctures;
 public class ShieldLayer implements Serializable {
 
 	private static final long serialVersionUID = -1398608222570349005L;
-	private Tinctures tinctures = null;
-	private ShieldLayer nextLayer = null;
-	private ShieldDivisionType division;
+	protected Tinctures tinctures = null;
+	protected ShieldLayer nextLayer = null;
+	protected ShieldDivisionType division;
 
-	private ShieldLayer() {}
+	protected ShieldLayer() {}
 	
 	public static ShieldLayer buildUndividedShieldLayer(Tinctures t) {
 		ShieldDivision divisions = new ShieldDivision();
