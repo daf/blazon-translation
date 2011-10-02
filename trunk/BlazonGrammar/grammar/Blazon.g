@@ -7,6 +7,7 @@ options {
 @header {
 package blazon.server.grammar;
 import blazon.shared.shield.*;
+import blazon.shared.shield.charges.*;
 import blazon.shared.shield.ShieldDivision.ShieldDivisionType;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic.LogLevel;
@@ -36,12 +37,12 @@ package blazon.server.grammar;
 
 shield returns [Shield s]
 		    :   { String blazon = input.toString(); } // parser uses Interpreter pattern
-		    field { 
-		    $s = ShieldImpl.build($field.layer, blazon);
-		    //LATER make HTML pretty
-		    //TODO add charges
-		    $s.addDiagnostics(diags);
-		    }
+		    field { $s = ShieldImpl.build($field.layer, blazon); }
+		    ( charges { $s.getField().addNextLayer($charges.layer); })?
+		    { //LATER make HTML pretty
+				    //TODO add charges
+				    $s.addDiagnostics(diags);
+				}
 		    ;
 		    catch [RecognitionException re] {
 		        reportError(re);
@@ -49,46 +50,31 @@ shield returns [Shield s]
         }
 
 field returns [ShieldLayer layer]
-		    :   plain_field { $layer = $plain_field.layer; }
-		    |   divided_field { $layer = $divided_field.layer; }
-		    ;
-    
-divided_field returns [ShieldLayer layer]
-		    : 
-		      { Tinctures tinctures = new Tinctures(); }
-			    div { ShieldDivisionType division = $div.division; }
-	        some_tinctures[tinctures, division] { $layer = $some_tinctures.layer; }
-		    ;    
-    
-plain_field returns [ShieldLayer layer]
 		    :   { Tinctures tinctures = new Tinctures(); }
-		        tincture[tinctures] PLAIN?
-		        {
-		            tinctures.addTincture($tincture.tincture);
-		            $layer = ShieldLayer.buildUndividedShieldLayer(tinctures);
-		        }
+		    (
+		        div { ShieldDivisionType division = $div.division; }
+            some_tinctures[tinctures, division] { $layer = $some_tinctures.layer; }
+        |
+            tincture[tinctures] 'plain'? {
+                tinctures.addTincture($tincture.tincture);
+                $layer = ShieldLayer.buildUndividedShieldLayer(tinctures);
+            }
+        )
 		    ;
 
-some_tinctures [Tinctures tinctures, ShieldDivisionType division] returns [ShieldLayer layer]
-        :   { int count = 0; }    
-            (
-                t = tincture[tinctures] 
-                { tinctures.addTincture($t.tincture); count++; }
-            )+
-            AND
-            t = tincture[tinctures]
+charges returns [ShieldLayer layer]
+        :   { Tinctures tinctures = new Tinctures(); }
+            A ordinary[tinctures]
             {
-		            count++;
-		            tinctures.addTincture($t.tincture);
-		            int numberOfTinctures = division.getNumberOfTinctures();
-		            if (numberOfTinctures != count) {
-		                diags.add(ShieldDiagnostic.build(LogLevel.ERROR, "Incorrect number of tinctures specified." +
-		                    "  The '" + division + "' division type only allows the following number of tinctures: "
-		                    + numberOfTinctures + " but found " + count));
-		                throw new RecognitionException(this.input);
-		            }
-		            $layer = ShieldLayer.buildDividedShieldLayer(tinctures, division);
-		        }
+                $layer = ChargedShieldLayer.build(tinctures, $ordinary.ordinary);
+            }
+        ;
+
+ordinary [Tinctures tinctures] returns [Ordinary ordinary]
+        :   ord = (ORDINARY | OTHER_ORDINARY ) { String text = $ord.text; }
+            ( MODIFIER { text += "_" + $MODIFIER.text; } )?
+            t=tincture[tinctures]
+            { $ordinary = Ordinary.build(text, t); }
         ;
 
 div returns [ShieldDivisionType division]
@@ -98,14 +84,14 @@ div returns [ShieldDivisionType division]
                 TIERCED { text = $TIERCED.text + " "; }
             )?
             PARTYPER
-            DIV { text += $DIV.text; }
+            divType = (ORDINARY | OTHER_DIV) { text += $divType.text; }
             (
-                divModifier1 = DIV_MODIFIER { text += " " + $divModifier1.text; }
+                divModifier1 = MODIFIER { text += " " + $divModifier1.text; }
             )?
         |
             VARIABLE_DIV { text = $VARIABLE_DIV.text; }
             (
-                divModifier2 = DIV_MODIFIER { text += " " + $divModifier2.text; }
+                divModifier2 = MODIFIER { text += " " + $divModifier2.text; }
             )?
             (
                 OF { text += " " + $OF.text; }
@@ -139,10 +125,26 @@ div returns [ShieldDivisionType division]
             $division = divisions.getDivisionType(text, diags);
         }
         ;
-
-number_digits_or_words
-        :   DIGITS
-        |   NUMWORDS (AND? NUMWORDS)*
+        
+some_tinctures [Tinctures tinctures, ShieldDivisionType division] returns [ShieldLayer layer]
+        :   { int count = 0; }    
+            (
+                tincture[tinctures] 
+                { count++; }
+            )+
+            AND
+            tincture[tinctures]
+            {
+                count++;
+                int numberOfTinctures = division.getNumberOfTinctures();
+                if (numberOfTinctures != count) {
+                    diags.add(ShieldDiagnostic.build(LogLevel.ERROR, "Incorrect number of tinctures specified." +
+                        "  The '" + division + "' division type only allows the following number of tinctures: "
+                        + numberOfTinctures + " but found " + count));
+                    throw new RecognitionException(this.input);
+                }
+                $layer = ShieldLayer.buildDividedShieldLayer(tinctures, division);
+            }
         ;
 
 tincture [Tinctures tinctures] returns [Tincture tincture]   
@@ -153,6 +155,7 @@ tincture [Tinctures tinctures] returns [Tincture tincture]
         )
         {   try {
                 $tincture = tinctures.getTincture(tinctureName);
+                $tinctures.addTincture($tincture);
             } catch (UnknownTinctureException e) {
                 diags.add(ShieldDiagnostic.build(LogLevel.ERROR, "Unknown tincture found. Caught: " + e));
                 throw new RecognitionException(this.input);
@@ -160,7 +163,12 @@ tincture [Tinctures tinctures] returns [Tincture tincture]
         }
         ;
 
-DIV_MODIFIER
+number_digits_or_words
+        :   DIGITS
+        |   NUMWORDS (AND? NUMWORDS)*
+        ;
+
+MODIFIER
         :   'reversed' | 'sinister'
         ;
 
@@ -168,7 +176,16 @@ TIERCED
         :   'tierced'
         ;
 
-DIV     :   'fess' | 'pale' | 'bend' | 'cross' | 'saltire' | 'chevron' | 'pall' | 'pairle'
+ORDINARY
+        :   'fess' | 'pale' | 'bend' | 'cross' | 'saltire' | 'chevron'
+        ;
+
+OTHER_DIV
+        :   'pall'
+        ;
+        
+OTHER_ORDINARY
+        :   'chief' | 'base'
         ;
         
 VARIABLE_DIV
@@ -200,21 +217,21 @@ FUR     :   'ermine' | 'ermines' | 'erminois' | 'pean'
 DIGITS  :   ('0'..'9')+
         ;
         
-AND     :   'and'
-        ;
-        
-OF      :   'of'
-        ;
-
-PLAIN   :   'plain'
-        ;
-        
 NUMWORDS
         :   'one' | 'eleven' | 'two' | 'twelve' | 'three' | 'thirteen' 
         |   'four''teen'? | 'five' | 'fifteen' | 'six''teen'? | 'seven''teen'?
         |   'eight''een'? | 'nine''teen'? | 'twenty' | 'thirty' | 'fourty'
         |   'fifty' | 'sixty' | 'seventy' | 'eighty' | 'ninety' | 'hundred'
         |   'thousand' | 'million' | 'billion'
+        ;
+
+OF      :   'of'
+        ;
+        
+AND     :   'and'
+        ;
+
+A       :   'a'
         ;
         
 WS      :   (' '|'\t')+ { $channel=HIDDEN; }

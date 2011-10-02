@@ -1,5 +1,6 @@
 package blazon.client.drawing;
 
+import org.vectomatic.dom.svg.OMSVGDefsElement;
 import org.vectomatic.dom.svg.OMSVGDocument;
 import org.vectomatic.dom.svg.OMSVGGElement;
 import org.vectomatic.dom.svg.OMSVGLength;
@@ -44,9 +45,12 @@ public class SVGShieldDrawer {
 	    	addTitleAndDescriptionToSVG(shield.getBlazon(), svg);
 	        
 	    	OMSVGGElement shieldContainer = doc.createSVGGElement();
+	    	OMSVGDefsElement defs = doc.createSVGDefsElement();
 	    	shieldContainer.setAttribute(SVGConstants.SVG_MASK_ATTRIBUTE, "url(#ShieldMask)");
-	        SVGFieldDrawer fieldDrawer = new SVGFieldDrawer((ShieldImpl)shield, doc.createSVGDefsElement(), width, height);
+	        SVGFieldDrawer fieldDrawer = new SVGFieldDrawer((ShieldImpl)shield, defs, width, height);
 	        fieldDrawer.drawField(shieldContainer, curve);
+	        SVGOrdinaryDrawer ordinaryDrawer = new SVGOrdinaryDrawer((ShieldImpl)shield, defs, width, height);
+	        ordinaryDrawer.drawOrdinaries(shieldContainer);
 	        
 	        svg.appendChild(shieldContainer);
     	}

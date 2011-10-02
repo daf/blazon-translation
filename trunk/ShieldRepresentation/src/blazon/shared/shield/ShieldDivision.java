@@ -28,7 +28,8 @@ public class ShieldDivision implements Serializable {
 	public static final String TIERCED_FESS = "TIERCED_FESS";
 	public static final String PALL_REVERSED = "PALL_REVERSED";
 	public static final String PALL = "PALL";
-	private static final String TIERCED_PAIRLE = "TIERCED_PAIRLE";
+	private static final String QUARTERLY = "QUARTERLY";
+	private static final String QUARTERED = "QUARTERED";
 	public static final String CHEVRON_REVERSED = "CHEVRON_REVERSED";
 	public static final String CHEVRON = "CHEVRON";
 	public static final String SALTIRE = "SALTIRE";
@@ -65,9 +66,9 @@ public class ShieldDivision implements Serializable {
 		div = ShieldDivisionType.build(CROSS, 4, 2);
 		map.put(div.getName(), div);
 		div = ShieldDivisionType.build(CROSS, 4, 2);
-		map.put("QUARTERLY", div);
+		map.put(QUARTERLY, div);
 		div = ShieldDivisionType.build(CROSS, 4, 2);
-		map.put("QUARTERED", div);
+		map.put(QUARTERED, div);
 		div = ShieldDivisionType.build(SALTIRE, 4, 2);
 		map.put(div.getName(), div);
 		div = ShieldDivisionType.build(CHEVRON, 2, 2);
@@ -137,12 +138,10 @@ public class ShieldDivision implements Serializable {
 			errorsList = new ArrayList<ShieldDiagnostic>();
 		}
 		name = name.toUpperCase().trim().replace(' ', '_');
-		name = name.replace(TIERCED_PAIRLE, PALL);
 		ShieldDivisionType div = map.get(name);
 		if (div != null) {
 			return div;
 		}
-		
 		final String of = "_OF_";
 		if (name.contains(of)) {
 			String divTypeName = name.substring(0, name.indexOf(of));

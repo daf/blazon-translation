@@ -94,7 +94,7 @@ public class SVGFieldDrawer {
 			}
 			triangle = new RightAngleTriangle(pointA, pointB, pointC);
 			putNewPolygonElementOnGElement(field, it.next(), triangle);
-			pointB = (division.equals(ShieldDivision.BEND)) ? new Point(xMin, yMax) : new Point(xMax, yMax);
+			pointB = (divisionName.equals(ShieldDivision.BEND)) ? new Point(xMin, yMax) : new Point(xMax, yMax);
 			triangle = new RightAngleTriangle(pointA, pointB, pointC);
 			putNewPolygonElementOnGElement(field, it.next(), triangle);
 		}
@@ -311,7 +311,7 @@ public class SVGFieldDrawer {
 
 	private void addFillToElement(Tincture t, OMSVGElement element) {
 		if (t instanceof Fur) {
-			FurSVGBuilder furBuilder = AbstractFurSVGBuilder.build(doc, defs, (Fur)t);
+			FurSVGBuilder furBuilder = AbstractFurSVGBuilder.build(defs, (Fur)t);
 			furBuilder.createPatternDefinition();
 		}
 		element.setAttribute(SVGConstants.CSS_FILL_VALUE, t.getFillText());
