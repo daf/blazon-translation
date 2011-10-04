@@ -45,14 +45,14 @@ public class SVGShieldDrawer {
 	    	addTitleAndDescriptionToSVG(shield.getBlazon(), svg);
 	        
 	    	OMSVGGElement shieldContainer = doc.createSVGGElement();
+	    	svg.appendChild(shieldContainer);
 	    	OMSVGDefsElement defs = doc.createSVGDefsElement();
+	    	svg.appendChild(defs);
 	    	shieldContainer.setAttribute(SVGConstants.SVG_MASK_ATTRIBUTE, "url(#ShieldMask)");
 	        SVGFieldDrawer fieldDrawer = new SVGFieldDrawer((ShieldImpl)shield, defs, width, height);
 	        fieldDrawer.drawField(shieldContainer, curve);
 	        SVGOrdinaryDrawer ordinaryDrawer = new SVGOrdinaryDrawer((ShieldImpl)shield, defs, width, height);
 	        ordinaryDrawer.drawOrdinaries(shieldContainer);
-	        
-	        svg.appendChild(shieldContainer);
     	}
     }
     

@@ -6,7 +6,7 @@ package blazon.shared.shield.tinctures;
  * @see Tincture, Colour, Metal, Fur
  */
 public abstract class AbstractTincture implements Tincture {
-
+	
 	private static final long serialVersionUID = -3533056694345483720L;
 
 	protected String name;
