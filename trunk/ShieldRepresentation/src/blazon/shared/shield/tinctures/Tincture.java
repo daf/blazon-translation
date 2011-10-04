@@ -2,6 +2,7 @@ package blazon.shared.shield.tinctures;
 
 import java.io.Serializable;
 
+
 /**
  * An representation of a Tincture on the shield;
  * this could be a Colour, Metal or Fur.
@@ -9,6 +10,7 @@ import java.io.Serializable;
  * @see AbstractTincture, Colour, Metal, Fur
  */
 public interface Tincture extends Serializable {
+		
 	/**
 	 * Gets the fill text from the current Tincture.
 	 * The fill text is put in the "fill" property of
@@ -28,4 +30,6 @@ public interface Tincture extends Serializable {
 	 * of the Tincture.
 	 */
 	String getName();
+	
+	TinctureType getTinctureType();
 }

@@ -2,7 +2,7 @@ package blazon.shared.shield;
 
 import java.util.ArrayList;
 
-import blazon.shared.shield.charges.Ordinary;
+import blazon.shared.shield.charges.Ordinary.OrdinaryType;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.tinctures.Tinctures;
 
@@ -11,16 +11,15 @@ public class ChargedShieldLayer extends ShieldLayer {
 	private static final long serialVersionUID = -1842958628522126820L;
 	private ChargedShieldLayer() { super(); }
 	
-	private Ordinary ordinary;
+	private OrdinaryType ordinary;
 	
-	public static ChargedShieldLayer build(Tinctures tinctures, Ordinary ordinary) {
+	public static ChargedShieldLayer build(Tinctures tinctures, OrdinaryType ordinary) {
 		ChargedShieldLayer layer = new ChargedShieldLayer();
 		layer.ordinary = ordinary;
 		layer.tinctures = tinctures;
 		layer.division = new ShieldDivision().getDivisionType(ShieldDivision.NONE, new ArrayList<ShieldDiagnostic>());
 		return layer;
 	}
-	
 	
 	@Override
 	public String toString() {
@@ -32,7 +31,7 @@ public class ChargedShieldLayer extends ShieldLayer {
 	}
 
 
-	public Ordinary getOrdinary() {
+	public OrdinaryType getOrdinary() {
 		return ordinary;
 	}
 	

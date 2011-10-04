@@ -20,6 +20,7 @@ import blazon.shared.shield.ChargedShieldLayer;
 import blazon.shared.shield.ShieldImpl;
 import blazon.shared.shield.ShieldLayer;
 import blazon.shared.shield.charges.Ordinary;
+import blazon.shared.shield.charges.Ordinary.OrdinaryType;
 import blazon.shared.shield.tinctures.Fur;
 import blazon.shared.shield.tinctures.Tincture;
 
@@ -51,7 +52,7 @@ public class SVGOrdinaryDrawer {
 		ChargedShieldLayer layer = (ChargedShieldLayer) field.getNextLayer();
 		
 		if (layer == null) return;
-		Ordinary ordinary = layer.getOrdinary();
+		OrdinaryType ordinary = layer.getOrdinary();
 		if (ordinary.getName().equalsIgnoreCase(Ordinary.CROSS)) {
 			Polygon polygon = new PolygonImpl(
 					new Point(xMid-k, yMin), new Point(xMid+k, yMin), new Point(xMid+k, yMid-k), 

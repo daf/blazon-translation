@@ -69,4 +69,9 @@ public class Metal extends AbstractTincture {
 		result = 31 * result + colour.hashCode();
 		return result;
 	}
+
+	@Override
+	public TinctureType getTinctureType() {
+		return TinctureType.METAL;
+	}
 }

@@ -8,6 +8,7 @@ options {
 package blazon.server.grammar;
 import blazon.shared.shield.*;
 import blazon.shared.shield.charges.*;
+import blazon.shared.shield.charges.Ordinary.OrdinaryType;
 import blazon.shared.shield.ShieldDivision.ShieldDivisionType;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic.LogLevel;
@@ -38,8 +39,9 @@ package blazon.server.grammar;
 shield returns [Shield s]
 		    :   { String blazon = input.toString(); } // parser uses Interpreter pattern
 		    field { $s = ShieldImpl.build($field.layer, blazon); }
-		    ( charges { $s.getField().addNextLayer($charges.layer); })?
-		    { //LATER make HTML pretty
+		    ( charges[$field.layer.getTinctureTypeOfLayer()] { $s.getField().addNextLayer($charges.layer); })?
+		    {
+		        //LATER make HTML pretty
 				    //TODO add charges
 				    $s.addDiagnostics(diags);
 				}
@@ -62,19 +64,27 @@ field returns [ShieldLayer layer]
         )
 		    ;
 
-charges returns [ShieldLayer layer]
+charges [TinctureType underLayerTinctureType] returns [ShieldLayer layer]
         :   { Tinctures tinctures = new Tinctures(); }
-            A ordinary[tinctures]
+            A ordinary[tinctures, underLayerTinctureType]
             {
                 $layer = ChargedShieldLayer.build(tinctures, $ordinary.ordinary);
             }
         ;
 
-ordinary [Tinctures tinctures] returns [Ordinary ordinary]
+ordinary [Tinctures tinctures, TinctureType underLayerTinctureType] returns [OrdinaryType ordinary]
         :   ord = (ORDINARY | OTHER_ORDINARY ) { String text = $ord.text; }
             ( MODIFIER { text += "_" + $MODIFIER.text; } )?
             t=tincture[tinctures]
-            { $ordinary = Ordinary.build(text, t); }
+            { 
+                TinctureType thisTinctureType = t.getTinctureType();
+                if (underLayerTinctureType == thisTinctureType) {
+                    if (thisTinctureType == TinctureType.COLOUR || thisTinctureType == TinctureType.METAL) {
+                        diags.add(ShieldDiagnostic.build(LogLevel.WARN, "You are not obeying the rule of tincture. You can not put a colour on a colour, or a metal on a metal"));
+                    }
+                }              
+                $ordinary = new Ordinary().getOrdinaryType(text, t, diags);
+            }
         ;
 
 div returns [ShieldDivisionType division]

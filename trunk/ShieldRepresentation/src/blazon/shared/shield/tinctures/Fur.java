@@ -144,4 +144,9 @@ public class Fur extends AbstractTincture {
 		result = 31 * result + furType.hashCode();
 		return result;
 	}
+
+	@Override
+	public TinctureType getTinctureType() {
+		return TinctureType.OTHER;
+	}
 }

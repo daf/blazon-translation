@@ -2,9 +2,12 @@ package blazon.shared.shield;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import blazon.shared.shield.ShieldDivision.ShieldDivisionType;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic;
+import blazon.shared.shield.tinctures.Tincture;
+import blazon.shared.shield.tinctures.TinctureType;
 import blazon.shared.shield.tinctures.Tinctures;
 
 public class ShieldLayer implements Serializable {
@@ -23,8 +26,7 @@ public class ShieldLayer implements Serializable {
 
 	public static ShieldLayer buildDividedShieldLayer(Tinctures t, ShieldDivisionType division) {
 		if (t == null) {
-			throw new IllegalArgumentException(
-					"Can not build a ShieldLayer with null tinctures");
+			throw new IllegalArgumentException("Can not build a ShieldLayer with null tinctures");
 		}
 		ShieldLayer shieldLayer = new ShieldLayer();
 		shieldLayer.tinctures = t;
@@ -52,6 +54,20 @@ public class ShieldLayer implements Serializable {
 		return division;
 	}
 
+	public TinctureType getTinctureTypeOfLayer() {
+		Iterator<Tincture> it = tinctures.getTincturesOnLayer().iterator();
+		TinctureType first = it.next().getTinctureType();
+		if (first == TinctureType.OTHER) {
+			return first;
+		}
+		for (TinctureType tt = it.next().getTinctureType(); it.hasNext();) {
+			if (tt != first) {
+				return TinctureType.OTHER;
+			}
+		}
+		return first;
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder("ShieldLayer{tinctures=");
