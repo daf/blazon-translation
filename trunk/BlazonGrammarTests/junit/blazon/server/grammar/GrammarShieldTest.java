@@ -12,11 +12,13 @@ import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 
 import blazon.server.grammar.BlazonParser;
+import blazon.shared.shield.ChargedShieldLayer;
 import blazon.shared.shield.Shield;
 import blazon.shared.shield.ShieldImpl;
 import blazon.shared.shield.ShieldDivision;
 import blazon.shared.shield.ShieldLayer;
 import blazon.shared.shield.ShieldDivision.ShieldDivisionType;
+import blazon.shared.shield.charges.Ordinary.OrdinaryType;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.tinctures.Tincture;
 import blazon.shared.shield.tinctures.Tinctures;
@@ -217,6 +219,736 @@ public class GrammarShieldTest {
 		assertThat(tincturesOnLayer.next(), is(equalTo(gules)));
 		assertThat(tincturesOnLayer.next(), is(equalTo(argent)));
 	}
+	
+	//CHARGED TESTS START HERE
+	
+	@Test
+	public void testThatOrACrossGulesGivesTheCorrectShield() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("or a cross gules");
+		ShieldImpl shield = (ShieldImpl) parser.shield();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture gules = tinctures.getTincture("gules");
+		Tincture or = tinctures.getTincture("or");
+		ShieldDivisionType none = new ShieldDivision().getDivisionType("none", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(shield.getField(), is(notNullValue()));
+		ShieldLayer layer = shield.getField();
+		assertThat(layer.getShieldDivision(), is(equalTo(none)));
+		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(1));
+		assertThat(layer.getTinctures().getTincturesOnLayer().iterator().next(), is(equalTo(or)));
+		assertThat(layer.getNextLayer(), is(notNullValue()));
+		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
+		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
+		OrdinaryType ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		assertThat(ordinary.getTincture(), is(equalTo(gules)));
+		assertThat(shield.getShieldDiagnostics().size(), is(0));
+	}
+	
+	@Test
+	public void testThatVairACrossGulesGivesTheCorrectShield() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("vair a cross gules");
+		ShieldImpl shield = (ShieldImpl) parser.shield();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture vair = tinctures.getTincture("vair");
+		Tincture gules = tinctures.getTincture("gules");
+		ShieldDivisionType none = new ShieldDivision().getDivisionType("none", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(shield.getField(), is(notNullValue()));
+		ShieldLayer layer = shield.getField();
+		assertThat(layer.getShieldDivision(), is(equalTo(none)));
+		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(1));
+		assertThat(layer.getTinctures().getTincturesOnLayer().iterator().next(), is(equalTo(vair)));
+		assertThat(layer.getNextLayer(), is(notNullValue()));
+		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
+		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
+		OrdinaryType ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		assertThat(ordinary.getTincture(), is(equalTo(gules)));
+		assertThat(shield.getShieldDiagnostics().size(), is(0));
+	}
+	
+	@Test
+	public void testThatSableACrossGulesGivesTheCorrectShieldButHasWarningAboutRuleOfTincture() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("sable a cross gules");
+		ShieldImpl shield = (ShieldImpl) parser.shield();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture sable = tinctures.getTincture("sable");
+		Tincture gules = tinctures.getTincture("gules");
+		ShieldDivisionType none = new ShieldDivision().getDivisionType("none", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(shield.getField(), is(notNullValue()));
+		ShieldLayer layer = shield.getField();
+		assertThat(layer.getShieldDivision(), is(equalTo(none)));
+		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(1));
+		assertThat(layer.getTinctures().getTincturesOnLayer().iterator().next(), is(equalTo(sable)));
+		assertThat(layer.getNextLayer(), is(notNullValue()));
+		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
+		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
+		OrdinaryType ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		assertThat(ordinary.getTincture(), is(equalTo(gules)));
+		assertThat(shield.getShieldDiagnostics().size(), is(1));
+		assertThat(shield.getShieldDiagnostics().get(0).getSeverity(), is(ShieldDiagnostic.LogLevel.WARN));
+		assertThat(shield.getShieldDiagnostics().get(0).getMessage(), is(equalTo("You are not obeying the rule of tincture. You can not put a colour on a colour, or a metal on a metal")));
+	}
+	
+	@Test
+	public void testThatGulesACrossOrGivesTheCorrectShield() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("gules a cross or");
+		ShieldImpl shield = (ShieldImpl) parser.shield();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture gules = tinctures.getTincture("gules");
+		Tincture or = tinctures.getTincture("or");
+		ShieldDivisionType none = new ShieldDivision().getDivisionType("none", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(shield.getField(), is(notNullValue()));
+		ShieldLayer layer = shield.getField();
+		assertThat(layer.getShieldDivision(), is(equalTo(none)));
+		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(1));
+		assertThat(layer.getTinctures().getTincturesOnLayer().iterator().next(), is(equalTo(gules)));
+		assertThat(layer.getNextLayer(), is(notNullValue()));
+		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
+		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
+		OrdinaryType ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		assertThat(ordinary.getTincture(), is(equalTo(or)));
+		assertThat(shield.getShieldDiagnostics().size(), is(0));
+	}
+	
+	@Test
+	public void testThatVairACrossOrGivesTheCorrectShield() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("vair a cross or");
+		ShieldImpl shield = (ShieldImpl) parser.shield();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture vair = tinctures.getTincture("vair");
+		Tincture or = tinctures.getTincture("or");
+		ShieldDivisionType none = new ShieldDivision().getDivisionType("none", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(shield.getField(), is(notNullValue()));
+		ShieldLayer layer = shield.getField();
+		assertThat(layer.getShieldDivision(), is(equalTo(none)));
+		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(1));
+		assertThat(layer.getTinctures().getTincturesOnLayer().iterator().next(), is(equalTo(vair)));
+		assertThat(layer.getNextLayer(), is(notNullValue()));
+		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
+		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
+		OrdinaryType ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		assertThat(ordinary.getTincture(), is(equalTo(or)));
+		assertThat(shield.getShieldDiagnostics().size(), is(0));
+	}
+	
+	@Test
+	public void testThatOrACrossArgentGivesTheCorrectShieldButHasWarningAboutRuleOfTincture() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("or a cross argent");
+		ShieldImpl shield = (ShieldImpl) parser.shield();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture or = tinctures.getTincture("or");
+		Tincture argent = tinctures.getTincture("argent");
+		ShieldDivisionType none = new ShieldDivision().getDivisionType("none", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(shield.getField(), is(notNullValue()));
+		ShieldLayer layer = shield.getField();
+		assertThat(layer.getShieldDivision(), is(equalTo(none)));
+		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(1));
+		assertThat(layer.getTinctures().getTincturesOnLayer().iterator().next(), is(equalTo(or)));
+		assertThat(layer.getNextLayer(), is(notNullValue()));
+		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
+		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
+		OrdinaryType ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		assertThat(ordinary.getTincture(), is(equalTo(argent)));
+		assertThat(shield.getShieldDiagnostics().size(), is(1));
+		assertThat(shield.getShieldDiagnostics().get(0).getSeverity(), is(ShieldDiagnostic.LogLevel.WARN));
+		assertThat(shield.getShieldDiagnostics().get(0).getMessage(), is(equalTo("You are not obeying the rule of tincture. You can not put a colour on a colour, or a metal on a metal")));
+	}
+	
+	@Test
+	public void testThatGulesACrossVairGivesTheCorrectShield() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("gules a cross vair");
+		ShieldImpl shield = (ShieldImpl) parser.shield();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture gules = tinctures.getTincture("gules");
+		Tincture vair = tinctures.getTincture("vair");
+		ShieldDivisionType none = new ShieldDivision().getDivisionType("none", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(shield.getField(), is(notNullValue()));
+		ShieldLayer layer = shield.getField();
+		assertThat(layer.getShieldDivision(), is(equalTo(none)));
+		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(1));
+		assertThat(layer.getTinctures().getTincturesOnLayer().iterator().next(), is(equalTo(gules)));
+		assertThat(layer.getNextLayer(), is(notNullValue()));
+		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
+		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
+		OrdinaryType ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		assertThat(ordinary.getTincture(), is(equalTo(vair)));
+		assertThat(shield.getShieldDiagnostics().size(), is(0));
+	}
+	
+	@Test
+	public void testThatPotentACrossVairGivesTheCorrectShield() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("potent a cross vair");
+		ShieldImpl shield = (ShieldImpl) parser.shield();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture vair = tinctures.getTincture("vair");
+		Tincture potent = tinctures.getTincture("potent");
+		ShieldDivisionType none = new ShieldDivision().getDivisionType("none", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(shield.getField(), is(notNullValue()));
+		ShieldLayer layer = shield.getField();
+		assertThat(layer.getShieldDivision(), is(equalTo(none)));
+		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(1));
+		assertThat(layer.getTinctures().getTincturesOnLayer().iterator().next(), is(equalTo(potent)));
+		assertThat(layer.getNextLayer(), is(notNullValue()));
+		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
+		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
+		OrdinaryType ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		assertThat(ordinary.getTincture(), is(equalTo(vair)));
+		assertThat(shield.getShieldDiagnostics().size(), is(0));
+	}
+	
+	@Test
+	public void testThatOrACrossVairGivesTheCorrectShield() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("or a cross vair");
+		ShieldImpl shield = (ShieldImpl) parser.shield();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture vair = tinctures.getTincture("vair");
+		Tincture or = tinctures.getTincture("or");
+		ShieldDivisionType none = new ShieldDivision().getDivisionType("none", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(shield.getField(), is(notNullValue()));
+		ShieldLayer layer = shield.getField();
+		assertThat(layer.getShieldDivision(), is(equalTo(none)));
+		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(1));
+		assertThat(layer.getTinctures().getTincturesOnLayer().iterator().next(), is(equalTo(or)));
+		assertThat(layer.getNextLayer(), is(notNullValue()));
+		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
+		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
+		OrdinaryType ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		assertThat(ordinary.getTincture(), is(equalTo(vair)));
+		assertThat(shield.getShieldDiagnostics().size(), is(0));
+	}
+	
+	@Test
+	public void testThatPerCrossGulesAndSableACrossVairGivesTheCorrectShield() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("per cross gules and sable a cross vair");
+		ShieldImpl shield = (ShieldImpl) parser.shield();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture vair = tinctures.getTincture("vair");
+		Tincture gules = tinctures.getTincture("gules");
+		Tincture sable = tinctures.getTincture("sable");
+
+		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(shield.getField(), is(notNullValue()));
+		ShieldLayer layer = shield.getField();
+		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
+		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
+		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
+		assertThat(it.next(), is(equalTo(gules)));
+		assertThat(it.next(), is(equalTo(sable)));
+		assertThat(layer.getNextLayer(), is(notNullValue()));
+		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
+		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
+		OrdinaryType ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		assertThat(ordinary.getTincture(), is(equalTo(vair)));
+		assertThat(shield.getShieldDiagnostics().size(), is(0));
+	}
+	
+	@Test
+	public void testThatPerCrossGulesAndSableACrossOrGivesTheCorrectShield() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("per cross gules and sable a cross or");
+		ShieldImpl shield = (ShieldImpl) parser.shield();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture or = tinctures.getTincture("or");
+		Tincture gules = tinctures.getTincture("gules");
+		Tincture sable = tinctures.getTincture("sable");
+
+		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(shield.getField(), is(notNullValue()));
+		ShieldLayer layer = shield.getField();
+		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
+		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
+		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
+		assertThat(it.next(), is(equalTo(gules)));
+		assertThat(it.next(), is(equalTo(sable)));
+		assertThat(layer.getNextLayer(), is(notNullValue()));
+		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
+		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
+		OrdinaryType ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		assertThat(ordinary.getTincture(), is(equalTo(or)));
+		assertThat(shield.getShieldDiagnostics().size(), is(0));
+	}
+	
+	@Test
+	public void testThatPerCrossGulesAndSableACrossAzureGivesTheCorrectShield() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("per cross gules and sable a cross azure");
+		ShieldImpl shield = (ShieldImpl) parser.shield();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture azure = tinctures.getTincture("azure");
+		Tincture gules = tinctures.getTincture("gules");
+		Tincture sable = tinctures.getTincture("sable");
+
+		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(shield.getField(), is(notNullValue()));
+		ShieldLayer layer = shield.getField();
+		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
+		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
+		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
+		assertThat(it.next(), is(equalTo(gules)));
+		assertThat(it.next(), is(equalTo(sable)));
+		assertThat(layer.getNextLayer(), is(notNullValue()));
+		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
+		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
+		OrdinaryType ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		assertThat(ordinary.getTincture(), is(equalTo(azure)));
+		assertThat(shield.getShieldDiagnostics().size(), is(1));
+		assertThat(shield.getShieldDiagnostics().get(0).getSeverity(), is(ShieldDiagnostic.LogLevel.WARN));
+		assertThat(shield.getShieldDiagnostics().get(0).getMessage(), is(equalTo("You are not obeying the rule of tincture. You can not put a colour on a colour, or a metal on a metal")));
+	}
+	
+	@Test
+	public void testThatPerCrossOrAndArgentACrossVairGivesTheCorrectShield() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("per cross or and argent a cross vair");
+		ShieldImpl shield = (ShieldImpl) parser.shield();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture vair = tinctures.getTincture("vair");
+		Tincture or = tinctures.getTincture("or");
+		Tincture argent = tinctures.getTincture("argent");
+
+		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(shield.getField(), is(notNullValue()));
+		ShieldLayer layer = shield.getField();
+		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
+		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
+		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
+		assertThat(it.next(), is(equalTo(or)));
+		assertThat(it.next(), is(equalTo(argent)));
+		assertThat(layer.getNextLayer(), is(notNullValue()));
+		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
+		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
+		OrdinaryType ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		assertThat(ordinary.getTincture(), is(equalTo(vair)));
+		assertThat(shield.getShieldDiagnostics().size(), is(0));
+	}
+	
+	@Test
+	public void testThatPerCrossOrAndArgentACrossGulesGivesTheCorrectShield() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("per cross or and argent a cross gules");
+		ShieldImpl shield = (ShieldImpl) parser.shield();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture gules = tinctures.getTincture("gules");
+		Tincture or = tinctures.getTincture("or");
+		Tincture argent = tinctures.getTincture("argent");
+
+		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(shield.getField(), is(notNullValue()));
+		ShieldLayer layer = shield.getField();
+		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
+		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
+		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
+		assertThat(it.next(), is(equalTo(or)));
+		assertThat(it.next(), is(equalTo(argent)));
+		assertThat(layer.getNextLayer(), is(notNullValue()));
+		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
+		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
+		OrdinaryType ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		assertThat(ordinary.getTincture(), is(equalTo(gules)));
+		assertThat(shield.getShieldDiagnostics().size(), is(0));
+	}
+	
+	@Test
+	public void testThatPerCrossOrAndArgentACrossOrGivesTheCorrectShield() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("per cross or and argent a cross or");
+		ShieldImpl shield = (ShieldImpl) parser.shield();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture or = tinctures.getTincture("or");
+		Tincture argent = tinctures.getTincture("argent");
+
+		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(shield.getField(), is(notNullValue()));
+		ShieldLayer layer = shield.getField();
+		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
+		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
+		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
+		assertThat(it.next(), is(equalTo(or)));
+		assertThat(it.next(), is(equalTo(argent)));
+		assertThat(layer.getNextLayer(), is(notNullValue()));
+		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
+		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
+		OrdinaryType ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		assertThat(ordinary.getTincture(), is(equalTo(or)));
+		assertThat(shield.getShieldDiagnostics().size(), is(1));
+		assertThat(shield.getShieldDiagnostics().get(0).getSeverity(), is(ShieldDiagnostic.LogLevel.WARN));
+		assertThat(shield.getShieldDiagnostics().get(0).getMessage(), is(equalTo("You are not obeying the rule of tincture. You can not put a colour on a colour, or a metal on a metal")));
+	}
+	
+	@Test
+	public void testThatPerCrossVairAndPotentACrossVairEnPaleGivesTheCorrectShield() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("per cross vair and potent a cross vair-en-pale");
+		ShieldImpl shield = (ShieldImpl) parser.shield();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture vair = tinctures.getTincture("vair");
+		Tincture potent = tinctures.getTincture("potent");
+		Tincture vairEnPale = tinctures.getTincture("vair-en-pale");
+
+		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(shield.getField(), is(notNullValue()));
+		ShieldLayer layer = shield.getField();
+		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
+		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
+		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
+		assertThat(it.next(), is(equalTo(vair)));
+		assertThat(it.next(), is(equalTo(potent)));
+		assertThat(layer.getNextLayer(), is(notNullValue()));
+		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
+		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
+		OrdinaryType ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		assertThat(ordinary.getTincture(), is(equalTo(vairEnPale)));
+		assertThat(shield.getShieldDiagnostics().size(), is(0));
+	}
+	
+	@Test
+	public void testThatPerCrossVairAndPotentACrossGulesGivesTheCorrectShield() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("per cross vair and potent a cross gules");
+		ShieldImpl shield = (ShieldImpl) parser.shield();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture vair = tinctures.getTincture("vair");
+		Tincture potent = tinctures.getTincture("potent");
+		Tincture gules = tinctures.getTincture("gules");
+
+		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(shield.getField(), is(notNullValue()));
+		ShieldLayer layer = shield.getField();
+		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
+		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
+		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
+		assertThat(it.next(), is(equalTo(vair)));
+		assertThat(it.next(), is(equalTo(potent)));
+		assertThat(layer.getNextLayer(), is(notNullValue()));
+		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
+		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
+		OrdinaryType ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		assertThat(ordinary.getTincture(), is(equalTo(gules)));
+		assertThat(shield.getShieldDiagnostics().size(), is(0));
+	}
+	
+	@Test
+	public void testThatPerCrossVairAndPotentACrossOrGivesTheCorrectShield() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("per cross vair and potent a cross or");
+		ShieldImpl shield = (ShieldImpl) parser.shield();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture vair = tinctures.getTincture("vair");
+		Tincture potent = tinctures.getTincture("potent");
+		Tincture or = tinctures.getTincture("or");
+
+		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(shield.getField(), is(notNullValue()));
+		ShieldLayer layer = shield.getField();
+		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
+		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
+		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
+		assertThat(it.next(), is(equalTo(vair)));
+		assertThat(it.next(), is(equalTo(potent)));
+		assertThat(layer.getNextLayer(), is(notNullValue()));
+		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
+		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
+		OrdinaryType ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		assertThat(ordinary.getTincture(), is(equalTo(or)));
+		assertThat(shield.getShieldDiagnostics().size(), is(0));
+	}
+	
+	@Test
+	public void testThatPerCrossVairAndGulesACrossOrGivesTheCorrectShield() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("per cross vair and gules a cross or");
+		ShieldImpl shield = (ShieldImpl) parser.shield();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture vair = tinctures.getTincture("vair");
+		Tincture gules = tinctures.getTincture("gules");
+		Tincture or = tinctures.getTincture("or");
+
+		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(shield.getField(), is(notNullValue()));
+		ShieldLayer layer = shield.getField();
+		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
+		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
+		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
+		assertThat(it.next(), is(equalTo(vair)));
+		assertThat(it.next(), is(equalTo(gules)));
+		assertThat(layer.getNextLayer(), is(notNullValue()));
+		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
+		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
+		OrdinaryType ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		assertThat(ordinary.getTincture(), is(equalTo(or)));
+		assertThat(shield.getShieldDiagnostics().size(), is(0));
+	}
+	
+	@Test
+	public void testThatPerCrossVairAndGulesACrossSableGivesTheCorrectShield() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("per cross vair and gules a cross sable");
+		ShieldImpl shield = (ShieldImpl) parser.shield();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture vair = tinctures.getTincture("vair");
+		Tincture gules = tinctures.getTincture("gules");
+		Tincture sable = tinctures.getTincture("sable");
+
+		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(shield.getField(), is(notNullValue()));
+		ShieldLayer layer = shield.getField();
+		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
+		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
+		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
+		assertThat(it.next(), is(equalTo(vair)));
+		assertThat(it.next(), is(equalTo(gules)));
+		assertThat(layer.getNextLayer(), is(notNullValue()));
+		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
+		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
+		OrdinaryType ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		assertThat(ordinary.getTincture(), is(equalTo(sable)));
+		assertThat(shield.getShieldDiagnostics().size(), is(0));
+	}
+	
+	@Test
+	public void testThatPerCrossVairAndGulesACrossPotentGivesTheCorrectShield() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("per cross vair and gules a cross potent");
+		ShieldImpl shield = (ShieldImpl) parser.shield();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture vair = tinctures.getTincture("vair");
+		Tincture gules = tinctures.getTincture("gules");
+		Tincture potent = tinctures.getTincture("potent");
+
+		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(shield.getField(), is(notNullValue()));
+		ShieldLayer layer = shield.getField();
+		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
+		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
+		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
+		assertThat(it.next(), is(equalTo(vair)));
+		assertThat(it.next(), is(equalTo(gules)));
+		assertThat(layer.getNextLayer(), is(notNullValue()));
+		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
+		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
+		OrdinaryType ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		assertThat(ordinary.getTincture(), is(equalTo(potent)));
+		assertThat(shield.getShieldDiagnostics().size(), is(0));
+	}
+	
+	@Test
+	public void testThatPerCrossVairAndArgentACrossOrGivesTheCorrectShield() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("per cross vair and argent a cross or");
+		ShieldImpl shield = (ShieldImpl) parser.shield();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture vair = tinctures.getTincture("vair");
+		Tincture argent = tinctures.getTincture("argent");
+		Tincture or = tinctures.getTincture("or");
+
+		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(shield.getField(), is(notNullValue()));
+		ShieldLayer layer = shield.getField();
+		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
+		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
+		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
+		assertThat(it.next(), is(equalTo(vair)));
+		assertThat(it.next(), is(equalTo(argent)));
+		assertThat(layer.getNextLayer(), is(notNullValue()));
+		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
+		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
+		OrdinaryType ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		assertThat(ordinary.getTincture(), is(equalTo(or)));
+		assertThat(shield.getShieldDiagnostics().size(), is(0));
+	}
+	
+	@Test
+	public void testThatPerCrossVairAndArgentACrossSableGivesTheCorrectShield() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("per cross vair and argent a cross sable");
+		ShieldImpl shield = (ShieldImpl) parser.shield();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture vair = tinctures.getTincture("vair");
+		Tincture argent = tinctures.getTincture("argent");
+		Tincture sable = tinctures.getTincture("sable");
+
+		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(shield.getField(), is(notNullValue()));
+		ShieldLayer layer = shield.getField();
+		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
+		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
+		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
+		assertThat(it.next(), is(equalTo(vair)));
+		assertThat(it.next(), is(equalTo(argent)));
+		assertThat(layer.getNextLayer(), is(notNullValue()));
+		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
+		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
+		OrdinaryType ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		assertThat(ordinary.getTincture(), is(equalTo(sable)));
+		assertThat(shield.getShieldDiagnostics().size(), is(0));
+	}
+	
+	@Test
+	public void testThatPerCrossVairAndArgentACrossPotentGivesTheCorrectShield() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("per cross vair and argent a cross potent");
+		ShieldImpl shield = (ShieldImpl) parser.shield();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture vair = tinctures.getTincture("vair");
+		Tincture argent = tinctures.getTincture("argent");
+		Tincture potent = tinctures.getTincture("potent");
+
+		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(shield.getField(), is(notNullValue()));
+		ShieldLayer layer = shield.getField();
+		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
+		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
+		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
+		assertThat(it.next(), is(equalTo(vair)));
+		assertThat(it.next(), is(equalTo(argent)));
+		assertThat(layer.getNextLayer(), is(notNullValue()));
+		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
+		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
+		OrdinaryType ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		assertThat(ordinary.getTincture(), is(equalTo(potent)));
+		assertThat(shield.getShieldDiagnostics().size(), is(0));
+	}
+	
+	@Test
+	public void testThatPerCrossGulesAndArgentACrossOrGivesTheCorrectShield() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("per cross gules and argent a cross or");
+		ShieldImpl shield = (ShieldImpl) parser.shield();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture gules = tinctures.getTincture("gules");
+		Tincture argent = tinctures.getTincture("argent");
+		Tincture or = tinctures.getTincture("or");
+
+		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(shield.getField(), is(notNullValue()));
+		ShieldLayer layer = shield.getField();
+		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
+		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
+		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
+		assertThat(it.next(), is(equalTo(gules)));
+		assertThat(it.next(), is(equalTo(argent)));
+		assertThat(layer.getNextLayer(), is(notNullValue()));
+		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
+		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
+		OrdinaryType ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		assertThat(ordinary.getTincture(), is(equalTo(or)));
+		assertThat(shield.getShieldDiagnostics().size(), is(0));
+	}
+	
+	@Test
+	public void testThatPerCrossGulesAndArgentACrossSableGivesTheCorrectShield() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("per cross gules and argent a cross sable");
+		ShieldImpl shield = (ShieldImpl) parser.shield();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture gules = tinctures.getTincture("gules");
+		Tincture argent = tinctures.getTincture("argent");
+		Tincture sable = tinctures.getTincture("sable");
+
+		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(shield.getField(), is(notNullValue()));
+		ShieldLayer layer = shield.getField();
+		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
+		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
+		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
+		assertThat(it.next(), is(equalTo(gules)));
+		assertThat(it.next(), is(equalTo(argent)));
+		assertThat(layer.getNextLayer(), is(notNullValue()));
+		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
+		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
+		OrdinaryType ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		assertThat(ordinary.getTincture(), is(equalTo(sable)));
+		assertThat(shield.getShieldDiagnostics().size(), is(0));
+	}
+	
+	@Test
+	public void testThatPerCrossGulesAndArgentACrossPotentGivesTheCorrectShield() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("per cross gules and argent a cross potent");
+		ShieldImpl shield = (ShieldImpl) parser.shield();
+		
+		Tinctures tinctures = new Tinctures();
+		Tincture gules = tinctures.getTincture("gules");
+		Tincture argent = tinctures.getTincture("argent");
+		Tincture potent = tinctures.getTincture("potent");
+
+		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
+		
+		assertThat(shield.getField(), is(notNullValue()));
+		ShieldLayer layer = shield.getField();
+		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
+		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
+		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
+		assertThat(it.next(), is(equalTo(gules)));
+		assertThat(it.next(), is(equalTo(argent)));
+		assertThat(layer.getNextLayer(), is(notNullValue()));
+		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
+		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
+		OrdinaryType ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		assertThat(ordinary.getTincture(), is(equalTo(potent)));
+		assertThat(shield.getShieldDiagnostics().size(), is(0));
+	}
+	//CHARGED TESTS END HERE
 	
 	@Test
 	public void testThatPerGyronnyGulesAndArgentReturnsInvalidShieldContainingMismatchedTokenException() throws RecognitionException {

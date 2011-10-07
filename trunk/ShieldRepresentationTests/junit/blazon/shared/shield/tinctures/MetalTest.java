@@ -67,6 +67,12 @@ public class MetalTest {
 	}
 	
 	@Test
+	public void testThatMetalGetTinctureTypeReturnsMetal() {
+		Tincture t = Metal.build("or", "yellow");
+		assertThat(t.getTinctureType(), is(TinctureType.METAL));
+	}
+	
+	@Test
 	public void testThatToStringForOrIsAsExpected() {
 		String name = "or";
 		String fillText = "yellow";

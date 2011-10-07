@@ -70,8 +70,4 @@ public abstract class AbstractFurSVGBuilder implements FurSVGBuilder {
 	private void setDefs(OMSVGDefsElement defs) {
 		this.defs = defs;
 	}
-
-	private void setDoc(OMSVGDocument doc) {
-		this.doc = doc;
-	}
 }

@@ -4,6 +4,35 @@ options {
   language = Java;
 }
 
+@lexer::header {
+package blazon.server.grammar;
+
+import blazon.shared.shield.diagnostic.ShieldDiagnostic;
+import blazon.shared.shield.diagnostic.ShieldDiagnostic.LogLevel;
+
+}
+
+@lexer::members {
+  
+  public BlazonLexer(CharStream input, List<ShieldDiagnostic> diags) {
+      this(input, new RecognizerSharedState(), diags);
+  }
+  
+  public BlazonLexer(CharStream input, RecognizerSharedState state, List<ShieldDiagnostic> diags) {
+      super(input,state);
+      this.diags = diags;
+  }
+  
+  private List<ShieldDiagnostic> diags;
+  
+  
+  @Override
+  public void recover(RecognitionException re) {
+    diags.add(ShieldDiagnostic.build(LogLevel.ERROR, getErrorHeader(re) + ":" + getErrorMessage(re, getTokenNames())));
+    input.consume();
+  }
+}
+
 @header {
 package blazon.server.grammar;
 import blazon.shared.shield.*;
@@ -17,17 +46,23 @@ import blazon.shared.numberconversion.WordToNumberConverter;
 }
 
 @members {
+  
+  public BlazonParser(TokenStream input, List<ShieldDiagnostic> diags) {
+      this(input, new RecognizerSharedState(), diags);
+  }
+  
+  public BlazonParser(TokenStream input, RecognizerSharedState state, List<ShieldDiagnostic> diags) {
+      super(input, state);
+      this.diags = diags;
+  }
+  
   private WordToNumberConverter converter = new WordToNumberConverter();
-  private List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
+  private List<ShieldDiagnostic> diags;
   
   @Override
   public void emitErrorMessage(String msg) {
     diags.add(ShieldDiagnostic.build(LogLevel.ERROR, msg));
   }
-}
-
-@lexer::header {
-package blazon.server.grammar;
 }
 
 @rulecatch {
@@ -58,13 +93,12 @@ field returns [ShieldLayer layer]
             some_tinctures[tinctures, division] { $layer = $some_tinctures.layer; }
         |
             tincture[tinctures] 'plain'? {
-                tinctures.addTincture($tincture.tincture);
                 $layer = ShieldLayer.buildUndividedShieldLayer(tinctures);
             }
         )
 		    ;
 
-charges [TinctureType underLayerTinctureType] returns [ShieldLayer layer]
+charges [TinctureType underLayerTinctureType] returns [ChargedShieldLayer layer]
         :   { Tinctures tinctures = new Tinctures(); }
             A ordinary[tinctures, underLayerTinctureType]
             {

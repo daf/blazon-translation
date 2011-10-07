@@ -1,5 +1,8 @@
 package blazon.server;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.antlr.runtime.CharStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
@@ -11,6 +14,7 @@ import blazon.server.grammar.BlazonLexer;
 import blazon.server.grammar.BlazonParser;
 import blazon.shared.shield.InvalidShield;
 import blazon.shared.shield.Shield;
+import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -24,9 +28,10 @@ public class BlazonParsingServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public Shield createShieldRepresentation(String blazon) {
 		CharStream input = new ANTLRNoCaseStringStream(blazon);
-        BlazonLexer lexer = new BlazonLexer(input);
+		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
+        BlazonLexer lexer = new BlazonLexer(input, diags);
         TokenStream tokenStream = new CommonTokenStream(lexer);
-        BlazonParser parser = new BlazonParser(tokenStream);
+        BlazonParser parser = new BlazonParser(tokenStream, diags);
         Shield shield;
         try {
         	shield = parser.shield();

@@ -14,6 +14,12 @@ public class ChargedShieldLayer extends ShieldLayer {
 	private OrdinaryType ordinary;
 	
 	public static ChargedShieldLayer build(Tinctures tinctures, OrdinaryType ordinary) {
+		if (tinctures == null) {
+			throw new IllegalArgumentException("Can not create ChargedShieldLayer will null tinctures");
+		}
+		if (ordinary == null) {
+			throw new IllegalArgumentException("Can not create ChargedShieldLayer will null ordinary");
+		}
 		ChargedShieldLayer layer = new ChargedShieldLayer();
 		layer.ordinary = ordinary;
 		layer.tinctures = tinctures;

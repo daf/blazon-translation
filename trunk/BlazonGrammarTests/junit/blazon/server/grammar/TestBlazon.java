@@ -91,9 +91,18 @@ public class TestBlazon extends gUnitBaseTest {
 		assertEquals("testing rule "+"ORDINARY", expecting, actual);
 	}
 
+	public void testORDINARY10() throws Exception {
+		// gunit test on line 18
+		Object retval = execLexer("ORDINARY", 18, "colour", false);
+		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
+		Object expecting = "FAIL";
+
+		assertEquals("testing rule "+"ORDINARY", expecting, actual);
+	}
+
 	public void testOTHER_DIV1() throws Exception {
-		// gunit test on line 20
-		Object retval = execLexer("OTHER_DIV", 20, "pall", false);
+		// gunit test on line 21
+		Object retval = execLexer("OTHER_DIV", 21, "pall", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -101,8 +110,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testOTHER_DIV2() throws Exception {
-		// gunit test on line 21
-		Object retval = execLexer("OTHER_DIV", 21, "pale", false);
+		// gunit test on line 22
+		Object retval = execLexer("OTHER_DIV", 22, "pale", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -110,17 +119,53 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testOTHER_DIV3() throws Exception {
-		// gunit test on line 22
-		Object retval = execLexer("OTHER_DIV", 22, "bend", false);
+		// gunit test on line 23
+		Object retval = execLexer("OTHER_DIV", 23, "bend", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
 		assertEquals("testing rule "+"OTHER_DIV", expecting, actual);
 	}
 
+	public void testOTHER_ORDINARY1() throws Exception {
+		// gunit test on line 26
+		Object retval = execLexer("OTHER_ORDINARY", 26, "base", false);
+		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
+		Object expecting = "OK";
+
+		assertEquals("testing rule "+"OTHER_ORDINARY", expecting, actual);
+	}
+
+	public void testOTHER_ORDINARY2() throws Exception {
+		// gunit test on line 27
+		Object retval = execLexer("OTHER_ORDINARY", 27, "chief", false);
+		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
+		Object expecting = "OK";
+
+		assertEquals("testing rule "+"OTHER_ORDINARY", expecting, actual);
+	}
+
+	public void testOTHER_ORDINARY3() throws Exception {
+		// gunit test on line 28
+		Object retval = execLexer("OTHER_ORDINARY", 28, "bend", false);
+		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
+		Object expecting = "FAIL";
+
+		assertEquals("testing rule "+"OTHER_ORDINARY", expecting, actual);
+	}
+
+	public void testOTHER_ORDINARY4() throws Exception {
+		// gunit test on line 29
+		Object retval = execLexer("OTHER_ORDINARY", 29, "pale", false);
+		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
+		Object expecting = "FAIL";
+
+		assertEquals("testing rule "+"OTHER_ORDINARY", expecting, actual);
+	}
+
 	public void testTIERCED1() throws Exception {
-		// gunit test on line 24
-		Object retval = execLexer("TIERCED", 24, "tierced", false);
+		// gunit test on line 31
+		Object retval = execLexer("TIERCED", 31, "tierced", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -128,8 +173,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testTIERCED2() throws Exception {
-		// gunit test on line 25
-		Object retval = execLexer("TIERCED", 25, "tierc", false);
+		// gunit test on line 32
+		Object retval = execLexer("TIERCED", 32, "tierc", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -137,8 +182,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testTIERCED3() throws Exception {
-		// gunit test on line 26
-		Object retval = execLexer("TIERCED", 26, "blah", false);
+		// gunit test on line 33
+		Object retval = execLexer("TIERCED", 33, "blah", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -146,8 +191,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testMODIFIER1() throws Exception {
-		// gunit test on line 29
-		Object retval = execLexer("MODIFIER", 29, "reversed", false);
+		// gunit test on line 36
+		Object retval = execLexer("MODIFIER", 36, "reversed", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -155,8 +200,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testMODIFIER2() throws Exception {
-		// gunit test on line 30
-		Object retval = execLexer("MODIFIER", 30, "sinister", false);
+		// gunit test on line 37
+		Object retval = execLexer("MODIFIER", 37, "sinister", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -164,8 +209,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testMODIFIER3() throws Exception {
-		// gunit test on line 31
-		Object retval = execLexer("MODIFIER", 31, "reversey", false);
+		// gunit test on line 38
+		Object retval = execLexer("MODIFIER", 38, "reversey", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -173,8 +218,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testMODIFIER4() throws Exception {
-		// gunit test on line 32
-		Object retval = execLexer("MODIFIER", 32, "blah", false);
+		// gunit test on line 39
+		Object retval = execLexer("MODIFIER", 39, "blah", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -182,8 +227,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testQUARTER1() throws Exception {
-		// gunit test on line 35
-		Object retval = execLexer("QUARTER", 35, "quarterly", false);
+		// gunit test on line 42
+		Object retval = execLexer("QUARTER", 42, "quarterly", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -191,8 +236,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testQUARTER2() throws Exception {
-		// gunit test on line 36
-		Object retval = execLexer("QUARTER", 36, "quartered", false);
+		// gunit test on line 43
+		Object retval = execLexer("QUARTER", 43, "quartered", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -200,8 +245,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testQUARTER3() throws Exception {
-		// gunit test on line 37
-		Object retval = execLexer("QUARTER", 37, "quarter", false);
+		// gunit test on line 44
+		Object retval = execLexer("QUARTER", 44, "quarter", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -209,8 +254,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testQUARTER4() throws Exception {
-		// gunit test on line 38
-		Object retval = execLexer("QUARTER", 38, "blah", false);
+		// gunit test on line 45
+		Object retval = execLexer("QUARTER", 45, "blah", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -218,8 +263,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testCONTINUOUS_DIV1() throws Exception {
-		// gunit test on line 41
-		Object retval = execLexer("CONTINUOUS_DIV", 41, "chequy", false);
+		// gunit test on line 48
+		Object retval = execLexer("CONTINUOUS_DIV", 48, "chequy", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -227,8 +272,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testCONTINUOUS_DIV2() throws Exception {
-		// gunit test on line 42
-		Object retval = execLexer("CONTINUOUS_DIV", 42, "lozengy", false);
+		// gunit test on line 49
+		Object retval = execLexer("CONTINUOUS_DIV", 49, "lozengy", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -236,8 +281,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testCONTINUOUS_DIV3() throws Exception {
-		// gunit test on line 43
-		Object retval = execLexer("CONTINUOUS_DIV", 43, "blah", false);
+		// gunit test on line 50
+		Object retval = execLexer("CONTINUOUS_DIV", 50, "blah", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -245,8 +290,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testVARIABLE_DIV1() throws Exception {
-		// gunit test on line 46
-		Object retval = execLexer("VARIABLE_DIV", 46, "gyronny", false);
+		// gunit test on line 53
+		Object retval = execLexer("VARIABLE_DIV", 53, "gyronny", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -254,8 +299,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testVARIABLE_DIV2() throws Exception {
-		// gunit test on line 47
-		Object retval = execLexer("VARIABLE_DIV", 47, "barry", false);
+		// gunit test on line 54
+		Object retval = execLexer("VARIABLE_DIV", 54, "barry", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -263,8 +308,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testVARIABLE_DIV3() throws Exception {
-		// gunit test on line 48
-		Object retval = execLexer("VARIABLE_DIV", 48, "bendy", false);
+		// gunit test on line 55
+		Object retval = execLexer("VARIABLE_DIV", 55, "bendy", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -272,8 +317,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testVARIABLE_DIV4() throws Exception {
-		// gunit test on line 49
-		Object retval = execLexer("VARIABLE_DIV", 49, "paly", false);
+		// gunit test on line 56
+		Object retval = execLexer("VARIABLE_DIV", 56, "paly", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -281,8 +326,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testVARIABLE_DIV5() throws Exception {
-		// gunit test on line 50
-		Object retval = execLexer("VARIABLE_DIV", 50, "chevronny", false);
+		// gunit test on line 57
+		Object retval = execLexer("VARIABLE_DIV", 57, "chevronny", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -290,8 +335,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testVARIABLE_DIV6() throws Exception {
-		// gunit test on line 51
-		Object retval = execLexer("VARIABLE_DIV", 51, "blah", false);
+		// gunit test on line 58
+		Object retval = execLexer("VARIABLE_DIV", 58, "blah", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -299,8 +344,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testVARIABLE_DIV7() throws Exception {
-		// gunit test on line 52
-		Object retval = execLexer("VARIABLE_DIV", 52, "bend", false);
+		// gunit test on line 59
+		Object retval = execLexer("VARIABLE_DIV", 59, "bend", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -308,8 +353,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testVARIABLE_DIV8() throws Exception {
-		// gunit test on line 53
-		Object retval = execLexer("VARIABLE_DIV", 53, "gyron", false);
+		// gunit test on line 60
+		Object retval = execLexer("VARIABLE_DIV", 60, "gyron", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -317,8 +362,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testVARIABLE_DIV9() throws Exception {
-		// gunit test on line 54
-		Object retval = execLexer("VARIABLE_DIV", 54, "random", false);
+		// gunit test on line 61
+		Object retval = execLexer("VARIABLE_DIV", 61, "random", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -326,8 +371,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testPARTYPER1() throws Exception {
-		// gunit test on line 57
-		Object retval = execLexer("PARTYPER", 57, "per", false);
+		// gunit test on line 64
+		Object retval = execLexer("PARTYPER", 64, "per", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -335,8 +380,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testPARTYPER2() throws Exception {
-		// gunit test on line 58
-		Object retval = execLexer("PARTYPER", 58, "party per", false);
+		// gunit test on line 65
+		Object retval = execLexer("PARTYPER", 65, "party per", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -344,8 +389,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testPARTYPER3() throws Exception {
-		// gunit test on line 59
-		Object retval = execLexer("PARTYPER", 59, "parted per", false);
+		// gunit test on line 66
+		Object retval = execLexer("PARTYPER", 66, "parted per", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -353,8 +398,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testPARTYPER4() throws Exception {
-		// gunit test on line 60
-		Object retval = execLexer("PARTYPER", 60, "partie per", false);
+		// gunit test on line 67
+		Object retval = execLexer("PARTYPER", 67, "partie per", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -362,8 +407,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testPARTYPER5() throws Exception {
-		// gunit test on line 61
-		Object retval = execLexer("PARTYPER", 61, "part per", false);
+		// gunit test on line 68
+		Object retval = execLexer("PARTYPER", 68, "part per", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -371,8 +416,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testCOLOUR1() throws Exception {
-		// gunit test on line 63
-		Object retval = execLexer("COLOUR", 63, "gules", false);
+		// gunit test on line 70
+		Object retval = execLexer("COLOUR", 70, "gules", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -380,8 +425,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testCOLOUR2() throws Exception {
-		// gunit test on line 64
-		Object retval = execLexer("COLOUR", 64, "sable", false);
+		// gunit test on line 71
+		Object retval = execLexer("COLOUR", 71, "sable", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -389,8 +434,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testCOLOUR3() throws Exception {
-		// gunit test on line 65
-		Object retval = execLexer("COLOUR", 65, "vert", false);
+		// gunit test on line 72
+		Object retval = execLexer("COLOUR", 72, "vert", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -398,8 +443,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testCOLOUR4() throws Exception {
-		// gunit test on line 66
-		Object retval = execLexer("COLOUR", 66, "azure", false);
+		// gunit test on line 73
+		Object retval = execLexer("COLOUR", 73, "azure", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -407,8 +452,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testCOLOUR5() throws Exception {
-		// gunit test on line 67
-		Object retval = execLexer("COLOUR", 67, "purpure", false);
+		// gunit test on line 74
+		Object retval = execLexer("COLOUR", 74, "purpure", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -416,8 +461,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testCOLOUR6() throws Exception {
-		// gunit test on line 68
-		Object retval = execLexer("COLOUR", 68, "or", false);
+		// gunit test on line 75
+		Object retval = execLexer("COLOUR", 75, "or", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -425,8 +470,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testCOLOUR7() throws Exception {
-		// gunit test on line 69
-		Object retval = execLexer("COLOUR", 69, "blue", false);
+		// gunit test on line 76
+		Object retval = execLexer("COLOUR", 76, "blue", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -434,8 +479,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testMETAL1() throws Exception {
-		// gunit test on line 71
-		Object retval = execLexer("METAL", 71, "or", false);
+		// gunit test on line 78
+		Object retval = execLexer("METAL", 78, "or", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -443,8 +488,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testMETAL2() throws Exception {
-		// gunit test on line 72
-		Object retval = execLexer("METAL", 72, "argent", false);
+		// gunit test on line 79
+		Object retval = execLexer("METAL", 79, "argent", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -452,8 +497,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testMETAL3() throws Exception {
-		// gunit test on line 73
-		Object retval = execLexer("METAL", 73, "azure", false);
+		// gunit test on line 80
+		Object retval = execLexer("METAL", 80, "azure", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -461,8 +506,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testMETAL4() throws Exception {
-		// gunit test on line 74
-		Object retval = execLexer("METAL", 74, "gold", false);
+		// gunit test on line 81
+		Object retval = execLexer("METAL", 81, "gold", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -470,8 +515,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testFUR1() throws Exception {
-		// gunit test on line 76
-		Object retval = execLexer("FUR", 76, "ermine", false);
+		// gunit test on line 83
+		Object retval = execLexer("FUR", 83, "ermine", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -479,8 +524,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testFUR2() throws Exception {
-		// gunit test on line 77
-		Object retval = execLexer("FUR", 77, "ermines", false);
+		// gunit test on line 84
+		Object retval = execLexer("FUR", 84, "ermines", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -488,8 +533,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testFUR3() throws Exception {
-		// gunit test on line 78
-		Object retval = execLexer("FUR", 78, "erminois", false);
+		// gunit test on line 85
+		Object retval = execLexer("FUR", 85, "erminois", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -497,8 +542,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testFUR4() throws Exception {
-		// gunit test on line 79
-		Object retval = execLexer("FUR", 79, "pean", false);
+		// gunit test on line 86
+		Object retval = execLexer("FUR", 86, "pean", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -506,8 +551,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testFUR5() throws Exception {
-		// gunit test on line 80
-		Object retval = execLexer("FUR", 80, "vair", false);
+		// gunit test on line 87
+		Object retval = execLexer("FUR", 87, "vair", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -515,8 +560,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testFUR6() throws Exception {
-		// gunit test on line 81
-		Object retval = execLexer("FUR", 81, "counter-vair", false);
+		// gunit test on line 88
+		Object retval = execLexer("FUR", 88, "counter-vair", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -524,8 +569,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testFUR7() throws Exception {
-		// gunit test on line 82
-		Object retval = execLexer("FUR", 82, "vair-en-pale", false);
+		// gunit test on line 89
+		Object retval = execLexer("FUR", 89, "vair-en-pale", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -533,8 +578,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testFUR8() throws Exception {
-		// gunit test on line 83
-		Object retval = execLexer("FUR", 83, "vair-en-point", false);
+		// gunit test on line 90
+		Object retval = execLexer("FUR", 90, "vair-en-point", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -542,8 +587,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testFUR9() throws Exception {
-		// gunit test on line 84
-		Object retval = execLexer("FUR", 84, "potent", false);
+		// gunit test on line 91
+		Object retval = execLexer("FUR", 91, "potent", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -551,8 +596,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testFUR10() throws Exception {
-		// gunit test on line 85
-		Object retval = execLexer("FUR", 85, "counter-potent", false);
+		// gunit test on line 92
+		Object retval = execLexer("FUR", 92, "counter-potent", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -560,8 +605,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testFUR11() throws Exception {
-		// gunit test on line 86
-		Object retval = execLexer("FUR", 86, "potent-en-pale", false);
+		// gunit test on line 93
+		Object retval = execLexer("FUR", 93, "potent-en-pale", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -569,8 +614,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testFUR12() throws Exception {
-		// gunit test on line 87
-		Object retval = execLexer("FUR", 87, "potent-en-point", false);
+		// gunit test on line 94
+		Object retval = execLexer("FUR", 94, "potent-en-point", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -578,8 +623,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testFUR13() throws Exception {
-		// gunit test on line 88
-		Object retval = execLexer("FUR", 88, "pean-en-pale", false);
+		// gunit test on line 95
+		Object retval = execLexer("FUR", 95, "pean-en-pale", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -587,8 +632,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testFUR14() throws Exception {
-		// gunit test on line 89
-		Object retval = execLexer("FUR", 89, "ermine-en-point", false);
+		// gunit test on line 96
+		Object retval = execLexer("FUR", 96, "ermine-en-point", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -596,8 +641,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testFUR15() throws Exception {
-		// gunit test on line 90
-		Object retval = execLexer("FUR", 90, "gules", false);
+		// gunit test on line 97
+		Object retval = execLexer("FUR", 97, "gules", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -605,8 +650,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testAND1() throws Exception {
-		// gunit test on line 92
-		Object retval = execLexer("AND", 92, "and", false);
+		// gunit test on line 99
+		Object retval = execLexer("AND", 99, "and", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -614,8 +659,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testAND2() throws Exception {
-		// gunit test on line 93
-		Object retval = execLexer("AND", 93, "&", false);
+		// gunit test on line 100
+		Object retval = execLexer("AND", 100, "&", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -623,8 +668,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testAND3() throws Exception {
-		// gunit test on line 94
-		Object retval = execLexer("AND", 94, "+", false);
+		// gunit test on line 101
+		Object retval = execLexer("AND", 101, "+", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -632,8 +677,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testOF1() throws Exception {
-		// gunit test on line 96
-		Object retval = execLexer("OF", 96, "of", false);
+		// gunit test on line 103
+		Object retval = execLexer("OF", 103, "of", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -641,17 +686,44 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testOF2() throws Exception {
-		// gunit test on line 97
-		Object retval = execLexer("OF", 97, "or", false);
+		// gunit test on line 104
+		Object retval = execLexer("OF", 104, "or", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
 		assertEquals("testing rule "+"OF", expecting, actual);
 	}
 
+	public void testA1() throws Exception {
+		// gunit test on line 106
+		Object retval = execLexer("A", 106, "a", false);
+		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
+		Object expecting = "OK";
+
+		assertEquals("testing rule "+"A", expecting, actual);
+	}
+
+	public void testA2() throws Exception {
+		// gunit test on line 107
+		Object retval = execLexer("A", 107, "and", false);
+		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
+		Object expecting = "FAIL";
+
+		assertEquals("testing rule "+"A", expecting, actual);
+	}
+
+	public void testA3() throws Exception {
+		// gunit test on line 108
+		Object retval = execLexer("A", 108, "b", false);
+		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
+		Object expecting = "FAIL";
+
+		assertEquals("testing rule "+"A", expecting, actual);
+	}
+
 	public void testDIGITS1() throws Exception {
-		// gunit test on line 99
-		Object retval = execLexer("DIGITS", 99, "1", false);
+		// gunit test on line 110
+		Object retval = execLexer("DIGITS", 110, "1", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -659,8 +731,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testDIGITS2() throws Exception {
-		// gunit test on line 100
-		Object retval = execLexer("DIGITS", 100, "12", false);
+		// gunit test on line 111
+		Object retval = execLexer("DIGITS", 111, "12", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -668,8 +740,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testDIGITS3() throws Exception {
-		// gunit test on line 101
-		Object retval = execLexer("DIGITS", 101, "1234567890", false);
+		// gunit test on line 112
+		Object retval = execLexer("DIGITS", 112, "1234567890", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -677,8 +749,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testDIGITS4() throws Exception {
-		// gunit test on line 102
-		Object retval = execLexer("DIGITS", 102, "0.1", false);
+		// gunit test on line 113
+		Object retval = execLexer("DIGITS", 113, "0.1", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -686,8 +758,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testDIGITS5() throws Exception {
-		// gunit test on line 103
-		Object retval = execLexer("DIGITS", 103, "", false);
+		// gunit test on line 114
+		Object retval = execLexer("DIGITS", 114, "", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -695,8 +767,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testDIGITS6() throws Exception {
-		// gunit test on line 104
-		Object retval = execLexer("DIGITS", 104, "one", false);
+		// gunit test on line 115
+		Object retval = execLexer("DIGITS", 115, "one", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -704,8 +776,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS1() throws Exception {
-		// gunit test on line 107
-		Object retval = execLexer("NUMWORDS", 107, "one", false);
+		// gunit test on line 118
+		Object retval = execLexer("NUMWORDS", 118, "one", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -713,8 +785,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS2() throws Exception {
-		// gunit test on line 108
-		Object retval = execLexer("NUMWORDS", 108, "eleven", false);
+		// gunit test on line 119
+		Object retval = execLexer("NUMWORDS", 119, "eleven", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -722,8 +794,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS3() throws Exception {
-		// gunit test on line 109
-		Object retval = execLexer("NUMWORDS", 109, "two", false);
+		// gunit test on line 120
+		Object retval = execLexer("NUMWORDS", 120, "two", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -731,8 +803,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS4() throws Exception {
-		// gunit test on line 110
-		Object retval = execLexer("NUMWORDS", 110, "twelve", false);
+		// gunit test on line 121
+		Object retval = execLexer("NUMWORDS", 121, "twelve", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -740,8 +812,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS5() throws Exception {
-		// gunit test on line 111
-		Object retval = execLexer("NUMWORDS", 111, "three", false);
+		// gunit test on line 122
+		Object retval = execLexer("NUMWORDS", 122, "three", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -749,8 +821,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS6() throws Exception {
-		// gunit test on line 112
-		Object retval = execLexer("NUMWORDS", 112, "thirteen", false);
+		// gunit test on line 123
+		Object retval = execLexer("NUMWORDS", 123, "thirteen", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -758,8 +830,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS7() throws Exception {
-		// gunit test on line 113
-		Object retval = execLexer("NUMWORDS", 113, "four", false);
+		// gunit test on line 124
+		Object retval = execLexer("NUMWORDS", 124, "four", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -767,8 +839,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS8() throws Exception {
-		// gunit test on line 114
-		Object retval = execLexer("NUMWORDS", 114, "fourteen", false);
+		// gunit test on line 125
+		Object retval = execLexer("NUMWORDS", 125, "fourteen", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -776,8 +848,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS9() throws Exception {
-		// gunit test on line 115
-		Object retval = execLexer("NUMWORDS", 115, "five", false);
+		// gunit test on line 126
+		Object retval = execLexer("NUMWORDS", 126, "five", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -785,8 +857,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS10() throws Exception {
-		// gunit test on line 116
-		Object retval = execLexer("NUMWORDS", 116, "fifteen", false);
+		// gunit test on line 127
+		Object retval = execLexer("NUMWORDS", 127, "fifteen", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -794,8 +866,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS11() throws Exception {
-		// gunit test on line 117
-		Object retval = execLexer("NUMWORDS", 117, "six", false);
+		// gunit test on line 128
+		Object retval = execLexer("NUMWORDS", 128, "six", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -803,8 +875,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS12() throws Exception {
-		// gunit test on line 118
-		Object retval = execLexer("NUMWORDS", 118, "sixteen", false);
+		// gunit test on line 129
+		Object retval = execLexer("NUMWORDS", 129, "sixteen", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -812,8 +884,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS13() throws Exception {
-		// gunit test on line 119
-		Object retval = execLexer("NUMWORDS", 119, "seven", false);
+		// gunit test on line 130
+		Object retval = execLexer("NUMWORDS", 130, "seven", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -821,8 +893,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS14() throws Exception {
-		// gunit test on line 120
-		Object retval = execLexer("NUMWORDS", 120, "seventeen", false);
+		// gunit test on line 131
+		Object retval = execLexer("NUMWORDS", 131, "seventeen", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -830,8 +902,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS15() throws Exception {
-		// gunit test on line 121
-		Object retval = execLexer("NUMWORDS", 121, "eight", false);
+		// gunit test on line 132
+		Object retval = execLexer("NUMWORDS", 132, "eight", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -839,8 +911,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS16() throws Exception {
-		// gunit test on line 122
-		Object retval = execLexer("NUMWORDS", 122, "eighteen", false);
+		// gunit test on line 133
+		Object retval = execLexer("NUMWORDS", 133, "eighteen", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -848,8 +920,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS17() throws Exception {
-		// gunit test on line 123
-		Object retval = execLexer("NUMWORDS", 123, "nine", false);
+		// gunit test on line 134
+		Object retval = execLexer("NUMWORDS", 134, "nine", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -857,8 +929,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS18() throws Exception {
-		// gunit test on line 124
-		Object retval = execLexer("NUMWORDS", 124, "nineteen", false);
+		// gunit test on line 135
+		Object retval = execLexer("NUMWORDS", 135, "nineteen", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -866,8 +938,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS19() throws Exception {
-		// gunit test on line 125
-		Object retval = execLexer("NUMWORDS", 125, "twenty", false);
+		// gunit test on line 136
+		Object retval = execLexer("NUMWORDS", 136, "twenty", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -875,8 +947,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS20() throws Exception {
-		// gunit test on line 126
-		Object retval = execLexer("NUMWORDS", 126, "thirty", false);
+		// gunit test on line 137
+		Object retval = execLexer("NUMWORDS", 137, "thirty", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -884,8 +956,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS21() throws Exception {
-		// gunit test on line 127
-		Object retval = execLexer("NUMWORDS", 127, "fourty", false);
+		// gunit test on line 138
+		Object retval = execLexer("NUMWORDS", 138, "fourty", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -893,8 +965,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS22() throws Exception {
-		// gunit test on line 128
-		Object retval = execLexer("NUMWORDS", 128, "fifty", false);
+		// gunit test on line 139
+		Object retval = execLexer("NUMWORDS", 139, "fifty", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -902,8 +974,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS23() throws Exception {
-		// gunit test on line 129
-		Object retval = execLexer("NUMWORDS", 129, "sixty", false);
+		// gunit test on line 140
+		Object retval = execLexer("NUMWORDS", 140, "sixty", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -911,8 +983,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS24() throws Exception {
-		// gunit test on line 130
-		Object retval = execLexer("NUMWORDS", 130, "seventy", false);
+		// gunit test on line 141
+		Object retval = execLexer("NUMWORDS", 141, "seventy", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -920,8 +992,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS25() throws Exception {
-		// gunit test on line 131
-		Object retval = execLexer("NUMWORDS", 131, "eighty", false);
+		// gunit test on line 142
+		Object retval = execLexer("NUMWORDS", 142, "eighty", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -929,8 +1001,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS26() throws Exception {
-		// gunit test on line 132
-		Object retval = execLexer("NUMWORDS", 132, "ninety", false);
+		// gunit test on line 143
+		Object retval = execLexer("NUMWORDS", 143, "ninety", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -938,8 +1010,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS27() throws Exception {
-		// gunit test on line 133
-		Object retval = execLexer("NUMWORDS", 133, "hundred", false);
+		// gunit test on line 144
+		Object retval = execLexer("NUMWORDS", 144, "hundred", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -947,8 +1019,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS28() throws Exception {
-		// gunit test on line 134
-		Object retval = execLexer("NUMWORDS", 134, "thousand", false);
+		// gunit test on line 145
+		Object retval = execLexer("NUMWORDS", 145, "thousand", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -956,8 +1028,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS29() throws Exception {
-		// gunit test on line 135
-		Object retval = execLexer("NUMWORDS", 135, "million", false);
+		// gunit test on line 146
+		Object retval = execLexer("NUMWORDS", 146, "million", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -965,8 +1037,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS30() throws Exception {
-		// gunit test on line 136
-		Object retval = execLexer("NUMWORDS", 136, "billion", false);
+		// gunit test on line 147
+		Object retval = execLexer("NUMWORDS", 147, "billion", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -974,8 +1046,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS31() throws Exception {
-		// gunit test on line 137
-		Object retval = execLexer("NUMWORDS", 137, "oneteen", false);
+		// gunit test on line 148
+		Object retval = execLexer("NUMWORDS", 148, "oneteen", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -983,8 +1055,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS32() throws Exception {
-		// gunit test on line 138
-		Object retval = execLexer("NUMWORDS", 138, "fiveteen", false);
+		// gunit test on line 149
+		Object retval = execLexer("NUMWORDS", 149, "fiveteen", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -992,8 +1064,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS33() throws Exception {
-		// gunit test on line 139
-		Object retval = execLexer("NUMWORDS", 139, "zero", false);
+		// gunit test on line 150
+		Object retval = execLexer("NUMWORDS", 150, "zero", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -1001,8 +1073,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS34() throws Exception {
-		// gunit test on line 140
-		Object retval = execLexer("NUMWORDS", 140, "minus", false);
+		// gunit test on line 151
+		Object retval = execLexer("NUMWORDS", 151, "minus", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -1010,8 +1082,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testNUMWORDS35() throws Exception {
-		// gunit test on line 141
-		Object retval = execLexer("NUMWORDS", 141, "seventyeen", false);
+		// gunit test on line 152
+		Object retval = execLexer("NUMWORDS", 152, "seventyeen", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -1019,8 +1091,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testWS1() throws Exception {
-		// gunit test on line 143
-		Object retval = execLexer("WS", 143, " ", false);
+		// gunit test on line 154
+		Object retval = execLexer("WS", 154, " ", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -1028,8 +1100,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testWS2() throws Exception {
-		// gunit test on line 144
-		Object retval = execLexer("WS", 144, "    ", false);
+		// gunit test on line 155
+		Object retval = execLexer("WS", 155, "    ", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -1037,8 +1109,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testWS3() throws Exception {
-		// gunit test on line 145
-		Object retval = execLexer("WS", 145, "\t", false);
+		// gunit test on line 156
+		Object retval = execLexer("WS", 156, "\t", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -1046,8 +1118,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testWS4() throws Exception {
-		// gunit test on line 146
-		Object retval = execLexer("WS", 146, "\t\t", false);
+		// gunit test on line 157
+		Object retval = execLexer("WS", 157, "\t\t", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -1055,8 +1127,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testWS5() throws Exception {
-		// gunit test on line 147
-		Object retval = execLexer("WS", 147, "\t \t   ", false);
+		// gunit test on line 158
+		Object retval = execLexer("WS", 158, "\t \t   ", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.OK, retval);
 		Object expecting = "OK";
 
@@ -1064,8 +1136,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testWS6() throws Exception {
-		// gunit test on line 148
-		Object retval = execLexer("WS", 148, "blah", false);
+		// gunit test on line 159
+		Object retval = execLexer("WS", 159, "blah", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 
@@ -1073,8 +1145,8 @@ public class TestBlazon extends gUnitBaseTest {
 	}
 
 	public void testWS7() throws Exception {
-		// gunit test on line 149
-		Object retval = execLexer("WS", 149, " a ", false);
+		// gunit test on line 160
+		Object retval = execLexer("WS", 160, " a ", false);
 		Object actual = examineExecResult(org.antlr.gunit.gUnitParser.FAIL, retval);
 		Object expecting = "FAIL";
 

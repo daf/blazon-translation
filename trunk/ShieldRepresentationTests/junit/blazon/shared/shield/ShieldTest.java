@@ -11,9 +11,11 @@ import blazon.shared.shield.tinctures.Tinctures;
 import blazon.shared.shield.tinctures.UnknownTinctureException;
 
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.CoreMatchers.notNullValue;
+
 
 public class ShieldTest {
 
@@ -152,14 +154,17 @@ public class ShieldTest {
 	public void testThatIfYouAddANullListOfDiagnosticsToAShieldWithNoDiagnosticsGetDiagnosticsReturnsNull() {
 		Shield shield = ShieldImpl.build(ShieldLayer.buildUndividedShieldLayer(new Tinctures()), null);
 		shield.addDiagnostics(null);
-		assertThat(shield.getShieldDiagnostics(), is(nullValue()));
+		assertThat(shield.getShieldDiagnostics(), is(notNullValue()));
+		assertTrue(shield.getShieldDiagnostics().isEmpty());
 	}
 	
 	@Test
 	public void testThatIfYouAddAnEmptyListOfDiagnosticsToAShieldWithNoDiagnosticsGetDiagnosticsReturnsNull() {
 		Shield shield = ShieldImpl.build(ShieldLayer.buildUndividedShieldLayer(new Tinctures()), null);
 		shield.addDiagnostics(new ArrayList<ShieldDiagnostic>());
-		assertThat(shield.getShieldDiagnostics(), is(nullValue()));
+		assertThat(shield.getShieldDiagnostics(), is(notNullValue()));
+		assertTrue(shield.getShieldDiagnostics().isEmpty());
+
 	}
 	
 	@Test

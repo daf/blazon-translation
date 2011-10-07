@@ -2,8 +2,11 @@ package blazon.shared.shield;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
+
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,19 +22,27 @@ public class InvalidShieldTest {
 	@Test
 	public void testThatIfYouBuildAnInvalidShieldWithNoDiagnosticsThenGetDiagnosticsReturnsNull() {
 		Shield shield = InvalidShield.build();
-		assertThat(shield.getShieldDiagnostics(), is(nullValue()));
+		assertThat(shield.getShieldDiagnostics(), is(notNullValue()));
+		assertTrue(shield.getShieldDiagnostics().isEmpty());
 	}
 	
 	@Test
 	public void testThatIfYouBuildAnInvalidShieldWithNullListOfDiagnosticsThenGetDiagnosticsReturnsNull() {
 		Shield shield = InvalidShield.build(null);
-		assertThat(shield.getShieldDiagnostics(), is(nullValue()));
+		assertThat(shield.getShieldDiagnostics(), is(notNullValue()));
+		assertTrue(shield.getShieldDiagnostics().isEmpty());
 	}
 	
 	@Test
 	public void testThatIfYouBuildAnInvalidShieldWithEmptyListOfDiagnosticsThenGetDiagnosticsReturnsNull() {
 		Shield shield = InvalidShield.build(new ArrayList<ShieldDiagnostic>());
-		assertThat(shield.getShieldDiagnostics(), is(nullValue()));
+		assertThat(shield.getShieldDiagnostics(), is(notNullValue()));
+		assertTrue(shield.getShieldDiagnostics().isEmpty());
+	}
+	
+	@Test
+	public void testThatGettingFieldFromInvalidShieldReturnsNull() {
+		assertThat(InvalidShield.build().getField(), is(nullValue()));
 	}
 	
 	@Test
@@ -217,14 +228,16 @@ public class InvalidShieldTest {
 	public void testThatIfYouAddANullListOfDiagnosticsToAShieldWithNoDiagnosticsGetDiagnosticsReturnsNull() {
 		Shield shield = InvalidShield.build();
 		shield.addDiagnostics(null);
-		assertThat(shield.getShieldDiagnostics(), is(nullValue()));
+		assertThat(shield.getShieldDiagnostics(), is(notNullValue()));
+		assertTrue(shield.getShieldDiagnostics().isEmpty());
 	}
 	
 	@Test
 	public void testThatIfYouAddAnEmptyListOfDiagnosticsToAShieldWithNoDiagnosticsGetDiagnosticsReturnsNull() {
 		Shield shield = InvalidShield.build();
 		shield.addDiagnostics(new ArrayList<ShieldDiagnostic>());
-		assertThat(shield.getShieldDiagnostics(), is(nullValue()));
+		assertThat(shield.getShieldDiagnostics(), is(notNullValue()));
+		assertTrue(shield.getShieldDiagnostics().isEmpty());
 	}
 	
 	@Test

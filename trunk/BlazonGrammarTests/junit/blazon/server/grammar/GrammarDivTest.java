@@ -121,6 +121,15 @@ public class GrammarDivTest {
 	}
 	
 	@Test
+	public void testThatDivAcceptsPerPall()  throws RecognitionException {
+		BlazonParser parser = new ParserCreator().createParser("per pall");
+		ShieldDivisionType result = parser.div();
+		assertThat(result.getName(), is(equalTo("PALL")));
+		assertThat(result.getNumberOfSections(), is(3));
+		assertThat(result.getNumberOfTinctures(), is(3));
+	}
+	
+	@Test
 	public void testThatDivAcceptsChequy()  throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("chequy");
 		ShieldDivisionType result = parser.div();
