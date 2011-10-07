@@ -6,9 +6,7 @@ import static org.junit.Assert.assertThat;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.antlr.runtime.EarlyExitException;
 import org.antlr.runtime.MismatchedSetException;
-import org.antlr.runtime.MismatchedTokenException;
 import org.antlr.runtime.NoViableAltException;
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;

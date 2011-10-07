@@ -68,6 +68,12 @@ public class ColourTest {
 	}
 	
 	@Test
+	public void testThatColourGetTinctureTypeReturnsColour() {
+		Tincture t = Colour.build("sable", "black");
+		assertThat(t.getTinctureType(), is(TinctureType.COLOUR));
+	}
+	
+	@Test
 	public void testThatToStringForSableIsAsExpected() {
 		String name = "sable";
 		String fillText = "black";

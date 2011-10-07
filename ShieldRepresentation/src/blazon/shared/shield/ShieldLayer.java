@@ -56,11 +56,15 @@ public class ShieldLayer implements Serializable {
 
 	public TinctureType getTinctureTypeOfLayer() {
 		Iterator<Tincture> it = tinctures.getTincturesOnLayer().iterator();
+		if (!it.hasNext()) {
+			return TinctureType.OTHER;
+		}
 		TinctureType first = it.next().getTinctureType();
 		if (first == TinctureType.OTHER) {
 			return first;
 		}
-		for (TinctureType tt = it.next().getTinctureType(); it.hasNext();) {
+		while (it.hasNext()) {
+			TinctureType tt = it.next().getTinctureType();
 			if (tt != first) {
 				return TinctureType.OTHER;
 			}

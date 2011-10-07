@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import blazon.shared.shield.ShieldDivision.ShieldDivisionType;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic;
+import blazon.shared.shield.tinctures.TinctureType;
 import blazon.shared.shield.tinctures.Tinctures;
 import blazon.shared.shield.tinctures.UnknownTinctureException;
 
@@ -103,6 +104,82 @@ public class ShieldLayerTest {
 		layer1.addNextLayer(layer3);
 		assertThat(layer1.getNextLayer(), is(equalTo(layer2)));
 		assertThat(layer2.getNextLayer(), is(equalTo(layer3)));
+	}
+	
+	@Test
+	public void testThatGetTinctureTypeOfLayerWhenNothingOnLayerReturnsOther() throws UnknownTinctureException {
+		Tinctures tinctures = new Tinctures();
+		ShieldLayer layer = ShieldLayer.buildUndividedShieldLayer(tinctures);
+		assertThat(layer.getTinctureTypeOfLayer(), is(TinctureType.OTHER));
+	}
+	
+	@Test
+	public void testThatGetTinctureTypeOfLayerWhenOnlyAColourOnLayerReturnsColour() throws UnknownTinctureException {
+		Tinctures tinctures = new Tinctures();
+		tinctures.addTincture(tinctures.getTincture("sable"));
+		ShieldLayer layer = ShieldLayer.buildUndividedShieldLayer(tinctures);
+		assertThat(layer.getTinctureTypeOfLayer(), is(TinctureType.COLOUR));
+	}
+	
+	@Test
+	public void testThatGetTinctureTypeOfLayerWhenOnlyAMetalOnLayerReturnsMetal() throws UnknownTinctureException {
+		Tinctures tinctures = new Tinctures();
+		tinctures.addTincture(tinctures.getTincture("or"));
+		ShieldLayer layer = ShieldLayer.buildUndividedShieldLayer(tinctures);
+		assertThat(layer.getTinctureTypeOfLayer(), is(TinctureType.METAL));
+	}
+	
+	@Test
+	public void testThatGetTinctureTypeOfLayerWhenOnlyAFurOnLayerReturnsOther() throws UnknownTinctureException {
+		Tinctures tinctures = new Tinctures();
+		tinctures.addTincture(tinctures.getTincture("vair"));
+		ShieldLayer layer = ShieldLayer.buildUndividedShieldLayer(tinctures);
+		assertThat(layer.getTinctureTypeOfLayer(), is(TinctureType.OTHER));
+	}
+	
+	@Test
+	public void testThatGetTinctureTypeOfLayerWhen2MetalsOnLayerReturnsMetal() throws UnknownTinctureException {
+		Tinctures tinctures = new Tinctures();
+		tinctures.addTincture(tinctures.getTincture("or"));
+		tinctures.addTincture(tinctures.getTincture("argent"));
+		ShieldLayer layer = ShieldLayer.buildUndividedShieldLayer(tinctures);
+		assertThat(layer.getTinctureTypeOfLayer(), is(TinctureType.METAL));
+	}
+	
+	@Test
+	public void testThatGetTinctureTypeOfLayerWhen2ColoursOnLayerReturnsColour() throws UnknownTinctureException {
+		Tinctures tinctures = new Tinctures();
+		tinctures.addTincture(tinctures.getTincture("sable"));
+		tinctures.addTincture(tinctures.getTincture("gules"));
+		ShieldLayer layer = ShieldLayer.buildUndividedShieldLayer(tinctures);
+		assertThat(layer.getTinctureTypeOfLayer(), is(TinctureType.COLOUR));
+	}
+	
+	@Test
+	public void testThatGetTinctureTypeOfLayerWhen1ColourAnd1MetalAreOnLayerReturnsOther() throws UnknownTinctureException {
+		Tinctures tinctures = new Tinctures();
+		tinctures.addTincture(tinctures.getTincture("sable"));
+		tinctures.addTincture(tinctures.getTincture("or"));
+		ShieldLayer layer = ShieldLayer.buildUndividedShieldLayer(tinctures);
+		assertThat(layer.getTinctureTypeOfLayer(), is(TinctureType.OTHER));
+	}
+	
+	@Test
+	public void testThatGetTinctureTypeOfLayerWhen1ColourAnd1FurAreOnLayerReturnsOther() throws UnknownTinctureException {
+		Tinctures tinctures = new Tinctures();
+		tinctures.addTincture(tinctures.getTincture("sable"));
+		tinctures.addTincture(tinctures.getTincture("vair"));
+		ShieldLayer layer = ShieldLayer.buildUndividedShieldLayer(tinctures);
+		assertThat(layer.getTinctureTypeOfLayer(), is(TinctureType.OTHER));
+	}
+	
+	@Test
+	public void testThatGetTinctureTypeOfLayerWhen1MetalAnd1FurAreOnLayerReturnsOther() throws UnknownTinctureException {
+		Tinctures tinctures = new Tinctures();
+		tinctures.addTincture(tinctures.getTincture("or"));
+		tinctures.addTincture(tinctures.getTincture("vair"));
+		ShieldLayer layer = ShieldLayer.buildUndividedShieldLayer(tinctures);
+		assertThat(layer.getTinctureTypeOfLayer(), is(TinctureType.OTHER));
 	}
 	
 	@Test

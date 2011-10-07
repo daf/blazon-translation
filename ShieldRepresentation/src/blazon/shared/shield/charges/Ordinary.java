@@ -67,10 +67,10 @@ public class Ordinary implements Serializable {
 		
 		private OrdinaryType() {}
 		
-		public static OrdinaryType build(String name, Tincture t) {
+		private static OrdinaryType build(String name, Tincture t) {
 			OrdinaryType o = new OrdinaryType();
 			o.tincture = t;
-			o.name = name.toUpperCase();
+			o.name = name;
 			return o;
 		}
 		

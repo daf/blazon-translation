@@ -15,11 +15,18 @@ ORDINARY     :   "fess"            OK
             "pall"            FAIL
             "bend sinister"   FAIL
             "gyronny"         FAIL
+            "colour"          FAIL
 
 OTHER_DIV
      :      "pall"     OK
             "pale"     FAIL
             "bend"     FAIL
+            
+OTHER_ORDINARY
+        :   "base"    OK
+            "chief"   OK
+            "bend"    FAIL
+            "pale"    FAIL
 
 TIERCED :   "tierced"  OK
             "tierc"    FAIL
@@ -95,6 +102,10 @@ AND     :   "and"       OK
         
 OF      :   "of"        OK
             "or"        FAIL
+
+A       :   "a"         OK
+            "and"       FAIL
+            "b"         FAIL
 
 DIGITS  :   "1"                 OK
             "12"                OK
