@@ -2,7 +2,7 @@ package blazon.shared.shield;
 
 import java.util.ArrayList;
 
-import blazon.shared.shield.charges.Ordinary.OrdinaryType;
+import blazon.shared.shield.charges.GeometricCharge;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.tinctures.Tinctures;
 
@@ -11,9 +11,9 @@ public class ChargedShieldLayer extends ShieldLayer {
 	private static final long serialVersionUID = -1842958628522126820L;
 	private ChargedShieldLayer() { super(); }
 	
-	private OrdinaryType ordinary;
+	private GeometricCharge ordinary;
 	
-	public static ChargedShieldLayer build(Tinctures tinctures, OrdinaryType ordinary) {
+	public static ChargedShieldLayer build(Tinctures tinctures, GeometricCharge ordinary) {
 		if (tinctures == null) {
 			throw new IllegalArgumentException("Can not create ChargedShieldLayer will null tinctures");
 		}
@@ -37,7 +37,7 @@ public class ChargedShieldLayer extends ShieldLayer {
 	}
 
 
-	public OrdinaryType getOrdinary() {
+	public GeometricCharge getOrdinary() {
 		return ordinary;
 	}
 	

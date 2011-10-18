@@ -35,6 +35,9 @@ public class ShieldLayer implements Serializable {
 	}
 
 	public void addNextLayer(ShieldLayer l) {
+		if (l == null) {
+			return;
+		}
 		if (nextLayer == null) {
 			nextLayer = l;
 		} else {

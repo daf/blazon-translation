@@ -18,7 +18,8 @@ import blazon.shared.shield.ShieldImpl;
 import blazon.shared.shield.ShieldDivision;
 import blazon.shared.shield.ShieldLayer;
 import blazon.shared.shield.ShieldDivision.ShieldDivisionType;
-import blazon.shared.shield.charges.Ordinary.OrdinaryType;
+import blazon.shared.shield.charges.GeometricCharge;
+import blazon.shared.shield.charges.GeometricChargeNames;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.tinctures.Tincture;
 import blazon.shared.shield.tinctures.Tinctures;
@@ -240,8 +241,8 @@ public class GrammarShieldTest {
 		assertThat(layer.getNextLayer(), is(notNullValue()));
 		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
 		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(gules)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -264,8 +265,8 @@ public class GrammarShieldTest {
 		assertThat(layer.getNextLayer(), is(notNullValue()));
 		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
 		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(gules)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -288,8 +289,8 @@ public class GrammarShieldTest {
 		assertThat(layer.getNextLayer(), is(notNullValue()));
 		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
 		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(gules)));
 		assertThat(shield.getShieldDiagnostics().size(), is(1));
 		assertThat(shield.getShieldDiagnostics().get(0).getSeverity(), is(ShieldDiagnostic.LogLevel.WARN));
@@ -314,8 +315,8 @@ public class GrammarShieldTest {
 		assertThat(layer.getNextLayer(), is(notNullValue()));
 		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
 		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(or)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -338,8 +339,8 @@ public class GrammarShieldTest {
 		assertThat(layer.getNextLayer(), is(notNullValue()));
 		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
 		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(or)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -362,8 +363,8 @@ public class GrammarShieldTest {
 		assertThat(layer.getNextLayer(), is(notNullValue()));
 		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
 		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(argent)));
 		assertThat(shield.getShieldDiagnostics().size(), is(1));
 		assertThat(shield.getShieldDiagnostics().get(0).getSeverity(), is(ShieldDiagnostic.LogLevel.WARN));
@@ -388,8 +389,8 @@ public class GrammarShieldTest {
 		assertThat(layer.getNextLayer(), is(notNullValue()));
 		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
 		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(vair)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -412,8 +413,8 @@ public class GrammarShieldTest {
 		assertThat(layer.getNextLayer(), is(notNullValue()));
 		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
 		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(vair)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -436,8 +437,8 @@ public class GrammarShieldTest {
 		assertThat(layer.getNextLayer(), is(notNullValue()));
 		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
 		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(vair)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -464,8 +465,8 @@ public class GrammarShieldTest {
 		assertThat(layer.getNextLayer(), is(notNullValue()));
 		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
 		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(vair)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -492,8 +493,8 @@ public class GrammarShieldTest {
 		assertThat(layer.getNextLayer(), is(notNullValue()));
 		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
 		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(or)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -520,8 +521,8 @@ public class GrammarShieldTest {
 		assertThat(layer.getNextLayer(), is(notNullValue()));
 		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
 		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(azure)));
 		assertThat(shield.getShieldDiagnostics().size(), is(1));
 		assertThat(shield.getShieldDiagnostics().get(0).getSeverity(), is(ShieldDiagnostic.LogLevel.WARN));
@@ -550,8 +551,8 @@ public class GrammarShieldTest {
 		assertThat(layer.getNextLayer(), is(notNullValue()));
 		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
 		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(vair)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -578,8 +579,8 @@ public class GrammarShieldTest {
 		assertThat(layer.getNextLayer(), is(notNullValue()));
 		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
 		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(gules)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -605,8 +606,8 @@ public class GrammarShieldTest {
 		assertThat(layer.getNextLayer(), is(notNullValue()));
 		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
 		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(or)));
 		assertThat(shield.getShieldDiagnostics().size(), is(1));
 		assertThat(shield.getShieldDiagnostics().get(0).getSeverity(), is(ShieldDiagnostic.LogLevel.WARN));
@@ -635,8 +636,8 @@ public class GrammarShieldTest {
 		assertThat(layer.getNextLayer(), is(notNullValue()));
 		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
 		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(vairEnPale)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -663,8 +664,8 @@ public class GrammarShieldTest {
 		assertThat(layer.getNextLayer(), is(notNullValue()));
 		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
 		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(gules)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -691,8 +692,8 @@ public class GrammarShieldTest {
 		assertThat(layer.getNextLayer(), is(notNullValue()));
 		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
 		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(or)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -719,8 +720,8 @@ public class GrammarShieldTest {
 		assertThat(layer.getNextLayer(), is(notNullValue()));
 		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
 		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(or)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -747,8 +748,8 @@ public class GrammarShieldTest {
 		assertThat(layer.getNextLayer(), is(notNullValue()));
 		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
 		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(sable)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -775,8 +776,8 @@ public class GrammarShieldTest {
 		assertThat(layer.getNextLayer(), is(notNullValue()));
 		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
 		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(potent)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -803,8 +804,8 @@ public class GrammarShieldTest {
 		assertThat(layer.getNextLayer(), is(notNullValue()));
 		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
 		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(or)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -831,8 +832,8 @@ public class GrammarShieldTest {
 		assertThat(layer.getNextLayer(), is(notNullValue()));
 		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
 		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(sable)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -859,8 +860,8 @@ public class GrammarShieldTest {
 		assertThat(layer.getNextLayer(), is(notNullValue()));
 		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
 		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(potent)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -887,8 +888,8 @@ public class GrammarShieldTest {
 		assertThat(layer.getNextLayer(), is(notNullValue()));
 		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
 		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(or)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -915,8 +916,8 @@ public class GrammarShieldTest {
 		assertThat(layer.getNextLayer(), is(notNullValue()));
 		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
 		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(sable)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -943,8 +944,8 @@ public class GrammarShieldTest {
 		assertThat(layer.getNextLayer(), is(notNullValue()));
 		ChargedShieldLayer chargedLayer = (ChargedShieldLayer) layer.getNextLayer();
 		assertThat(chargedLayer.getOrdinary(), is(notNullValue()));
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("CROSS")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(potent)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
