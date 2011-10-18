@@ -12,7 +12,8 @@ import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 
 import blazon.shared.shield.ChargedShieldLayer;
-import blazon.shared.shield.charges.Ordinary.OrdinaryType;
+import blazon.shared.shield.charges.GeometricCharge;
+import blazon.shared.shield.charges.GeometricChargeNames;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.tinctures.TinctureType;
 import blazon.shared.shield.tinctures.Tinctures;
@@ -25,8 +26,8 @@ public class GrammarChargesTest {
 		BlazonParser parser = new ParserCreator().createParser("a chief gules");
 		Tinctures tinctures = new Tinctures(); 
 		ChargedShieldLayer chargedLayer = parser.charges(TinctureType.OTHER);
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("CHIEF")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CHIEF)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 	}
 	
@@ -35,8 +36,8 @@ public class GrammarChargesTest {
 		BlazonParser parser = new ParserCreator().createParser("a base or");
 		Tinctures tinctures = new Tinctures(); 
 		ChargedShieldLayer chargedLayer = parser.charges(TinctureType.OTHER);
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("BASE")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BASE)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("or"))));
 	}
 	
@@ -45,8 +46,8 @@ public class GrammarChargesTest {
 		BlazonParser parser = new ParserCreator().createParser("a bend gules");
 		Tinctures tinctures = new Tinctures(); 
 		ChargedShieldLayer chargedLayer = parser.charges(TinctureType.OTHER);
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("BEND")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BEND)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 	}
 	
@@ -56,8 +57,8 @@ public class GrammarChargesTest {
 		BlazonParser parser = new ParserCreator().createParser("a bend gules", diags );
 		Tinctures tinctures = new Tinctures(); 
 		ChargedShieldLayer chargedLayer = parser.charges(TinctureType.COLOUR);
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("BEND")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BEND)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 		assertThat(diags.size(), is(1));
 		assertThat(diags.get(0).getSeverity(), is(ShieldDiagnostic.LogLevel.WARN));
@@ -70,8 +71,8 @@ public class GrammarChargesTest {
 		BlazonParser parser = new ParserCreator().createParser("a bend or", diags );
 		Tinctures tinctures = new Tinctures(); 
 		ChargedShieldLayer chargedLayer = parser.charges(TinctureType.METAL);
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("BEND")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BEND)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("or"))));
 		assertThat(diags.size(), is(1));
 		assertThat(diags.get(0).getSeverity(), is(ShieldDiagnostic.LogLevel.WARN));
@@ -84,8 +85,8 @@ public class GrammarChargesTest {
 		BlazonParser parser = new ParserCreator().createParser("a bend vair", diags );
 		Tinctures tinctures = new Tinctures(); 
 		ChargedShieldLayer chargedLayer = parser.charges(TinctureType.OTHER);
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("BEND")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BEND)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("vair"))));
 		assertThat(diags.size(), is(0));
 	}
@@ -95,8 +96,8 @@ public class GrammarChargesTest {
 		BlazonParser parser = new ParserCreator().createParser("a bend sinister gules");
 		Tinctures tinctures = new Tinctures(); 
 		ChargedShieldLayer chargedLayer = parser.charges(TinctureType.OTHER);
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("BEND_SINISTER")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BEND_SINISTER)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 	}
 	
@@ -123,8 +124,8 @@ public class GrammarChargesTest {
 		BlazonParser parser = new ParserCreator().createParser("a bend blah gules", diags);
 		Tinctures tinctures = new Tinctures(); 
 		ChargedShieldLayer chargedLayer = parser.charges(TinctureType.OTHER);
-		OrdinaryType ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo("BEND")));
+		GeometricCharge ordinary = chargedLayer.getOrdinary();
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BEND)));
 		assertThat(ordinary.getTincture(), is(tinctures.getTincture("gules")));
 	}
 }

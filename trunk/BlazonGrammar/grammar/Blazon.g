@@ -37,7 +37,6 @@ import blazon.shared.shield.diagnostic.ShieldDiagnostic.LogLevel;
 package blazon.server.grammar;
 import blazon.shared.shield.*;
 import blazon.shared.shield.charges.*;
-import blazon.shared.shield.charges.Ordinary.OrdinaryType;
 import blazon.shared.shield.ShieldDivision.ShieldDivisionType;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic.LogLevel;
@@ -100,14 +99,20 @@ field returns [ShieldLayer layer]
 
 charges [TinctureType underLayerTinctureType] returns [ChargedShieldLayer layer]
         :   { Tinctures tinctures = new Tinctures(); }
-            A ordinary[tinctures, underLayerTinctureType]
-            {
-                $layer = ChargedShieldLayer.build(tinctures, $ordinary.ordinary);
-            }
+            A 
+            (
+                geometric_charge[tinctures, underLayerTinctureType]
+                { 
+                    if ($geometric_charge.charge != null) {
+                        $layer = ChargedShieldLayer.build(tinctures, $geometric_charge.charge);
+                    }
+                }
+            //|
+            )    
         ;
 
-ordinary [Tinctures tinctures, TinctureType underLayerTinctureType] returns [OrdinaryType ordinary]
-        :   ord = (ORDINARY | OTHER_ORDINARY ) { String text = $ord.text; }
+geometric_charge [Tinctures tinctures, TinctureType underLayerTinctureType] returns [GeometricCharge charge]
+        :   ord = (ORDINARY_DIV | OTHER_ORDINARY | SUBORDINARY_DIV | SUBORDINARY ) { String text = $ord.text; }
             ( MODIFIER { text += "_" + $MODIFIER.text; } )?
             t=tincture[tinctures]
             { 
@@ -117,7 +122,7 @@ ordinary [Tinctures tinctures, TinctureType underLayerTinctureType] returns [Ord
                         diags.add(ShieldDiagnostic.build(LogLevel.WARN, "You are not obeying the rule of tincture. You can not put a colour on a colour, or a metal on a metal"));
                     }
                 }              
-                $ordinary = new Ordinary().getOrdinaryType(text, t, diags);
+                $charge = GeometricCharge.build(text, t, diags);
             }
         ;
 
@@ -128,7 +133,7 @@ div returns [ShieldDivisionType division]
                 TIERCED { text = $TIERCED.text + " "; }
             )?
             PARTYPER
-            divType = (ORDINARY | OTHER_DIV) { text += $divType.text; }
+            divType = (ORDINARY_DIV | SUBORDINARY_DIV) { text += $divType.text; }
             (
                 divModifier1 = MODIFIER { text += " " + $divModifier1.text; }
             )?
@@ -220,16 +225,20 @@ TIERCED
         :   'tierced'
         ;
 
-ORDINARY
+ORDINARY_DIV
         :   'fess' | 'pale' | 'bend' | 'cross' | 'saltire' | 'chevron'
         ;
 
-OTHER_DIV
+SUBORDINARY_DIV
         :   'pall'
         ;
         
 OTHER_ORDINARY
         :   'chief' | 'base'
+        ;
+        
+SUBORDINARY
+        :   'pile' | 'quarter' | 'canton' | 'flaunches' | 'bordure' | 'orle' | 'tressure' | 'gyron' | 'fret'
         ;
         
 VARIABLE_DIV

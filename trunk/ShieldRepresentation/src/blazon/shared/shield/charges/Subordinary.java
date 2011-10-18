@@ -2,13 +2,14 @@ package blazon.shared.shield.charges;
 
 import java.io.Serializable;
 
-public class Ordinary extends GeometricCharge implements Serializable {
+public class Subordinary extends GeometricCharge implements Serializable {
 
-	private static final long serialVersionUID = -4970206075746766696L;
+
+	private static final long serialVersionUID = 6967031401603144916L;
 
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder("Ordinary{tincture=");
+		StringBuilder sb = new StringBuilder("Subordinary{tincture=");
 		sb.append(tincture).append(":name=").append(name).append("}");
 		return sb.toString();
 	}
@@ -17,9 +18,9 @@ public class Ordinary extends GeometricCharge implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!(obj instanceof Ordinary))
+		if (!(obj instanceof Subordinary))
 			return false;
-		Ordinary other = (Ordinary) obj;
+		Subordinary other = (Subordinary) obj;
 		boolean nameMatch = name == other.name || name.equals(other.name);
 		boolean tinctureMatch = tincture == other.tincture
 				|| tincture.equals(other.tincture);
