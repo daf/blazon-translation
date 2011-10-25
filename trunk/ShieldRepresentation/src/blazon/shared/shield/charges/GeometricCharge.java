@@ -17,10 +17,10 @@ public abstract class GeometricCharge implements Serializable {
 	
 	public static GeometricCharge build(String name, Tincture t, List<ShieldDiagnostic> errorsList) {
 		if (name == null || name.trim().isEmpty()) {
-			throw new IllegalArgumentException("Can not get Ordinary with null or empty name");
+			throw new IllegalArgumentException("Can not get geometric charge with null or empty name");
 		}
 		if (t == null) {
-			throw new IllegalArgumentException("Can not get Ordinary with null tincture");
+			throw new IllegalArgumentException("Can not get geometric charge with null tincture");
 		}
 		if (errorsList == null) {
 			errorsList = new ArrayList<ShieldDiagnostic>();
@@ -30,17 +30,12 @@ public abstract class GeometricCharge implements Serializable {
 		if (GeometricChargeNames.valueExists(name)) {
 			GeometricChargeNames chargeName = GeometricChargeNames.valueOf(name);
 			GeometricCharge gCharge;
-			try {
-				gCharge = chargeName.createObjectForGeometricChargeType();
-			} catch (Exception e) {
-				errorsList.add(ShieldDiagnostic.build(LogLevel.ERROR, e.getMessage()));
-				return null;				
-			}
+			gCharge = chargeName.createObjectForGeometricChargeType();
 			gCharge.name = chargeName;
 			gCharge.tincture = t;
 			return gCharge;
 		} else {
-			errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Unknown Ordinary '" + name + "'. No ordinary used."));
+			errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Unknown geometric charge '" + name + "'. No geometric charge used."));
 			return null;
 		}
 	}

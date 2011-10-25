@@ -80,24 +80,24 @@ public class GrammarChargesTest {
 	}
 	
 	@Test
-	public void testThatABendVairOnOtherFieldReturnsCorrectObjectAndGivesNoWarningAboutNotFollowingRuleOfTincture() throws RecognitionException, UnknownTinctureException {
+	public void testThatAPallVairOnOtherFieldReturnsCorrectObjectAndGivesNoWarningAboutNotFollowingRuleOfTincture() throws RecognitionException, UnknownTinctureException {
 		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
-		BlazonParser parser = new ParserCreator().createParser("a bend vair", diags );
+		BlazonParser parser = new ParserCreator().createParser("a pall vair", diags );
 		Tinctures tinctures = new Tinctures(); 
 		ChargedShieldLayer chargedLayer = parser.charges(TinctureType.OTHER);
 		GeometricCharge ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BEND)));
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.PALL)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("vair"))));
 		assertThat(diags.size(), is(0));
 	}
 	
 	@Test
-	public void testThatABendSinisterGulesReturnsAnObjectRepresentingABendSinisterColouredGules() throws RecognitionException, UnknownTinctureException {
-		BlazonParser parser = new ParserCreator().createParser("a bend sinister gules");
+	public void testThatAPileReversedGulesReturnsAnObjectRepresentingAPileReversedColouredGules() throws RecognitionException, UnknownTinctureException {
+		BlazonParser parser = new ParserCreator().createParser("a pile reversed gules");
 		Tinctures tinctures = new Tinctures(); 
 		ChargedShieldLayer chargedLayer = parser.charges(TinctureType.OTHER);
 		GeometricCharge ordinary = chargedLayer.getOrdinary();
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BEND_SINISTER)));
+		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.PILE_REVERSED)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 	}
 	
