@@ -20,23 +20,6 @@ import static org.hamcrest.CoreMatchers.nullValue;
 
 public class OrdinaryTest {
 
-	@Test(expected=IllegalArgumentException.class)
-	public void testThatGettingOrdinaryTypeWithNullNameThrowsIllegalArgumentException() throws UnknownTinctureException {
-		Tinctures t = new Tinctures();
-		GeometricCharge.build(null, t.getTincture("or"), null);
-	}
-	
-	@Test(expected=IllegalArgumentException.class)
-	public void testThatGettingOrdinaryTypeWithEmptyNameThrowsIllegalArgumentException() throws UnknownTinctureException {
-		Tinctures t = new Tinctures();
-		GeometricCharge.build("", t.getTincture("or"), null);
-	}
-	
-	@Test(expected=IllegalArgumentException.class)
-	public void testThatGettingOrdinaryTypeWithNullTinctureThrowsIllegalArgumentException() throws UnknownTinctureException {
-		GeometricCharge.build("cross", null, null);
-	}
-	
 	@Test
 	public void testThatGettingCrossWithTinctureGulesReturnsCorrectOrdinaryObject() throws UnknownTinctureException {
 		Tincture t = new Tinctures().getTincture("gules");
@@ -77,11 +60,11 @@ public class OrdinaryTest {
 		assertThat(ordinary, is(nullValue()));
 		assertThat(diags.size(), is(1));
 		assertThat(diags.get(0).getSeverity(), is(LogLevel.WARN));
-		assertThat(diags.get(0).getMessage(), is(equalTo("Unknown Ordinary 'BLAH'. No ordinary used.")));
+		assertThat(diags.get(0).getMessage(), is(equalTo("Unknown geometric charge 'BLAH'. No geometric charge used.")));
 	}
 	
 	@Test
-	public void testThatOrdinaryTypeToStringIsAsExpected() throws UnknownTinctureException {
+	public void testThatOrdinaryToStringIsAsExpected() throws UnknownTinctureException {
 		Tincture t = new Tinctures().getTincture("or");
 		GeometricCharge ordinary = GeometricCharge.build("bend sinister", t, null);
 		String expected = "Ordinary{tincture=Tincture{name=or:fillText=gold}:name=BEND_SINISTER}";
@@ -115,50 +98,50 @@ public class OrdinaryTest {
 	@Test
 	public void testThatOrdinaryIsEqualToOtherConstructedTheSameWay() throws UnknownTinctureException {
 		Tincture t = new Tinctures().getTincture("or");
-		GeometricCharge ordinaryType1 = GeometricCharge.build("bend sinister", t, null);
-		GeometricCharge ordinaryType2 = GeometricCharge.build("bend sinister", t, null);
+		GeometricCharge ordinary1 = GeometricCharge.build("bend sinister", t, null);
+		GeometricCharge ordinary2 = GeometricCharge.build("bend sinister", t, null);
 
-		assertThat(ordinaryType1.equals(ordinaryType2), is(true));
-		assertEquals(ordinaryType1.hashCode(), ordinaryType2.hashCode());
+		assertThat(ordinary1.equals(ordinary2), is(true));
+		assertEquals(ordinary1.hashCode(), ordinary2.hashCode());
 
 	}
 	
 	@Test
 	public void testThatOrdinaryIsEqualToOtherConstructedTheSameWaySymmetrically() throws UnknownTinctureException {
 		Tincture t = new Tinctures().getTincture("or");
-		GeometricCharge ordinaryType1 = GeometricCharge.build("bend sinister", t, null);
-		GeometricCharge ordinaryType2 = GeometricCharge.build("bend sinister", t, null);
+		GeometricCharge ordinary1 = GeometricCharge.build("bend sinister", t, null);
+		GeometricCharge ordinary2 = GeometricCharge.build("bend sinister", t, null);
 
-		assertThat(ordinaryType1.equals(ordinaryType2), is(true));
-		assertEquals(ordinaryType1.hashCode(), ordinaryType2.hashCode());
-		assertThat(ordinaryType2.equals(ordinaryType1), is(true));
-		assertEquals(ordinaryType2.hashCode(), ordinaryType1.hashCode());
+		assertThat(ordinary1.equals(ordinary2), is(true));
+		assertEquals(ordinary1.hashCode(), ordinary2.hashCode());
+		assertThat(ordinary2.equals(ordinary1), is(true));
+		assertEquals(ordinary2.hashCode(), ordinary1.hashCode());
 
 	}
 	
 	@Test
 	public void testThatOrdinaryIsEqualToOtherConstructedTheSameWayTransitively() throws UnknownTinctureException {
 		Tincture t = new Tinctures().getTincture("or");
-		GeometricCharge ordinaryType1 = GeometricCharge.build("bend sinister", t, null);
-		GeometricCharge ordinaryType2 = GeometricCharge.build("bend sinister", t, null);
-		GeometricCharge ordinaryType3 = GeometricCharge.build("bend sinister", t, null);
+		GeometricCharge ordinary1 = GeometricCharge.build("bend sinister", t, null);
+		GeometricCharge ordinary2 = GeometricCharge.build("bend sinister", t, null);
+		GeometricCharge ordinary3 = GeometricCharge.build("bend sinister", t, null);
 
-		assertThat(ordinaryType1.equals(ordinaryType2), is(true));
-		assertEquals(ordinaryType1.hashCode(), ordinaryType2.hashCode());
-		assertThat(ordinaryType2.equals(ordinaryType3), is(true));
-		assertEquals(ordinaryType2.hashCode(), ordinaryType3.hashCode());
-		assertThat(ordinaryType1.equals(ordinaryType3), is(true));
-		assertEquals(ordinaryType1.hashCode(), ordinaryType3.hashCode());
+		assertThat(ordinary1.equals(ordinary2), is(true));
+		assertEquals(ordinary1.hashCode(), ordinary2.hashCode());
+		assertThat(ordinary2.equals(ordinary3), is(true));
+		assertEquals(ordinary2.hashCode(), ordinary3.hashCode());
+		assertThat(ordinary1.equals(ordinary3), is(true));
+		assertEquals(ordinary1.hashCode(), ordinary3.hashCode());
 
 	}
 	
 	@Test
 	public void testThatOrdinariesWithDifferentNamesAreNotEqual() throws UnknownTinctureException {
 		Tincture t = new Tinctures().getTincture("or");
-		GeometricCharge ordinaryType1 = GeometricCharge.build("bend sinister", t, null);
-		GeometricCharge ordinaryType2 = GeometricCharge.build("bend", t, null);
+		GeometricCharge ordinary1 = GeometricCharge.build("bend sinister", t, null);
+		GeometricCharge ordinary2 = GeometricCharge.build("bend", t, null);
 
-		assertThat(ordinaryType1.equals(ordinaryType2), is(false));
+		assertThat(ordinary1.equals(ordinary2), is(false));
 	}
 	
 	@Test
@@ -166,9 +149,9 @@ public class OrdinaryTest {
 		Tinctures tinctures = new Tinctures();
 		Tincture t1 = tinctures.getTincture("or");
 		Tincture t2 = tinctures.getTincture("gules");
-		GeometricCharge ordinaryType1 = GeometricCharge.build("bend sinister", t1, null);
-		GeometricCharge ordinaryType2 = GeometricCharge.build("bend sinister", t2, null);
+		GeometricCharge ordinary1 = GeometricCharge.build("bend sinister", t1, null);
+		GeometricCharge ordinary2 = GeometricCharge.build("bend sinister", t2, null);
 
-		assertThat(ordinaryType1.equals(ordinaryType2), is(false));
+		assertThat(ordinary1.equals(ordinary2), is(false));
 	}
 }

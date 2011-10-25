@@ -52,7 +52,7 @@ public class SVGShieldDrawer {
 	        SVGFieldDrawer fieldDrawer = new SVGFieldDrawer((ShieldImpl)shield, defs, width, height);
 	        fieldDrawer.drawField(shieldContainer, curve);
 	        SVGOrdinaryDrawer ordinaryDrawer = new SVGOrdinaryDrawer((ShieldImpl)shield, defs, width, height);
-	        ordinaryDrawer.drawOrdinaries(shieldContainer);
+	        ordinaryDrawer.drawOrdinaries(shieldContainer, curve);
     	}
     }
     

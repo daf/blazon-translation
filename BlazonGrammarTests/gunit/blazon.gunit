@@ -6,7 +6,7 @@ gunit Blazon;
  * in to lower case
  */
 
-ORDINARY     :   "fess"            OK
+ORDINARY_DIV     :   "fess"            OK
             "pale"            OK
             "bend"            OK
             "cross"           OK
@@ -16,17 +16,31 @@ ORDINARY     :   "fess"            OK
             "bend sinister"   FAIL
             "gyronny"         FAIL
             "colour"          FAIL
-
-OTHER_DIV
-     :      "pall"     OK
-            "pale"     FAIL
-            "bend"     FAIL
-            
 OTHER_ORDINARY
         :   "base"    OK
             "chief"   OK
             "bend"    FAIL
             "pale"    FAIL
+
+
+SUBORDINARY_DIV
+        :   "pall"     OK
+            "pale"     FAIL
+            "bend"     FAIL
+            
+SUBORDINARY
+        :   "pile"        OK
+            "quarter"     OK  
+            "canton"      OK
+            "flaunches"   OK
+            "bordure"     OK
+            "orle"        OK
+            "tressure"    OK
+            "gyron"       OK
+            "fret"        OK
+            "bend"        FAIL
+            "pall"        FAIL
+            "saltire"     FAIL
 
 TIERCED :   "tierced"  OK
             "tierc"    FAIL
