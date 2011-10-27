@@ -117,53 +117,55 @@ AND     :   "and"       OK
 OF      :   "of"        OK
             "or"        FAIL
 
-A       :   "a"         OK
+DETERMINER  
+        :   "a"         OK
+            "an"        OK
             "and"       FAIL
             "b"         FAIL
 
-DIGITS  :   "1"                 OK
-            "12"                OK
-            "1234567890"        OK
-            "0.1"               FAIL
-            ""                  FAIL
-            "one"               FAIL
+DIGITS  :   "1"             OK
+            "12"            OK
+            "1234567890"    OK
+            "0.1"           FAIL
+            ""              FAIL
+            "one"           FAIL
             
 NUMWORDS
-        :   "one"               OK
-            "eleven"            OK
-            "two"               OK
-            "twelve"            OK
-            "three"             OK
-            "thirteen"          OK
-            "four"              OK
-            "fourteen"          OK
-            "five"              OK
-            "fifteen"           OK
-            "six"               OK
-            "sixteen"           OK
-            "seven"             OK
-            "seventeen"         OK
-            "eight"             OK
-            "eighteen"          OK
-            "nine"              OK
-            "nineteen"          OK
-            "twenty"            OK
-            "thirty"            OK
-            "fourty"            OK
-            "fifty"             OK
-            "sixty"             OK
-            "seventy"           OK
-            "eighty"            OK
-            "ninety"            OK
-            "hundred"           OK
-            "thousand"          OK
-            "million"           OK
-            "billion"           OK
-            "oneteen"           FAIL
-            "fiveteen"          FAIL
-            "zero"              FAIL
-            "minus"             FAIL
-            "seventyeen"        FAIL
+        :   "one"           OK
+            "eleven"        OK
+            "two"           OK
+            "twelve"        OK
+            "three"         OK
+            "thirteen"      OK
+            "four"          OK
+            "fourteen"      OK
+            "five"          OK
+            "fifteen"       OK
+            "six"           OK
+            "sixteen"       OK
+            "seven"         OK
+            "seventeen"     OK
+            "eight"         OK
+            "eighteen"      OK
+            "nine"          OK
+            "nineteen"      OK
+            "twenty"        OK
+            "thirty"        OK
+            "fourty"        OK
+            "fifty"         OK
+            "sixty"         OK
+            "seventy"       OK
+            "eighty"        OK
+            "ninety"        OK
+            "hundred"       OK
+            "thousand"      OK
+            "million"       OK
+            "billion"       OK
+            "oneteen"       FAIL
+            "fiveteen"      FAIL
+            "zero"          FAIL
+            "minus"         FAIL
+            "seventyeen"    FAIL
             
 WS      :   " "             OK
             "    "          OK

@@ -1,5 +1,10 @@
 package blazon.shared.shield;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import blazon.shared.shield.charges.GeometricCharge;
+
 /**
  * A class representing the entire shield to be drawn.
  * @author Luke Torjussen
@@ -8,7 +13,8 @@ package blazon.shared.shield;
 public class ShieldImpl extends AbstractShield {
 
 	private static final long serialVersionUID = 4665249893045885094L;
-	private ShieldLayer field;
+	private Field field;
+	private List<GeometricCharge> charges;
 
 	private ShieldImpl() {}
 	
@@ -17,7 +23,7 @@ public class ShieldImpl extends AbstractShield {
 	 * @param field the ShieldLayer that will be the field of the shield.
 	 * @return
 	 */
-	public static Shield build(ShieldLayer field, String blazon) {
+	public static Shield build(Field field, String blazon) {
 		if (field == null) {
 			throw new IllegalArgumentException(
 					"Can not create shield with null base shield layer");
@@ -33,7 +39,7 @@ public class ShieldImpl extends AbstractShield {
 	 * @return a ShieldLayer object representing the field.
 	 */
 	@Override
-	public ShieldLayer getField() {
+	public Field getField() {
 		return field;
 	}
 
@@ -63,4 +69,21 @@ public class ShieldImpl extends AbstractShield {
 		return result;
 	}
 
+	@Override
+	public void addCharges(List<GeometricCharge> charges) {
+		if (charges == null) { return; }
+		if (this.charges == null || this.charges.isEmpty()) {
+			this.charges = charges;
+		} else {
+			this.charges.addAll(charges);
+		}
+	}
+
+	@Override
+	public List<GeometricCharge> getCharges() {
+		if (charges == null) {
+			charges = new ArrayList<GeometricCharge>();
+		}
+		return charges;
+	}
 }

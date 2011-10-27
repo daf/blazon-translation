@@ -13,8 +13,9 @@ import org.junit.Test;
 
 import blazon.server.grammar.BlazonParser;
 import blazon.shared.shield.ShieldDivision;
-import blazon.shared.shield.ShieldLayer;
+import blazon.shared.shield.Field;
 import blazon.shared.shield.ShieldDivision.ShieldDivisionType;
+import blazon.shared.shield.ShieldLayer;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.tinctures.Tincture;
 import blazon.shared.shield.tinctures.Tinctures;
@@ -57,8 +58,8 @@ public class GrammarFieldTest {
 		BlazonParser gulesPlainParser = new ParserCreator().createParser("gules plain");
 		BlazonParser gulesParser = new ParserCreator().createParser("gules");
 		
-		ShieldLayer gulesLayer = gulesParser.field();
-		ShieldLayer gulesPlainLayer = gulesPlainParser.field();
+		Field gulesLayer = gulesParser.field();
+		Field gulesPlainLayer = gulesPlainParser.field();
 		assertThat(gulesLayer, is(equalTo(gulesPlainLayer)));
 	}
 	
@@ -138,9 +139,9 @@ public class GrammarFieldTest {
 		BlazonParser partyParser = new ParserCreator().createParser("party per bend gules and argent");
 		BlazonParser perParser = new ParserCreator().createParser("per bend gules and argent");
 		
-		ShieldLayer partedLayer = partedParser.field();
-		ShieldLayer partyLayer = partyParser.field();
-		ShieldLayer perLayer = perParser.field();
+		Field partedLayer = partedParser.field();
+		Field partyLayer = partyParser.field();
+		Field perLayer = perParser.field();
 		
 		assertThat(partedLayer, is(equalTo(partyLayer)));
 		assertThat(partyLayer, is(equalTo(perLayer)));
