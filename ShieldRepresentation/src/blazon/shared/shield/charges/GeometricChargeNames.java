@@ -26,7 +26,8 @@ public enum GeometricChargeNames implements Serializable {
 	ORLE(GeometricChargeType.SUBORDINARY),
 	TRESSURE(GeometricChargeType.SUBORDINARY),
 	GYRON(GeometricChargeType.SUBORDINARY),
-	FRET(GeometricChargeType.SUBORDINARY);
+	FRET(GeometricChargeType.SUBORDINARY),
+	BAR(GeometricChargeType.SUBORDINARY);
 	
 	private GeometricChargeType geometricChargeType;
 	

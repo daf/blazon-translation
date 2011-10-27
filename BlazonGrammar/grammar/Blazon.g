@@ -72,11 +72,12 @@ import blazon.shared.numberconversion.WordToNumberConverter;
 
 shield returns [Shield s]
 		    :   { String blazon = input.toString(); } // parser uses Interpreter pattern
-		    field { $s = ShieldImpl.build($field.layer, blazon); }
-		    ( charges[$field.layer.getTinctureTypeOfLayer()] { $s.getField().addNextLayer($charges.layer); })?
+		    field { $s = ShieldImpl.build($field.field, blazon); }
+		    ( charges[$field.field.getTinctureTypeOfLayer()] { $s.addCharges($charges.charges); })?
 		    {
 		        //LATER make HTML pretty
-				    //TODO add charges
+				    //TODO multiple geometric charges
+				    //TODO advanced charges
 				    $s.addDiagnostics(diags);
 				}
 		    ;
@@ -85,30 +86,54 @@ shield returns [Shield s]
             return InvalidShield.build(diags);
         }
 
-field returns [ShieldLayer layer]
+field returns [Field field]
 		    :   { Tinctures tinctures = new Tinctures(); }
 		    (
 		        div { ShieldDivisionType division = $div.division; }
-            some_tinctures[tinctures, division] { $layer = $some_tinctures.layer; }
+            some_tinctures[tinctures, division] { $field = $some_tinctures.layer; }
         |
             tincture[tinctures] 'plain'? {
-                $layer = ShieldLayer.buildUndividedShieldLayer(tinctures);
+                $field = Field.buildUndividedShieldLayer(tinctures);
             }
         )
 		    ;
 
-charges [TinctureType underLayerTinctureType] returns [ChargedShieldLayer layer]
-        :   { Tinctures tinctures = new Tinctures(); }
-            A 
+charges [TinctureType underLayerTinctureType] returns [List<GeometricCharge> charges]
+        :   { 
+              Tinctures tinctures = new Tinctures();
+              $charges = new ArrayList<GeometricCharge>();
+            }
             (
-                geometric_charge[tinctures, underLayerTinctureType]
+                DETERMINER gc1=geometric_charge[tinctures, underLayerTinctureType]
                 { 
-                    if ($geometric_charge.charge != null) {
-                        $layer = ChargedShieldLayer.build(tinctures, $geometric_charge.charge);
+                    if ($gc1.charge != null) {
+                        $charges.add($gc1.charge);
+                        if ("a".equals($DETERMINER.text)) {
+                            String chargeName = $gc1.charge.getName().toString().toLowerCase();
+                            if (chargeName.startsWith("a") || chargeName.startsWith("e") || chargeName.startsWith("i") || chargeName.startsWith("o") || chargeName.startsWith("u")) {
+                                diags.add(ShieldDiagnostic.build(LogLevel.WARN, "You have asked for the charge '" + $DETERMINER.text + " " + chargeName 
+                                    + "'. A charge starting with a vowel should be preceded by 'an' i.e. 'an " + chargeName + "'."));
+                            }
+                        } else if ("an".equals($DETERMINER.text)) {
+                            String chargeName = $gc1.charge.getName().toString().toLowerCase();
+                            if (!(chargeName.startsWith("a") || chargeName.startsWith("e") || chargeName.startsWith("i") || chargeName.startsWith("o") || chargeName.startsWith("u"))) {
+                                diags.add(ShieldDiagnostic.build(LogLevel.WARN, "You have asked for the charge '" + $DETERMINER.text + " " + chargeName 
+                                    + "'. A charge starting with a consonants should be preceded by 'a' i.e. 'a " + chargeName + "'."));
+                            }
+                       }
+                   }
+                }
+            |
+                number_digits_or_words gc2=geometric_charge[tinctures, underLayerTinctureType]
+                {
+                    if ($gc2.charge != null) {
+                        $charges.add($gc2.charge);
                     }
                 }
-            //|
-            )    
+            )
+            {
+                
+            }
         ;
 
 geometric_charge [Tinctures tinctures, TinctureType underLayerTinctureType] returns [GeometricCharge charge]
@@ -175,7 +200,7 @@ div returns [ShieldDivisionType division]
         }
         ;
         
-some_tinctures [Tinctures tinctures, ShieldDivisionType division] returns [ShieldLayer layer]
+some_tinctures [Tinctures tinctures, ShieldDivisionType division] returns [Field layer]
         :   { int count = 0; }    
             (
                 tincture[tinctures] 
@@ -192,7 +217,7 @@ some_tinctures [Tinctures tinctures, ShieldDivisionType division] returns [Shiel
                         + numberOfTinctures + " but found " + count));
                     throw new RecognitionException(this.input);
                 }
-                $layer = ShieldLayer.buildDividedShieldLayer(tinctures, division);
+                $layer = Field.buildDividedShieldLayer(tinctures, division);
             }
         ;
 
@@ -245,6 +270,10 @@ VARIABLE_DIV
         :   'gyronny' | 'barry' | 'paly' | 'bendy' | 'chevronny'
         ;
         
+SUBORDINARY_MULTIPLE 
+        :   'bar'
+        ;
+        
 CONTINUOUS_DIV
         :   'chequy' | 'lozengy'
         ;
@@ -284,8 +313,9 @@ OF      :   'of'
 AND     :   'and'
         ;
 
-A       :   'a'
+DETERMINER
+        :   'a' | 'an'
         ;
-        
+
 WS      :   (' '|'\t')+ { $channel=HIDDEN; }
         ;

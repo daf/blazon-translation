@@ -3,7 +3,6 @@ package blazon.shared.shield;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
 
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -40,9 +39,19 @@ public class InvalidShieldTest {
 		assertTrue(shield.getShieldDiagnostics().isEmpty());
 	}
 	
-	@Test
-	public void testThatGettingFieldFromInvalidShieldReturnsNull() {
-		assertThat(InvalidShield.build().getField(), is(nullValue()));
+	@Test(expected=UnsupportedOperationException.class)
+	public void testThatGettingFieldFromInvalidShieldThrowsUnsuportedOperationException() {
+		InvalidShield.build().getField();
+	}
+	
+	@Test(expected=UnsupportedOperationException.class)
+	public void testThatGettingChargesFromAnInvalidShieldThrowsUnsupportedOperationException() {
+		InvalidShield.build().getCharges();
+	}
+	
+	@Test(expected=UnsupportedOperationException.class)
+	public void testThatAddingChargesToAnInvalidShieldThrowsUnsupportedOperationException() {
+		InvalidShield.build().addCharges(null);
 	}
 	
 	@Test
@@ -71,7 +80,8 @@ public class InvalidShieldTest {
 	@Test
 	public void testThatAnInvalidShieldCanNotBeEqualToAShieldImpl() {
 		Shield invalid = InvalidShield.build();
-		Shield valid = ShieldImpl.build(ShieldLayer.buildUndividedShieldLayer(new Tinctures()), null);
+		Field field = Field.buildUndividedShieldLayer(new Tinctures());
+		Shield valid = ShieldImpl.build(field, null);
 		assertThat(invalid.equals(valid), is(false));
 	}
 	

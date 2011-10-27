@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import blazon.shared.shield.charges.GeometricCharge;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic.LogLevel;
 import blazon.shared.shield.tinctures.Tinctures;
@@ -17,7 +18,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 
 
-public class ShieldTest {
+public class ShieldImplTest {
 
 	@Test(expected=IllegalArgumentException.class)
 	public void testThatBuildWithNullThrowsIllegalArgumentException() {
@@ -26,7 +27,7 @@ public class ShieldTest {
 	
 	@Test
 	public void testThatBuildSetsBaseToThatGivenShieldLayerWhichHasNoTincturesAdded() {
-		ShieldLayer layer = ShieldLayer.buildUndividedShieldLayer(new Tinctures());
+		Field layer = Field.buildUndividedShieldLayer(new Tinctures());
 		ShieldImpl shield = (ShieldImpl) ShieldImpl.build(layer, null);
 		assertThat(shield.getField(), is(equalTo(layer)));
 	}
@@ -36,7 +37,7 @@ public class ShieldTest {
 			throws UnknownTinctureException {
 		Tinctures tinctures = new Tinctures();
 		tinctures.addTincture(tinctures.getTincture("or"));
-		ShieldLayer layer = ShieldLayer.buildUndividedShieldLayer(tinctures);
+		Field layer = Field.buildUndividedShieldLayer(tinctures);
 		ShieldImpl shield = (ShieldImpl) ShieldImpl.build(layer, null);
 		assertThat(shield.getField(), is(equalTo(layer)));
 	}
@@ -47,14 +48,89 @@ public class ShieldTest {
 		Tinctures tinctures = new Tinctures();
 		tinctures.addTincture(tinctures.getTincture("or"));
 		tinctures.addTincture(tinctures.getTincture("vair"));
-		ShieldLayer layer = ShieldLayer.buildUndividedShieldLayer(tinctures);
+		Field layer = Field.buildUndividedShieldLayer(tinctures);
 		ShieldImpl shield = (ShieldImpl) ShieldImpl.build(layer, null);
 		assertThat(shield.getField(), is(equalTo(layer)));
 	}
 	
 	@Test
+	public void testThatGetChargesWhenNoneHaveBeenAddedReturnsEmptyCollection() {
+		Field layer = Field.buildUndividedShieldLayer(new Tinctures());
+		ShieldImpl shield = (ShieldImpl) ShieldImpl.build(layer, null);
+		List<GeometricCharge> charges = shield.getCharges();
+		assertThat(charges, is(notNullValue()));
+		assertThat(charges.size(), is(0));
+	}
+	
+	@Test
+	public void testThatGetChargesAfterAddingNullReturnsEmptyCollection() throws UnknownTinctureException {
+		Field layer = Field.buildUndividedShieldLayer(new Tinctures());
+		ShieldImpl shield = (ShieldImpl) ShieldImpl.build(layer, null);
+		shield.addCharges(null);
+		List<GeometricCharge> chargesOnShield = shield.getCharges();
+		assertThat(chargesOnShield, is(notNullValue()));
+		assertThat(chargesOnShield.size(), is(0));
+	}
+	
+	@Test
+	public void testThatGetChargesAfterAddingEmptyCollectionReturnsEmptyCollection() throws UnknownTinctureException {
+		Field layer = Field.buildUndividedShieldLayer(new Tinctures());
+		ShieldImpl shield = (ShieldImpl) ShieldImpl.build(layer, null);
+		List<GeometricCharge> chargesToAdd = new ArrayList<GeometricCharge>();
+		shield.addCharges(chargesToAdd);
+		List<GeometricCharge> chargesOnShield = shield.getCharges();
+		assertThat(chargesOnShield, is(notNullValue()));
+		assertThat(chargesOnShield.size(), is(0));
+	}
+	
+	@Test
+	public void testThatGetChargesWhenChargesHaveBeenAddedReturnsCollectionWithSameItems() throws UnknownTinctureException {
+		Field layer = Field.buildUndividedShieldLayer(new Tinctures());
+		ShieldImpl shield = (ShieldImpl) ShieldImpl.build(layer, null);
+		GeometricCharge charge1 = GeometricCharge.build("bend", new Tinctures().getTincture("gules"), null);
+		GeometricCharge charge2 = GeometricCharge.build("cross", new Tinctures().getTincture("or"), null);
+
+		List<GeometricCharge> chargesOnShield = shield.getCharges();
+		assertThat(chargesOnShield, is(notNullValue()));
+		assertThat(chargesOnShield.size(), is(0));
+		List<GeometricCharge> chargesToAdd = new ArrayList<GeometricCharge>();
+		chargesToAdd.add(charge1);
+		shield.addCharges(chargesToAdd);
+		chargesOnShield = shield.getCharges();
+		assertThat(chargesOnShield, is(notNullValue()));
+		assertThat(chargesOnShield.size(), is(1));
+		assertThat(chargesOnShield.get(0), is(equalTo(charge1)));
+		
+		chargesToAdd = new ArrayList<GeometricCharge>();
+		chargesToAdd.add(charge2);
+		shield.addCharges(chargesToAdd);
+		chargesOnShield = shield.getCharges();
+		assertThat(chargesOnShield, is(notNullValue()));
+		assertThat(chargesOnShield.size(), is(2));
+		assertThat(chargesOnShield.get(0), is(equalTo(charge1)));
+		assertThat(chargesOnShield.get(1), is(equalTo(charge2)));
+	}
+	
+	@Test
+	public void testThatGetChargesWhenChargeHasBeenAddedReturnsCollectionWithSameItem() throws UnknownTinctureException {
+		Field layer = Field.buildUndividedShieldLayer(new Tinctures());
+		ShieldImpl shield = (ShieldImpl) ShieldImpl.build(layer, null);
+		GeometricCharge charge = GeometricCharge.build("bend", new Tinctures().getTincture("gules"), null);
+		List<GeometricCharge> chargesOnShield = shield.getCharges();
+		assertThat(chargesOnShield, is(notNullValue()));
+		assertThat(chargesOnShield.size(), is(0));
+		List<GeometricCharge> chargesToAdd = new ArrayList<GeometricCharge>();
+		chargesToAdd.add(charge);
+		shield.addCharges(chargesToAdd);
+		chargesOnShield = shield.getCharges();
+		assertThat(chargesOnShield, is(notNullValue()));
+		assertThat(chargesOnShield.size(), is(1));
+		assertThat(chargesOnShield.get(0), is(equalTo(charge)));
+	}
+	
+	@Test
 	public void testThatToStringIsCorrectForShieldWithBaseWhichHasNoTincturesAdded() {
-		ShieldLayer layer = ShieldLayer.buildUndividedShieldLayer(new Tinctures());
+		Field layer = Field.buildUndividedShieldLayer(new Tinctures());
 		ShieldImpl shield = (ShieldImpl) ShieldImpl.build(layer, null);
 		String expected = "ShieldImpl{field=ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfTinctures=1}:nextLayer=null}}";
 		assertThat(shield.toString(), is(equalTo(expected)));
@@ -65,37 +141,22 @@ public class ShieldTest {
 			throws UnknownTinctureException {
 		Tinctures tinctures = new Tinctures();
 		tinctures.addTincture(tinctures.getTincture("or"));
-		ShieldLayer layer = ShieldLayer.buildUndividedShieldLayer(tinctures);
+		Field layer = Field.buildUndividedShieldLayer(tinctures);
 		ShieldImpl shield = (ShieldImpl) ShieldImpl.build(layer, null);
 		String expected = "ShieldImpl{field=ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[Tincture{name=or:fillText=gold}]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfTinctures=1}:nextLayer=null}}";
 		assertThat(shield.toString(), is(equalTo(expected)));
 	}
 	
 	@Test
-	public void testThatToStringIsCorrectForShieldWithBaseWhichHasTheOrTinctureAddedAndBaseHasALayerWithATinctureWithVairAdded()
-			throws UnknownTinctureException {
-		Tinctures tinctures = new Tinctures();
-		tinctures.addTincture(tinctures.getTincture("or"));
-		ShieldLayer layer1 = ShieldLayer.buildUndividedShieldLayer(tinctures);
-		tinctures = new Tinctures();
-		tinctures.addTincture(tinctures.getTincture("vair"));
-		ShieldLayer layer2 = ShieldLayer.buildUndividedShieldLayer(tinctures);
-		layer1.addNextLayer(layer2);
-		ShieldImpl shield = (ShieldImpl) ShieldImpl.build(layer1, null);
-		String expected = "ShieldImpl{field=ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[Tincture{name=or:fillText=gold}]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfTinctures=1}:nextLayer=ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[Tincture{name=vair:fillText=url(#vair)}]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfTinctures=1}:nextLayer=null}}}";
-		assertThat(shield.toString(), is(equalTo(expected)));
-	}
-	
-	@Test
 	public void testThatShieldEqualsNullReturnsFalse() {
-		ShieldLayer layer = ShieldLayer.buildUndividedShieldLayer(new Tinctures());
+		Field layer = Field.buildUndividedShieldLayer(new Tinctures());
 		ShieldImpl shield = (ShieldImpl) ShieldImpl.build(layer, null);
 		assertThat(shield.equals(null), is(false));
 	}
 	
 	@Test
 	public void testThatShieldEqualsSelfReturnsTrue() {
-		ShieldLayer layer = ShieldLayer.buildUndividedShieldLayer(new Tinctures());
+		Field layer = Field.buildUndividedShieldLayer(new Tinctures());
 		ShieldImpl shield = (ShieldImpl) ShieldImpl.build(layer, null);
 		assertThat(shield.equals(shield), is(true));
 		assertThat(shield.hashCode(), is(equalTo(shield.hashCode())));
@@ -103,9 +164,9 @@ public class ShieldTest {
 	
 	@Test
 	public void testThatTwoShieldsWithSameFieldEqualsReturnsTrue() {
-		ShieldLayer layer1 = ShieldLayer.buildUndividedShieldLayer(new Tinctures());
+		Field layer1 = Field.buildUndividedShieldLayer(new Tinctures());
 		ShieldImpl shield1 = (ShieldImpl) ShieldImpl.build(layer1, null);
-		ShieldLayer layer2 = ShieldLayer.buildUndividedShieldLayer(new Tinctures());
+		Field layer2 = Field.buildUndividedShieldLayer(new Tinctures());
 		ShieldImpl shield2 = (ShieldImpl) ShieldImpl.build(layer2, null);
 		assertThat(shield1.equals(shield2), is(true));
 		assertThat(shield1.hashCode(), is(equalTo(shield2.hashCode())));
@@ -113,9 +174,9 @@ public class ShieldTest {
 	
 	@Test
 	public void testThatTwoShieldsWithSameFieldEqualsReturnsTrueSymmetrically() {
-		ShieldLayer layer1 = ShieldLayer.buildUndividedShieldLayer(new Tinctures());
+		Field layer1 = Field.buildUndividedShieldLayer(new Tinctures());
 		ShieldImpl shield1 = (ShieldImpl) ShieldImpl.build(layer1, null);
-		ShieldLayer layer2 = ShieldLayer.buildUndividedShieldLayer(new Tinctures());
+		Field layer2 = Field.buildUndividedShieldLayer(new Tinctures());
 		ShieldImpl shield2 = (ShieldImpl) ShieldImpl.build(layer2, null);
 		assertThat(shield1.equals(shield2), is(true));
 		assertThat(shield2.equals(shield1), is(true));
@@ -125,11 +186,11 @@ public class ShieldTest {
 	
 	@Test
 	public void testThatTwoShieldsWithSameFieldEqualsReturnsTrueTransitively() {
-		ShieldLayer layer1 = ShieldLayer.buildUndividedShieldLayer(new Tinctures());
+		Field layer1 = Field.buildUndividedShieldLayer(new Tinctures());
 		ShieldImpl shield1 = (ShieldImpl) ShieldImpl.build(layer1, null);
-		ShieldLayer layer2 = ShieldLayer.buildUndividedShieldLayer(new Tinctures());
+		Field layer2 = Field.buildUndividedShieldLayer(new Tinctures());
 		ShieldImpl shield2 = (ShieldImpl) ShieldImpl.build(layer2, null);
-		ShieldLayer layer3 = ShieldLayer.buildUndividedShieldLayer(new Tinctures());
+		Field layer3 = Field.buildUndividedShieldLayer(new Tinctures());
 		ShieldImpl shield3 = (ShieldImpl) ShieldImpl.build(layer3, null);
 		assertThat(shield1.equals(shield2), is(true));
 		assertThat(shield2.equals(shield3), is(true));
@@ -143,16 +204,16 @@ public class ShieldTest {
 	public void testThatTwoShieldsWithDifferentFieldSetEqualsReturnsTrue() throws UnknownTinctureException {
 		Tinctures tinctures = new Tinctures();
 		tinctures.addTincture(tinctures.getTincture("or"));
-		ShieldLayer layer1 = ShieldLayer.buildUndividedShieldLayer(tinctures);
+		Field layer1 = Field.buildUndividedShieldLayer(tinctures);
 		ShieldImpl shield1 = (ShieldImpl) ShieldImpl.build(layer1, null);
-		ShieldLayer layer2 = ShieldLayer.buildUndividedShieldLayer(new Tinctures());
+		Field layer2 = Field.buildUndividedShieldLayer(new Tinctures());
 		ShieldImpl shield2 = (ShieldImpl) ShieldImpl.build(layer2, null);
 		assertThat(shield1.equals(shield2), is(false));
 	}
 	
 	@Test
 	public void testThatIfYouAddANullListOfDiagnosticsToAShieldWithNoDiagnosticsGetDiagnosticsReturnsNull() {
-		Shield shield = ShieldImpl.build(ShieldLayer.buildUndividedShieldLayer(new Tinctures()), null);
+		Shield shield = ShieldImpl.build(Field.buildUndividedShieldLayer(new Tinctures()), null);
 		shield.addDiagnostics(null);
 		assertThat(shield.getShieldDiagnostics(), is(notNullValue()));
 		assertTrue(shield.getShieldDiagnostics().isEmpty());
@@ -160,7 +221,7 @@ public class ShieldTest {
 	
 	@Test
 	public void testThatIfYouAddAnEmptyListOfDiagnosticsToAShieldWithNoDiagnosticsGetDiagnosticsReturnsNull() {
-		Shield shield = ShieldImpl.build(ShieldLayer.buildUndividedShieldLayer(new Tinctures()), null);
+		Shield shield = ShieldImpl.build(Field.buildUndividedShieldLayer(new Tinctures()), null);
 		shield.addDiagnostics(new ArrayList<ShieldDiagnostic>());
 		assertThat(shield.getShieldDiagnostics(), is(notNullValue()));
 		assertTrue(shield.getShieldDiagnostics().isEmpty());
@@ -169,7 +230,7 @@ public class ShieldTest {
 	
 	@Test
 	public void testThatIfYouAddListOfOneDiagnosticToAShieldWithNoDiagnosticsGetDiagnosticsReturnsAListWithTheSameItems() {
-		Shield shield = ShieldImpl.build(ShieldLayer.buildUndividedShieldLayer(new Tinctures()), null);
+		Shield shield = ShieldImpl.build(Field.buildUndividedShieldLayer(new Tinctures()), null);
 		List<ShieldDiagnostic> list = new ArrayList<ShieldDiagnostic>();
 		ShieldDiagnostic diag = ShieldDiagnostic.build(LogLevel.ERROR, "hello");
 		list.add(diag);
@@ -181,7 +242,7 @@ public class ShieldTest {
 	
 	@Test
 	public void testThatIfYouAddListOfTwoDiagnosticsToAShieldWithNoDiagnosticsGetDiagnosticsReturnsAListWithTheSameItems() {
-		Shield shield = ShieldImpl.build(ShieldLayer.buildUndividedShieldLayer(new Tinctures()), null);
+		Shield shield = ShieldImpl.build(Field.buildUndividedShieldLayer(new Tinctures()), null);
 		List<ShieldDiagnostic> list = new ArrayList<ShieldDiagnostic>();
 		ShieldDiagnostic diag = ShieldDiagnostic.build(LogLevel.ERROR, "hello");
 		list.add(diag);
@@ -197,7 +258,7 @@ public class ShieldTest {
 	
 	@Test
 	public void testThatIfYouAddANullListOfDiagnosticsToAShieldWithSomeDiagnosticsGetDiagnosticsReturnsAListWithTheSameItems() {
-		Shield shield = ShieldImpl.build(ShieldLayer.buildUndividedShieldLayer(new Tinctures()), null);
+		Shield shield = ShieldImpl.build(Field.buildUndividedShieldLayer(new Tinctures()), null);
 		List<ShieldDiagnostic> list = new ArrayList<ShieldDiagnostic>();
 		ShieldDiagnostic diag = ShieldDiagnostic.build(LogLevel.ERROR, "hello");
 		list.add(diag);
@@ -219,7 +280,7 @@ public class ShieldTest {
 	
 	@Test
 	public void testThatIfYouAddAListOfTwoDiagnosticsToAShieldWithTwoDiagnosticsGetDiagnosticsReturnsAListContainingAllItems() {
-		Shield shield = ShieldImpl.build(ShieldLayer.buildUndividedShieldLayer(new Tinctures()), null);
+		Shield shield = ShieldImpl.build(Field.buildUndividedShieldLayer(new Tinctures()), null);
 		
 		List<ShieldDiagnostic> list1 = new ArrayList<ShieldDiagnostic>();
 		ShieldDiagnostic diag = ShieldDiagnostic.build(LogLevel.ERROR, "hello");

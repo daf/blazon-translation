@@ -15,6 +15,8 @@ public abstract class GeometricCharge implements Serializable {
 	protected Tincture tincture;
 	protected GeometricChargeNames name;
 	
+	protected GeometricCharge() {}
+	
 	public static GeometricCharge build(String name, Tincture t, List<ShieldDiagnostic> errorsList) {
 		if (name == null || name.trim().isEmpty()) {
 			throw new IllegalArgumentException("Can not get geometric charge with null or empty name");

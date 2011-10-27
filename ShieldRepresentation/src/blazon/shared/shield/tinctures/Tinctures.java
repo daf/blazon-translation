@@ -10,7 +10,7 @@ import java.util.Map;
 
 import blazon.shared.numberconversion.NumberConversionException;
 import blazon.shared.numberconversion.NumberToOrdinalConverter;
-import blazon.shared.shield.ShieldLayer;
+import blazon.shared.shield.Field;
 
 /**
  * Represents a collection of tinctures to be placed on a
@@ -87,7 +87,7 @@ public class Tinctures implements Serializable {
 	 * Add a tincture to the current Tinctures object (used on a ShieldLayer)
 	 * @param t The tincture that you want to add to this Tinctures object.
 	 * @return true if the Tincture was successfully added; false otherwise.
-	 * @see ShieldLayer
+	 * @see Field
 	 */
 	public boolean addTincture(Tincture t) {
 		if (t == null) {
