@@ -11,7 +11,7 @@ import blazon.shared.shield.charges.GeometricCharge;
 
 public class SVGBendDrawer extends SVGOrdinaryDrawer {
 
-	public SVGBendDrawer(GeometricCharge charge, OMSVGDefsElement defs, int shieldWidth, int shieldHeight) {
+	protected SVGBendDrawer(GeometricCharge charge, OMSVGDefsElement defs, int shieldWidth, int shieldHeight) {
 		super(charge, defs, shieldWidth, shieldHeight);
 	}
 

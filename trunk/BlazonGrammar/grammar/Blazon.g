@@ -58,6 +58,25 @@ import blazon.shared.numberconversion.WordToNumberConverter;
   private WordToNumberConverter converter = new WordToNumberConverter();
   private List<ShieldDiagnostic> diags;
   
+  private void diagnoseRuleOfTincture(Tincture t, TinctureType underLayerTinctureType) {
+      TinctureType thisTinctureType = t.getTinctureType();
+      if (underLayerTinctureType == thisTinctureType) {
+          if (thisTinctureType == TinctureType.COLOUR || thisTinctureType == TinctureType.METAL) {
+              diags.add(ShieldDiagnostic.build(LogLevel.WARN, "You are not obeying the rule of tincture. You can not put a colour on a colour, or a metal on a metal"));
+          }
+      }
+  }
+  
+  private int convertNumber(String numberWords) throws RecognitionException {
+		  try {
+		      return converter.convert(numberWords);
+		  } catch (Exception e) {
+		      diags.add(ShieldDiagnostic.build(LogLevel.ERROR, "Unable to convert '" + numberWords 
+		          + "' into an integer. Caught: " +  e));
+		      throw new RecognitionException(this.input);
+		  }
+  }
+  
   @Override
   public void emitErrorMessage(String msg) {
     diags.add(ShieldDiagnostic.build(LogLevel.ERROR, msg));
@@ -104,18 +123,18 @@ charges [TinctureType underLayerTinctureType] returns [List<GeometricCharge> cha
               $charges = new ArrayList<GeometricCharge>();
             }
             (
-                DETERMINER gc1=geometric_charge[tinctures, underLayerTinctureType]
+                DETERMINER single_geometric_charge[tinctures, underLayerTinctureType]
                 { 
-                    if ($gc1.charge != null) {
-                        $charges.add($gc1.charge);
+                    if ($single_geometric_charge.charge != null) {
+                        $charges.add($single_geometric_charge.charge);
                         if ("a".equals($DETERMINER.text)) {
-                            String chargeName = $gc1.charge.getName().toString().toLowerCase();
+                            String chargeName = $single_geometric_charge.charge.getName().toString().toLowerCase();
                             if (chargeName.startsWith("a") || chargeName.startsWith("e") || chargeName.startsWith("i") || chargeName.startsWith("o") || chargeName.startsWith("u")) {
                                 diags.add(ShieldDiagnostic.build(LogLevel.WARN, "You have asked for the charge '" + $DETERMINER.text + " " + chargeName 
                                     + "'. A charge starting with a vowel should be preceded by 'an' i.e. 'an " + chargeName + "'."));
                             }
                         } else if ("an".equals($DETERMINER.text)) {
-                            String chargeName = $gc1.charge.getName().toString().toLowerCase();
+                            String chargeName = $single_geometric_charge.charge.getName().toString().toLowerCase();
                             if (!(chargeName.startsWith("a") || chargeName.startsWith("e") || chargeName.startsWith("i") || chargeName.startsWith("o") || chargeName.startsWith("u"))) {
                                 diags.add(ShieldDiagnostic.build(LogLevel.WARN, "You have asked for the charge '" + $DETERMINER.text + " " + chargeName 
                                     + "'. A charge starting with a consonants should be preceded by 'a' i.e. 'a " + chargeName + "'."));
@@ -124,10 +143,10 @@ charges [TinctureType underLayerTinctureType] returns [List<GeometricCharge> cha
                    }
                 }
             |
-                number_digits_or_words gc2=geometric_charge[tinctures, underLayerTinctureType]
+                number_digits_or_words multiple_geometric_charges[tinctures, underLayerTinctureType, convertNumber($number_digits_or_words.text)]
                 {
-                    if ($gc2.charge != null) {
-                        $charges.add($gc2.charge);
+                    if ($multiple_geometric_charges.charges != null) {
+                        $charges.addAll($multiple_geometric_charges.charges);
                     }
                 }
             )
@@ -136,18 +155,36 @@ charges [TinctureType underLayerTinctureType] returns [List<GeometricCharge> cha
             }
         ;
 
-geometric_charge [Tinctures tinctures, TinctureType underLayerTinctureType] returns [GeometricCharge charge]
+single_geometric_charge [Tinctures tinctures, TinctureType underLayerTinctureType] returns [GeometricCharge charge]
         :   ord = (ORDINARY_DIV | OTHER_ORDINARY | SUBORDINARY_DIV | SUBORDINARY ) { String text = $ord.text; }
             ( MODIFIER { text += "_" + $MODIFIER.text; } )?
             t=tincture[tinctures]
             { 
-                TinctureType thisTinctureType = t.getTinctureType();
-                if (underLayerTinctureType == thisTinctureType) {
-                    if (thisTinctureType == TinctureType.COLOUR || thisTinctureType == TinctureType.METAL) {
-                        diags.add(ShieldDiagnostic.build(LogLevel.WARN, "You are not obeying the rule of tincture. You can not put a colour on a colour, or a metal on a metal"));
-                    }
-                }              
+                diagnoseRuleOfTincture(t, underLayerTinctureType);
                 $charge = GeometricCharge.build(text, t, diags);
+            }
+        ;
+
+multiple_geometric_charges [Tinctures tinctures, TinctureType underLayerTinctureType, int number] returns [List<GeometricCharge> charges]
+        :   ords = SUBORDINARY_MULTIPLE { String text = $ords.text; }
+            {
+                if (number > 1) {
+                    if(!text.endsWith("s")) {
+                        diags.add(ShieldDiagnostic.build(LogLevel.WARN, "You have specified that there is more than one of a charge, but not used the plural. Changing '" + text + "' to '" + text + "s'."));
+                    } else {
+                        text = text.substring(0, text.length() - 1);
+                    }
+                }
+            }  
+            ( MODIFIER { text += "_" + $MODIFIER.text; } )?
+            t=tincture[tinctures]
+            { 
+                diagnoseRuleOfTincture(t, underLayerTinctureType);
+                $charges = new ArrayList<GeometricCharge>();
+                for (int i = 0; i < number; i++) {
+                    GeometricCharge charge = GeometricCharge.build(text, t, diags);
+                    $charges.add(charge);
+                }
             }
         ;
 
@@ -171,19 +208,13 @@ div returns [ShieldDivisionType division]
                 OF { text += " " + $OF.text; }
                 number_digits_or_words
                 {
-                    try {
-                        int gyronnyOf = converter.convert($number_digits_or_words.text);
-                        if (gyronnyOf \% 2 != 0) {
-                            gyronnyOf++;
-                            diags.add(ShieldDiagnostic.build(LogLevel.WARN, "Parsing rule 'div'.  '" + $VARIABLE_DIV.text 
-                                    + "' can only be of an even number; incremented number of sections to " + gyronnyOf));
-                        }
-                        text += " " + gyronnyOf;
-                    } catch (Exception e) {
-                        diags.add(ShieldDiagnostic.build(LogLevel.ERROR, "Unable to convert '" + $number_digits_or_words.text 
-                            + "' into an integer. Caught: " +  e));
-                        throw new RecognitionException(this.input);
-                    }
+		                int gyronnyOf = convertNumber($number_digits_or_words.text);
+		                if (gyronnyOf \% 2 != 0) {
+		                    gyronnyOf++;
+		                    diags.add(ShieldDiagnostic.build(LogLevel.WARN, "Parsing rule 'div'.  '" + $VARIABLE_DIV.text 
+		                            + "' can only be of an even number; incremented number of sections to " + gyronnyOf));
+		                }
+		                text += " " + gyronnyOf;
                 }
             )?
         |
@@ -271,7 +302,7 @@ VARIABLE_DIV
         ;
         
 SUBORDINARY_MULTIPLE 
-        :   'bar'
+        :   ('bar'|'bendlet')'s'?
         ;
         
 CONTINUOUS_DIV
