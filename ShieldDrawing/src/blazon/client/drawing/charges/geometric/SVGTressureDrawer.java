@@ -10,7 +10,7 @@ import blazon.shared.shield.charges.GeometricCharge;
 
 public class SVGTressureDrawer extends SVGShieldShapeChargeDrawer {
 
-	public SVGTressureDrawer(GeometricCharge charge, OMSVGDefsElement defs, int shieldWidth, int shieldHeight) {
+	protected SVGTressureDrawer(GeometricCharge charge, OMSVGDefsElement defs, int shieldWidth, int shieldHeight) {
 		super(charge, defs, shieldWidth, shieldHeight);
 	}
 

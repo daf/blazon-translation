@@ -11,7 +11,7 @@ import blazon.shared.shield.charges.GeometricCharge;
 
 public class SVGPileReversedDrawer extends SVGOrdinaryDrawer {
 
-	public SVGPileReversedDrawer(GeometricCharge charge, OMSVGDefsElement defs, int shieldWidth, int shieldHeight) {
+	protected SVGPileReversedDrawer(GeometricCharge charge, OMSVGDefsElement defs, int shieldWidth, int shieldHeight) {
 		super(charge, defs, shieldWidth, shieldHeight);
 	}
 

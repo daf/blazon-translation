@@ -30,7 +30,7 @@ public enum GeometricChargeNames implements Serializable {
 	BAR(GeometricChargeType.SUBORDINARY);
 	
 	private GeometricChargeType geometricChargeType;
-	
+
 	private GeometricChargeNames(GeometricChargeType geometricChargeType) {
 		this.geometricChargeType = geometricChargeType;
 	}
@@ -57,6 +57,6 @@ public enum GeometricChargeNames implements Serializable {
 	
 	enum GeometricChargeType implements Serializable {
 		ORDINARY,
-		SUBORDINARY
+		SUBORDINARY;
 	}
 }

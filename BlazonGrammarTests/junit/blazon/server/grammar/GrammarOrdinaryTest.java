@@ -24,7 +24,7 @@ public class GrammarOrdinaryTest {
 	public void testThatChiefGulesReturnsAnObjectRepresentingAChiefColouredGules() throws RecognitionException, UnknownTinctureException {
 		BlazonParser parser = new ParserCreator().createParser("chief gules");
 		Tinctures tinctures = new Tinctures(); 
-		GeometricCharge ordinary = parser.geometric_charge(tinctures, TinctureType.OTHER);
+		GeometricCharge ordinary = parser.single_geometric_charge(tinctures, TinctureType.OTHER);
 		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CHIEF)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 	}
@@ -33,7 +33,7 @@ public class GrammarOrdinaryTest {
 	public void testThatBaseOrReturnsAnObjectRepresentingABaseColouredOr() throws RecognitionException, UnknownTinctureException {
 		BlazonParser parser = new ParserCreator().createParser("base or");
 		Tinctures tinctures = new Tinctures(); 
-		GeometricCharge ordinary = parser.geometric_charge(tinctures, TinctureType.OTHER);
+		GeometricCharge ordinary = parser.single_geometric_charge(tinctures, TinctureType.OTHER);
 		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BASE)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("or"))));
 	}
@@ -42,7 +42,7 @@ public class GrammarOrdinaryTest {
 	public void testThatBendGulesReturnsAnObjectRepresentingABendColouredGules() throws RecognitionException, UnknownTinctureException {
 		BlazonParser parser = new ParserCreator().createParser("bend gules");
 		Tinctures tinctures = new Tinctures(); 
-		GeometricCharge ordinary = parser.geometric_charge(tinctures, TinctureType.OTHER);
+		GeometricCharge ordinary = parser.single_geometric_charge(tinctures, TinctureType.OTHER);
 		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BEND)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 	}
@@ -52,7 +52,7 @@ public class GrammarOrdinaryTest {
 		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
 		BlazonParser parser = new ParserCreator().createParser("bend gules", diags );
 		Tinctures tinctures = new Tinctures(); 
-		GeometricCharge ordinary = parser.geometric_charge(tinctures, TinctureType.COLOUR);
+		GeometricCharge ordinary = parser.single_geometric_charge(tinctures, TinctureType.COLOUR);
 		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BEND)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 		assertThat(diags.size(), is(1));
@@ -65,7 +65,7 @@ public class GrammarOrdinaryTest {
 		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
 		BlazonParser parser = new ParserCreator().createParser("bend or", diags );
 		Tinctures tinctures = new Tinctures(); 
-		GeometricCharge ordinary = parser.geometric_charge(tinctures, TinctureType.METAL);
+		GeometricCharge ordinary = parser.single_geometric_charge(tinctures, TinctureType.METAL);
 		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BEND)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("or"))));
 		assertThat(diags.size(), is(1));
@@ -78,7 +78,7 @@ public class GrammarOrdinaryTest {
 		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
 		BlazonParser parser = new ParserCreator().createParser("bend vair", diags );
 		Tinctures tinctures = new Tinctures(); 
-		GeometricCharge ordinary = parser.geometric_charge(tinctures, TinctureType.OTHER);
+		GeometricCharge ordinary = parser.single_geometric_charge(tinctures, TinctureType.OTHER);
 		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BEND)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("vair"))));
 		assertThat(diags.size(), is(0));
@@ -88,7 +88,7 @@ public class GrammarOrdinaryTest {
 	public void testThatBendSinisterGulesReturnsAnObjectRepresentingABendSinisterColouredGules() throws RecognitionException, UnknownTinctureException {
 		BlazonParser parser = new ParserCreator().createParser("bend sinister gules");
 		Tinctures tinctures = new Tinctures(); 
-		GeometricCharge ordinary = parser.geometric_charge(tinctures, TinctureType.OTHER);
+		GeometricCharge ordinary = parser.single_geometric_charge(tinctures, TinctureType.OTHER);
 		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BEND_SINISTER)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 	}
@@ -97,7 +97,7 @@ public class GrammarOrdinaryTest {
 	public void testThatBlahGulesThrowsAMismatchedSetException() throws RecognitionException, UnknownTinctureException {
 		BlazonParser parser = new ParserCreator().createParser("blah gules");
 		Tinctures tinctures = new Tinctures(); 
-		parser.geometric_charge(tinctures, TinctureType.OTHER);
+		parser.single_geometric_charge(tinctures, TinctureType.OTHER);
 	}
 	
 	@Test
@@ -105,7 +105,7 @@ public class GrammarOrdinaryTest {
 		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
 		BlazonParser parser = new ParserCreator().createParser("bend blah gules", diags);
 		Tinctures tinctures = new Tinctures(); 
-		GeometricCharge ordinary = parser.geometric_charge(tinctures, TinctureType.OTHER);
+		GeometricCharge ordinary = parser.single_geometric_charge(tinctures, TinctureType.OTHER);
 		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BEND)));
 		assertThat(ordinary.getTincture(), is(tinctures.getTincture("gules")));
 	}

@@ -8,7 +8,7 @@ import blazon.shared.shield.charges.GeometricCharge;
 
 public class SVGBaseDrawer extends SVGOrdinaryDrawer {
 
-	public SVGBaseDrawer(GeometricCharge charge, OMSVGDefsElement defs, int shieldWidth, int shieldHeight) {
+	protected SVGBaseDrawer(GeometricCharge charge, OMSVGDefsElement defs, int shieldWidth, int shieldHeight) {
 		super(charge, defs, shieldWidth, shieldHeight);
 	}
 

@@ -54,7 +54,7 @@ public class SVGShieldDrawer {
 	    	shieldContainer.setAttribute(SVGConstants.SVG_MASK_ATTRIBUTE, "url(#ShieldMask)");
 	        SVGFieldDrawer fieldDrawer = new SVGFieldDrawer((ShieldImpl)shield, defs, width, height);
 	        fieldDrawer.drawField(shieldContainer, curve);
-	        List<SVGOrdinaryDrawer> ordinaryDrawers = SVGOrdinaryDrawer.build((ShieldImpl)shield, defs, width, height);
+	        List<SVGOrdinaryDrawer> ordinaryDrawers = SVGOrdinaryDrawer.createDrawers((ShieldImpl)shield, defs, width, height);
 	        for (SVGOrdinaryDrawer ordinaryDrawer : ordinaryDrawers) {
 		        shieldContainer.appendChild(ordinaryDrawer.drawOrdinary(shieldContainer, curve));
 	        }

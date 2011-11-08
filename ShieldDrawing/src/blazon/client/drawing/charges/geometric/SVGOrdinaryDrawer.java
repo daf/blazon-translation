@@ -1,6 +1,7 @@
 package blazon.client.drawing.charges.geometric;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.vectomatic.dom.svg.OMSVGDefsElement;
@@ -32,93 +33,119 @@ public abstract class SVGOrdinaryDrawer {
 	protected final int xMin;
 	protected final int yMax;
 	protected final int yMin;
-	
-	public SVGOrdinaryDrawer(GeometricCharge charge, OMSVGDefsElement defs, int shieldWidth, int shieldHeight) {
+	protected final int occurrences;
+	//LATER could use some manager type pattern
+	protected SVGOrdinaryDrawer(GeometricCharge charge, OMSVGDefsElement defs, int shieldWidth, int shieldHeight, int occurrences) {
 		this.charge = charge;
 		this.defs = defs;
 		this.xMax = shieldWidth;
 		this.yMax = shieldHeight;
 		this.xMin = 0;
 		this.yMin = 0;
+		this.occurrences = occurrences;
 	}
 	
-	public static List<SVGOrdinaryDrawer> build(ShieldImpl shield, OMSVGDefsElement defs, int shieldWidth, int shieldHeight) {
+	protected SVGOrdinaryDrawer(GeometricCharge charge, OMSVGDefsElement defs, int shieldWidth, int shieldHeight) {
+		this(charge, defs, shieldWidth, shieldHeight, 1);
+	}
+	
+	public static List<SVGOrdinaryDrawer> createDrawers(ShieldImpl shield, OMSVGDefsElement defs, int shieldWidth, int shieldHeight) {
 		List<GeometricCharge> charges = shield.getCharges();
 		List<SVGOrdinaryDrawer> ordinaryDrawers = new ArrayList<SVGOrdinaryDrawer>();
 		if (charges == null) {
 			return ordinaryDrawers;
 		}
-		for (GeometricCharge charge : charges) {
-			switch(charges.get(0).getName()) {
+		Iterator<GeometricCharge> iterator = charges.iterator();
+		GeometricCharge currentCharge = iterator.next();
+		boolean hasUnprocessedItems = true;
+		int sameChargeCounter = 1;
+		while (hasUnprocessedItems || iterator.hasNext()) {
+			GeometricCharge nextCharge = null;
+			if (iterator.hasNext()) {
+				nextCharge = iterator.next();
+			}
+			if (currentCharge.equals(nextCharge)) {
+				sameChargeCounter++;
+				continue;
+			}
+			switch(currentCharge.getName()) {
 			case BASE:
-				ordinaryDrawers.add(new SVGBaseDrawer(charge, defs, shieldWidth, shieldHeight));
+				ordinaryDrawers.add(new SVGBaseDrawer(currentCharge, defs, shieldWidth, shieldHeight));
 				break;
 			case BEND:
-				ordinaryDrawers.add(new SVGBendDrawer(charge, defs, shieldWidth, shieldHeight));
+				ordinaryDrawers.add(new SVGBendDrawer(currentCharge, defs, shieldWidth, shieldHeight));
 				break;
 			case BEND_SINISTER:
-				ordinaryDrawers.add(new SVGBendSinisterDrawer(charge, defs, shieldWidth, shieldHeight));
+				ordinaryDrawers.add(new SVGBendSinisterDrawer(currentCharge, defs, shieldWidth, shieldHeight));
 				break;
 			case BORDURE:
-				ordinaryDrawers.add(new SVGBordureDrawer(charge, defs, shieldWidth, shieldHeight));
+				ordinaryDrawers.add(new SVGBordureDrawer(currentCharge, defs, shieldWidth, shieldHeight));
 				break;
 			case CANTON:
-				ordinaryDrawers.add(new SVGCantonDrawer(charge, defs, shieldWidth, shieldHeight));
+				ordinaryDrawers.add(new SVGCantonDrawer(currentCharge, defs, shieldWidth, shieldHeight));
 				break;
 			case CHEVRON:
-				ordinaryDrawers.add(new SVGChevronDrawer(charge, defs, shieldWidth, shieldHeight));
+				ordinaryDrawers.add(new SVGChevronDrawer(currentCharge, defs, shieldWidth, shieldHeight));
 				break;
 			case CHEVRON_REVERSED:
-				ordinaryDrawers.add(new SVGChevronReversedDrawer(charge, defs, shieldWidth, shieldHeight));
+				ordinaryDrawers.add(new SVGChevronReversedDrawer(currentCharge, defs, shieldWidth, shieldHeight));
 				break;
 			case CHIEF:
-				ordinaryDrawers.add(new SVGChiefDrawer(charge, defs, shieldWidth, shieldHeight));
+				ordinaryDrawers.add(new SVGChiefDrawer(currentCharge, defs, shieldWidth, shieldHeight));
 				break;
 			case CROSS:
-				ordinaryDrawers.add(new SVGCrossDrawer(charge, defs, shieldWidth, shieldHeight));
+				ordinaryDrawers.add(new SVGCrossDrawer(currentCharge, defs, shieldWidth, shieldHeight));
 				break;
 			case FESS:
-				ordinaryDrawers.add(new SVGFessDrawer(charge, defs, shieldWidth, shieldHeight));
+				ordinaryDrawers.add(new SVGFessDrawer(currentCharge, defs, shieldWidth, shieldHeight));
 				break;
 			case FLAUNCHES:
-				ordinaryDrawers.add(new SVGFlaunchesDrawer(charge, defs, shieldWidth, shieldHeight));
+				ordinaryDrawers.add(new SVGFlaunchesDrawer(currentCharge, defs, shieldWidth, shieldHeight));
 				break;
-			case FRET://TODO draw fret
-				//return null;//new SVGFretDrawer(charge, defs, shieldWidth, shieldHeight);
+			case FRET:
+				ordinaryDrawers.add(new SVGFretDrawer(currentCharge, defs, shieldWidth, shieldHeight));
+				break;
 			case GYRON:
-				ordinaryDrawers.add(new SVGGyronDrawer(charge, defs, shieldWidth, shieldHeight));
+				ordinaryDrawers.add(new SVGGyronDrawer(currentCharge, defs, shieldWidth, shieldHeight));
 				break;
 			case ORLE:
-				ordinaryDrawers.add(new SVGOrleDrawer(charge, defs, shieldWidth, shieldHeight));
+				ordinaryDrawers.add(new SVGOrleDrawer(currentCharge, defs, shieldWidth, shieldHeight));
 				break;
 			case PALE:
-				ordinaryDrawers.add(new SVGPaleDrawer(charge, defs, shieldWidth, shieldHeight));
+				ordinaryDrawers.add(new SVGPaleDrawer(currentCharge, defs, shieldWidth, shieldHeight));
 				break;
 			case PALL:
-				ordinaryDrawers.add(new SVGPallDrawer(charge, defs, shieldWidth, shieldHeight));
+				ordinaryDrawers.add(new SVGPallDrawer(currentCharge, defs, shieldWidth, shieldHeight));
 				break;
 			case PALL_REVERSED:
-				ordinaryDrawers.add(new SVGPallReversedDrawer(charge, defs, shieldWidth, shieldHeight));
+				ordinaryDrawers.add(new SVGPallReversedDrawer(currentCharge, defs, shieldWidth, shieldHeight));
 				break;
 			case PILE:
-				ordinaryDrawers.add(new SVGPileDrawer(charge, defs, shieldWidth, shieldHeight));
+				ordinaryDrawers.add(new SVGPileDrawer(currentCharge, defs, shieldWidth, shieldHeight));
 				break;
 			case PILE_REVERSED:
-				ordinaryDrawers.add(new SVGPileReversedDrawer(charge, defs, shieldWidth, shieldHeight));
+				ordinaryDrawers.add(new SVGPileReversedDrawer(currentCharge, defs, shieldWidth, shieldHeight));
 				break;
 			case QUARTER:
-				ordinaryDrawers.add(new SVGQuarterDrawer(charge, defs, shieldWidth, shieldHeight));
+				ordinaryDrawers.add(new SVGQuarterDrawer(currentCharge, defs, shieldWidth, shieldHeight));
 				break;
 			case SALTIRE:
-				ordinaryDrawers.add(new SVGSaltireDrawer(charge, defs, shieldWidth, shieldHeight));
+				ordinaryDrawers.add(new SVGSaltireDrawer(currentCharge, defs, shieldWidth, shieldHeight));
 				break;
 			case TRESSURE:
-				ordinaryDrawers.add(new SVGTressureDrawer(charge, defs, shieldWidth, shieldHeight));
+				ordinaryDrawers.add(new SVGTressureDrawer(currentCharge, defs, shieldWidth, shieldHeight));
+				break;
+			case BAR:
+				ordinaryDrawers.add(new SVGBarDrawer(currentCharge, defs, shieldWidth, shieldHeight, sameChargeCounter));
 				break;
 			default:
 				//return null;
 				//TODO draw label of X
+				
 			}
+			sameChargeCounter = 0;
+			currentCharge = nextCharge;
+			hasUnprocessedItems = false;
 		}
 		return ordinaryDrawers;
 	}
