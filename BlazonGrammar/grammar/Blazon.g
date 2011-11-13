@@ -69,6 +69,7 @@ import blazon.shared.numberconversion.WordToNumberConverter;
   
   private int convertNumber(String numberWords) throws RecognitionException {
 		  try {
+		      if (numberWords.equals("a")) { return 1; }
 		      return converter.convert(numberWords);
 		  } catch (Exception e) {
 		      diags.add(ShieldDiagnostic.build(LogLevel.ERROR, "Unable to convert '" + numberWords 
@@ -169,10 +170,15 @@ multiple_geometric_charges [Tinctures tinctures, TinctureType underLayerTincture
         :   ords = SUBORDINARY_MULTIPLE { String text = $ords.text; }
             {
                 if (number > 1) {
-                    if(!text.endsWith("s")) {
+                    if (!text.endsWith("s")) {
                         diags.add(ShieldDiagnostic.build(LogLevel.WARN, "You have specified that there is more than one of a charge, but not used the plural. Changing '" + text + "' to '" + text + "s'."));
                     } else {
                         text = text.substring(0, text.length() - 1);
+                    }
+                } else if (number == 1) {
+                    if (text.endsWith("s")) {
+                        text = text.substring(0, text.length() - 1);
+                        diags.add(ShieldDiagnostic.build(LogLevel.WARN, "You have specified that there is only one of a charge, but used the plural. Changing '" + text + "s' to '" + text + "'."));
                     }
                 }
             }  
@@ -271,6 +277,7 @@ tincture [Tinctures tinctures] returns [Tincture tincture]
 number_digits_or_words
         :   DIGITS
         |   NUMWORDS (AND? NUMWORDS)*
+        |   DETERMINER
         ;
 
 MODIFIER
@@ -302,7 +309,7 @@ VARIABLE_DIV
         ;
         
 SUBORDINARY_MULTIPLE 
-        :   ('bar'|'bendlet')'s'?
+        :   ('bar'|'bendlet'|'pallet'|'chevronel')'s'?
         ;
         
 CONTINUOUS_DIV

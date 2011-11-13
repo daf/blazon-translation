@@ -75,8 +75,14 @@ public abstract class SVGOrdinaryDrawer {
 			case BEND:
 				ordinaryDrawers.add(new SVGBendDrawer(currentCharge, defs, shieldWidth, shieldHeight));
 				break;
+			case BENDLET:
+				ordinaryDrawers.add(new SVGBendletDrawer(currentCharge, defs, shieldWidth, shieldHeight, sameChargeCounter));
+				break;
 			case BEND_SINISTER:
 				ordinaryDrawers.add(new SVGBendSinisterDrawer(currentCharge, defs, shieldWidth, shieldHeight));
+				break;
+			case BENDLET_SINISTER:
+				ordinaryDrawers.add(new SVGBendletSinisterDrawer(currentCharge, defs, shieldWidth, shieldHeight, sameChargeCounter));
 				break;
 			case BORDURE:
 				ordinaryDrawers.add(new SVGBordureDrawer(currentCharge, defs, shieldWidth, shieldHeight));
@@ -86,6 +92,9 @@ public abstract class SVGOrdinaryDrawer {
 				break;
 			case CHEVRON:
 				ordinaryDrawers.add(new SVGChevronDrawer(currentCharge, defs, shieldWidth, shieldHeight));
+				break;
+			case CHEVRONEL:
+				ordinaryDrawers.add(new SVGChevronelDrawer(currentCharge, defs, shieldWidth, shieldHeight, sameChargeCounter));
 				break;
 			case CHEVRON_REVERSED:
 				ordinaryDrawers.add(new SVGChevronReversedDrawer(currentCharge, defs, shieldWidth, shieldHeight));
@@ -116,6 +125,9 @@ public abstract class SVGOrdinaryDrawer {
 				break;
 			case PALL:
 				ordinaryDrawers.add(new SVGPallDrawer(currentCharge, defs, shieldWidth, shieldHeight));
+				break;
+			case PALLET:
+				ordinaryDrawers.add(new SVGPalletDrawer(currentCharge, defs, shieldWidth, shieldHeight, sameChargeCounter));
 				break;
 			case PALL_REVERSED:
 				ordinaryDrawers.add(new SVGPallReversedDrawer(currentCharge, defs, shieldWidth, shieldHeight));

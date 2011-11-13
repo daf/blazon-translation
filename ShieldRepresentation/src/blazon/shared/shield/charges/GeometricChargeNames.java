@@ -27,7 +27,11 @@ public enum GeometricChargeNames implements Serializable {
 	TRESSURE(GeometricChargeType.SUBORDINARY),
 	GYRON(GeometricChargeType.SUBORDINARY),
 	FRET(GeometricChargeType.SUBORDINARY),
-	BAR(GeometricChargeType.SUBORDINARY);
+	BAR(GeometricChargeType.SUBORDINARY), 
+	BENDLET(GeometricChargeType.SUBORDINARY), 
+	BENDLET_SINISTER(GeometricChargeType.SUBORDINARY),
+	PALLET(GeometricChargeType.SUBORDINARY), 
+	CHEVRONEL(GeometricChargeType.SUBORDINARY);
 	
 	private GeometricChargeType geometricChargeType;
 
