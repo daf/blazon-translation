@@ -6,7 +6,8 @@ gunit Blazon;
  * in to lower case
  */
 
-ORDINARY_DIV     :   "fess"            OK
+ORDINARY_DIV     
+        :   "fess"            OK
             "pale"            OK
             "bend"            OK
             "cross"           OK
@@ -41,6 +42,20 @@ SUBORDINARY
             "bend"        FAIL
             "pall"        FAIL
             "saltire"     FAIL
+
+SUBORDINARY_MULTIPLE
+        :   "bendlet"     OK
+            "bendlets"    OK
+            "chevronel"   OK
+            "chevronels"  OK
+            "bar"         OK
+            "bars"        OK
+            "pallet"      OK
+            "pallets"     OK
+            "bend"        FAIL
+            "bends"        FAIL
+            "pale"        FAIL
+            "pales"       FAIL
 
 TIERCED :   "tierced"  OK
             "tierc"    FAIL
