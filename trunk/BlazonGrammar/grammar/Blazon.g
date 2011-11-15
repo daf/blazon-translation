@@ -96,7 +96,7 @@ shield returns [Shield s]
 		    ( charges[$field.field.getTinctureTypeOfLayer()] { $s.addCharges($charges.charges); })?
 		    {
 		        //LATER make HTML pretty
-				    //TODO multiple geometric charges
+				    //TODO mobile geometric charges
 				    //TODO advanced charges
 				    $s.addDiagnostics(diags);
 				}

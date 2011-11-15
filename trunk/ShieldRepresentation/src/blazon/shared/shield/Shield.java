@@ -9,7 +9,7 @@ public interface Shield {
 	List<ShieldDiagnostic> getShieldDiagnostics();
 	void addDiagnostics(List<ShieldDiagnostic> diagnostics);
 	String getBlazon();
-	ShieldLayer getField();
+	Field getField();
 	void addCharges(List<GeometricCharge> charges);
 	List<GeometricCharge> getCharges();
 }

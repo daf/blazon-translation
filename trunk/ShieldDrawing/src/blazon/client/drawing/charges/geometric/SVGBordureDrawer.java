@@ -15,7 +15,7 @@ public class SVGBordureDrawer extends SVGShieldShapeChargeDrawer {
 	}
 
 	@Override
-	public OMSVGGElement drawOrdinary(OMSVGGElement shieldContainer, CubicBezierCurve curve) {
+	public OMSVGGElement drawOrdinary(CubicBezierCurve curve) {
 		OMSVGGElement ordinaries = doc.createSVGGElement();
 		OMSVGPathElement path = doc.createSVGPathElement();
 		drawScaledAndOffsetShieldShape(curve, path, 6, 0);

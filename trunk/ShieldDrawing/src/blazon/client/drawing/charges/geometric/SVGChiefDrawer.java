@@ -13,7 +13,7 @@ public class SVGChiefDrawer extends SVGOrdinaryDrawer {
 	}
 
 	@Override
-	public OMSVGGElement drawOrdinary(OMSVGGElement shieldContainer, CubicBezierCurve curve) {
+	public OMSVGGElement drawOrdinary(CubicBezierCurve curve) {
 		OMSVGGElement ordinaries = doc.createSVGGElement();
 		final float thirdY = yMax/3f;
 		putNewRectElementOnGElement(ordinaries, xMin, yMin, xMax, thirdY, charge.getTincture());

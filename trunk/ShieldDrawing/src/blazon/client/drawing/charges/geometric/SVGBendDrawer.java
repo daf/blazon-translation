@@ -18,7 +18,7 @@ public class SVGBendDrawer extends SVGOrdinaryDrawer {
 	}
 
 	@Override
-	public OMSVGGElement drawOrdinary(OMSVGGElement shieldContainer, CubicBezierCurve curve) {
+	public OMSVGGElement drawOrdinary(CubicBezierCurve curve) {
 		OMSVGGElement ordinaries = doc.createSVGGElement();
 		final float chargeSideLength = (float) Math.sqrt(2 * Math.pow(chargeSize, 2));
 		Polygon polygon = new PolygonImpl(

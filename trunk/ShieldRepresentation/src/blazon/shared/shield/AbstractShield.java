@@ -30,5 +30,5 @@ public abstract class AbstractShield implements Shield, Serializable {
 		return blazon;
 	}
 
-	public abstract ShieldLayer getField();
+	public abstract Field getField();
 }
