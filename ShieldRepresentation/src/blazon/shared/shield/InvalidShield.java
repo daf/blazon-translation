@@ -57,7 +57,7 @@ public class InvalidShield extends AbstractShield {
 	}
 
 	@Override
-	public ShieldLayer getField() {
+	public Field getField() {
 		throw new UnsupportedOperationException("An InvalidShield object does not have a field.");
 	}
 

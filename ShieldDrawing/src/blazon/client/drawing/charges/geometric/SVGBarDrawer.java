@@ -13,7 +13,7 @@ public class SVGBarDrawer extends SVGOrdinaryDrawer {
 	}
 
 	@Override
-	public OMSVGGElement drawOrdinary(OMSVGGElement shieldContainer, CubicBezierCurve curve) {
+	public OMSVGGElement drawOrdinary(CubicBezierCurve curve) {
 		OMSVGGElement ordinaries = doc.createSVGGElement();
 		final float fifthY = yMax/5f;
 		final float offset = yMax/15f;

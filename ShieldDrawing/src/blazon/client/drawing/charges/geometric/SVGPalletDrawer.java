@@ -13,7 +13,7 @@ public class SVGPalletDrawer extends SVGOrdinaryDrawer {
 	}
 
 	@Override
-	public OMSVGGElement drawOrdinary(OMSVGGElement shieldContainer, CubicBezierCurve curve) {
+	public OMSVGGElement drawOrdinary(CubicBezierCurve curve) {
 		OMSVGGElement ordinaries = doc.createSVGGElement();
 		final float fifthX = xMax/5f;
 		float offset = xMax/15f;

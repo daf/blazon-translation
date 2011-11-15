@@ -16,7 +16,7 @@ public class SVGPileDrawer extends SVGOrdinaryDrawer {
 	}
 
 	@Override
-	public OMSVGGElement drawOrdinary(OMSVGGElement shieldContainer,	CubicBezierCurve curve) {
+	public OMSVGGElement drawOrdinary(CubicBezierCurve curve) {
 		OMSVGGElement ordinaries = doc.createSVGGElement();
 		final float xMid = xMax/2f;
 		final float thirdX = xMax/3f;

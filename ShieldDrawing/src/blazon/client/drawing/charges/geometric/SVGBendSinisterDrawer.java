@@ -16,7 +16,7 @@ public class SVGBendSinisterDrawer extends SVGOrdinaryDrawer {
 	}
 
 	@Override
-	public OMSVGGElement drawOrdinary(OMSVGGElement shieldContainer, CubicBezierCurve curve) {
+	public OMSVGGElement drawOrdinary(CubicBezierCurve curve) {
 		OMSVGGElement ordinaries = doc.createSVGGElement();
 		final float tenthX = xMax/10f;
 		final float tenthY = yMax/10f;

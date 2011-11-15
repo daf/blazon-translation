@@ -15,6 +15,9 @@ import org.vectomatic.dom.svg.utils.OMSVGParser;
 import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import blazon.client.drawing.charges.geometric.SVGOrdinaryDrawer;
+import blazon.client.drawing.charges.geometric.SVGOrdinaryDrawerFactory;
+import blazon.client.drawing.field.SVGFieldDrawer;
+import blazon.client.drawing.field.SVGFieldDrawerFactory;
 import blazon.client.drawing.shapes.CubicBezierCurve;
 import blazon.shared.shield.Shield;
 import blazon.shared.shield.ShieldImpl;
@@ -52,11 +55,11 @@ public class SVGShieldDrawer {
 	    	OMSVGDefsElement defs = doc.createSVGDefsElement();
 	    	svg.appendChild(defs);
 	    	shieldContainer.setAttribute(SVGConstants.SVG_MASK_ATTRIBUTE, "url(#ShieldMask)");
-	        SVGFieldDrawer fieldDrawer = new SVGFieldDrawer((ShieldImpl)shield, defs, width, height);
-	        fieldDrawer.drawField(shieldContainer, curve);
-	        List<SVGOrdinaryDrawer> ordinaryDrawers = SVGOrdinaryDrawer.createDrawers((ShieldImpl)shield, defs, width, height);
+	        SVGFieldDrawer fieldDrawer = new SVGFieldDrawerFactory().createDrawer(shield.getField(), defs, width, height);
+	        shieldContainer.appendChild(fieldDrawer.drawField(curve));
+	        List<SVGOrdinaryDrawer> ordinaryDrawers = new SVGOrdinaryDrawerFactory().createDrawers(shield, defs, width, height);
 	        for (SVGOrdinaryDrawer ordinaryDrawer : ordinaryDrawers) {
-		        shieldContainer.appendChild(ordinaryDrawer.drawOrdinary(shieldContainer, curve));
+		        shieldContainer.appendChild(ordinaryDrawer.drawOrdinary(curve));
 	        }
     	}
     }
