@@ -96,7 +96,6 @@ shield returns [Shield s]
 		    ( charges[$field.field.getTinctureTypeOfLayer()] { $s.addCharges($charges.charges); })?
 		    {
 		        //LATER make HTML pretty
-				    //TODO mobile geometric charges
 				    //TODO advanced charges
 				    $s.addDiagnostics(diags);
 				}
@@ -157,7 +156,7 @@ charges [TinctureType underLayerTinctureType] returns [List<GeometricCharge> cha
         ;
 
 single_geometric_charge [Tinctures tinctures, TinctureType underLayerTinctureType] returns [GeometricCharge charge]
-        :   ord = (ORDINARY_DIV | OTHER_ORDINARY | SUBORDINARY_DIV | SUBORDINARY ) { String text = $ord.text; }
+        :   ord = (ORDINARY_DIV | OTHER_ORDINARY | SUBORDINARY_DIV | SUBORDINARY) { String text = $ord.text; }
             ( MODIFIER { text += "_" + $MODIFIER.text; } )?
             t=tincture[tinctures]
             { 
@@ -167,7 +166,7 @@ single_geometric_charge [Tinctures tinctures, TinctureType underLayerTinctureTyp
         ;
 
 multiple_geometric_charges [Tinctures tinctures, TinctureType underLayerTinctureType, int number] returns [List<GeometricCharge> charges]
-        :   ords = SUBORDINARY_MULTIPLE { String text = $ords.text; }
+        :   ords = (SUBORDINARY_MULTIPLE | MOBILE_CHARGE) { String text = $ords.text; }
             {
                 if (number > 1) {
                     if (!text.endsWith("s")) {
@@ -310,6 +309,10 @@ VARIABLE_DIV
         
 SUBORDINARY_MULTIPLE 
         :   ('bar'|'bendlet'|'pallet'|'chevronel')'s'?
+        ;
+
+MOBILE_CHARGE
+        :   ('in'?'escutcheon' | 'billet' | 'lozenge' | 'mascle' | 'fusil' | 'rustre' | 'roundel' | 'annulet' | 'mullet' | 'star')'s'?
         ;
         
 CONTINUOUS_DIV

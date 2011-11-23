@@ -31,7 +31,18 @@ public enum GeometricChargeNames implements Serializable {
 	BENDLET(GeometricChargeType.SUBORDINARY), 
 	BENDLET_SINISTER(GeometricChargeType.SUBORDINARY),
 	PALLET(GeometricChargeType.SUBORDINARY), 
-	CHEVRONEL(GeometricChargeType.SUBORDINARY);
+	CHEVRONEL(GeometricChargeType.SUBORDINARY),
+	
+	ESCUTCHEON(GeometricChargeType.MOBILE),
+	BILLET(GeometricChargeType.MOBILE),
+	LOZENGE(GeometricChargeType.MOBILE),
+	FUSIL(GeometricChargeType.MOBILE),
+	MASCLE(GeometricChargeType.MOBILE),
+	RUSTRE(GeometricChargeType.MOBILE),
+	ROUNDEL(GeometricChargeType.MOBILE),
+	MULLET(GeometricChargeType.MOBILE),
+	STAR(GeometricChargeType.MOBILE), 
+	ANNULET(GeometricChargeType.MOBILE);
 	
 	private GeometricChargeType geometricChargeType;
 
@@ -45,6 +56,8 @@ public enum GeometricChargeNames implements Serializable {
 				return new Ordinary();
 			case SUBORDINARY:
 				return new Subordinary();
+			case MOBILE:
+				return new MobileCharge();
 			default:
 				return null;
 		}
@@ -61,6 +74,7 @@ public enum GeometricChargeNames implements Serializable {
 	
 	enum GeometricChargeType implements Serializable {
 		ORDINARY,
-		SUBORDINARY;
+		SUBORDINARY,
+		MOBILE
 	}
 }
