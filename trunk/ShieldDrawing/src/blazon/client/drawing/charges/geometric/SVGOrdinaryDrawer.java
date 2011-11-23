@@ -1,5 +1,7 @@
 package blazon.client.drawing.charges.geometric;
 
+import java.util.List;
+
 import org.vectomatic.dom.svg.OMSVGDefsElement;
 import org.vectomatic.dom.svg.OMSVGDocument;
 import org.vectomatic.dom.svg.OMSVGElement;
@@ -16,6 +18,7 @@ import blazon.client.drawing.shapes.Polygon;
 import blazon.client.drawing.shield.fur.AbstractFurSVGBuilder;
 import blazon.client.drawing.shield.fur.FurSVGBuilder;
 import blazon.shared.shield.charges.GeometricCharge;
+import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.tinctures.Fur;
 import blazon.shared.shield.tinctures.Tincture;
 
@@ -23,16 +26,18 @@ public abstract class SVGOrdinaryDrawer {
 
 	protected final OMSVGDocument doc = OMSVGParser.currentDocument();
 	protected final GeometricCharge charge;
-	private final OMSVGDefsElement defs;
+	protected final OMSVGDefsElement defs;
 	protected final int xMax;
 	protected final int xMin;
 	protected final int yMax;
 	protected final int yMin;
 	protected final int occurrences;
+	protected final List<ShieldDiagnostic> diags;
 
-	protected SVGOrdinaryDrawer(GeometricCharge charge, OMSVGDefsElement defs, int shieldWidth, int shieldHeight, int occurrences) {
+	protected SVGOrdinaryDrawer(GeometricCharge charge, OMSVGDefsElement defs, List<ShieldDiagnostic> diags, int shieldWidth, int shieldHeight, int occurrences) {
 		this.charge = charge;
 		this.defs = defs;
+		this.diags = diags;
 		this.xMax = shieldWidth;
 		this.yMax = shieldHeight;
 		this.xMin = 0;
@@ -40,8 +45,8 @@ public abstract class SVGOrdinaryDrawer {
 		this.occurrences = occurrences;
 	}
 	
-	protected SVGOrdinaryDrawer(GeometricCharge charge, OMSVGDefsElement defs, int shieldWidth, int shieldHeight) {
-		this(charge, defs, shieldWidth, shieldHeight, 1);
+	protected SVGOrdinaryDrawer(GeometricCharge charge, OMSVGDefsElement defs, List<ShieldDiagnostic> diags, int shieldWidth, int shieldHeight) {
+		this(charge, defs, diags, shieldWidth, shieldHeight, 1);
 	}
 	
 	public abstract OMSVGGElement drawOrdinary(CubicBezierCurve curve);

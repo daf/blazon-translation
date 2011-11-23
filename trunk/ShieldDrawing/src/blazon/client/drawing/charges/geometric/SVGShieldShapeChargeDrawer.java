@@ -1,16 +1,19 @@
 package blazon.client.drawing.charges.geometric;
 
+import java.util.List;
+
 import org.vectomatic.dom.svg.OMSVGDefsElement;
 import org.vectomatic.dom.svg.OMSVGPathElement;
 import org.vectomatic.dom.svg.OMSVGPathSegList;
 
 import blazon.client.drawing.shapes.CubicBezierCurve;
 import blazon.shared.shield.charges.GeometricCharge;
+import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 
 public abstract class SVGShieldShapeChargeDrawer extends SVGOrdinaryDrawer {
 
-	protected SVGShieldShapeChargeDrawer(GeometricCharge charge, OMSVGDefsElement defs,	int shieldWidth, int shieldHeight) {
-		super(charge, defs, shieldWidth, shieldHeight);
+	protected SVGShieldShapeChargeDrawer(GeometricCharge charge, OMSVGDefsElement defs,	List<ShieldDiagnostic> diags, int shieldWidth, int shieldHeight) {
+		super(charge, defs, diags, shieldWidth, shieldHeight);
 	}
 
 	protected void drawScaledAndOffsetShieldShape(CubicBezierCurve curve, OMSVGPathElement path, float chargeWidthDenomenator, float offset) {
