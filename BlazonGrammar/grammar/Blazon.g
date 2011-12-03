@@ -149,6 +149,8 @@ charges [TinctureType underLayerTinctureType] returns [List<GeometricCharge> cha
                         $charges.addAll($multiple_geometric_charges.charges);
                     }
                 }
+            |
+                advanced_charge[tinctures, underLayerTinctureType]
             )
             {
                 
@@ -278,6 +280,14 @@ number_digits_or_words
         |   NUMWORDS (AND? NUMWORDS)*
         |   DETERMINER
         ;
+        
+advanced_charge [Tinctures tinctures, TinctureType underLayerTinctureType]
+        :  number_digits_or_words BEAST ATTITUDE ATTITUDE_MODIFIER* tincture[tinctures]
+           {
+               diags.add(ShieldDiagnostic.build(LogLevel.INFO, "number: '" + $number_digits_or_words.text + "'. charge: '" + $BEAST.text + "'. attitude: '" + $ATTITUDE.text + "'. attitudemod: '" + $ATTITUDE_MODIFIER.text + "'. tincture: '" + $tincture.tincture + "'."));
+               diagnoseRuleOfTincture($tincture.tincture, underLayerTinctureType);
+           }
+        ;
 
 MODIFIER
         :   'reversed' | 'sinister'
@@ -313,6 +323,17 @@ SUBORDINARY_MULTIPLE
 
 MOBILE_CHARGE
         :   ('in'?'escutcheon' | 'billet' | 'lozenge' | 'mascle' | 'fusil' | 'rustre' | 'roundel' | 'annulet' | 'mullet' | 'star')'s'?
+        ;
+        
+BEAST   :   'lion'
+        ;
+        
+ATTITUDE
+        :   'rampant' | 'sejant'
+        ;
+        
+ATTITUDE_MODIFIER
+        :   'guardant' | 'reguardant'
         ;
         
 CONTINUOUS_DIV
@@ -356,7 +377,7 @@ AND     :   'and'
 
 DETERMINER
         :   'a' | 'an'
-        ;
+        ;        
 
 WS      :   (' '|'\t')+ { $channel=HIDDEN; }
         ;

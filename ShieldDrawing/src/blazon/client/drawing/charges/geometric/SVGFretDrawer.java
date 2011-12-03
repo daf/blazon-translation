@@ -30,18 +30,18 @@ public class SVGFretDrawer extends SVGOrdinaryDrawer {
 		fret.appendChild(bendletSinister);
 		final float bendletWidth = xMax/20f;
 		final float bendletSideLength = (float) Math.sqrt(2 * Math.pow(bendletWidth, 2));
-		float scale = 0.365f;
+		float scale = 0.369f;
 		Polygon bendletPart = new PolygonImpl(
 				new Point(xMin, yMin+bendletSideLength), new Point(xMin, yMin), new Point(xMin+bendletSideLength, yMin), 
 				new Point(xMax*scale, yMax*scale-bendletSideLength), new Point(xMax*scale-bendletSideLength, yMax*scale));
 		putNewPolygonElementOnGElement(fret, charge.getTincture(), bendletPart);
-		scale = 0.455f;
-		float scale2 = 0.615f;
+		scale = 0.453f;
+		float scale2 = 0.6169f;
 		bendletPart = new PolygonImpl(
 				new Point(xMax*scale, yMax*scale-bendletSideLength), new Point(xMax*scale-bendletSideLength, yMax*scale),
 				new Point(xMax*scale2-bendletSideLength, yMax*scale2), new Point(xMax*scale2, yMax*scale2-bendletSideLength));
 		putNewPolygonElementOnGElement(fret, charge.getTincture(), bendletPart);
-		scale = 0.705f;
+		scale = 0.701f;
 		bendletPart = new PolygonImpl(
 				new Point(xMax*scale-bendletSideLength, yMax*scale), new Point(xMax*scale, yMax*scale-bendletSideLength), 
 				new Point(xMax, yMax-bendletSideLength), new Point(xMax, yMax), new Point(xMax-bendletSideLength, yMax));
