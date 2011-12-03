@@ -6,7 +6,7 @@
 <web-app>
   
   <!-- Servlets -->
-<servlet>
+  <servlet>
     <servlet-name>shieldDrawing</servlet-name>
     <servlet-class>blazon.server.BlazonParsingServiceImpl</servlet-class>
   </servlet>

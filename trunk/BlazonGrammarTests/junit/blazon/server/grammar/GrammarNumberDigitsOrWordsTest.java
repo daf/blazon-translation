@@ -3,6 +3,8 @@ package blazon.server.grammar;
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 
+import org.antlr.runtime.NoViableAltException;
+
 public class GrammarNumberDigitsOrWordsTest {
 
 	@Test public void testThatNumberDigitsOrWordsAccepts1() throws RecognitionException {
@@ -50,13 +52,7 @@ public class GrammarNumberDigitsOrWordsTest {
 		parser.number_digits_or_words();
 	}
 	
-	@Test(expected=RecognitionException.class)
-	public void testThatNumberOfDigitsOrWordsDoesNotAcceptBlah() throws RecognitionException {
-		BlazonParser parser = new ParserCreator().createParser("blah");
-		parser.number_digits_or_words();
-	}
-	
-	@Test(expected=RecognitionException.class)
+	@Test(expected=NoViableAltException.class)
 	public void testThatNumberOfDigitsOrWordsDoesNotAcceptVert() throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("vert");
 		parser.number_digits_or_words();

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.antlr.runtime.MismatchedSetException;
+import org.antlr.runtime.NoViableAltException;
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 
@@ -100,13 +101,10 @@ public class GrammarOrdinaryTest {
 		parser.single_geometric_charge(tinctures, TinctureType.OTHER);
 	}
 	
-	@Test
-	public void testThatBendBlahGulesReturnsAnObjectRepresentingBend() throws RecognitionException, UnknownTinctureException {
+	@Test(expected=NoViableAltException.class)
+	public void testThatBendBlahThrowsNoViableAltException() throws RecognitionException, UnknownTinctureException {
 		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
-		BlazonParser parser = new ParserCreator().createParser("bend blah gules", diags);
-		Tinctures tinctures = new Tinctures(); 
-		GeometricCharge ordinary = parser.single_geometric_charge(tinctures, TinctureType.OTHER);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BEND)));
-		assertThat(ordinary.getTincture(), is(tinctures.getTincture("gules")));
+		BlazonParser parser = new ParserCreator().createParser("bend blah", diags);
+		parser.single_geometric_charge(new Tinctures(), TinctureType.OTHER);
 	}
 }

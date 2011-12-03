@@ -249,13 +249,6 @@ public class GrammarChargesTest {
 	}
 	
 	@Test(expected=NoViableAltException.class)
-	public void testThatBlahBendletsGulesThrowsANoViableAltException() throws RecognitionException {
-		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
-		BlazonParser parser = new ParserCreator().createParser("blah bendlets gules", diags);
-		parser.charges(TinctureType.OTHER);
-	}
-	
-	@Test(expected=NoViableAltException.class)
 	public void testThatABlahGulesThrowsAMismatchedSetException() throws RecognitionException {
 		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
 		BlazonParser parser = new ParserCreator().createParser("a blah gules", diags);
@@ -269,10 +262,10 @@ public class GrammarChargesTest {
 		parser.charges(TinctureType.OTHER);
 	}
 	
-	@Test
-	public void testThatABendBlahGulesReturnsAnObjectRepresentingBend() throws RecognitionException, UnknownTinctureException {
+	@Test(expected=NoViableAltException.class)
+	public void testThatABendBlahThrowsNoViableAltException() throws RecognitionException, UnknownTinctureException {
 		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
-		BlazonParser parser = new ParserCreator().createParser("a bend blah gules", diags);
+		BlazonParser parser = new ParserCreator().createParser("a bend blah", diags);
 		Tinctures tinctures = new Tinctures(); 
 		List<GeometricCharge> charges = parser.charges(TinctureType.OTHER);
 		GeometricCharge ordinary = charges.get(0);
