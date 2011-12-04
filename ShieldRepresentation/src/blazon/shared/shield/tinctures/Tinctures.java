@@ -43,8 +43,7 @@ public class Tinctures implements Serializable {
 		map.put("vair-en-pale", Fur.build("vair-en-pale", "blue", "white"));
 		map.put("potent", Fur.build("potent", "blue", "white"));
 		map.put("counter-potent", Fur.build("counter-potent", "blue", "white"));
-		map.put("potent-en-point",
-				Fur.build("potent-en-point", "blue", "white"));
+		map.put("potent-en-point", Fur.build("potent-en-point", "blue", "white"));
 		map.put("potent-en-pale", Fur.build("potent-en-pale", "blue", "white"));
 		map.put("ermine", Fur.build("ermine", "white", "black"));
 		map.put("ermines", Fur.build("ermines", "black", "white"));
@@ -73,8 +72,7 @@ public class Tinctures implements Serializable {
 	 */
 	public Tincture getTincture(String name) throws UnknownTinctureException {
 		if (name == null || name.isEmpty()) {
-			throw new IllegalArgumentException(
-					"Can not get Tincture with null or empty name");
+			throw new IllegalArgumentException("Can not get Tincture with null or empty name");
 		}
 		Tincture tincture = tinctureDefinitions.get(name);
 		if (tincture == null) {
@@ -102,8 +100,7 @@ public class Tinctures implements Serializable {
 				return addedToTincturesOnLayerList;
 			}
 		} catch (NumberConversionException e) {
-			System.err.println("Caught: " + e + "\nCould not add tincture '"
-					+ t + "'");
+			System.err.println("Caught: " + e + "\nCould not add tincture '" + t + "'");
 		}
 		return false;
 	}
