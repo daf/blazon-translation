@@ -16,6 +16,7 @@
 		<copy todir="${ShieldDrawingBin}" overwrite="true">
 			<fileset dir="${BlazonGrammarBin}" />
 		</copy>
+		<copy todir="${ShieldDrawingBin}/META-INF/" file="./ShieldDrawing/build/persistence.xml" />
 		<echo message="Completed copy."/>
 	</target>
 	

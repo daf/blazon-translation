@@ -8,12 +8,22 @@
   <!-- Servlets -->
   <servlet>
     <servlet-name>shieldDrawing</servlet-name>
-    <servlet-class>blazon.server.BlazonParsingServiceImpl</servlet-class>
+    <servlet-class>blazon.server.drawing.BlazonParsingServiceImpl</servlet-class>
+  </servlet>
+  
+    <servlet>
+    <servlet-name>addCharge</servlet-name>
+    <servlet-class>blazon.server.chargeadding.ChargeAddingServiceImpl</servlet-class>
   </servlet>
   
   <servlet-mapping>
     <servlet-name>shieldDrawing</servlet-name>
     <url-pattern>/shielddrawing/draw</url-pattern>
+  </servlet-mapping>
+  
+    <servlet-mapping>
+    <servlet-name>addCharge</servlet-name>
+    <url-pattern>/shielddrawing/addCharge</url-pattern>
   </servlet-mapping>
   
   <!-- Default page to serve -->
