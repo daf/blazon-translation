@@ -1,4 +1,4 @@
-package blazon.server.chargeadding;
+package blazon.server;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -13,12 +13,12 @@ import javax.persistence.Id;
 import com.google.appengine.api.datastore.Blob;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
-
+import com.google.appengine.api.datastore.Link;
 
 @Entity
-public class Charge {
+public class PersistedCharge {
 	
-	public Charge(final String charge, final String attitude, final String attitudeModifier, final String tincture, final Map<String, String> bodyPartsWithTincture,  final Blob imageData, final String imageSource) {
+	public PersistedCharge(final String charge, final String attitude, final String attitudeModifier, final String tincture, final Map<String, String> bodyPartsWithTincture,  final Blob imageData, final String imageSource) {
 		if (charge == null) {
 			throw new IllegalArgumentException("Can not create a charge to be stored in the database with a null charge name.");
 		}
@@ -42,7 +42,7 @@ public class Charge {
 		this.attitudeModifier = attitudeModifier;
 		this.tincture = tincture;
 		this.imageData = imageData;
-		this.imageSource = imageSource;
+		this.imageSource = new Link(imageSource);
 		this.dateOfSourceAccess = new Date();
 		
 		Set<String> bodyPartsSet = new HashSet<String>();
@@ -56,7 +56,7 @@ public class Charge {
 			}
 		}
 		this.bodyPartsWithTincture = bodyPartsSet;
-		this.key = KeyFactory.createKey(Charge.class.getSimpleName(), sb.toString());
+		this.key = KeyFactory.createKey(PersistedCharge.class.getSimpleName(), sb.toString());
 	}
 	
 	@Id
@@ -73,46 +73,14 @@ public class Charge {
 
 	private Blob imageData;
 	
-	private String imageSource;
+	private Link imageSource;
 	
 	private Date dateOfSourceAccess;
 	
 	private Set<String> bodyPartsWithTincture;
 
-	Blob getImageData() {
-		return imageData;
-	}
-
-	Key getKey() {
-		return key;
-	}
-
-	String getCharge() {
-		return charge;
-	}
-
-	String getAttitude() {
-		return attitude;
-	}
-
-	Set<String> getBodyPartsWithTincture() {
-		return bodyPartsWithTincture;
-	}
-
-	Date getDateOfSourceAccess() {
-		return dateOfSourceAccess;
-	}
-
-	String getImageSource() {
-		return imageSource;
-	}
-
-	String getTincture() {
-		return tincture;
-	}
-
-	String getAttitudeModifier() {
-		return attitudeModifier;
+	public String getImageSource() {
+		return imageSource.getValue();
 	}
 
 }

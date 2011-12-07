@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import blazon.shared.shield.charges.Charge;
 import blazon.shared.shield.charges.GeometricCharge;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic.LogLevel;
@@ -57,7 +58,7 @@ public class ShieldImplTest {
 	public void testThatGetChargesWhenNoneHaveBeenAddedReturnsEmptyCollection() {
 		Field layer = Field.buildUndividedShieldLayer(new Tinctures());
 		ShieldImpl shield = (ShieldImpl) ShieldImpl.build(layer, null);
-		List<GeometricCharge> charges = shield.getCharges();
+		List<Charge> charges = shield.getCharges();
 		assertThat(charges, is(notNullValue()));
 		assertThat(charges.size(), is(0));
 	}
@@ -67,7 +68,7 @@ public class ShieldImplTest {
 		Field layer = Field.buildUndividedShieldLayer(new Tinctures());
 		ShieldImpl shield = (ShieldImpl) ShieldImpl.build(layer, null);
 		shield.addCharges(null);
-		List<GeometricCharge> chargesOnShield = shield.getCharges();
+		List<Charge> chargesOnShield = shield.getCharges();
 		assertThat(chargesOnShield, is(notNullValue()));
 		assertThat(chargesOnShield.size(), is(0));
 	}
@@ -76,9 +77,9 @@ public class ShieldImplTest {
 	public void testThatGetChargesAfterAddingEmptyCollectionReturnsEmptyCollection() throws UnknownTinctureException {
 		Field layer = Field.buildUndividedShieldLayer(new Tinctures());
 		ShieldImpl shield = (ShieldImpl) ShieldImpl.build(layer, null);
-		List<GeometricCharge> chargesToAdd = new ArrayList<GeometricCharge>();
+		List<Charge> chargesToAdd = new ArrayList<Charge>();
 		shield.addCharges(chargesToAdd);
-		List<GeometricCharge> chargesOnShield = shield.getCharges();
+		List<Charge> chargesOnShield = shield.getCharges();
 		assertThat(chargesOnShield, is(notNullValue()));
 		assertThat(chargesOnShield.size(), is(0));
 	}
@@ -90,25 +91,25 @@ public class ShieldImplTest {
 		GeometricCharge charge1 = GeometricCharge.build("bend", new Tinctures().getTincture("gules"), null);
 		GeometricCharge charge2 = GeometricCharge.build("cross", new Tinctures().getTincture("or"), null);
 
-		List<GeometricCharge> chargesOnShield = shield.getCharges();
+		List<Charge> chargesOnShield = shield.getCharges();
 		assertThat(chargesOnShield, is(notNullValue()));
 		assertThat(chargesOnShield.size(), is(0));
-		List<GeometricCharge> chargesToAdd = new ArrayList<GeometricCharge>();
+		List<Charge> chargesToAdd = new ArrayList<Charge>();
 		chargesToAdd.add(charge1);
 		shield.addCharges(chargesToAdd);
 		chargesOnShield = shield.getCharges();
 		assertThat(chargesOnShield, is(notNullValue()));
 		assertThat(chargesOnShield.size(), is(1));
-		assertThat(chargesOnShield.get(0), is(equalTo(charge1)));
+		assertThat((GeometricCharge) chargesOnShield.get(0), is(equalTo(charge1)));
 		
-		chargesToAdd = new ArrayList<GeometricCharge>();
+		chargesToAdd = new ArrayList<Charge>();
 		chargesToAdd.add(charge2);
 		shield.addCharges(chargesToAdd);
 		chargesOnShield = shield.getCharges();
 		assertThat(chargesOnShield, is(notNullValue()));
 		assertThat(chargesOnShield.size(), is(2));
-		assertThat(chargesOnShield.get(0), is(equalTo(charge1)));
-		assertThat(chargesOnShield.get(1), is(equalTo(charge2)));
+		assertThat((GeometricCharge) chargesOnShield.get(0), is(equalTo(charge1)));
+		assertThat((GeometricCharge) chargesOnShield.get(1), is(equalTo(charge2)));
 	}
 	
 	@Test
@@ -116,16 +117,16 @@ public class ShieldImplTest {
 		Field layer = Field.buildUndividedShieldLayer(new Tinctures());
 		ShieldImpl shield = (ShieldImpl) ShieldImpl.build(layer, null);
 		GeometricCharge charge = GeometricCharge.build("bend", new Tinctures().getTincture("gules"), null);
-		List<GeometricCharge> chargesOnShield = shield.getCharges();
+		List<Charge> chargesOnShield = shield.getCharges();
 		assertThat(chargesOnShield, is(notNullValue()));
 		assertThat(chargesOnShield.size(), is(0));
-		List<GeometricCharge> chargesToAdd = new ArrayList<GeometricCharge>();
+		List<Charge> chargesToAdd = new ArrayList<Charge>();
 		chargesToAdd.add(charge);
 		shield.addCharges(chargesToAdd);
 		chargesOnShield = shield.getCharges();
 		assertThat(chargesOnShield, is(notNullValue()));
 		assertThat(chargesOnShield.size(), is(1));
-		assertThat(chargesOnShield.get(0), is(equalTo(charge)));
+		assertThat((GeometricCharge) chargesOnShield.get(0), is(equalTo(charge)));
 	}
 	
 	@Test

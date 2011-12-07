@@ -3,7 +3,6 @@ package blazon.client.ui;
 import java.util.HashMap;
 import java.util.Map;
 
-
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
@@ -28,7 +27,7 @@ public class BlazonToImageConverter implements EntryPoint {
 		final TextBox attitudeModifierTextBox = addLabelWithGivenTextAndTextBoxToPanel(chargeAddingPanel, "Attitude Modifier:");
 		final TextBox tinctureTextBox = addLabelWithGivenTextAndTextBoxToPanel(chargeAddingPanel, "Charge Tincture:");
 		
-		// TODO add dropdown for number of body parts, and add appropriagte number of text boxes
+		// TODO add dropdown for number of body parts, and add appropriate number of text boxes
 		Map<TextBox, TextBox> bodyParts = new HashMap<TextBox, TextBox>();
 		
 		TextBox bodyPart = addLabelWithGivenTextAndTextBoxToPanel(chargeAddingPanel, "Body Part 1:");
@@ -42,6 +41,8 @@ public class BlazonToImageConverter implements EntryPoint {
 		Button button = new Button("Add Charge");
 		chargeAddingPanel.add(button);
         button.addClickHandler(new AddChargeButtonClickHandler(chargeTextBox, attituteTextBox, attitudeModifierTextBox, tinctureTextBox, bodyParts, imageLocationTextBox));
+        
+//		TODO add feedback for image adding and tidy the callback code
 	}
 
 	private TextBox addLabelWithGivenTextAndTextBoxToPanel(Panel panel, String labelText) {

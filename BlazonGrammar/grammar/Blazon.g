@@ -117,10 +117,10 @@ field returns [Field field]
         )
 		    ;
 
-charges [TinctureType underLayerTinctureType] returns [List<GeometricCharge> charges]
+charges [TinctureType underLayerTinctureType] returns [List<Charge> charges]
         :   { 
               Tinctures tinctures = new Tinctures();
-              $charges = new ArrayList<GeometricCharge>();
+              $charges = new ArrayList<Charge>();
             }
             (
                 DETERMINER single_geometric_charge[tinctures, underLayerTinctureType]
@@ -151,6 +151,11 @@ charges [TinctureType underLayerTinctureType] returns [List<GeometricCharge> cha
                 }
             |
                 advanced_charge[tinctures, underLayerTinctureType]
+                {
+                    if ($advanced_charge.charges != null) {
+                        $charges.addAll($advanced_charge.charges);
+                    }
+                }
             )
             {
                 
@@ -167,7 +172,7 @@ single_geometric_charge [Tinctures tinctures, TinctureType underLayerTinctureTyp
             }
         ;
 
-multiple_geometric_charges [Tinctures tinctures, TinctureType underLayerTinctureType, int number] returns [List<GeometricCharge> charges]
+multiple_geometric_charges [Tinctures tinctures, TinctureType underLayerTinctureType, int number] returns [List<Charge> charges]
         :   ords = (SUBORDINARY_MULTIPLE | MOBILE_CHARGE) { String text = $ords.text; }
             {
                 if (number > 1) {
@@ -187,14 +192,25 @@ multiple_geometric_charges [Tinctures tinctures, TinctureType underLayerTincture
             t=tincture[tinctures]
             { 
                 diagnoseRuleOfTincture(t, underLayerTinctureType);
-                $charges = new ArrayList<GeometricCharge>();
+                $charges = new ArrayList<Charge>();
                 for (int i = 0; i < number; i++) {
-                    GeometricCharge charge = GeometricCharge.build(text, t, diags);
+                    Charge charge = GeometricCharge.build(text, t, diags);
                     $charges.add(charge);
                 }
             }
         ;
 
+        
+advanced_charge [Tinctures tinctures, TinctureType underLayerTinctureType] returns [List<Charge> charges]
+        :  number_digits_or_words BEAST ATTITUDE ATTITUDE_MODIFIER? tincture[tinctures]
+           {
+               diags.add(ShieldDiagnostic.build(LogLevel.INFO, "number: '" + $number_digits_or_words.text + "'. charge: '" + $BEAST.text + "'. attitude: '" + $ATTITUDE.text + "'. attitudemod: '" + $ATTITUDE_MODIFIER.text + "'. tincture: '" + $tincture.tincture + "'."));
+               diagnoseRuleOfTincture($tincture.tincture, underLayerTinctureType);
+               AdvancedCharge charge = new AdvancedCharge($BEAST.text, $ATTITUDE.text, $ATTITUDE_MODIFIER.text, $tincture.tincture);
+               charges = new ArrayList<Charge>();
+               charges.add(charge);
+           }
+        ;
 div returns [ShieldDivisionType division]
         :   { String text = ""; }
         (    
@@ -279,14 +295,6 @@ number_digits_or_words
         :   DIGITS
         |   NUMWORDS (AND? NUMWORDS)*
         |   DETERMINER
-        ;
-        
-advanced_charge [Tinctures tinctures, TinctureType underLayerTinctureType]
-        :  number_digits_or_words BEAST ATTITUDE ATTITUDE_MODIFIER* tincture[tinctures]
-           {
-               diags.add(ShieldDiagnostic.build(LogLevel.INFO, "number: '" + $number_digits_or_words.text + "'. charge: '" + $BEAST.text + "'. attitude: '" + $ATTITUDE.text + "'. attitudemod: '" + $ATTITUDE_MODIFIER.text + "'. tincture: '" + $tincture.tincture + "'."));
-               diagnoseRuleOfTincture($tincture.tincture, underLayerTinctureType);
-           }
         ;
 
 MODIFIER
