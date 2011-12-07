@@ -8,7 +8,7 @@ import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic.LogLevel;
 import blazon.shared.shield.tinctures.Tincture;
 
-public abstract class GeometricCharge implements Serializable {
+public abstract class GeometricCharge implements Charge, Serializable {
 
 	private static final long serialVersionUID = 7555507684783697344L;
 	
@@ -40,6 +40,16 @@ public abstract class GeometricCharge implements Serializable {
 			errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Unknown geometric charge '" + name + "'. No geometric charge used."));
 			return null;
 		}
+	}
+	
+	@Override
+	public final boolean setSource(String source) {
+		return false;
+	}
+	
+	@Override
+	public final boolean hasSource() {
+		return true;
 	}
 	
 	public GeometricChargeNames getName() {

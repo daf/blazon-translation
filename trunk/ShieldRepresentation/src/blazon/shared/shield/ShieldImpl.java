@@ -3,7 +3,7 @@ package blazon.shared.shield;
 import java.util.ArrayList;
 import java.util.List;
 
-import blazon.shared.shield.charges.GeometricCharge;
+import blazon.shared.shield.charges.Charge;
 
 /**
  * A class representing the entire shield to be drawn.
@@ -14,7 +14,7 @@ public class ShieldImpl extends AbstractShield {
 
 	private static final long serialVersionUID = 4665249893045885094L;
 	private Field field;
-	private List<GeometricCharge> charges;
+	private List<Charge> charges;
 
 	private ShieldImpl() {}
 	
@@ -70,7 +70,7 @@ public class ShieldImpl extends AbstractShield {
 	}
 
 	@Override
-	public void addCharges(List<GeometricCharge> charges) {
+	public void addCharges(List<Charge> charges) {
 		if (charges == null) { return; }
 		if (this.charges == null || this.charges.isEmpty()) {
 			this.charges = charges;
@@ -80,9 +80,9 @@ public class ShieldImpl extends AbstractShield {
 	}
 
 	@Override
-	public List<GeometricCharge> getCharges() {
+	public List<Charge> getCharges() {
 		if (charges == null) {
-			charges = new ArrayList<GeometricCharge>();
+			charges = new ArrayList<Charge>();
 		}
 		return charges;
 	}
