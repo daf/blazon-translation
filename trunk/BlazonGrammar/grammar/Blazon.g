@@ -96,7 +96,6 @@ shield returns [Shield s]
 		    ( charges[$field.field.getTinctureTypeOfLayer()] { $s.addCharges($charges.charges); })?
 		    {
 		        //LATER make HTML pretty
-				    //TODO advanced charges
 				    $s.addDiagnostics(diags);
 				}
 		    ;
@@ -202,11 +201,10 @@ multiple_geometric_charges [Tinctures tinctures, TinctureType underLayerTincture
 
         
 advanced_charge [Tinctures tinctures, TinctureType underLayerTinctureType] returns [List<Charge> charges]
-        :  number_digits_or_words BEAST ATTITUDE ATTITUDE_MODIFIER? tincture[tinctures]
+        :  DETERMINER BEAST ATTITUDE ATTITUDE_MODIFIER? tincture[tinctures]
            {
-               diags.add(ShieldDiagnostic.build(LogLevel.INFO, "number: '" + $number_digits_or_words.text + "'. charge: '" + $BEAST.text + "'. attitude: '" + $ATTITUDE.text + "'. attitudemod: '" + $ATTITUDE_MODIFIER.text + "'. tincture: '" + $tincture.tincture + "'."));
                diagnoseRuleOfTincture($tincture.tincture, underLayerTinctureType);
-               AdvancedCharge charge = new AdvancedCharge($BEAST.text, $ATTITUDE.text, $ATTITUDE_MODIFIER.text, $tincture.tincture);
+               AdvancedCharge charge = AdvancedCharge.build($BEAST.text, $ATTITUDE.text, $ATTITUDE_MODIFIER.text, $tincture.tincture);
                charges = new ArrayList<Charge>();
                charges.add(charge);
            }
@@ -333,11 +331,11 @@ MOBILE_CHARGE
         :   ('in'?'escutcheon' | 'billet' | 'lozenge' | 'mascle' | 'fusil' | 'rustre' | 'roundel' | 'annulet' | 'mullet' | 'star')'s'?
         ;
         
-BEAST   :   'lion'
+BEAST   :   'lion' | 'dragon'
         ;
         
 ATTITUDE
-        :   'rampant' | 'sejant'
+        :   'rampant' | 'sejant' | 'passant'
         ;
         
 ATTITUDE_MODIFIER
