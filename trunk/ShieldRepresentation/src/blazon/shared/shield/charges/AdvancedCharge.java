@@ -3,29 +3,25 @@ package blazon.shared.shield.charges;
 import java.io.Serializable;
 
 import blazon.shared.shield.tinctures.Tincture;
-
+//LATER could use proxy pattern with persisted charge
 public class AdvancedCharge implements Charge, Serializable {
 	
 	private static final long serialVersionUID = -6533905684774401769L;
 	
-	private final String name;
-	private final String attitude;
-	private final String attitudeModifier;
-	private final Tincture tincture;
+	private String name;
+	private String attitude;
+	private String attitudeModifier;
+	private Tincture tincture;
 	private String imageSource;
 	
-	public AdvancedCharge(final String name, final String attitude, final String attitudeModifier, final Tincture tincture) {
-		this.name = name;
-		this.attitude = attitude;
-		this.attitudeModifier = attitudeModifier;
-		this.tincture = tincture;
-		this.imageSource = null;
-	}
-	
-	public void setImageSource(final String imageSource) {
-		if (this.imageSource == null) {
-			this.imageSource = imageSource;
-		}
+	public static AdvancedCharge build(final String name, final String attitude, final String attitudeModifier, final Tincture tincture) {
+		AdvancedCharge ac = new AdvancedCharge();
+		ac.name = name;
+		ac.attitude = attitude;
+		ac.attitudeModifier = attitudeModifier;
+		ac.tincture = tincture;
+		ac.imageSource = null;
+		return ac;
 	}
 
 	@Override
@@ -56,6 +52,14 @@ public class AdvancedCharge implements Charge, Serializable {
 		}
 		imageSource = source;
 		return true;
+	}
+
+	public String getSource() {
+		return imageSource;
+	}
+
+	public String getTextDescription() { // TODO add body parts etc
+		return "'" + name + " " + attitude + " " + tincture.getName() + "'";
 	}
 
 }
