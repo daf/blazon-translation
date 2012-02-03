@@ -1,6 +1,7 @@
 package blazon.server.charge.fetching;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -11,6 +12,7 @@ import blazon.shared.charge.fetching.NoImageForAdvancedChargeException;
 import blazon.shared.shield.Shield;
 import blazon.shared.shield.charges.AdvancedCharge;
 import blazon.shared.shield.charges.Charge;
+import blazon.shared.shield.tinctures.Tincture;
 
 public class ImageSourceLocator {
 
@@ -28,17 +30,31 @@ public class ImageSourceLocator {
 	    		if (!charge.hasSource()) {
 	    			AdvancedCharge advCharge = (AdvancedCharge) charge;
 	    			Query q = buildQuery(advCharge, entityManager);
-	        		System.out.println(q);
 	    			List<PersistedCharge> resultList = q.getResultList();
 	        		if (resultList.isEmpty()) {
-	        			//TODO deal with removing some of the body parts
+	        			//TODO try without any body parts specified and see if there are results return a list of them so user can enter blazon
 	        			throw new NoImageForAdvancedChargeException(advCharge);
 	        		}
 	        		else if (resultList.size() == 1) {
 	        			advCharge.setSource(resultList.get(0).getImageSource());
 	        		}
 	        		else {
-	        			//TODO throw some exception
+	        			Map<String, Tincture> specifiedBodyPartsOfAdvCharge = advCharge.getSpecifiedBodyParts();
+	        			PersistedCharge fewestExtraBodyParts = null;
+	        			int numberOfExtraBodyParts = 0;
+	        			for (PersistedCharge persistedCharge : resultList) {
+	        				int numberOfSpecifiedBodyPartsOfPersitedCharge = persistedCharge.getSpecifiedBodyParts().size();
+	        				int differenceInNumberOfSpecifiedBodyParts = numberOfSpecifiedBodyPartsOfPersitedCharge - specifiedBodyPartsOfAdvCharge.size();
+
+	        				if (differenceInNumberOfSpecifiedBodyParts == 0) {
+								fewestExtraBodyParts = persistedCharge;
+								break;
+							} else if (numberOfExtraBodyParts > differenceInNumberOfSpecifiedBodyParts) {
+	        					numberOfExtraBodyParts = differenceInNumberOfSpecifiedBodyParts;
+	        					fewestExtraBodyParts = persistedCharge; 
+	        				}
+						}
+	        			advCharge.setSource(fewestExtraBodyParts.getImageSource());
 	        		}
 	    		}
 	    	}
