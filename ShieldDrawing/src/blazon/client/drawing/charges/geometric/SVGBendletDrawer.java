@@ -15,14 +15,14 @@ import blazon.shared.shield.diagnostic.ShieldDiagnostic.LogLevel;
 import blazon.shared.shield.tinctures.Tincture;
 
 
-public class SVGBendletDrawer extends SVGOrdinaryDrawer {
+public class SVGBendletDrawer extends SVGGeometricChargeDrawer {
 
 	protected SVGBendletDrawer(GeometricCharge charge, OMSVGDefsElement defs, List<ShieldDiagnostic> diags, int shieldWidth, int shieldHeight, int occurrences) {
 		super(charge, defs, diags, shieldWidth, shieldHeight, occurrences);
 	}
 
 	@Override
-	public OMSVGGElement drawOrdinary(CubicBezierCurve curve) {
+	public OMSVGGElement drawCharge(CubicBezierCurve curve) {
 		final float chargeSize = xMax/20f;
 		final float chargeSideLength = (float) Math.sqrt(2 * Math.pow(chargeSize, 2));
 		final float chargeXLength = (float) (xMax - Math.sqrt((Math.pow(chargeSideLength, 2) + (3*Math.pow(yMax, 2)) - Math.pow(xMax, 2)) / 4))/2;

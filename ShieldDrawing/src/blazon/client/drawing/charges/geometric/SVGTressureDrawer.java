@@ -19,7 +19,7 @@ public class SVGTressureDrawer extends SVGShieldShapeChargeDrawer {
 	}
 
 	@Override
-	public OMSVGGElement drawOrdinary(CubicBezierCurve curve) {
+	public OMSVGGElement drawCharge(CubicBezierCurve curve) {
 		OMSVGGElement ordinaries = doc.createSVGGElement();
 		Tincture tincture = charge.getTincture();
 		OMSVGPathElement path = doc.createSVGPathElement();

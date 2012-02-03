@@ -13,7 +13,7 @@ import blazon.shared.shield.charges.GeometricCharge;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.tinctures.Tincture;
 
-public class SVGBendDrawer extends SVGOrdinaryDrawer {
+public class SVGBendDrawer extends SVGGeometricChargeDrawer {
 
 	private final float chargeSize = xMax/10f;
 	
@@ -22,7 +22,7 @@ public class SVGBendDrawer extends SVGOrdinaryDrawer {
 	}
 
 	@Override
-	public OMSVGGElement drawOrdinary(CubicBezierCurve curve) {
+	public OMSVGGElement drawCharge(CubicBezierCurve curve) {
 		OMSVGGElement ordinaries = doc.createSVGGElement();
 		Tincture tincture = charge.getTincture();
 		final float chargeSideLength = (float) Math.sqrt(2 * Math.pow(chargeSize, 2));

@@ -14,7 +14,7 @@ import org.vectomatic.dom.svg.OMSVGTextElement;
 import org.vectomatic.dom.svg.utils.OMSVGParser;
 import org.vectomatic.dom.svg.utils.SVGConstants;
 
-import blazon.client.drawing.charges.geometric.SVGOrdinaryDrawer;
+import blazon.client.drawing.charges.geometric.SVGChargeDrawer;
 import blazon.client.drawing.charges.geometric.SVGChargeDrawerFactory;
 import blazon.client.drawing.field.SVGFieldDrawer;
 import blazon.client.drawing.field.SVGFieldDrawerFactory;
@@ -57,9 +57,9 @@ public class SVGShieldDrawer {
 	    	shieldContainer.setAttribute(SVGConstants.SVG_MASK_ATTRIBUTE, "url(#ShieldMask)");
 	        SVGFieldDrawer fieldDrawer = new SVGFieldDrawerFactory().createDrawer(shield.getField(), defs, width, height);
 	        shieldContainer.appendChild(fieldDrawer.drawField(curve));
-	        List<SVGOrdinaryDrawer> ordinaryDrawers = new SVGChargeDrawerFactory().createDrawers(shield, defs, width, height);
-	        for (SVGOrdinaryDrawer ordinaryDrawer : ordinaryDrawers) {
-		        shieldContainer.appendChild(ordinaryDrawer.drawOrdinary(curve));
+	        List<SVGChargeDrawer> chargeDrawers = new SVGChargeDrawerFactory().createDrawers(shield, defs, width, height);
+	        for (SVGChargeDrawer chargeDrawer : chargeDrawers) {
+		        shieldContainer.appendChild(chargeDrawer.drawCharge(curve));
 	        }
     	}
     }

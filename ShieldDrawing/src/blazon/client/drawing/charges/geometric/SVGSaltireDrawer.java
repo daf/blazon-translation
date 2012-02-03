@@ -13,14 +13,14 @@ import blazon.shared.shield.charges.GeometricCharge;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.tinctures.Tincture;
 
-public class SVGSaltireDrawer extends SVGOrdinaryDrawer {
+public class SVGSaltireDrawer extends SVGGeometricChargeDrawer {
 
 	protected SVGSaltireDrawer(GeometricCharge charge, OMSVGDefsElement defs, List<ShieldDiagnostic> diags, int shieldWidth, int shieldHeight) {
 		super(charge, defs, diags, shieldWidth, shieldHeight);
 	}
 
 	@Override
-	public OMSVGGElement drawOrdinary(CubicBezierCurve curve) {
+	public OMSVGGElement drawCharge(CubicBezierCurve curve) {
 		OMSVGGElement ordinaries = doc.createSVGGElement();
 		Tincture tincture = charge.getTincture();
 		final float xMid = xMax/2f;

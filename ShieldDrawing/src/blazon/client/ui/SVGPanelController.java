@@ -7,13 +7,18 @@ import org.vectomatic.dom.svg.utils.OMSVGParser;
 
 import blazon.client.drawing.SVGShieldDrawer;
 import blazon.shared.shield.Shield;
+import blazon.client.ui.PanelController;
 
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.SimplePanel;
 
-public class SVGPanelController {
+public class SVGPanelController extends PanelController {
 	
+	public SVGPanelController(Panel panel) {
+		super(panel);
+	}
+
 	private static final int PANEL_WIDTH = 400;
 	private static final int PANEL_HEIGHT = 400;
 	private static final int PANEL_BORDER = 10;
@@ -22,13 +27,13 @@ public class SVGPanelController {
 	private final OMSVGDocument doc = OMSVGParser.currentDocument();
 	private final SVGShieldDrawer shieldDrawer = new SVGShieldDrawer(PANEL_WIDTH, PANEL_HEIGHT);
 	
-	public Panel initializePanel() {
+	public void initializePanel() {
 		svgPanel.setSize(PANEL_WIDTH + "px", PANEL_HEIGHT + "px");
 		svgPanel.addStyleName("svgPanel");
 		OMSVGSVGElement svg = createAndInitializeSVGElement();
         shieldDrawer.drawInitialShield(svg);
         svgPanel.getElement().appendChild(svg.getElement());
-        return svgPanel;
+        panel.add(svgPanel);
     }
 
 	private OMSVGSVGElement createAndInitializeSVGElement() {
