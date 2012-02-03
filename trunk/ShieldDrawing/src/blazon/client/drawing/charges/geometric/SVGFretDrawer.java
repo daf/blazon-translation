@@ -13,20 +13,20 @@ import blazon.client.drawing.shapes.PolygonImpl;
 import blazon.shared.shield.charges.GeometricCharge;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 
-public class SVGFretDrawer extends SVGOrdinaryDrawer {
+public class SVGFretDrawer extends SVGGeometricChargeDrawer {
 
 	public SVGFretDrawer(GeometricCharge charge, OMSVGDefsElement defs,	List<ShieldDiagnostic> diags, int shieldWidth, int shieldHeight) {
 		super(charge, defs, diags, shieldWidth, shieldHeight);
 	}
 
 	@Override
-	public OMSVGGElement drawOrdinary(CubicBezierCurve curve) {
+	public OMSVGGElement drawCharge(CubicBezierCurve curve) {
 		OMSVGGElement fret = doc.createSVGGElement();
 		SVGMascleDrawer mascleDrawer = new SVGMascleDrawer(charge, defs, diags, xMax, yMax, occurrences);
 		OMSVGGElement mascle = mascleDrawer.drawOrdinary(curve, true);
 		fret.appendChild(mascle);
 		SVGBendletSinisterDrawer bendletSinisterDrawer = new SVGBendletSinisterDrawer(charge, defs, diags, xMax, yMax, occurrences);
-		OMSVGGElement bendletSinister = bendletSinisterDrawer.drawOrdinary(curve);
+		OMSVGGElement bendletSinister = bendletSinisterDrawer.drawCharge(curve);
 		fret.appendChild(bendletSinister);
 		final float bendletWidth = xMax/20f;
 		final float bendletSideLength = (float) Math.sqrt(2 * Math.pow(bendletWidth, 2));

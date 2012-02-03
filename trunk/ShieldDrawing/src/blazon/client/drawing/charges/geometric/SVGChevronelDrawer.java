@@ -14,14 +14,14 @@ import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic.LogLevel;
 import blazon.shared.shield.tinctures.Tincture;
 
-public class SVGChevronelDrawer extends SVGOrdinaryDrawer {
+public class SVGChevronelDrawer extends SVGGeometricChargeDrawer {
 
 	protected SVGChevronelDrawer(GeometricCharge charge, OMSVGDefsElement defs,	List<ShieldDiagnostic> diags, int shieldWidth, int shieldHeight, int occurrences) {
 		super(charge, defs, diags, shieldWidth, shieldHeight, occurrences);
 	}
 
 	@Override
-	public OMSVGGElement drawOrdinary(CubicBezierCurve curve) {
+	public OMSVGGElement drawCharge(CubicBezierCurve curve) {
 		OMSVGGElement ordinaries = doc.createSVGGElement();
 		Tincture tincture = charge.getTincture();
 		final float xMid = xMax/2f;

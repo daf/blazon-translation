@@ -4,42 +4,58 @@ import java.util.List;
 
 import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 
-import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
 
 public class DiagnosticDisplayer {
+	
+	private static DiagnosticDisplayer instance;
+	private Panel diagPanel = RootPanel.get("diagnosticsPanel");
+	private FlexTable diagTable = new FlexTable();
+	private int diagRecords = 0;
+	
+	private DiagnosticDisplayer() { 
+		diagPanel.getElement().appendChild(diagTable.getElement());
+	}
+	
+	public static synchronized DiagnosticDisplayer getInstance() {
+		if (instance == null) {
+			instance = new DiagnosticDisplayer();
+		}
+		return instance;
+	}
 
 	public void displayDiagnostics(List<ShieldDiagnostic> shieldDiagnostics) {
-		Panel diagPanel = RootPanel.get("diagnosticsPanel");
-		FlexTable diagTable = new FlexTable();
 		if (shieldDiagnostics != null && !shieldDiagnostics.isEmpty()) {
-			diagTable.setText(0, 0, "Severity Level");
-			diagTable.setText(0, 1, "Information");
-			for (int i = 0; i < shieldDiagnostics.size(); i++) {
-				ShieldDiagnostic diag = shieldDiagnostics.get(i);
-				diagTable.setText(i + 1, 0, diag.getSeverity().toString());
-				diagTable.setText(i + 1, 1, diag.getMessage());
+			if (diagRecords == 0) {
+				diagTable.setText(0, 0, "Severity Level");
+				diagTable.setText(0, 1, "Information");
+			}
+			int row = diagRecords;
+			diagRecords += shieldDiagnostics.size();
+			while (row < diagRecords) {
+				ShieldDiagnostic diag = shieldDiagnostics.get(row++);
+				diagTable.setText(row, 0, diag.getSeverity().toString());
+				diagTable.setText(row, 1, diag.getMessage());
 			}
 		}
-		removeOldElementAndAddNew(diagPanel.getElement(), diagTable.getElement());
 	}
 
 	public void displayThrowable(Throwable caught) {
-		Panel diagPanel = RootPanel.get("diagnosticsPanel");
-		FlexTable diagTable = new FlexTable();
 		if (caught != null) {
-			diagTable.setText(0, 0, "Throwable Caught");
+			FlexTable diagTable = new FlexTable();
+			if (diagRecords == 0) {
+				diagTable.setText(0, 0, "Severity Level");
+				diagTable.setText(0, 1, "Information");
+			}
+			diagTable.setText(diagRecords, 0, "Throwable");
 			diagTable.setText(1, 0, caught.toString());
 		}
-		removeOldElementAndAddNew(diagPanel.getElement(), diagTable.getElement());
 	}
 	
-	private void removeOldElementAndAddNew(Element parent, Element newChild) {
-		if (parent.getChildCount() != 0) {
-			parent.removeChild(parent.getChild(0));
-		}
-		parent.appendChild(newChild);
+	public void clearPanel() {
+		diagRecords = 0;
+		diagTable.removeAllRows();
 	}
 }

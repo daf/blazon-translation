@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.vectomatic.dom.svg.OMSVGDefsElement;
 
+import blazon.client.drawing.charges.advanced.SVGAdvancedChargeDrawer;
 import blazon.client.drawing.charges.geometric.mobile.SVGAnnuletDrawer;
 import blazon.client.drawing.charges.geometric.mobile.SVGBilletDrawer;
 import blazon.client.drawing.charges.geometric.mobile.SVGEscutcheonDrawer;
@@ -17,14 +18,15 @@ import blazon.client.drawing.charges.geometric.mobile.SVGRoundelDrawer;
 import blazon.client.drawing.charges.geometric.mobile.SVGRustreDrawer;
 import blazon.client.drawing.charges.geometric.mobile.SVGStarDrawer;
 import blazon.shared.shield.Shield;
+import blazon.shared.shield.charges.AdvancedCharge;
 import blazon.shared.shield.charges.Charge;
 import blazon.shared.shield.charges.GeometricCharge;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 
 public class SVGChargeDrawerFactory {
 	
-	public List<SVGOrdinaryDrawer> createDrawers(Shield shield, OMSVGDefsElement defs, int shieldWidth, int shieldHeight) {
-		List<SVGOrdinaryDrawer> chargeDrawers = new ArrayList<SVGOrdinaryDrawer>();
+	public List<SVGChargeDrawer> createDrawers(Shield shield, OMSVGDefsElement defs, int shieldWidth, int shieldHeight) {
+		List<SVGChargeDrawer> chargeDrawers = new ArrayList<SVGChargeDrawer>();
 		if (shield == null) {
 			return chargeDrawers;
 		}
@@ -165,6 +167,8 @@ public class SVGChargeDrawerFactory {
 					//TODO draw label of X
 					
 				}
+			} else if (currentCharge instanceof AdvancedCharge) {
+				chargeDrawers.add(new SVGAdvancedChargeDrawer((AdvancedCharge) currentCharge, defs, shield.getShieldDiagnostics(), shieldWidth, shieldHeight));
 			}
 			sameChargeCounter = 0;
 			currentCharge = nextCharge;

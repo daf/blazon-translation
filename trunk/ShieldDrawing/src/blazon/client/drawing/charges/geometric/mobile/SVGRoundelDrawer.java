@@ -18,7 +18,7 @@ public class SVGRoundelDrawer extends SVGMobileChargeDrawer {
 	}
 
 	@Override
-	public OMSVGGElement drawOrdinary(CubicBezierCurve curve) {
+	public OMSVGGElement drawCharge(CubicBezierCurve curve) {
 		OMSVGGElement charges = doc.createSVGGElement();
 		Tincture tincture = charge.getTincture();
 		final float chargeHeight = 0.8f*yMax/(2+occurrences);
@@ -29,13 +29,13 @@ public class SVGRoundelDrawer extends SVGMobileChargeDrawer {
 	@Override
 	protected float rowOffset(int multiplier, float chargeHeight) {
 		int rowDivisor = (occurrences+1)/2*2; // convert to next even number
-		float rowMidPoint = yMax/rowDivisor;
+		float rowMidPoint = yMax/(float)rowDivisor;
 		return multiplier*rowMidPoint;
 	}
 	
 	@Override
 	protected float columnOffset(int multiplier, int numberOfColumns, float chargeWidth) {
-		return multiplier*xMax/numberOfColumns;
+		return multiplier*xMax/(float)numberOfColumns;
 	}
 	
 	@Override

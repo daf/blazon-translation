@@ -13,7 +13,12 @@
   
     <servlet>
     <servlet-name>addCharge</servlet-name>
-    <servlet-class>blazon.server.chargeadding.ChargeAddingServiceImpl</servlet-class>
+    <servlet-class>blazon.server.charge.adding.ChargeAddingServiceImpl</servlet-class>
+  </servlet>
+
+    <servlet>
+    <servlet-name>fetchCharge</servlet-name>
+    <servlet-class>blazon.server.charge.fetching.ChargeFetchingServiceImpl</servlet-class>
   </servlet>
   
   <servlet-mapping>
@@ -24,6 +29,11 @@
     <servlet-mapping>
     <servlet-name>addCharge</servlet-name>
     <url-pattern>/shielddrawing/addCharge</url-pattern>
+  </servlet-mapping>
+  
+      <servlet-mapping>
+    <servlet-name>fetchCharge</servlet-name>
+    <url-pattern>/shielddrawing/fetchCharge</url-pattern>
   </servlet-mapping>
   
   <!-- Default page to serve -->

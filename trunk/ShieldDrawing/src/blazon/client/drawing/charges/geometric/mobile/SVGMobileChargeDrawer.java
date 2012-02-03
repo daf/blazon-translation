@@ -5,14 +5,14 @@ import java.util.List;
 import org.vectomatic.dom.svg.OMSVGDefsElement;
 import org.vectomatic.dom.svg.OMSVGGElement;
 
-import blazon.client.drawing.charges.geometric.SVGOrdinaryDrawer;
+import blazon.client.drawing.charges.geometric.SVGGeometricChargeDrawer;
 import blazon.client.drawing.shapes.CubicBezierCurve;
 import blazon.shared.shield.charges.GeometricCharge;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic.LogLevel;
 import blazon.shared.shield.tinctures.Tincture;
 
-public abstract class SVGMobileChargeDrawer extends SVGOrdinaryDrawer {
+public abstract class SVGMobileChargeDrawer extends SVGGeometricChargeDrawer {
 
 	protected SVGMobileChargeDrawer(GeometricCharge charge, OMSVGDefsElement defs, List<ShieldDiagnostic> diags, int shieldWidth, int shieldHeight, int occurrences) {
 		super(charge, defs, diags, shieldWidth, shieldHeight, occurrences);

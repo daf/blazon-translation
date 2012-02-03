@@ -10,7 +10,7 @@ import blazon.client.drawing.shapes.CubicBezierCurve;
 import blazon.shared.shield.charges.GeometricCharge;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 
-public abstract class SVGShieldShapeChargeDrawer extends SVGOrdinaryDrawer {
+public abstract class SVGShieldShapeChargeDrawer extends SVGGeometricChargeDrawer {
 
 	protected SVGShieldShapeChargeDrawer(GeometricCharge charge, OMSVGDefsElement defs,	List<ShieldDiagnostic> diags, int shieldWidth, int shieldHeight) {
 		super(charge, defs, diags, shieldWidth, shieldHeight);

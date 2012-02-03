@@ -17,7 +17,7 @@ public class SVGBilletDrawer extends SVGMobileChargeDrawer {
 	}
 
 	@Override
-	public OMSVGGElement drawOrdinary(CubicBezierCurve curve) {
+	public OMSVGGElement drawCharge(CubicBezierCurve curve) {
 		OMSVGGElement charges = doc.createSVGGElement();
 		Tincture tincture = charge.getTincture();
 		final float chargeHeight = yMax/(2+occurrences);

@@ -6,16 +6,13 @@ import blazon.client.drawing.BlazonParsingServiceAsync;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.ui.TextBox;
 
 public class DrawShieldButtonClickHandler implements ClickHandler {
 
 	private final SVGPanelController svgPanelController;
-	private final TextBox textBox;
 	
-	public DrawShieldButtonClickHandler(final SVGPanelController svgPanelController, TextBox textBox) {
+	public DrawShieldButtonClickHandler(final SVGPanelController svgPanelController) {
 		this.svgPanelController = svgPanelController;
-		this.textBox = textBox;
 	}
 	
 	@Override
@@ -24,7 +21,8 @@ public class DrawShieldButtonClickHandler implements ClickHandler {
 	}
 
 	private void processInput() {
-        final String enteredText = textBox.getText();
+		DiagnosticDisplayer.getInstance().clearPanel();
+        final String enteredText = svgPanelController.getTextFromTextBox("Blazon");
         final BlazonParsingServiceAsync service = GWT.create(BlazonParsingService.class);
         service.createShieldRepresentation(enteredText, new BlazonParsingServiceCallback(svgPanelController));
     }

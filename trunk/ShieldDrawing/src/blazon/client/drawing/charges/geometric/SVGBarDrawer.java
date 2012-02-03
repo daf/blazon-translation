@@ -11,14 +11,14 @@ import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic.LogLevel;
 import blazon.shared.shield.tinctures.Tincture;
 
-public class SVGBarDrawer extends SVGOrdinaryDrawer {
+public class SVGBarDrawer extends SVGGeometricChargeDrawer {
 
 	protected SVGBarDrawer(GeometricCharge charge, OMSVGDefsElement defs, List<ShieldDiagnostic> diags, int shieldWidth, int shieldHeight, int occurrences) {
 		super(charge, defs, diags, shieldWidth, shieldHeight, occurrences);
 	}
 
 	@Override
-	public OMSVGGElement drawOrdinary(CubicBezierCurve curve) {
+	public OMSVGGElement drawCharge(CubicBezierCurve curve) {
 		OMSVGGElement ordinaries = doc.createSVGGElement();
 		final float fifthY = yMax/5f;
 		final float offset = yMax/15f;

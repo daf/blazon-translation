@@ -20,7 +20,7 @@ public class SVGLozengeDrawer extends SVGMobileChargeDrawer {
 	}
 
 	@Override
-	public OMSVGGElement drawOrdinary(CubicBezierCurve curve) {
+	public OMSVGGElement drawCharge(CubicBezierCurve curve) {
 		OMSVGGElement charges = doc.createSVGGElement();
 		Tincture tincture = charge.getTincture();
 		final float chargeHeight = 2*yMax/(2+occurrences);
@@ -37,7 +37,7 @@ public class SVGLozengeDrawer extends SVGMobileChargeDrawer {
 	
 	@Override
 	protected float columnOffset(int multiplier, int numberOfColumns, float chargeWidth) {
-		return multiplier*xMax/numberOfColumns;
+		return multiplier*xMax/(float)numberOfColumns;
 	}
 
 	@Override

@@ -1,19 +1,31 @@
 package blazon.client.ui;
 
+import blazon.client.ui.widget.DialogBoxDisplayer;
+
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class AddChargeToDatastoreCallback<T> implements AsyncCallback<Void> {
 
+	private final DiagnosticDisplayer diagnosticDisplayer = DiagnosticDisplayer.getInstance();
+	private final PanelController panelController;
+
+	public AddChargeToDatastoreCallback(PanelController panelController) {
+		this.panelController = panelController;
+	}
+
 	@Override
 	public void onFailure(Throwable caught) {
-		// TODO Auto-generated method stub
-
+		diagnosticDisplayer.displayThrowable(caught);
+		DialogBoxDisplayer dialogBox = new DialogBoxDisplayer("Adding Charge Successful", "The charge charge has been successfully added to the datastore.");
+		dialogBox.displayDialogBox();
 	}
 
 	@Override
 	public void onSuccess(Void result) {
-		// TODO Auto-generated method stub
-
+		DialogBoxDisplayer dialogBox = new DialogBoxDisplayer("Adding Charge Successful", "The charge charge has been successfully added to the datastore.");
+		dialogBox.displayDialogBox();
+		panelController.clearAllTextBoxes();
 	}
+	
 
 }

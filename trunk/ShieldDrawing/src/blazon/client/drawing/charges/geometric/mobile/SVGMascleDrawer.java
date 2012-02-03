@@ -28,20 +28,20 @@ public class SVGMascleDrawer extends SVGMobileChargeDrawer {
 	}
 	
 	@Override
-	public OMSVGGElement drawOrdinary(CubicBezierCurve curve) {
+	public OMSVGGElement drawCharge(CubicBezierCurve curve) {
 		return drawOrdinary(curve, false);
 	}
 	
 	@Override
 	protected float rowOffset(int multiplier, float chargeHeight) {
 		int rowDivisor = (occurrences+1)/2*2; // convert to next even number
-		float rowMidPoint = yMax/rowDivisor;
+		float rowMidPoint = yMax/(float)rowDivisor;
 		return multiplier*rowMidPoint - chargeHeight/2;
 	}
 	
 	@Override
 	protected float columnOffset(int multiplier, int numberOfColumns, float chargeWidth) {
-		return multiplier*xMax/numberOfColumns;
+		return multiplier*xMax/(float)numberOfColumns;
 	}
 	
 	@Override
