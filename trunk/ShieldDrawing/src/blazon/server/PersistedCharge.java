@@ -1,9 +1,9 @@
 package blazon.server;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import blazon.client.ui.widget.LabelledTextBox;
+import blazon.shared.shield.charges.Charge;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
@@ -45,7 +46,7 @@ public class PersistedCharge {
 		this.imageSource = new Link(imageSource);
 		this.dateOfSourceAccess = new Date();
 		
-		Set<String> bodyPartsSet = new HashSet<String>();
+		Set<String> bodyPartsSet = new TreeSet<String>();
 		StringBuilder sb = new StringBuilder(charge).append(" ").append(attitude).append(" ").append(attitudeModifier).append(" ").append(tincture);
 		if (bodyPartsWithTincture != null) {
 			for (int i = 0; i < bodyPartTextBoxes.size(); i += 2) {
@@ -77,10 +78,14 @@ public class PersistedCharge {
 	
 	private Date dateOfSourceAccess;
 	
-	private Set<String> bodyPartsWithTincture = null;
+	private Set<String> bodyPartsWithTincture;
 
 	public String getImageSource() {
 		return imageSource.getValue();
+	}
+
+	public Set<String> getSpecifiedBodyParts() {
+		return bodyPartsWithTincture;
 	}
 
 }

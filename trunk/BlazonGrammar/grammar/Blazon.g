@@ -42,6 +42,9 @@ import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic.LogLevel;
 import blazon.shared.shield.tinctures.*;
 import blazon.shared.numberconversion.WordToNumberConverter;
+
+import java.util.Map;
+import java.util.HashMap;
 }
 
 @members {
@@ -199,16 +202,29 @@ multiple_geometric_charges [Tinctures tinctures, TinctureType underLayerTincture
             }
         ;
 
-        
 advanced_charge [Tinctures tinctures, TinctureType underLayerTinctureType] returns [List<Charge> charges]
-        :  DETERMINER BEAST ATTITUDE ATTITUDE_MODIFIER? tincture[tinctures]
+        :  DETERMINER BEAST ATTITUDE ATTITUDE_MODIFIER? tincture[tinctures] body_parts[tinctures]
            {
                diagnoseRuleOfTincture($tincture.tincture, underLayerTinctureType);
-               AdvancedCharge charge = AdvancedCharge.build($BEAST.text, $ATTITUDE.text, $ATTITUDE_MODIFIER.text, $tincture.tincture);
+               AdvancedCharge charge = AdvancedCharge.build($BEAST.text, $ATTITUDE.text, $ATTITUDE_MODIFIER.text, $tincture.tincture, $body_parts.bodyParts);
                charges = new ArrayList<Charge>();
                charges.add(charge);
            }
         ;
+       
+body_parts [Tinctures tinctures] returns [Map<String, Tincture> bodyParts]
+       :  { bodyParts = new HashMap<String, Tincture>(); }
+            BODY_PART tincture[tinctures]
+            { bodyParts.put($BODY_PART.text , $tincture.tincture); }
+          |
+            (
+            bp1=BODY_PART t1=tincture[tinctures]
+            { bodyParts.put($bp1.text , $t1.tincture); }
+            )*
+            AND bp2=BODY_PART t2=tincture[tinctures]
+            { bodyParts.put($bp2.text , $t2.tincture); }
+       ;
+        
 div returns [ShieldDivisionType division]
         :   { String text = ""; }
         (    
@@ -340,6 +356,10 @@ ATTITUDE
         
 ATTITUDE_MODIFIER
         :   'guardant' | 'reguardant'
+        ;
+        
+BODY_PART
+        :   'langued' | 'eyed' | 'armed'
         ;
         
 CONTINUOUS_DIV

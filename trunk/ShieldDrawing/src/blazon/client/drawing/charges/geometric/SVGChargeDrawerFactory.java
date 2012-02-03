@@ -162,10 +162,6 @@ public class SVGChargeDrawerFactory {
 				case STAR:
 					chargeDrawers.add(new SVGStarDrawer(currentGeometricCharge, defs, diags, shieldWidth, shieldHeight, sameChargeCounter));
 					break;
-				default:
-					//return null;
-					//TODO draw label of X
-					
 				}
 			} else if (currentCharge instanceof AdvancedCharge) {
 				chargeDrawers.add(new SVGAdvancedChargeDrawer((AdvancedCharge) currentCharge, defs, shield.getShieldDiagnostics(), shieldWidth, shieldHeight));
