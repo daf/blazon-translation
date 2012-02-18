@@ -9,13 +9,15 @@ import blazon.client.drawing.SVGShieldDrawer;
 import blazon.shared.shield.Shield;
 import blazon.client.ui.PanelController;
 
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.SimplePanel;
 
 public class SVGPanelController extends PanelController {
 	
-	public SVGPanelController(Panel panel) {
+	private static final long serialVersionUID = 2472113631682661546L;
+
+	public SVGPanelController(final Panel panel) {
 		super(panel);
 	}
 
@@ -23,17 +25,14 @@ public class SVGPanelController extends PanelController {
 	private static final int PANEL_HEIGHT = 400;
 	private static final int PANEL_BORDER = 10;
 
-	private final Panel svgPanel = new SimplePanel();
 	private final OMSVGDocument doc = OMSVGParser.currentDocument();
 	private final SVGShieldDrawer shieldDrawer = new SVGShieldDrawer(PANEL_WIDTH, PANEL_HEIGHT);
 	
 	public void initializePanel() {
-		svgPanel.setSize(PANEL_WIDTH + "px", PANEL_HEIGHT + "px");
-		svgPanel.addStyleName("svgPanel");
+		DOM.setElementAttribute(this.panel.getElement(), "id", "svgPanel");
 		OMSVGSVGElement svg = createAndInitializeSVGElement();
         shieldDrawer.drawInitialShield(svg);
-        svgPanel.getElement().appendChild(svg.getElement());
-        panel.add(svgPanel);
+        this.panel.getElement().appendChild(svg.getElement());
     }
 
 	private OMSVGSVGElement createAndInitializeSVGElement() {
@@ -48,7 +47,7 @@ public class SVGPanelController extends PanelController {
 	}
 
 	public void displayShield(Shield shield) {
-		Element element = svgPanel.getElement();
+		Element element = this.panel.getElement();
 		element.removeChild(element.getChild(0));
 		OMSVGSVGElement svg = createAndInitializeSVGElement();
 		shieldDrawer.draw(shield, svg);

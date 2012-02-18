@@ -2,6 +2,8 @@ package blazon.client.ui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import blazon.client.ui.widget.LabelledTextBox;
 
@@ -11,10 +13,14 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 
 public class OptionalTextBoxPanelController extends PanelController implements ChangeHandler {
+
+	private static final long serialVersionUID = 6280297975033184062L;
 	private ListBox listBox;
 	private List<LabelledTextBox> listBoxControlledTextBoxes;
 	private List<String> labelTexts;
 
+	OptionalTextBoxPanelController() {}
+	
 	OptionalTextBoxPanelController(Panel panel) {
 		super(panel);
 		this.labelTexts = new ArrayList<String>();
@@ -61,7 +67,7 @@ public class OptionalTextBoxPanelController extends PanelController implements C
 	}
 
 	private void addOptionalLabelledTextBox(String labelText) {
-		LabelledTextBox ltb = new LabelledTextBox(labelText + " " + listBoxControlledTextBoxes.size());
+		LabelledTextBox ltb = new LabelledTextBox(labelText + " " + listBoxControlledTextBoxes.size()/labelTexts.size());
 		listBoxControlledTextBoxes.add(ltb);
 		panel.add(ltb);
 	}
@@ -71,11 +77,28 @@ public class OptionalTextBoxPanelController extends PanelController implements C
 		panel.remove(textBox);
 	}
 	
-	public List<LabelledTextBox> getOptionalLabelledTextBoxes() {
-		return listBoxControlledTextBoxes;
-	}
-	
 	public int getNumberOfLabels() {
 		return labelTexts.size();
+	}
+
+	public SortedSet<String> createSetOfBodyPartToTincture() {
+		return createSetOfBodyPartToTincture(null);
+	}
+	
+	public SortedSet<String> createSetOfBodyPartToTincture(StringBuilder sb) {
+		SortedSet<String> bodyPartsSet = new TreeSet<String>();
+		if (listBoxControlledTextBoxes != null) {
+			for (int i = 0; i < listBoxControlledTextBoxes.size(); i += 2) {
+				LabelledTextBox bodyPart = listBoxControlledTextBoxes.get(i);
+				LabelledTextBox bodyPartTincture = listBoxControlledTextBoxes.get(i + 1);
+				String bodyPartText = bodyPart.getEnteredText();
+				String bodyPartTinctureText = bodyPartTincture.getEnteredText();
+				bodyPartsSet.add(bodyPartText + ":" + bodyPartTinctureText);
+				if (sb != null) {
+					sb.append(bodyPartText).append(" ").append(bodyPartTinctureText);
+				}
+			}
+		}
+		return bodyPartsSet;
 	}
 }

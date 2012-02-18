@@ -98,7 +98,7 @@ shield returns [Shield s]
 		    field { $s = ShieldImpl.build($field.field, blazon); }
 		    ( charges[$field.field.getTinctureTypeOfLayer()] { $s.addCharges($charges.charges); })?
 		    {
-		        //LATER make HTML pretty
+		        //TODO make HTML pretty
 				    $s.addDiagnostics(diags);
 				}
 		    ;
@@ -203,7 +203,7 @@ multiple_geometric_charges [Tinctures tinctures, TinctureType underLayerTincture
         ;
 
 advanced_charge [Tinctures tinctures, TinctureType underLayerTinctureType] returns [List<Charge> charges]
-        :  DETERMINER BEAST ATTITUDE ATTITUDE_MODIFIER? tincture[tinctures] body_parts[tinctures]
+        :  DETERMINER BEAST ATTITUDE ATTITUDE_MODIFIER? tincture[tinctures] body_parts[tinctures]?
            {
                diagnoseRuleOfTincture($tincture.tincture, underLayerTinctureType);
                AdvancedCharge charge = AdvancedCharge.build($BEAST.text, $ATTITUDE.text, $ATTITUDE_MODIFIER.text, $tincture.tincture, $body_parts.bodyParts);
@@ -214,15 +214,16 @@ advanced_charge [Tinctures tinctures, TinctureType underLayerTinctureType] retur
        
 body_parts [Tinctures tinctures] returns [Map<String, Tincture> bodyParts]
        :  { bodyParts = new HashMap<String, Tincture>(); }
-            BODY_PART tincture[tinctures]
-            { bodyParts.put($BODY_PART.text , $tincture.tincture); }
+          (  bp1=BODY_PART t1=tincture[tinctures]
+            { bodyParts.put($bp1.text , $t1.tincture); }
           |
             (
-            bp1=BODY_PART t1=tincture[tinctures]
-            { bodyParts.put($bp1.text , $t1.tincture); }
-            )*
-            AND bp2=BODY_PART t2=tincture[tinctures]
+            bp2=BODY_PART t2=tincture[tinctures]
             { bodyParts.put($bp2.text , $t2.tincture); }
+            )*
+            AND bp3=BODY_PART t3=tincture[tinctures]
+            { bodyParts.put($bp3.text , $t3.tincture); }
+          )
        ;
         
 div returns [ShieldDivisionType division]
