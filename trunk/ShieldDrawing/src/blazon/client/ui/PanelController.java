@@ -1,5 +1,6 @@
 package blazon.client.ui;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,10 +10,13 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Panel;
 
-public class PanelController {
+public class PanelController implements Serializable {
 	
+	private static final long serialVersionUID = 5926214964504846687L;
 	public Map<String, LabelledTextBox> textBoxMap;
-	public Panel panel;
+	protected Panel panel;
+	
+	PanelController() {}
 	
 	PanelController(Panel panel) {
 		this.panel = panel;
@@ -35,10 +39,10 @@ public class PanelController {
 	}
 
 	void addLabelledTextBox(String labelText) {
-		labelText = labelText.trim().toLowerCase();
+		labelText = labelText.trim();
 		LabelledTextBox ltb = new LabelledTextBox(labelText);
 		panel.add(ltb);
-		textBoxMap.put(ltb.getLabelText(), ltb);
+		textBoxMap.put(ltb.getLabelText().toLowerCase(), ltb);
 	}
 
 	void addButtonToPanel(String buttonText, ClickHandler clickHandler) {

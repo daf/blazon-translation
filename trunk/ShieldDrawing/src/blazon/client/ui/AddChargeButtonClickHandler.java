@@ -19,7 +19,13 @@ class AddChargeButtonClickHandler implements ClickHandler {
 	public void onClick(ClickEvent event) {
 		DiagnosticDisplayer.getInstance().clearPanel();
         final ChargeAddingServiceAsync service = GWT.create(ChargeAddingService.class);
-        service.addChargeToDatastore(panelController, new AddChargeToDatastoreCallback<Void>(panelController));
+        service.addChargeToDatastore(panelController.getTextFromTextBox("Charge"), 
+        		panelController.getTextFromTextBox("Attitude"), 
+        		panelController.getTextFromTextBox("Attitude Modifier"), 
+        		panelController.getTextFromTextBox("Charge Tincture"),
+        		panelController.getTextFromTextBox("Image Location"),
+        		panelController.createSetOfBodyPartToTincture(),
+        		new AddChargeToDatastoreCallback<Void>(panelController));
 	}
 
 }

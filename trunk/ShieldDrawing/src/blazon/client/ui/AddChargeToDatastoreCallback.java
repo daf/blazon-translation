@@ -16,13 +16,13 @@ public class AddChargeToDatastoreCallback<T> implements AsyncCallback<Void> {
 	@Override
 	public void onFailure(Throwable caught) {
 		diagnosticDisplayer.displayThrowable(caught);
-		DialogBoxDisplayer dialogBox = new DialogBoxDisplayer("Adding Charge Successful", "The charge charge has been successfully added to the datastore.");
+		DialogBoxDisplayer dialogBox = new DialogBoxDisplayer("Adding Charge Failed", "The charge you specified was not added to the datastore. " + caught);
 		dialogBox.displayDialogBox();
 	}
 
 	@Override
 	public void onSuccess(Void result) {
-		DialogBoxDisplayer dialogBox = new DialogBoxDisplayer("Adding Charge Successful", "The charge charge has been successfully added to the datastore.");
+		DialogBoxDisplayer dialogBox = new DialogBoxDisplayer("Adding Charge Successful", "The charge has been successfully added to the datastore.");
 		dialogBox.displayDialogBox();
 		panelController.clearAllTextBoxes();
 	}

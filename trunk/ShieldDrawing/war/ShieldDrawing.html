@@ -3,11 +3,11 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-
-    <!-- Consider inlining CSS to reduce the number of requested files -->
+	<meta name="Description" content="Luke Torjussen's Third Year Project for translating Blazon into Coats of Arms.">
+	<meta name="Keywords" content="Computer Science, Manchester, University of Manchester, Blazon, Coats of Arms, Heraldry">
     <link type="text/css" rel="stylesheet" href="ShieldDrawing.css">
-
-    <title>Blazon</title>
+	<link rel="shortcut icon" href="favicon.ico">
+    <title>Translate Blazon into Coats of Arms</title>
     
     <!-- This script loads your compiled module.   -->
     <!-- If you add any GWT meta tags, they must   -->
@@ -15,19 +15,77 @@
     <script type="text/javascript" language="javascript" src="shielddrawing/shielddrawing.nocache.js"></script>
   </head>
 
-  <body>
-    <!-- OPTIONAL: include this if you want history support -->
-    <iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1' style="position:absolute;width:0;height:0;border:0"></iframe>
-    <!-- RECOMMENDED if your web app will not function without JavaScript enabled -->
+  <body id="top">
     <noscript>
       <div style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
         Your web browser must have JavaScript enabled in order for this application to display correctly.
       </div>
     </noscript>
 
-    <h1>Blazon</h1>
-    <div id="mainPanel"></div>
-    <div id="diagnosticsPanel"></div>
-    <div id="newChargePanel"></div>
+	<div id="header-wrapper">
+		<div id="header-wrapper-2">
+			<div class="center-wrapper">
+				<div id="header">
+					<div id="logo">
+						<h1 class="site-title">Translate Blazon into Coats of Arms</h1>
+						<h2 class="site-slogan">Final Year Project</h2>
+	                    <img style="margin-top: -85px; padding-bottom:20px;" align="right" width="200px" src="images/uom_logo.png" alt="University of Manchester logo">
+						<div class="right" id="names">
+							<h3 class="site-slogan">Student: Luke Torjussen</h3>
+							<h3 class="site-slogan">Supervisor: Dr. Robert Stevens</h3>
+						</div>
+					</div>
+		   		</div>
+		   	</div>
+	   	</div>
+    </div>
+    
+	<div id="navigation-wrapper">
+	    <div id="navigation-wrapper-2">
+	        <div class="center-wrapper">
+	            <div id="navigation">
+	                <ul class="tabbed">
+	                    <li><a href="http://soba.cs.man.ac.uk/~torjusl8/project/index.php">Home</a></li>
+	                    <li><a href="http://soba.cs.man.ac.uk/~torjusl8/project/blazon.php">Blazon</a></li>
+	                    <li><a href="http://soba.cs.man.ac.uk/~torjusl8/project/technologies.php">Technologies</a></li>
+	                    <li><a href="http://soba.cs.man.ac.uk/~torjusl8/project/references.php">References</a></li>
+   	                    <li class="current_page_item"><a href=".">Application</a></li>
+	                    <li><a href="http://soba.cs.man.ac.uk/~torjusl8/project/contact.php">Contact</a></li>
+	                </ul>
+	                <div class="clearer">&nbsp;</div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+    
+    <div id="content-wrapper">
+    	<div class="center-wrapper">
+    		<div class="content">
+				<div id="main">
+					<div id="information">
+						<h3>How to use the application</h3>
+						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.</p>
+						<p>In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.</p>
+						<p>Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,</p>
+					</div>
+					<div id="application"></div>
+					<div class="clearer">&nbsp;</div>
+				</div>
+			</div>
+		</div>
+   	</div>
+   	
+   	<div id="bottom">
+		<div class="center-wrapper">
+			<div class="left">
+				<span class="text-separator"> </span> © 2011 Luke Torjussen <span class="text-separator"> | </span> 
+				<a href="http://www.cs.man.ac.uk">University of Manchester School of Computer Science</a>
+			</div>
+ 			<div class="right">
+				<a href="http://templates.arcsin.se/">Website template</a> by <a href="http://arcsin.se/">Arcsin</a>  <span class="text-separator"> </span> 
+			</div>
+			<div class="clearer">&nbsp;</div>
+		</div>
+	</div>
   </body>
 </html>
