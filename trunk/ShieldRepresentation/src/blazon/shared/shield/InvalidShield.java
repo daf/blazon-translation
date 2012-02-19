@@ -58,16 +58,16 @@ public class InvalidShield extends AbstractShield {
 
 	@Override
 	public Field getField() {
-		throw new UnsupportedOperationException("An InvalidShield object does not have a field.");
+		return null;//throw new UnsupportedOperationException("An InvalidShield object does not have a field.");
 	}
 
 	@Override
 	public void addCharges(List<Charge> charges) {
-		throw new UnsupportedOperationException("An InvalidShield object does not have charges.");
+		//throw new UnsupportedOperationException("An InvalidShield object does not have charges.");
 	}
 
 	@Override
 	public List<Charge> getCharges() {
-		throw new UnsupportedOperationException("An InvalidShield object does not have charges.");
+		return null;//throw new UnsupportedOperationException("An InvalidShield object does not have charges.");
 	}
 }

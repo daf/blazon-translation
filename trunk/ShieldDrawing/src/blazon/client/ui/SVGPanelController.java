@@ -4,12 +4,12 @@ import org.vectomatic.dom.svg.OMSVGDocument;
 import org.vectomatic.dom.svg.OMSVGLength;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.utils.OMSVGParser;
+import org.vectomatic.dom.svg.utils.SVGConstants;
 
 import blazon.client.drawing.SVGShieldDrawer;
 import blazon.shared.shield.Shield;
 import blazon.client.ui.PanelController;
 
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Panel;
 
@@ -28,9 +28,9 @@ public class SVGPanelController extends PanelController {
 	private final OMSVGDocument doc = OMSVGParser.currentDocument();
 	private final SVGShieldDrawer shieldDrawer = new SVGShieldDrawer(PANEL_WIDTH, PANEL_HEIGHT);
 	
-	public void initializePanel() {
-		DOM.setElementAttribute(this.panel.getElement(), "id", "svgPanel");
+	public void createShieldSVGElement() {
 		OMSVGSVGElement svg = createAndInitializeSVGElement();
+		svg.setAttribute(SVGConstants.SVG_STYLE_ATTRIBUTE, "margin: 5px 0px;");
         shieldDrawer.drawInitialShield(svg);
         this.panel.getElement().appendChild(svg.getElement());
     }
@@ -48,7 +48,7 @@ public class SVGPanelController extends PanelController {
 
 	public void displayShield(Shield shield) {
 		Element element = this.panel.getElement();
-		element.removeChild(element.getChild(0));
+		element.removeChild(element.getLastChild());
 		OMSVGSVGElement svg = createAndInitializeSVGElement();
 		shieldDrawer.draw(shield, svg);
 		element.appendChild(svg.getElement());
