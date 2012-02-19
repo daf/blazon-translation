@@ -98,7 +98,6 @@ shield returns [Shield s]
 		    field { $s = ShieldImpl.build($field.field, blazon); }
 		    ( charges[$field.field.getTinctureTypeOfLayer()] { $s.addCharges($charges.charges); })?
 		    {
-		        //TODO make HTML pretty
 				    $s.addDiagnostics(diags);
 				}
 		    ;

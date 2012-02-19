@@ -8,6 +8,7 @@ import blazon.client.ui.widget.LabelledTextBox;
 
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 
 public class PanelController implements Serializable {
@@ -23,7 +24,7 @@ public class PanelController implements Serializable {
 		this.textBoxMap = new HashMap<String, LabelledTextBox>();
 	}
 
-	public String getTextFromTextBox(String textBoxIdentifier) {
+	String getTextFromTextBox(String textBoxIdentifier) {
 		textBoxIdentifier = textBoxIdentifier.trim().toLowerCase();
 		LabelledTextBox ltb = textBoxMap.get(textBoxIdentifier);
 		if (ltb == null) {
@@ -38,16 +39,28 @@ public class PanelController implements Serializable {
 		}
 	}
 
-	void addLabelledTextBox(String labelText) {
+	void addLabelledTextBox(String labelText, String labelCssClass, String textBoxCssClass) {
+		addLabelledTextBox(labelText, labelCssClass, textBoxCssClass, "");
+	}
+	
+	void addLabelledTextBox(String labelText, String labelCssClass, String textBoxCssClass, String panelCssClass) {
 		labelText = labelText.trim();
-		LabelledTextBox ltb = new LabelledTextBox(labelText);
+		LabelledTextBox ltb = new LabelledTextBox(labelText, labelCssClass, textBoxCssClass, panelCssClass);
 		panel.add(ltb);
 		textBoxMap.put(ltb.getLabelText().toLowerCase(), ltb);
 	}
 
-	void addButtonToPanel(String buttonText, ClickHandler clickHandler) {
+	void addButtonToPanel(String buttonText, String buttonCssClass, ClickHandler clickHandler) {
 		Button button = new Button(buttonText);
+		button.setStyleName(buttonCssClass);
 		panel.add(button);
         button.addClickHandler(clickHandler);		
+	}
+	
+	void addLabel(String labelText, String labelCss) {
+		labelText = labelText.trim();
+		Label label = new Label(labelText);
+		label.setStyleName(labelCss);
+		panel.add(label);
 	}
 }

@@ -28,7 +28,10 @@ public class ImageSourceLocator {
 		EntityManager entityManager = EMF.getInstance().createEntityManager();
 		try {
 	    	List<Charge> charges = shield.getCharges();
-			for (Charge charge : charges ) {
+	    	if (charges == null) {
+	    		return shield;
+	    	}
+			for (Charge charge : charges) {
 	    		if (!charge.hasSource()) {
 	    			AdvancedCharge advCharge = (AdvancedCharge) charge;
 	    			Query q = buildQuery(advCharge, entityManager);
@@ -50,7 +53,7 @@ public class ImageSourceLocator {
 	        				if (differenceInNumberOfSpecifiedBodyParts == 0) {
 	        					persistedChargeWithFewestExtraBodyParts = persistedCharge;
 								break;
-							} else if (minimumNumberOfExtraBodyParts > differenceInNumberOfSpecifiedBodyParts) {
+							} else if (minimumNumberOfExtraBodyParts >= differenceInNumberOfSpecifiedBodyParts) {
 								minimumNumberOfExtraBodyParts = differenceInNumberOfSpecifiedBodyParts;
 								persistedChargeWithFewestExtraBodyParts = persistedCharge; 
 	        				}

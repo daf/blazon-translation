@@ -1,7 +1,6 @@
 package blazon.client.ui;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -13,30 +12,29 @@ import blazon.client.ui.OptionalTextBoxPanelController;
 public class Main implements EntryPoint {
 
     public void onModuleLoad() {
-		final Panel applicationPanel = RootPanel.get("application");
-		createShieldDrawingUI(applicationPanel);
-    	createChargeAddingPanel(applicationPanel);
+		createShieldDrawingUI(RootPanel.get("svgPanel"));
+    	createChargeAddingPanel(RootPanel.get("chargeAddingPanel"));
     }
 
-	private void createChargeAddingPanel(Panel parent) {
-		final Panel chargeAddingPanel = new AbsolutePanel();
-		final OptionalTextBoxPanelController panelController = new OptionalTextBoxPanelController(chargeAddingPanel);
-		panelController.addLabelledTextBox("Charge");
-		panelController.addLabelledTextBox("Attitude");
-		panelController.addLabelledTextBox("Attitude Modifier");
-		panelController.addLabelledTextBox("Charge Tincture");
-		panelController.addListBoxForAdditionalTextBoxesAndLabels("Body Part", "Body Part Tincture");
-		panelController.addLabelledTextBox("Image Location");
-		panelController.addButtonToPanel("Add Charge", new AddChargeButtonClickHandler(panelController));
-        parent.add(chargeAddingPanel);
+	private void createChargeAddingPanel(Panel chargeAddingPanel) {
+		final String labelCss = "chargeLabel";
+		final String textBoxCss = "chargeTextBox";
+		final String panelCss = "chargePanel";
+		final OptionalTextBoxPanelController panelController = new OptionalTextBoxPanelController(chargeAddingPanel, labelCss, textBoxCss, panelCss);
+		panelController.addLabelledTextBox("Charge", labelCss, textBoxCss, panelCss);
+		panelController.addLabelledTextBox("Attitude", labelCss, textBoxCss, panelCss);
+		panelController.addLabelledTextBox("Attitude Modifier", labelCss, textBoxCss, panelCss);
+		panelController.addLabelledTextBox("Charge Tincture", labelCss, textBoxCss, panelCss);
+		panelController.addLabelledTextBox("Image Location", labelCss, textBoxCss, panelCss);
+		panelController.addListBoxForAdditionalTextBoxesAndLabels("Number of Specified Body Parts", labelCss, "chargeListBox", "Body Part", "Body Part Tincture");
+		panelController.addButtonToPanel("Add Charge", "chargeButton", new AddChargeButtonClickHandler(panelController));
 	}
 
-	private void createShieldDrawingUI(Panel parent) {
-		final Panel svgPanel = new AbsolutePanel();
+	private void createShieldDrawingUI(Panel svgPanel) {
     	final SVGPanelController svgPanelController = new SVGPanelController(svgPanel);
-    	svgPanelController.initializePanel();
-    	svgPanelController.addLabelledTextBox("Blazon");
-        svgPanelController.addButtonToPanel("Draw Shield", new DrawShieldButtonClickHandler(svgPanelController));
-        parent.add(svgPanel);
+    	svgPanelController.addLabelledTextBox("Enter Blazon", "blazonLabel", "blazonTextBox");
+    	svgPanelController.addButtonToPanel("Draw Shield", "blazonButton", new DrawShieldButtonClickHandler(svgPanelController));
+    	svgPanelController.createShieldSVGElement();
+    	
 	}
 }

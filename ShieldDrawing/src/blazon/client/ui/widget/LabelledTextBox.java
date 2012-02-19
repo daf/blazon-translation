@@ -3,8 +3,9 @@ package blazon.client.ui.widget;
 import java.io.Serializable;
 
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TextBox;
 
 public class LabelledTextBox extends Composite implements Serializable {
@@ -15,12 +16,13 @@ public class LabelledTextBox extends Composite implements Serializable {
 	
 	public LabelledTextBox() {}
 	
-	public LabelledTextBox(String labelText) {
+	public LabelledTextBox(String labelText, String labelCssClass, String textBoxCssClass, String panelCssClass) {
 		textBox = new TextBox();
-		textBox.setStyleName("appTextBox");
+		textBox.setStyleName(textBoxCssClass);
 		label = new Label(labelText);
-		label.setStyleName("appTextBoxLabel");
-		HorizontalPanel panel = new HorizontalPanel();
+		label.setStyleName(labelCssClass);
+		Panel panel = new FlowPanel();
+		panel.setStyleName(panelCssClass);
 		panel.add(label);
 		panel.add(textBox);
 		initWidget(panel);
@@ -37,5 +39,4 @@ public class LabelledTextBox extends Composite implements Serializable {
 	public void clearEnteredText() {
 		textBox.setText("");
 	}
-	
 }

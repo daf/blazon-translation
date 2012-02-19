@@ -19,7 +19,9 @@
   margin: 15px 6px 6px;
 }
 
-.appTextBox {
+.blazonTextBox {
+	float: left;
+	margin-top: 15px;
 	padding: 2px;
 	-webkit-appearance: textfield;
 	background-color: white;
@@ -28,12 +30,60 @@
 	-webkit-user-select: text;
 	cursor: auto;
 	vertical-align: baseline;
-
 }
 
-.appTextBoxLabel {
-	padding: 5px;
-	vertical-align: middle;
+.blazonLabel {
+	margin: 15px 10px 15px 0px;
+	vertical-align: top;
+	font-size: 1.2em;
+	float: left;
+	
+}
+
+.blazonButton {
+	margin-top: 15px;
+	margin-left: 10px;
+	padding: 2px 7px 3px;
+	font-size: 1.1em;
+}
+
+.chargeTextBox {
+	float: right;
+	margin-top: 10px;
+	padding: 2px;
+	-webkit-appearance: textfield;
+	background-color: white;
+	border: 2px inset;
+	-webkit-rtl-ordering: logical;
+	-webkit-user-select: text;
+	cursor: auto;
+	vertical-align: baseline;
+	width: 250px;
+}
+
+.chargeLabel {
+	margin: 10px 10px 10px 0px;
+	vertical-align: top;
+	font-size: 1.2em;
+	float: left;
+}
+
+.chargeButton {
+	float: right;
+	margin: 8px;
+	padding: 2px 7px 3px;
+	font-size: 1.1em;
+}
+
+.chargePanel {
+	width: 390px;
+	clear: both;
+}
+
+.chargeListBox {
+	width: 90px;
+	float: right;
+	margin: 10px 0px 10px 0px;
 }
 
 /* webpage css */
@@ -253,7 +303,9 @@ ul.tabbed a {text-decoration: none;}
 	width: 698px;
 }
 
-#main {padding: 24px;}
+#main {
+	padding: 24px;
+}
 
 div#information {
 	float: left;
@@ -267,6 +319,16 @@ div#application {
 
 div#svgPanel {
   margin-bottom: 20px;
+  padding: 13px;
+  border-style:solid;
+  border-width:2px;
+  border-color:black;
+}
+
+
+div#chargeAddingPanel {
+  margin-bottom: 20px;
+  padding: 13px;
   border-style:solid;
   border-width:2px;
   border-color:black;
@@ -283,17 +345,26 @@ div#svgPanel {
 	color: #666;
 	padding: 0 6px 12px;
 }
+
 #bottom a {
 	color: #555;
 	text-decoration: none;
 }
-#bottom a:hover, #bottom .right a:hover {color: #002;}
+
+#bottom a:hover, #bottom .right a:hover {
+	color: #002;
+}
+
 #bottom span.text-separator {
 	color: #888;
 	padding: 0 3px;
 }
-#bottom .right, #bottom .right a {color: #777;}
 
+#bottom .right, #bottom .right a {
+	color: #777;
+}
 
 /* Single Line IE Fixes */
-* html .separator-vertical, * html .content {height: 0.01%; min-height: 0.01%;}
+* html .separator-vertical, * html .content {
+	height: 0.01%; min-height: 0.01%;
+}
