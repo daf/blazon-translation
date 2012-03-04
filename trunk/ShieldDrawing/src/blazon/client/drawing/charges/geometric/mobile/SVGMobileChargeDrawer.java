@@ -1,7 +1,5 @@
 package blazon.client.drawing.charges.geometric.mobile;
 
-import java.util.List;
-
 import org.vectomatic.dom.svg.OMSVGDefsElement;
 import org.vectomatic.dom.svg.OMSVGGElement;
 
@@ -14,8 +12,8 @@ import blazon.shared.shield.tinctures.Tincture;
 
 public abstract class SVGMobileChargeDrawer extends SVGGeometricChargeDrawer {
 
-	protected SVGMobileChargeDrawer(GeometricCharge charge, OMSVGDefsElement defs, List<ShieldDiagnostic> diags, int shieldWidth, int shieldHeight, int occurrences) {
-		super(charge, defs, diags, shieldWidth, shieldHeight, occurrences);
+	protected SVGMobileChargeDrawer(GeometricCharge charge, OMSVGDefsElement defs, float shieldWidth, float shieldHeight, int occurrences) {
+		super(charge, defs, shieldWidth, shieldHeight, occurrences);
 	}
 
 	protected abstract float columnOffset(int multiplier, int numberOfColumns, float chargeWidth);
@@ -47,8 +45,8 @@ public abstract class SVGMobileChargeDrawer extends SVGGeometricChargeDrawer {
 			case 4:
 				drawMobileCharge(charges, leftMidCol, firstRow, chargeWidth, chargeHeight, tincture, curve);
 				drawMobileCharge(charges, rightMidCol, firstRow, chargeWidth, chargeHeight, tincture, curve);
-				drawMobileCharge(charges, leftMidCol, secondRow*0.8f, chargeWidth, chargeHeight, tincture, curve);
-				drawMobileCharge(charges, rightMidCol, secondRow*0.8f, chargeWidth, chargeHeight, tincture, curve);
+				drawMobileCharge(charges, leftMidCol, secondRow, chargeWidth, chargeHeight, tincture, curve);
+				drawMobileCharge(charges, rightMidCol, secondRow, chargeWidth, chargeHeight, tincture, curve);
 				break;
 			case 5:
 				drawMobileCharge(charges, leftMidCol, firstRow, chargeWidth, chargeHeight, tincture, curve);
@@ -73,5 +71,10 @@ public abstract class SVGMobileChargeDrawer extends SVGGeometricChargeDrawer {
 				diags.add(ShieldDiagnostic.build(LogLevel.ERROR, "SVGMobileChargeDrawer does not know how to draw " + occurrences + " '" + charge.getName() + "'."));
 		}
 		return charges;
+	}
+	
+	protected boolean chargeAreaGoesOverEdgeOfShield() {
+		if (occurrences == 1) return false;
+		return Math.abs(chargeAreaYMax - shieldYMax) < 0.00001;
 	}
 }

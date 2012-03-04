@@ -1,6 +1,5 @@
 package blazon.client.drawing.charges.geometric;
 
-import java.util.List;
 
 import org.vectomatic.dom.svg.OMSVGDefsElement;
 import org.vectomatic.dom.svg.OMSVGGElement;
@@ -10,25 +9,23 @@ import blazon.client.drawing.shapes.Point;
 import blazon.client.drawing.shapes.Polygon;
 import blazon.client.drawing.shapes.PolygonImpl;
 import blazon.shared.shield.charges.GeometricCharge;
-import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.tinctures.Tincture;
 
 public class SVGBendDrawer extends SVGGeometricChargeDrawer {
 
-	private final float chargeSize = xMax/10f;
-	
-	protected SVGBendDrawer(GeometricCharge charge, OMSVGDefsElement defs, List<ShieldDiagnostic> diags, int shieldWidth, int shieldHeight) {
-		super(charge, defs, diags, shieldWidth, shieldHeight);
+	protected SVGBendDrawer(GeometricCharge charge, OMSVGDefsElement defs, int shieldWidth, int shieldHeight) {
+		super(charge, defs, shieldWidth, shieldHeight);
 	}
 
 	@Override
 	public OMSVGGElement drawCharge(CubicBezierCurve curve) {
 		OMSVGGElement ordinaries = doc.createSVGGElement();
 		Tincture tincture = charge.getTincture();
-		final float chargeSideLength = (float) Math.sqrt(2 * Math.pow(chargeSize, 2));
+		final float chargeXSize = getXDiff()/10f;
+		final float chargeYSize = getYDiff()/10f;
 		Polygon polygon = new PolygonImpl(
-				new Point(xMin, yMin+chargeSideLength), new Point(xMin, yMin), new Point(xMin+chargeSideLength, yMin), 
-				new Point(xMax, yMax-chargeSideLength), new Point(xMax, yMax), new Point(xMax-chargeSideLength, yMax));
+				new Point(shieldXMin, chargeAreaYMin+chargeYSize), new Point(chargeAreaXMin, chargeAreaYMin), new Point(chargeAreaXMin+chargeXSize, chargeAreaYMin), 
+				new Point(chargeAreaXMax, chargeAreaYMax-chargeYSize), new Point(chargeAreaXMax, chargeAreaYMax), new Point(chargeAreaXMax-chargeXSize, chargeAreaYMax));
 		putNewPolygonElementOnGElement(ordinaries, tincture, polygon);
 		return ordinaries;
 	}

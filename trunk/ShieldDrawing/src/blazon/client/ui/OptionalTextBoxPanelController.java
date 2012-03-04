@@ -9,10 +9,13 @@ import blazon.client.ui.widget.LabelledTextBox;
 
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.Widget;
 
 public class OptionalTextBoxPanelController extends PanelController implements ChangeHandler {
 
@@ -23,7 +26,9 @@ public class OptionalTextBoxPanelController extends PanelController implements C
 	private String labelCss;
 	private String textBoxCss;
 	private String panelCss;
-
+	private boolean optionalBoxAdded = false;
+	private List<Widget> itemsAfterListBox = new ArrayList<Widget>();
+	
 	OptionalTextBoxPanelController(Panel panel, String labelCss, String textBoxCss, String panelCss) {
 		super(panel);
 		this.labelCss = labelCss;
@@ -34,9 +39,11 @@ public class OptionalTextBoxPanelController extends PanelController implements C
 	}
 	
 	void addListBoxForAdditionalTextBoxesAndLabels(final String listBoxHeader, final String labelCssClass, final String listBoxCssClass, final String labelText, final String ... optionalLabelTexts) {
-		if (this.listBox != null) {
+		if (optionalBoxAdded) {
 			return;
 		}
+		
+		optionalBoxAdded = true;
 		
 		Panel listBoxPanel = new FlowPanel();
 		listBoxPanel.setStyleName(panelCss);
@@ -68,6 +75,9 @@ public class OptionalTextBoxPanelController extends PanelController implements C
 	public void onChange(ChangeEvent event) {
 		String value = listBox.getValue(listBox.getSelectedIndex());
 		int number = Integer.parseInt(value) * labelTexts.size();
+		for (Widget w : itemsAfterListBox) {
+			panel.remove(w);
+		}
 		while (number < listBoxControlledTextBoxes.size()) {
 			for (int i = 0; i < labelTexts.size(); i++) {
 				removeOptionalLabelledTextBox();
@@ -78,10 +88,13 @@ public class OptionalTextBoxPanelController extends PanelController implements C
 				addOptionalLabelledTextBox(labelTexts.get(i));
 			}
 		}
+		for (Widget w : itemsAfterListBox) {
+			panel.add(w);
+		}
 	}
 
 	private void addOptionalLabelledTextBox(String labelText) {
-		LabelledTextBox ltb = new LabelledTextBox(labelText + " " + listBoxControlledTextBoxes.size()/labelTexts.size(), this.labelCss, this.textBoxCss, this.panelCss);
+		LabelledTextBox ltb = new LabelledTextBox(labelText + " " + ((listBoxControlledTextBoxes.size()/labelTexts.size())+1), this.labelCss, this.textBoxCss, this.panelCss);
 		listBoxControlledTextBoxes.add(ltb);
 		panel.add(ltb);
 	}
@@ -89,6 +102,39 @@ public class OptionalTextBoxPanelController extends PanelController implements C
 	private void removeOptionalLabelledTextBox() {
 		LabelledTextBox textBox = listBoxControlledTextBoxes.remove(listBoxControlledTextBoxes.size() - 1);
 		panel.remove(textBox);
+	}
+	
+	@Override
+	void addLabelledTextBox(String labelText, String labelCssClass, String textBoxCssClass, String panelCssClass) {
+		labelText = labelText.trim();
+		LabelledTextBox ltb = new LabelledTextBox(labelText, labelCssClass, textBoxCssClass, panelCssClass);
+		panel.add(ltb);
+		textBoxMap.put(ltb.getLabelText().toLowerCase(), ltb);
+		if (optionalBoxAdded) {
+			itemsAfterListBox.add(ltb);
+		}
+	}
+
+	@Override
+	void addButtonToPanel(String buttonText, String buttonCssClass, ClickHandler clickHandler) {
+		Button button = new Button(buttonText);
+		button.setStyleName(buttonCssClass);
+		panel.add(button);
+        button.addClickHandler(clickHandler);		
+		if (optionalBoxAdded) {
+			itemsAfterListBox.add(button);
+		}
+	}
+	
+	@Override
+	void addLabel(String labelText, String labelCss) {
+		labelText = labelText.trim();
+		Label label = new Label(labelText);
+		label.setStyleName(labelCss);
+		panel.add(label);
+		if (optionalBoxAdded) {
+			itemsAfterListBox.add(label);
+		}
 	}
 	
 	int getNumberOfLabels() {

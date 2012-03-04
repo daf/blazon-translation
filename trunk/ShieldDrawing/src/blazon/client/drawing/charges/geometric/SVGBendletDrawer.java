@@ -1,7 +1,5 @@
 package blazon.client.drawing.charges.geometric;
 
-import java.util.List;
-
 import org.vectomatic.dom.svg.OMSVGDefsElement;
 import org.vectomatic.dom.svg.OMSVGGElement;
 
@@ -17,32 +15,34 @@ import blazon.shared.shield.tinctures.Tincture;
 
 public class SVGBendletDrawer extends SVGGeometricChargeDrawer {
 
-	protected SVGBendletDrawer(GeometricCharge charge, OMSVGDefsElement defs, List<ShieldDiagnostic> diags, int shieldWidth, int shieldHeight, int occurrences) {
-		super(charge, defs, diags, shieldWidth, shieldHeight, occurrences);
+	protected SVGBendletDrawer(GeometricCharge charge, OMSVGDefsElement defs, float shieldWidth, float shieldHeight, int occurrences) {
+		super(charge, defs, shieldWidth, shieldHeight, occurrences);
 	}
 
 	@Override
 	public OMSVGGElement drawCharge(CubicBezierCurve curve) {
-		final float chargeSize = xMax/20f;
-		final float chargeSideLength = (float) Math.sqrt(2 * Math.pow(chargeSize, 2));
-		final float chargeXLength = (float) (xMax - Math.sqrt((Math.pow(chargeSideLength, 2) + (3*Math.pow(yMax, 2)) - Math.pow(xMax, 2)) / 4))/2;
-		final float chargeYLength = (float) (yMax - Math.sqrt((Math.pow(chargeSideLength, 2) + (3*Math.pow(xMax, 2)) - Math.pow(yMax, 2)) / 4))/2;
-		Tincture tincture = charge.getTincture();
-		OMSVGGElement ordinaries = doc.createSVGGElement();
+		final float chargeXSize = getXDiff()/20f;
+		final float chargeYSize = getYDiff()/20f;
+		final float chargeXSideLength = (float) Math.sqrt(2 * Math.pow(chargeXSize, 2));
+		final float chargeYSideLength = (float) Math.sqrt(2 * Math.pow(chargeYSize, 2));
+		final float chargeXLength = (float) (getXDiff() - Math.sqrt((Math.pow(chargeXSideLength, 2) + (3*Math.pow(getXDiff(), 2)) - Math.pow(getXDiff(), 2)) / 4))/2;
+		final float chargeYLength = (float) (getYDiff() - Math.sqrt((Math.pow(chargeYSideLength, 2) + (3*Math.pow(getYDiff(), 2)) - Math.pow(getYDiff(), 2)) / 4))/2;
 		Polygon polygon;
-		float offsetX = (occurrences%2 == 0) ? xMax/30f : 0;
-		float offsetY = (occurrences%2 == 0) ? yMax/30f : 0;
+		OMSVGGElement ordinaries = doc.createSVGGElement();
+		Tincture tincture = charge.getTincture();
+		float offsetX = (occurrences % 2 == 0) ? getXDiff()/30f : 0;
+		float offsetY = (occurrences % 2 == 0) ? getYDiff()/30f : 0;
 		
 		switch(occurrences) {
 		case 1:
-			polygon = middleBendlet(chargeSideLength);
+			polygon = middleBendlet(chargeXSideLength, chargeYSideLength);
 			putNewPolygonElementOnGElement(ordinaries, tincture, polygon);
 			break;
 		case 2:
 			drawPair(chargeXLength, chargeYLength, ordinaries, offsetX, offsetY, tincture);
 			break;
 		case 3:
-			polygon = middleBendlet(chargeSideLength);
+			polygon = middleBendlet(chargeXSideLength, chargeYSideLength);
 			putNewPolygonElementOnGElement(ordinaries, tincture, polygon);
 			offsetX += chargeXLength;
 			offsetY += chargeYLength;
@@ -50,35 +50,35 @@ public class SVGBendletDrawer extends SVGGeometricChargeDrawer {
 			break;
 		case 4:
 			drawPair(chargeXLength, chargeYLength, ordinaries, offsetX, offsetY, tincture);
-			offsetX += chargeXLength + chargeSideLength;
-			offsetY += chargeYLength + chargeSideLength;
+			offsetX += chargeXLength + chargeXSideLength;
+			offsetY += chargeYLength + chargeYSideLength;
 			drawPair(chargeXLength, chargeYLength, ordinaries, offsetX, offsetY, tincture);
 			break;
 		default:
 			diags.add(ShieldDiagnostic.build(LogLevel.ERROR, "SVGBendletDrawer only knows how to draw 1 to 4 bendlets."));
 		}
-
 		return ordinaries;
 	}
 
-	private void drawPair(final float chargeXLength, final float chargeYLength,
-			OMSVGGElement ordinaries, float offsetX, float offsetY, Tincture tincture) {
+	private void drawPair(final float chargeXLength, final float chargeYLength, OMSVGGElement ordinaries, float offsetX, float offsetY, Tincture tincture) {
 		Polygon polygon;
 		polygon = new PolygonImpl(
-				new Point(xMin+offsetX, yMin), new Point(xMin+offsetX+chargeXLength, yMin),
-				new Point(xMax, yMax-offsetY-chargeYLength), new Point(xMax, yMax-offsetY));
+				new Point(chargeAreaXMin+offsetX, chargeAreaYMin), new Point(chargeAreaXMin+offsetX+chargeXLength, chargeAreaYMin),
+				new Point(chargeAreaXMax, chargeAreaYMax-offsetY-chargeYLength), new Point(chargeAreaXMax, chargeAreaYMax-offsetY));
 		putNewPolygonElementOnGElement(ordinaries, tincture, polygon);
 		polygon = new PolygonImpl(
-				new Point(xMin, yMin+offsetY), new Point(xMin, yMin+offsetY+chargeYLength),
-				new Point(xMax-offsetX-chargeXLength, yMax), new Point(xMax-offsetX, yMax));
+				new Point(chargeAreaXMin, chargeAreaYMin+offsetY), new Point(chargeAreaXMin, chargeAreaYMin+offsetY+chargeYLength),
+				new Point(chargeAreaXMax-offsetX-chargeXLength, chargeAreaYMax), new Point(chargeAreaXMax-offsetX, chargeAreaYMax));
 		putNewPolygonElementOnGElement(ordinaries, tincture, polygon);
 	}
 
-	private Polygon middleBendlet(final float chargeSideLength) {
+	private Polygon middleBendlet(final float chargeXSize, float chargeYSize) {
 		Polygon polygon;
 		polygon = new PolygonImpl(
-				new Point(xMin, yMin+chargeSideLength), new Point(xMin, yMin), new Point(xMin+chargeSideLength, yMin), 
-				new Point(xMax, yMax-chargeSideLength), new Point(xMax, yMax), new Point(xMax-chargeSideLength, yMax));
+				new Point(chargeAreaXMin, chargeAreaYMin+chargeYSize), new Point(chargeAreaXMin, chargeAreaYMin),
+				new Point(chargeAreaXMin+chargeXSize, chargeAreaYMin), 
+				new Point(chargeAreaXMax, chargeAreaYMax-chargeYSize), new Point(chargeAreaXMax, chargeAreaYMax),
+				new Point(chargeAreaXMax-chargeXSize, chargeAreaYMax));
 		return polygon;
 	}
 }

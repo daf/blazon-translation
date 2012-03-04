@@ -22,7 +22,7 @@ public class DrawShieldButtonClickHandler implements ClickHandler {
 
 	private void processInput() {
 		DiagnosticDisplayer.getInstance().clearPanel();
-        final String enteredText = svgPanelController.getTextFromTextBox("Blazon");
+        final String enteredText = svgPanelController.getTextFromTextBox("Enter Blazon");
         final BlazonParsingServiceAsync service = GWT.create(BlazonParsingService.class);
         service.createShieldRepresentation(enteredText, new BlazonParsingServiceCallback(svgPanelController));
     }

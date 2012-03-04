@@ -64,9 +64,38 @@
 				<div id="main">
 					<div id="information">
 						<h3>How to use the application</h3>
-						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.</p>
-						<p>In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.</p>
-						<p>Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,</p>
+						<p class="appInfo">The application will try to understand a given sentence of Blazon in order to generate an image of the shield that the Blazon represents.</p>
+						<p class="appInfo">To generate a shield, simply enter your sentence of Blazon into the text box and click the <span class="italic">&quot;Draw Shield&quot;</span> button.</p>
+						<p class="appInfo">The Blazon you enter must be valid and adhere to the restrictions as listed below. If the application can not understand the sentence, or encounters and error, an error message will appear.</p>
+						
+						<h3>How add a charge to the database</h3>
+						<p class="appInfo">If a charge is to be placed on your shield, it must be stored in the database. When you request a charge that is not in the database, the application will give a message asking you to add it.</p>
+						<p class="appInfo">To add the charge you <span class="italic">must</span> specify:</p>
+						<ul>
+							<li>What the charge is. e.g. Lion, Tree, Chuck Norris.</li>
+							<li>What attitude the charge has. e.g. Rampant, Volant.</li>
+							<li>What tincture the charge is. e.g. Or, Gules, Proper.</li>
+							<li>The URL where the image is located.</li>
+						</ul>
+						<p class="appInfo">You may also specify:</p>
+						<ul>
+							<li>The way the charge is facing. e.g. Reguardant.</li>
+							<li>Up to 5 body parts with a different tincture.<br />
+							e.g. Langued Gules, Armed Argent.</li>
+						</ul>
+						<p class="appInfo">Once you have entered the charge details, click the <span class="italic">&quot;Add Charge to Database&quot;</span> button.
+						The charge will then be added to the database to be retrieved at any time.</p>
+						
+						<h3>Application Limitations</h3>
+						<p class="appInfo">Due to the time contraints of the project there are a number of limitations as to which Blazon sentences the application can parse.</p>
+						<p class="appInfo">The parts of Blazon that the application can't do are:</p>
+						<ul>
+							<li>Counter-changing.</li>
+							<li>Marshalling.</li>
+							<li>Line Variations. e.g. Embattled, Wavy</li>
+							<li>Placing charges upon others. e.g. &quot;...on a chief azure a roundel or&quot;</li>
+							<li>Multiple types of charge.</li>
+						</ul>
 					</div>
 					<div id="application">
 						<div id="svgPanel">
@@ -90,7 +119,7 @@
 				<a href="http://www.cs.man.ac.uk">University of Manchester School of Computer Science</a>
 			</div>
  			<div class="right">
-				<a href="http://templates.arcsin.se/">Website template</a> by <a href="http://arcsin.se/">Arcsin</a>  <span class="text-separator"> </span> 
+				Based on a <a href="http://templates.arcsin.se/">website template</a> by <a href="http://arcsin.se/">Arcsin</a>  <span class="text-separator"> </span> 
 			</div>
 			<div class="clearer">&nbsp;</div>
 		</div>

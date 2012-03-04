@@ -69,7 +69,6 @@ public class ImageSourceLocator {
 	}
 
 	private Query buildQuery(AdvancedCharge charge, EntityManager entityManager) {
-		//LATER pick up charges with other parts specified also
 		StringBuilder sb = new StringBuilder("SELECT FROM ");
 		sb.append(PersistedCharge.class.getName()).append(" c ");
 		sb.append("WHERE c.charge = '").append(charge.getName()).append("' ");

@@ -1,7 +1,5 @@
 package blazon.client.drawing.charges.geometric.mobile;
 
-import java.util.List;
-
 import org.vectomatic.dom.svg.OMSVGDefsElement;
 import org.vectomatic.dom.svg.OMSVGGElement;
 
@@ -10,20 +8,19 @@ import blazon.client.drawing.shapes.Point;
 import blazon.client.drawing.shapes.Polygon;
 import blazon.client.drawing.shapes.PolygonImpl;
 import blazon.shared.shield.charges.GeometricCharge;
-import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.tinctures.Tincture;
 
 public class SVGMulletDrawer extends SVGMobileChargeDrawer {
 
-	public SVGMulletDrawer(GeometricCharge charge, OMSVGDefsElement defs, List<ShieldDiagnostic> diags, int shieldWidth, int shieldHeight, int occurrences) {
-		super(charge, defs, diags, shieldWidth, shieldHeight, occurrences);
+	public SVGMulletDrawer(GeometricCharge charge, OMSVGDefsElement defs, int shieldWidth, int shieldHeight, int occurrences) {
+		super(charge, defs, shieldWidth, shieldHeight, occurrences);
 	}
 
 	@Override
 	public OMSVGGElement drawCharge(CubicBezierCurve curve) {
 		OMSVGGElement charges = doc.createSVGGElement();
 		Tincture tincture = charge.getTincture();
-		final float chargeHeight = yMax/(float)(1+occurrences);
+		final float chargeHeight = getYDiff()/(float)(1+occurrences);
 		final float chargeWidth = chargeHeight;
 		return drawMobileCharges(chargeHeight, chargeWidth, charges, tincture, curve);
 	}
@@ -31,13 +28,14 @@ public class SVGMulletDrawer extends SVGMobileChargeDrawer {
 	@Override
 	protected float rowOffset(int multiplier, float chargeHeight) {
 		int rowDivisor = (occurrences+1)/2*2; // convert to next even number
-		float rowMidPoint = yMax/(float)rowDivisor;
-		return multiplier*rowMidPoint - chargeHeight/2;
+		float edgeOverlapOffset = chargeAreaGoesOverEdgeOfShield() ? 0.8f : 1;
+		float rowMidPoint = edgeOverlapOffset*getYDiff()/(float)rowDivisor;
+		return chargeAreaYMin + multiplier*rowMidPoint - chargeHeight/2;
 	}
 	
 	@Override
 	protected float columnOffset(int multiplier, int numberOfColumns, float chargeWidth) {
-		return multiplier*xMax/(float)numberOfColumns;
+		return chargeAreaXMin + multiplier*getXDiff()/(float)numberOfColumns;
 	}
 	
 	@Override

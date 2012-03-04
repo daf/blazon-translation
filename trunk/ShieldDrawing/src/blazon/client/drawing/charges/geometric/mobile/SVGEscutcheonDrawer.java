@@ -1,7 +1,5 @@
 package blazon.client.drawing.charges.geometric.mobile;
 
-import java.util.List;
-
 import org.vectomatic.dom.svg.OMSVGDefsElement;
 import org.vectomatic.dom.svg.OMSVGGElement;
 import org.vectomatic.dom.svg.OMSVGPathElement;
@@ -9,20 +7,19 @@ import org.vectomatic.dom.svg.OMSVGPathSegList;
 
 import blazon.client.drawing.shapes.CubicBezierCurve;
 import blazon.shared.shield.charges.GeometricCharge;
-import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.tinctures.Tincture;
 
 public class SVGEscutcheonDrawer extends SVGMobileChargeDrawer {
 
-	public SVGEscutcheonDrawer(GeometricCharge charge, OMSVGDefsElement defs, List<ShieldDiagnostic> diags, int shieldWidth, int shieldHeight, int occurrences) {
-		super(charge, defs, diags, shieldWidth, shieldHeight, occurrences);
+	public SVGEscutcheonDrawer(GeometricCharge charge, OMSVGDefsElement defs, int shieldWidth, int shieldHeight, int occurrences) {
+		super(charge, defs, shieldWidth, shieldHeight, occurrences);
 	}
 
 	@Override
 	public OMSVGGElement drawCharge(CubicBezierCurve curve) {
 		OMSVGGElement charges = doc.createSVGGElement();
 		Tincture tincture = charge.getTincture();
-		final float chargeHeight = yMax/(float)(3+occurrences);
+		final float chargeHeight = getYDiff()/(float)(3+occurrences);
 		final float chargeWidth = 1.3f*chargeHeight;
 		return drawMobileCharges(chargeHeight, chargeWidth, charges, tincture, curve);
 	}
@@ -30,13 +27,13 @@ public class SVGEscutcheonDrawer extends SVGMobileChargeDrawer {
 	@Override
 	protected float rowOffset(int multiplier, float chargeHeight) {
 		int rowDivisor = (occurrences+1)/2*2; // convert to next even number
-		float rowMidPoint = yMax/rowDivisor;
-		return multiplier*rowMidPoint - chargeHeight/2f;
+		float rowMidPoint = 0.85f*getYDiff()/(float)rowDivisor;
+		return chargeAreaYMin + multiplier*rowMidPoint - chargeHeight/2f;
 	}
 	
 	@Override
 	protected float columnOffset(int multiplier, int numberOfColumns, float chargeWidth) {
-		return multiplier*xMax/numberOfColumns - chargeWidth/2f;
+		return chargeAreaXMin + multiplier*chargeAreaXMax/numberOfColumns - chargeWidth/2f;
 	}
 	
 	@Override
@@ -48,8 +45,8 @@ public class SVGEscutcheonDrawer extends SVGMobileChargeDrawer {
 	}
 	
 	private void drawScaledAndOffsetShieldShape(CubicBezierCurve curve, OMSVGPathElement path, float row, float column, float chargeWidth, float chargeHeight) {
-		final float xScale = chargeWidth/xMax;
-		final float yScale = chargeHeight/yMax;
+		final float xScale = chargeWidth/chargeAreaXMax;
+		final float yScale = chargeHeight/chargeAreaYMax;
 		final float curveStart = curve.getEndPoint1().getY()*yScale;
 		OMSVGPathSegList segList = path.getPathSegList();
 		segList.appendItem(path.createSVGPathSegMovetoAbs(column, row));

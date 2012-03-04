@@ -1,7 +1,5 @@
 package blazon.client.drawing.charges.geometric;
 
-import java.util.List;
-
 import org.vectomatic.dom.svg.OMSVGDefsElement;
 import org.vectomatic.dom.svg.OMSVGGElement;
 
@@ -13,39 +11,40 @@ import blazon.shared.shield.tinctures.Tincture;
 
 public class SVGBarDrawer extends SVGGeometricChargeDrawer {
 
-	protected SVGBarDrawer(GeometricCharge charge, OMSVGDefsElement defs, List<ShieldDiagnostic> diags, int shieldWidth, int shieldHeight, int occurrences) {
-		super(charge, defs, diags, shieldWidth, shieldHeight, occurrences);
+	protected SVGBarDrawer(GeometricCharge charge, OMSVGDefsElement defs, int shieldWidth, int shieldHeight, int occurrences) {
+		super(charge, defs, shieldWidth, shieldHeight, occurrences);
 	}
 
 	@Override
 	public OMSVGGElement drawCharge(CubicBezierCurve curve) {
 		OMSVGGElement ordinaries = doc.createSVGGElement();
-		final float fifthY = yMax/5f;
-		final float offset = yMax/15f;
+		final float yDiff = getYDiff();
+		final float fifthY = yDiff/5f;
+		final float offset = fifthY/3f;
 		Tincture tincture = charge.getTincture();
 		switch(occurrences) {
 		case 1:
-			putNewRectElementOnGElement(ordinaries, xMin, 2*fifthY, xMax, fifthY, tincture);
+			putNewRectElementOnGElement(ordinaries, chargeAreaXMin, chargeAreaYMin + 2*fifthY, chargeAreaXMax, fifthY, tincture);
 			break;
 		case 2:
-			putNewRectElementOnGElement(ordinaries, xMin, fifthY + offset, xMax, fifthY, tincture);
-			putNewRectElementOnGElement(ordinaries, xMin, 3*fifthY - offset, xMax, fifthY, tincture);
+			putNewRectElementOnGElement(ordinaries, chargeAreaXMin, chargeAreaYMin + fifthY + offset, chargeAreaXMax, fifthY, tincture);
+			putNewRectElementOnGElement(ordinaries, chargeAreaXMin, chargeAreaYMin + 3*fifthY - offset, chargeAreaXMax, fifthY, tincture);
 			break;
 		case 3:
 			{
 				final float chargeHeight = fifthY - offset;
-				putNewRectElementOnGElement(ordinaries, xMin, fifthY, xMax, chargeHeight, tincture);
-				putNewRectElementOnGElement(ordinaries, xMin, 2*fifthY, xMax, chargeHeight, tincture);
-				putNewRectElementOnGElement(ordinaries, xMin, 3*fifthY, xMax, chargeHeight, tincture);
+				putNewRectElementOnGElement(ordinaries, chargeAreaXMin, chargeAreaYMin + fifthY, chargeAreaXMax, chargeHeight, tincture);
+				putNewRectElementOnGElement(ordinaries, chargeAreaXMin, chargeAreaYMin + 2*fifthY, chargeAreaXMax, chargeHeight, tincture);
+				putNewRectElementOnGElement(ordinaries, chargeAreaXMin, chargeAreaYMin + 3*fifthY, chargeAreaXMax, chargeHeight, tincture);
 				break;
 			}
 		case 4:
 			{
 				final float chargeHeight = fifthY - (1.5f * offset);
-				putNewRectElementOnGElement(ordinaries, xMin, fifthY, xMax, chargeHeight, tincture);
-				putNewRectElementOnGElement(ordinaries, xMin, 2*fifthY - offset, xMax, chargeHeight, tincture);
-				putNewRectElementOnGElement(ordinaries, xMin, 2*fifthY + offset, xMax, chargeHeight, tincture);
-				putNewRectElementOnGElement(ordinaries, xMin, 3*fifthY, xMax, chargeHeight, tincture);
+				putNewRectElementOnGElement(ordinaries, chargeAreaXMin, chargeAreaYMin + fifthY, chargeAreaXMax, chargeHeight, tincture);
+				putNewRectElementOnGElement(ordinaries, chargeAreaXMin, chargeAreaYMin + 2*fifthY - offset, chargeAreaXMax, chargeHeight, tincture);
+				putNewRectElementOnGElement(ordinaries, chargeAreaXMin, chargeAreaYMin + 2*fifthY + offset, chargeAreaXMax, chargeHeight, tincture);
+				putNewRectElementOnGElement(ordinaries, chargeAreaXMin, chargeAreaYMin + 3*fifthY, chargeAreaXMax, chargeHeight, tincture);
 				break;
 			}
 		default:
