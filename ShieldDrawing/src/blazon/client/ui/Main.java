@@ -27,7 +27,7 @@ public class Main implements EntryPoint {
 		panelController.addLabelledTextBox("Charge Tincture", labelCss, textBoxCss, panelCss);
 		panelController.addLabelledTextBox("Image Location", labelCss, textBoxCss, panelCss);
 		panelController.addListBoxForAdditionalTextBoxesAndLabels("Number of Specified Body Parts", labelCss, "chargeListBox", "Body Part", "Body Part Tincture");
-		panelController.addButtonToPanel("Add Charge", "chargeButton", new AddChargeButtonClickHandler(panelController));
+		panelController.addButtonToPanel("Add Charge to Database", "chargeButton", new AddChargeButtonClickHandler(panelController));
 	}
 
 	private void createShieldDrawingUI(Panel svgPanel) {

@@ -6,7 +6,7 @@
 	<classpathentry exported="true" kind="lib" path="jars/lib-gwt-svg-0.5.2-javadoc.jar"/>
 	<classpathentry exported="true" kind="lib" path="jars/lib-gwt-svg-0.5.2-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="jars/lib-gwt-svg-0.5.2.jar"/>
-	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

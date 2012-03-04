@@ -1,23 +1,34 @@
 package blazon.client.drawing.charges.geometric;
 
+
+import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 import org.vectomatic.dom.svg.OMSVGDefsElement;
 
+import blazon.client.drawing.charges.ChargeOffset;
 import blazon.shared.shield.charges.GeometricCharge;
-import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 
 public abstract class SVGGeometricChargeDrawer extends SVGChargeDrawer {
 
 	protected GeometricCharge charge;
+	protected List<SVGChargeDrawer> nestedDrawers = new ArrayList<SVGChargeDrawer>();
 	
-	protected SVGGeometricChargeDrawer(GeometricCharge charge, OMSVGDefsElement defs, List<ShieldDiagnostic> diags, int shieldWidth, int shieldHeight) {
-		this(charge, defs, diags, shieldWidth, shieldHeight, 1);
+	protected SVGGeometricChargeDrawer(GeometricCharge charge, OMSVGDefsElement defs, float shieldWidth, float shieldHeight) {
+		this(charge, defs, shieldWidth, shieldHeight, 1);
 	}
 
-	public SVGGeometricChargeDrawer(GeometricCharge charge, OMSVGDefsElement defs, List<ShieldDiagnostic> diags, int shieldWidth, int shieldHeight, int occurrences) {
-		super(defs, diags, shieldWidth, shieldHeight, occurrences);
+	public SVGGeometricChargeDrawer(GeometricCharge charge, OMSVGDefsElement defs, float shieldWidth, float shieldHeight, int occurrences) {
+		super(defs, shieldWidth, shieldHeight, occurrences);
 		this.charge = charge;
 	}
 
+	@Override 
+	public void setChargeOffset(EnumSet<ChargeOffset> chargeOffsetFlag) {
+		super.setChargeOffset(chargeOffsetFlag);
+		for (SVGChargeDrawer chargeDrawer : nestedDrawers) {
+			chargeDrawer.setChargeOffset(chargeOffsetFlag);
+		}
+	}	
 }

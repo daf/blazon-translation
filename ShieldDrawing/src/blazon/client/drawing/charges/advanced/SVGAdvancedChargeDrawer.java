@@ -19,7 +19,7 @@ public class SVGAdvancedChargeDrawer extends SVGChargeDrawer {
 	private AdvancedCharge charge;
 	
 	public SVGAdvancedChargeDrawer(AdvancedCharge charge, OMSVGDefsElement defs, List<ShieldDiagnostic> diags, int shieldWidth, int shieldHeight) {
-		super(defs, diags, shieldWidth, shieldHeight);
+		super(defs, shieldWidth, shieldHeight);
 		this.charge = charge;
 	}
 
@@ -41,10 +41,10 @@ public class SVGAdvancedChargeDrawer extends SVGChargeDrawer {
 			diags.add(ShieldDiagnostic.build(LogLevel.ERROR, "Could not load the image for the charge " + charge.getTextDescription() + " at URL '" + imageSource + "'"));
 			return ordinaries;
 		}
-		float wToHRatio = currentWidth / (float) currentHeight;
-		int width = 300;
-		int height = Math.round(width * wToHRatio);
-		OMSVGImageElement imageElement = doc.createSVGImageElement(xMax/2 - width/2, yMax/2 - height/2, width, height, imageSource);
+		float hToWRatio = currentHeight / (float) currentWidth;
+		float height = getYDiff()* 0.75f;
+		float width = hToWRatio * height;
+		OMSVGImageElement imageElement = doc.createSVGImageElement(chargeAreaXMin + (getXDiff() - width)/2, chargeAreaYMin + (getYDiff() - height)/2, width, height, imageSource);
 		ordinaries.appendChild(imageElement);
 		return ordinaries;
 	}

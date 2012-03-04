@@ -1,7 +1,5 @@
 package blazon.client.drawing.charges.geometric;
 
-import java.util.List;
-
 import org.vectomatic.dom.svg.OMSVGDefsElement;
 import org.vectomatic.dom.svg.OMSVGGElement;
 
@@ -11,40 +9,46 @@ import blazon.client.drawing.shapes.Point;
 import blazon.client.drawing.shapes.Polygon;
 import blazon.client.drawing.shapes.PolygonImpl;
 import blazon.shared.shield.charges.GeometricCharge;
-import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 
 public class SVGFretDrawer extends SVGGeometricChargeDrawer {
 
-	public SVGFretDrawer(GeometricCharge charge, OMSVGDefsElement defs,	List<ShieldDiagnostic> diags, int shieldWidth, int shieldHeight) {
-		super(charge, defs, diags, shieldWidth, shieldHeight);
+	public SVGFretDrawer(GeometricCharge charge, OMSVGDefsElement defs,	int shieldWidth, int shieldHeight) {
+		super(charge, defs, shieldWidth, shieldHeight);
+		SVGMascleDrawer mascleDrawer = new SVGMascleDrawer(charge, defs, shieldXMax, shieldYMax, occurrences, true);
+		nestedDrawers.add(mascleDrawer);
+		SVGBendletDrawer bendletDrawer = new SVGBendletDrawer(charge, defs, shieldXMax, shieldYMax, occurrences);
+		nestedDrawers.add(bendletDrawer);
 	}
 
 	@Override
 	public OMSVGGElement drawCharge(CubicBezierCurve curve) {
 		OMSVGGElement fret = doc.createSVGGElement();
-		SVGMascleDrawer mascleDrawer = new SVGMascleDrawer(charge, defs, diags, xMax, yMax, occurrences);
-		OMSVGGElement mascle = mascleDrawer.drawOrdinary(curve, true);
+		SVGChargeDrawer mascleDrawer = nestedDrawers.get(0);
+		OMSVGGElement mascle = mascleDrawer.drawCharge(curve);
 		fret.appendChild(mascle);
-		SVGBendletSinisterDrawer bendletSinisterDrawer = new SVGBendletSinisterDrawer(charge, defs, diags, xMax, yMax, occurrences);
-		OMSVGGElement bendletSinister = bendletSinisterDrawer.drawCharge(curve);
-		fret.appendChild(bendletSinister);
-		final float bendletWidth = xMax/20f;
-		final float bendletSideLength = (float) Math.sqrt(2 * Math.pow(bendletWidth, 2));
-		float scale = 0.369f;
+		SVGChargeDrawer bendletDrawer = nestedDrawers.get(1);
+		OMSVGGElement bendlet = bendletDrawer.drawCharge(curve);
+		fret.appendChild(bendlet);
+
+		final float bendletSinisterXSize = getXDiff()/20f;
+		final float bendletSinisterXSideLength = (float) Math.sqrt(2 * Math.pow(bendletSinisterXSize, 2));
+		final float bendletSinisterYSize = getYDiff()/20f;
+		final float bendletSinisterYSideLength = (float) Math.sqrt(2 * Math.pow(bendletSinisterYSize, 2));
+		float scale = 0.41f;
 		Polygon bendletPart = new PolygonImpl(
-				new Point(xMin, yMin+bendletSideLength), new Point(xMin, yMin), new Point(xMin+bendletSideLength, yMin), 
-				new Point(xMax*scale, yMax*scale-bendletSideLength), new Point(xMax*scale-bendletSideLength, yMax*scale));
+				new Point(chargeAreaXMax, chargeAreaYMin+bendletSinisterYSideLength), new Point(chargeAreaXMax, chargeAreaYMin), new Point(chargeAreaXMax - bendletSinisterXSideLength, chargeAreaYMin), 
+				new Point(chargeAreaXMax - getXDiff()*scale, chargeAreaYMin + getYDiff()*scale-bendletSinisterYSideLength), new Point(chargeAreaXMax - getXDiff()*scale+bendletSinisterXSideLength, chargeAreaYMin + getYDiff()*scale));
 		putNewPolygonElementOnGElement(fret, charge.getTincture(), bendletPart);
-		scale = 0.453f;
-		float scale2 = 0.6169f;
+		scale = 0.473f;
+		float scale2 = 0.598f;
 		bendletPart = new PolygonImpl(
-				new Point(xMax*scale, yMax*scale-bendletSideLength), new Point(xMax*scale-bendletSideLength, yMax*scale),
-				new Point(xMax*scale2-bendletSideLength, yMax*scale2), new Point(xMax*scale2, yMax*scale2-bendletSideLength));
+				new Point(chargeAreaXMax - getXDiff()*scale, chargeAreaYMin + getYDiff()*scale-bendletSinisterYSideLength), new Point(chargeAreaXMax - getXDiff()*scale+bendletSinisterXSideLength, chargeAreaYMin + getYDiff()*scale),
+				new Point(chargeAreaXMax - getXDiff()*scale2+bendletSinisterXSideLength, chargeAreaYMin + getYDiff()*scale2), new Point(chargeAreaXMax - getXDiff()*scale2, chargeAreaYMin + getYDiff()*scale2-bendletSinisterYSideLength));
 		putNewPolygonElementOnGElement(fret, charge.getTincture(), bendletPart);
-		scale = 0.701f;
+		scale = 0.34f;
 		bendletPart = new PolygonImpl(
-				new Point(xMax*scale-bendletSideLength, yMax*scale), new Point(xMax*scale, yMax*scale-bendletSideLength), 
-				new Point(xMax, yMax-bendletSideLength), new Point(xMax, yMax), new Point(xMax-bendletSideLength, yMax));
+				new Point(chargeAreaXMin + getXDiff()*scale+bendletSinisterXSideLength, chargeAreaYMax - getYDiff()*scale), new Point(chargeAreaXMin + getXDiff()*scale, chargeAreaYMax - getYDiff()*scale-bendletSinisterYSideLength), 
+				new Point(chargeAreaXMin, chargeAreaYMax-bendletSinisterYSideLength), new Point(chargeAreaXMin, chargeAreaYMax), new Point(chargeAreaXMin+bendletSinisterXSideLength, chargeAreaYMax));
 		putNewPolygonElementOnGElement(fret, charge.getTincture(), bendletPart);
 		return fret;
 	}

@@ -1,5 +1,6 @@
 package blazon.client.drawing.charges.geometric;
 
+import java.util.EnumSet;
 import java.util.List;
 
 import org.vectomatic.dom.svg.OMSVGDefsElement;
@@ -12,6 +13,7 @@ import org.vectomatic.dom.svg.OMSVGSVGElement;
 import org.vectomatic.dom.svg.utils.OMSVGParser;
 import org.vectomatic.dom.svg.utils.SVGConstants;
 
+import blazon.client.drawing.charges.ChargeOffset;
 import blazon.client.drawing.shapes.CubicBezierCurve;
 import blazon.client.drawing.shapes.Point;
 import blazon.client.drawing.shapes.Polygon;
@@ -25,25 +27,28 @@ public abstract class SVGChargeDrawer {
 
 	protected final OMSVGDocument doc = OMSVGParser.currentDocument();
 	protected final OMSVGDefsElement defs;
-	protected final int xMax;
-	protected final int xMin;
-	protected final int yMax;
-	protected final int yMin;
+	protected final float shieldXMax;
+	protected final float shieldXMin;
+	protected final float shieldYMax;
+	protected final float shieldYMin;
 	protected final int occurrences;
-	protected final List<ShieldDiagnostic> diags;
+	protected List<ShieldDiagnostic> diags;
+	protected float chargeAreaYMax;
+	protected float chargeAreaXMax;
+	protected float chargeAreaXMin;
+	protected float chargeAreaYMin;
 
-	protected SVGChargeDrawer(OMSVGDefsElement defs, List<ShieldDiagnostic> diags, int shieldWidth, int shieldHeight, int occurrences) {
+	protected SVGChargeDrawer(OMSVGDefsElement defs, float shieldWidth, float shieldHeight, int occurrences) {
 		this.defs = defs;
-		this.diags = diags;
-		this.xMax = shieldWidth;
-		this.yMax = shieldHeight;
-		this.xMin = 0;
-		this.yMin = 0;
+		this.shieldXMax = this.chargeAreaXMax = shieldWidth;
+		this.shieldYMax = this.chargeAreaYMax = shieldHeight;
+		this.shieldXMin = this.chargeAreaXMin = 0;
+		this.shieldYMin = this.chargeAreaYMin = 0;
 		this.occurrences = occurrences;
 	}
 	
-	protected SVGChargeDrawer(OMSVGDefsElement defs, List<ShieldDiagnostic> diags, int shieldWidth, int shieldHeight) {
-		this(defs, diags, shieldWidth, shieldHeight, 1);
+	protected SVGChargeDrawer(OMSVGDefsElement defs, float shieldWidth, float shieldHeight) {
+		this(defs, shieldWidth, shieldHeight, 1);
 	}
 	
 	public abstract OMSVGGElement drawCharge(CubicBezierCurve curve);
@@ -75,5 +80,26 @@ public abstract class SVGChargeDrawer {
 		element.setAttribute(SVGConstants.CSS_FILL_VALUE, t.getFillText());
         element.setAttribute(SVGConstants.SVG_STROKE_ATTRIBUTE, SVGConstants.CSS_BLACK_VALUE);
         element.setAttribute(SVGConstants.SVG_STROKE_WIDTH_ATTRIBUTE, "1");
+	}
+
+	public void setChargeOffset(EnumSet<ChargeOffset> chargeOffsetFlag) {
+		if (chargeOffsetFlag.contains(ChargeOffset.CHIEFPRESENT)) {
+			chargeAreaYMin = shieldYMax/3f;
+		}
+		if (chargeOffsetFlag.contains(ChargeOffset.BASEPRESENT)) {
+			chargeAreaYMax = shieldYMax - shieldYMax/3f;
+		}
+	}
+
+	public void setDiagnostics(List<ShieldDiagnostic> shieldDiagnostics) {
+		diags = shieldDiagnostics;
+	}
+	
+	protected float getXDiff() {
+		return chargeAreaXMax - chargeAreaXMin;
+	}
+	
+	protected float getYDiff() {
+		return chargeAreaYMax - chargeAreaYMin;
 	}
 }
