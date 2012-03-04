@@ -54,13 +54,12 @@ public class SVGChargeDrawerFactory {
 				continue;
 			}
 			if (currentCharge instanceof GeometricCharge) {
-				GeometricCharge currentGeometricCharge = (GeometricCharge) currentCharge;
-				ChargeOffset chargeOffset = createDrawer(chargeDrawers, currentGeometricCharge, defs, shieldWidth, shieldHeight, sameChargeCounter);
+				ChargeOffset chargeOffset = createGeometricDrawer(chargeDrawers, (GeometricCharge) currentCharge, defs, shieldWidth, shieldHeight, sameChargeCounter);
 				if (chargeOffset != null) {
 					chargeOffsetFlag.add(chargeOffset);
 				}
 			} else if (currentCharge instanceof AdvancedCharge) {
-				chargeDrawers.add(new SVGAdvancedChargeDrawer((AdvancedCharge) currentCharge, defs, shield.getShieldDiagnostics(), shieldWidth, shieldHeight));
+				chargeDrawers.add(new SVGAdvancedChargeDrawer((AdvancedCharge) currentCharge, defs, shield.getShieldDiagnostics(), shieldWidth, shieldHeight, sameChargeCounter));
 			}
 			sameChargeCounter = 1;
 			currentCharge = nextCharge;
@@ -75,9 +74,9 @@ public class SVGChargeDrawerFactory {
 		return chargeDrawers;
 	}
 
-	private ChargeOffset createDrawer(List<SVGChargeDrawer> chargeDrawers, GeometricCharge currentGeometricCharge, OMSVGDefsElement defs, int shieldWidth, int shieldHeight, int sameChargeCounter) {
+	private ChargeOffset createGeometricDrawer(List<SVGChargeDrawer> chargeDrawers, GeometricCharge currentGeometricCharge, OMSVGDefsElement defs, int shieldWidth, int shieldHeight, int sameChargeCounter) {
 		ChargeOffset chargeOffset = null;
-		switch(currentGeometricCharge.getName()) {
+		switch(currentGeometricCharge.getType()) {
 		case BASE:
 			chargeDrawers.add(new SVGBaseDrawer(currentGeometricCharge, defs, shieldWidth, shieldHeight));
 			chargeOffset = ChargeOffset.BASEPRESENT;
