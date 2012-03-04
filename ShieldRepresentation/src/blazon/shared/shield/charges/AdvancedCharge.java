@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Map;
 
 import blazon.shared.shield.tinctures.Tincture;
-//LATER could use proxy pattern with persisted charge
 public class AdvancedCharge implements Charge, Serializable {
 	
 	private static final long serialVersionUID = -6533905684774401769L;
@@ -63,10 +62,12 @@ public class AdvancedCharge implements Charge, Serializable {
 
 	public String getTextDescription() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("'").append(name).append(" ").append(attitude);
-		sb.append(" ").append(tincture.getName()).append(" ");
-		for (Map.Entry<String, Tincture> bodyPart : bodyParts.entrySet()) {
-			sb.append(bodyPart.getKey()).append(" ").append(bodyPart.getValue().getName()).append(" ");
+		sb.append("'").append(name).append(" ").append(attitude).append(" ");
+		sb.append(tincture == null ? "proper" : tincture.getName()).append(" ");
+		if (bodyParts != null) {
+			for (Map.Entry<String, Tincture> bodyPart : bodyParts.entrySet()) {
+				sb.append(bodyPart.getKey()).append(" ").append(bodyPart.getValue().getName()).append(" ");
+			}
 		}
 		return sb.append("'").toString();
 	}

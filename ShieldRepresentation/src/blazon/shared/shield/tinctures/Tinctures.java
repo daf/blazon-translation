@@ -49,6 +49,7 @@ public class Tinctures implements Serializable {
 		map.put("ermines", Fur.build("ermines", "black", "white"));
 		map.put("erminois", Fur.build("erminois", "yellow", "black"));
 		map.put("pean", Fur.build("pean", "black", "yellow"));
+		map.put("proper", Proper.build());
 		// make map unmodifiable.
 		tinctureDefinitions = Collections.unmodifiableMap(map);
 	}

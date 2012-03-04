@@ -73,6 +73,26 @@ private void diagnoseRuleOfTincture(Tincture t,
 	}
 }
 
+private String checkForPlurals(String text, int number) {
+  if (number > 1) {
+    if (!text.endsWith("s")) {
+      diags.add(ShieldDiagnostic.build(LogLevel.WARN, 
+          "You have specified that there is more than one of a charge, but not used the plural. Changing '"
+           + text + "' to '" + text + "s'."));
+    } else {
+      text = text.substring(0, text.length() - 1);
+    }
+  } else if (number == 1) {
+    if (text.endsWith("s")) {
+      text = text.substring(0, text.length() - 1);
+      diags.add(ShieldDiagnostic.build(LogLevel.WARN,
+          "You have specified that there is only one of a charge, but used the plural. Changing '"
+           + text + "s' to '" + text + "'."));
+    }
+  }
+  return text;
+}
+
 private boolean startsWithAVowel(String word) {
   return word.startsWith("a") || word.startsWith("e") || word.startsWith("i") || word.startsWith("o") || word.startsWith("u");
 }
@@ -100,8 +120,7 @@ protected void mismatch(IntStream input, int ttype, BitSet follow)
 	throw new MismatchedTokenException(ttype, input);
 }
 
-public Object recoverFromMismatchedSet(IntStream input, RecognitionException e,
-		BitSet follow) throws RecognitionException {
+public Object recoverFromMismatchedSet(IntStream input, RecognitionException e, BitSet follow) throws RecognitionException {
 	throw e;
 }
 }
@@ -183,12 +202,12 @@ charges[TinctureType underLayerTinctureType] returns [List<Charge> charges]
 	     }
      }
    }
- | number_digits_or_words multiple_geometric_charges[tinctures, underLayerTinctureType, convertNumber($number_digits_or_words.text)] {
+ | geometricCount=number_digits_or_words multiple_geometric_charges[tinctures, underLayerTinctureType, convertNumber($geometricCount.text)] {
      if ($multiple_geometric_charges.charges != null) {
 	     $charges.addAll($multiple_geometric_charges.charges);
      }
    }
- | advanced_charge[tinctures, underLayerTinctureType] {
+ | advancedCount=number_digits_or_words advanced_charge[tinctures, underLayerTinctureType, convertNumber($advancedCount.text)] {
      if ($advanced_charge.charges != null) {
 	     $charges.addAll($advanced_charge.charges);
      }
@@ -223,24 +242,7 @@ multiple_geometric_charges[Tinctures tinctures, TinctureType underLayerTinctureT
     | MOBILE_CHARGE
   )
   {
-    String text = $ords.text;
-    
-    if (number > 1) {
-	    if (!text.endsWith("s")) {
-		    diags.add(ShieldDiagnostic.build(LogLevel.WARN,
-						"You have specified that there is more than one of a charge, but not used the plural. Changing '"
-								+ text + "' to '" + text + "s'."));
-			} else {
-				text = text.substring(0, text.length() - 1);
-			}
-    } else if (number == 1) {
-	    if (text.endsWith("s")) {
-		    text = text.substring(0, text.length() - 1);
-		    diags.add(ShieldDiagnostic.build(LogLevel.WARN,
-						"You have specified that there is only one of a charge, but used the plural. Changing '"
-								+ text + "s' to '" + text + "'."));
-	    }
-	  }
+    String text = checkForPlurals($ords.text, number);
   }
   (
     MODIFIER {
@@ -248,26 +250,30 @@ multiple_geometric_charges[Tinctures tinctures, TinctureType underLayerTinctureT
     }
   )?
   t=tincture[tinctures] {
-    diagnoseRuleOfTincture(t, underLayerTinctureType);
-    $charges = new ArrayList<Charge>();
-		for (int i = 0; i < number; i++) {
-			Charge charge = GeometricCharge.build(text, t, diags);
-			$charges.add(charge);
-		}
+  diagnoseRuleOfTincture(t, underLayerTinctureType);
+  $charges = new ArrayList<Charge>();
+  for (int i = 0; i < number; i++) {
+		Charge charge = GeometricCharge.build(text, t, diags);
+		$charges.add(charge);
+	}
   };
 
-advanced_charge[Tinctures tinctures, TinctureType underLayerTinctureType] returns [List <Charge> charges]
-  :
-  DETERMINER 
+advanced_charge[Tinctures tinctures, TinctureType underLayerTinctureType, int number] returns [List <Charge> charges]
+  : 
   (
     beast = BEAST attitude = ATTITUDE
   | beast = FLYING_BEAST attitude = FLYING_ATTITUDE
   )
-  ATTITUDE_MODIFIER? tincture[tinctures] body_parts[tinctures]? {
-    diagnoseRuleOfTincture($tincture.tincture, underLayerTinctureType);
-    AdvancedCharge charge = AdvancedCharge.build($beast.text, $attitude.text, $ATTITUDE_MODIFIER.text, $tincture.tincture, $body_parts.bodyParts);
-    charges = new ArrayList<Charge>();
-    charges.add(charge);
+  ATTITUDE_MODIFIER?
+  tincture[tinctures]
+  body_parts[tinctures]? {
+  diagnoseRuleOfTincture($tincture.tincture, underLayerTinctureType);
+  String beastName = checkForPlurals($beast.text, number);
+  AdvancedCharge charge = AdvancedCharge.build(beastName, $attitude.text, $ATTITUDE_MODIFIER.text, $tincture.tincture, $body_parts.bodyParts);
+  $charges = new ArrayList<Charge>();
+  for (int i = 0; i < number; i++) {
+    $charges.add(charge);
+  }
   };
 
 body_parts[Tinctures tinctures] returns [Map<String, Tincture> bodyParts]
@@ -395,6 +401,9 @@ tincture[Tinctures tinctures] returns [Tincture tincture]
     FUR {
       tinctureName = $FUR.text;
     }
+  | PROPER {
+      tinctureName = $PROPER.text;
+    }
   )
   {
     try {
@@ -501,20 +510,27 @@ MOBILE_CHARGE
 
 BEAST
   :
-  'lion'
-  | 'dragon'
-  | 'bear'
-  | 'wolf'
-  | 'leopard'
-  | 'horse'
-  | 'unicorn'
+  (
+    'lion'
+    | 'dragon'
+	  | 'bear'
+	  | 'wolf'
+	  | 'stag'
+	  | 'leopard'
+		| 'horse'
+	  | 'unicorn'
+  )
+  's'?
   ;
   
 FLYING_BEAST
   :
-  'owl'
-  | 'peacock'
-  | 'bee'
+  (
+    'owl'
+    | 'peacock'
+    | 'bee'
+  )
+  's'?
   ;
 
 ATTITUDE
@@ -571,6 +587,11 @@ PARTYPER
     ' '
   )?
   'per'
+  ;
+
+PROPER
+  :
+  'proper'
   ;
 
 COLOUR

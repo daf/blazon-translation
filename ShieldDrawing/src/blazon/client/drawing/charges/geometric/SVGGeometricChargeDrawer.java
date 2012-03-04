@@ -12,7 +12,6 @@ import blazon.shared.shield.charges.GeometricCharge;
 
 public abstract class SVGGeometricChargeDrawer extends SVGChargeDrawer {
 
-	protected GeometricCharge charge;
 	protected List<SVGChargeDrawer> nestedDrawers = new ArrayList<SVGChargeDrawer>();
 	
 	protected SVGGeometricChargeDrawer(GeometricCharge charge, OMSVGDefsElement defs, float shieldWidth, float shieldHeight) {
@@ -20,8 +19,7 @@ public abstract class SVGGeometricChargeDrawer extends SVGChargeDrawer {
 	}
 
 	public SVGGeometricChargeDrawer(GeometricCharge charge, OMSVGDefsElement defs, float shieldWidth, float shieldHeight, int occurrences) {
-		super(defs, shieldWidth, shieldHeight, occurrences);
-		this.charge = charge;
+		super(charge, defs, shieldWidth, shieldHeight, occurrences);
 	}
 
 	@Override 

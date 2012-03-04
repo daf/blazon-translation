@@ -3,16 +3,16 @@ package blazon.client.drawing.charges.geometric.mobile;
 import org.vectomatic.dom.svg.OMSVGDefsElement;
 import org.vectomatic.dom.svg.OMSVGGElement;
 
-import blazon.client.drawing.charges.geometric.SVGGeometricChargeDrawer;
+import blazon.client.drawing.charges.geometric.SVGChargeDrawer;
 import blazon.client.drawing.shapes.CubicBezierCurve;
-import blazon.shared.shield.charges.GeometricCharge;
+import blazon.shared.shield.charges.Charge;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic.LogLevel;
 import blazon.shared.shield.tinctures.Tincture;
 
-public abstract class SVGMobileChargeDrawer extends SVGGeometricChargeDrawer {
+public abstract class SVGMobileChargeDrawer extends SVGChargeDrawer {
 
-	protected SVGMobileChargeDrawer(GeometricCharge charge, OMSVGDefsElement defs, float shieldWidth, float shieldHeight, int occurrences) {
+	protected SVGMobileChargeDrawer(Charge charge, OMSVGDefsElement defs, float shieldWidth, float shieldHeight, int occurrences) {
 		super(charge, defs, shieldWidth, shieldHeight, occurrences);
 	}
 

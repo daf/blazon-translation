@@ -19,6 +19,7 @@ import blazon.client.drawing.shapes.Point;
 import blazon.client.drawing.shapes.Polygon;
 import blazon.client.drawing.shield.fur.AbstractFurSVGBuilder;
 import blazon.client.drawing.shield.fur.FurSVGBuilder;
+import blazon.shared.shield.charges.Charge;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.tinctures.Fur;
 import blazon.shared.shield.tinctures.Tincture;
@@ -37,8 +38,10 @@ public abstract class SVGChargeDrawer {
 	protected float chargeAreaXMax;
 	protected float chargeAreaXMin;
 	protected float chargeAreaYMin;
+	protected final Charge charge;
 
-	protected SVGChargeDrawer(OMSVGDefsElement defs, float shieldWidth, float shieldHeight, int occurrences) {
+	protected SVGChargeDrawer(Charge charge, OMSVGDefsElement defs, float shieldWidth, float shieldHeight, int occurrences) {
+		this.charge = charge;
 		this.defs = defs;
 		this.shieldXMax = this.chargeAreaXMax = shieldWidth;
 		this.shieldYMax = this.chargeAreaYMax = shieldHeight;
@@ -47,8 +50,8 @@ public abstract class SVGChargeDrawer {
 		this.occurrences = occurrences;
 	}
 	
-	protected SVGChargeDrawer(OMSVGDefsElement defs, float shieldWidth, float shieldHeight) {
-		this(defs, shieldWidth, shieldHeight, 1);
+	protected SVGChargeDrawer(Charge charge, OMSVGDefsElement defs, float shieldWidth, float shieldHeight) {
+		this(charge, defs, shieldWidth, shieldHeight, 1);
 	}
 	
 	public abstract OMSVGGElement drawCharge(CubicBezierCurve curve);
