@@ -1,7 +1,6 @@
 package blazon.client.drawing;
 
 import blazon.shared.shield.Shield;
-
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
@@ -10,5 +9,5 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  */
 @RemoteServiceRelativePath("draw")
 public interface BlazonParsingService extends RemoteService {
-	Shield createShieldRepresentation(String blazon);
+	Shield createShieldRepresentation(String blazon) throws IllegalArgumentException;
 }
