@@ -12,4 +12,5 @@ public interface Shield {
 	Field getField();
 	void addCharges(List<Charge> charges);
 	List<Charge> getCharges();
+	void addDiagnostic(ShieldDiagnostic diagnostic);
 }

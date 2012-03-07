@@ -10,5 +10,5 @@ public interface ChargeAddingService extends RemoteService {
 
 	void addChargeToDatastore(String charge, String attitude, String attMod,
 			String tincture, String imageLocation,
-			SortedSet<String> bodyPartsSet);
+			SortedSet<String> bodyPartsSet) throws IllegalArgumentException;
 }

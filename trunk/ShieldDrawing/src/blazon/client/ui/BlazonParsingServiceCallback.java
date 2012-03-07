@@ -2,6 +2,7 @@ package blazon.client.ui;
 
 import blazon.client.charge.fetching.ChargeFetchingService;
 import blazon.client.charge.fetching.ChargeFetchingServiceAsync;
+import blazon.client.ui.widget.DialogBoxDisplayer;
 import blazon.shared.shield.Shield;
 
 import com.google.gwt.core.client.GWT;
@@ -11,15 +12,16 @@ public class BlazonParsingServiceCallback implements AsyncCallback<Shield> {
 
 	private final SVGPanelController svgPanelController;
 
-	private final DiagnosticDisplayer diagnosticDisplayer = DiagnosticDisplayer.getInstance();
-
 	public BlazonParsingServiceCallback(SVGPanelController svgPanelController) {
 		this.svgPanelController = svgPanelController;
 	}
 
 	@Override
     public void onFailure(Throwable caught) {
-		diagnosticDisplayer.displayThrowable(caught);
+		if (caught instanceof IllegalArgumentException) {
+			DialogBoxDisplayer dialogBox = new DialogBoxDisplayer("Shield Drawing Failed", "Can not draw a shield for an empty sentence of Blazon.", caught);
+			dialogBox.displayDialogBox();
+		}
     }
 
     @Override

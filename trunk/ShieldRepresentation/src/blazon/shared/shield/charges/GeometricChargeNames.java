@@ -77,4 +77,8 @@ public enum GeometricChargeNames implements Serializable {
 		SUBORDINARY,
 		MOBILE
 	}
+
+	public boolean isOrdinary() {
+		return geometricChargeType == GeometricChargeType.ORDINARY;
+	}
 }

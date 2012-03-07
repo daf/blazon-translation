@@ -231,8 +231,8 @@ single_geometric_charge[Tinctures tinctures, TinctureType underLayerTinctureType
     }
   )?
   t=tincture[tinctures] {
-    diagnoseRuleOfTincture(t, underLayerTinctureType);
-    $charge = GeometricCharge.build(text, t, diags);
+  diagnoseRuleOfTincture(t, underLayerTinctureType);
+  $charge = GeometricCharge.build(text, t, diags);
   };
 
 multiple_geometric_charges[Tinctures tinctures, TinctureType underLayerTinctureType, int number] returns [List <Charge> charges]
@@ -253,9 +253,9 @@ multiple_geometric_charges[Tinctures tinctures, TinctureType underLayerTinctureT
   diagnoseRuleOfTincture(t, underLayerTinctureType);
   $charges = new ArrayList<Charge>();
   for (int i = 0; i < number; i++) {
-		Charge charge = GeometricCharge.build(text, t, diags);
-		$charges.add(charge);
-	}
+    Charge charge = GeometricCharge.build(text, t, diags);
+    $charges.add(charge);
+  }
   };
 
 advanced_charge[Tinctures tinctures, TinctureType underLayerTinctureType, int number] returns [List <Charge> charges]

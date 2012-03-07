@@ -1,14 +1,16 @@
 package blazon.client.ui;
 
+import java.util.List;
+
 import blazon.client.ui.widget.DialogBoxDisplayer;
 import blazon.shared.charge.fetching.NoImageForAdvancedChargeException;
 import blazon.shared.shield.Shield;
+import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class ChargeFetchingServiceCallback implements AsyncCallback<Shield> {
 
-	private final DiagnosticDisplayer diagnosticDisplayer = DiagnosticDisplayer.getInstance();
 	private SVGPanelController svgPanelController;
 	
 	public ChargeFetchingServiceCallback(SVGPanelController svgPanelController) {
@@ -17,22 +19,25 @@ public class ChargeFetchingServiceCallback implements AsyncCallback<Shield> {
 
 	@Override
 	public void onFailure(Throwable caught) {
-		try { throw caught; } // don't need to check instance of
-		catch (NoImageForAdvancedChargeException e) {
-			String message = "The application was unable to find an image for one of your specified charges.\nCharge: ";
-			message += e.getMissingImageInformation();
-			message += "\nYou may want to refine your search or add an image to the database below.";
-			DialogBoxDisplayer dialogBox = new DialogBoxDisplayer("No image found for charge", message);
+		if (caught instanceof NoImageForAdvancedChargeException) {
+			String message = "The application was unable to find an image for one of your specified charges.\n";
+			message += "You may want to refine your search or add an image to the database below.";
+			DialogBoxDisplayer dialogBox = new DialogBoxDisplayer("No image found for charge", message, caught);
 			dialogBox.displayDialogBox();
-		} catch (Throwable e) {
-			diagnosticDisplayer.displayThrowable(caught);
+		} else {
+			DialogBoxDisplayer dialogBox = new DialogBoxDisplayer("Error adding charges to shield", "An exception was thrown whilst fetching images for the charges.", caught);
+			dialogBox.displayDialogBox();
 		}
 	}
 
 	@Override
 	public void onSuccess(Shield result) {
     	svgPanelController.displayShield(result);
-    	diagnosticDisplayer.displayDiagnostics(result.getShieldDiagnostics());
+    	List<ShieldDiagnostic> diags = result.getShieldDiagnostics();
+    	if (diags != null && !diags.isEmpty()) {
+        	DialogBoxDisplayer dialogBox = new DialogBoxDisplayer("Blazon Parsed with some warnings", "There were some problems when parsing your Blazon sentence.", diags);
+    		dialogBox.displayDialogBox();
+    	}
 	}
 
 }

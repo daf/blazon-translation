@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:50:56 /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g 2012-03-04 19:34:49
+// $ANTLR 3.3 Nov 30, 2010 12:50:56 /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g 2012-03-07 17:35:37
 
 package blazon.server.grammar;
 import blazon.shared.shield.*;
@@ -514,8 +514,8 @@ public class BlazonParser extends Parser {
             state._fsp--;
 
 
-                diagnoseRuleOfTincture(t, underLayerTinctureType);
-                charge = GeometricCharge.build(text, t, diags);
+              diagnoseRuleOfTincture(t, underLayerTinctureType);
+              charge = GeometricCharge.build(text, t, diags);
               
 
             }
@@ -589,9 +589,9 @@ public class BlazonParser extends Parser {
               diagnoseRuleOfTincture(t, underLayerTinctureType);
               charges = new ArrayList<Charge>();
               for (int i = 0; i < number; i++) {
-            		Charge charge = GeometricCharge.build(text, t, diags);
-            		charges.add(charge);
-            	}
+                Charge charge = GeometricCharge.build(text, t, diags);
+                charges.add(charge);
+              }
               
 
             }

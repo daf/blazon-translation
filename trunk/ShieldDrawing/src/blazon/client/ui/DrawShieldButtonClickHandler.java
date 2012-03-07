@@ -7,11 +7,11 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 
-public class DrawShieldButtonClickHandler implements ClickHandler {
+class DrawShieldButtonClickHandler implements ClickHandler {
 
 	private final SVGPanelController svgPanelController;
 	
-	public DrawShieldButtonClickHandler(final SVGPanelController svgPanelController) {
+	DrawShieldButtonClickHandler(final SVGPanelController svgPanelController) {
 		this.svgPanelController = svgPanelController;
 	}
 	
@@ -21,7 +21,6 @@ public class DrawShieldButtonClickHandler implements ClickHandler {
 	}
 
 	private void processInput() {
-		DiagnosticDisplayer.getInstance().clearPanel();
         final String enteredText = svgPanelController.getTextFromTextBox("Enter Blazon");
         final BlazonParsingServiceAsync service = GWT.create(BlazonParsingService.class);
         service.createShieldRepresentation(enteredText, new BlazonParsingServiceCallback(svgPanelController));

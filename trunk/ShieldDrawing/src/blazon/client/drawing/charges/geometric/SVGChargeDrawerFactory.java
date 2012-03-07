@@ -35,7 +35,6 @@ public class SVGChargeDrawerFactory {
 		if (charges == null || charges.isEmpty()) {
 			return chargeDrawers;
 		}
-		//TODO stop 2 chiefs etc being specified
 		
 		Iterator<Charge> iterator = charges.iterator();
 		Charge currentCharge = iterator.next();
