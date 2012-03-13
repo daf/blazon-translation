@@ -37,7 +37,7 @@ public abstract class GeometricCharge implements Charge, Serializable {
 			gCharge.tincture = t;
 			return gCharge;
 		} else {
-			errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Unknown geometric charge '" + name + "'. No geometric charge used."));
+			errorsList.add(ShieldDiagnostic.build(LogLevel.WARNING, "Unknown geometric charge '" + name + "'. No geometric charge used."));
 			return null;
 		}
 	}

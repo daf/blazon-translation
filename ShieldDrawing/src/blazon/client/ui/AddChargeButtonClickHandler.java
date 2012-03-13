@@ -24,7 +24,7 @@ class AddChargeButtonClickHandler implements ClickHandler {
         		panelController.getTextFromTextBox("Charge Tincture"),
         		panelController.getTextFromTextBox("Image Location"),
         		panelController.createSetOfBodyPartToTincture(),
-        		new AddChargeToDatastoreCallback<Void>(panelController));
+        		new AddChargeToDatastoreCallback(panelController));
 	}
 
 }

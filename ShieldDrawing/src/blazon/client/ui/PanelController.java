@@ -6,6 +6,7 @@ import java.util.Map;
 
 import blazon.client.ui.widget.LabelledTextBox;
 
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
@@ -14,7 +15,7 @@ import com.google.gwt.user.client.ui.Panel;
 public class PanelController implements Serializable {
 	
 	private static final long serialVersionUID = 5926214964504846687L;
-	public Map<String, LabelledTextBox> textBoxMap;
+	protected Map<String, LabelledTextBox> textBoxMap;
 	protected Panel panel;
 	
 	PanelController() {}
@@ -51,8 +52,17 @@ public class PanelController implements Serializable {
 	}
 
 	void addButtonToPanel(String buttonText, String buttonCssClass, ClickHandler clickHandler) {
-		Button button = new Button(buttonText);
+		addButtonToPanel(buttonText, buttonCssClass, clickHandler, false);
+	}
+	
+	void addButtonToPanel(String buttonText, String buttonCssClass, ClickHandler clickHandler, boolean defaultButton) {
+		final Button button = new Button(buttonText);
 		button.setStyleName(buttonCssClass);
+		if (defaultButton) {
+			for (LabelledTextBox ltb : textBoxMap.values()) {
+				ltb.addDefaultButton(button);
+			}
+		}
 		panel.add(button);
         button.addClickHandler(clickHandler);		
 	}
@@ -62,5 +72,16 @@ public class PanelController implements Serializable {
 		Label label = new Label(labelText);
 		label.setStyleName(labelCss);
 		panel.add(label);
+	}
+	
+	void setFocusOfTextBox(String name) {
+		LabelledTextBox textBox = textBoxMap.get(name.toLowerCase());
+		if (textBox != null) {
+			textBox.setFocus();
+		}
+	}
+	
+	Element getPanelElement() {
+		return panel.getElement();
 	}
 }

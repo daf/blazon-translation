@@ -2,6 +2,10 @@ package blazon.client.ui.widget;
 
 import java.io.Serializable;
 
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -38,5 +42,21 @@ public class LabelledTextBox extends Composite implements Serializable {
 
 	public void clearEnteredText() {
 		textBox.setText("");
+	}
+	
+	public void setFocus() {
+		textBox.setFocus(true);
+	}
+
+	public void addDefaultButton(final Button button) {
+		textBox.addKeyPressHandler(new KeyPressHandler() {
+			
+			@Override
+			public void onKeyPress(KeyPressEvent event) {
+				if (event.getCharCode() == KeyCodes.KEY_ENTER) {
+					button.click();
+				}
+			}
+		});
 	}
 }

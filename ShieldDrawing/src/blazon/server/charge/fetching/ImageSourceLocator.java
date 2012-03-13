@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -19,6 +20,7 @@ import blazon.shared.shield.tinctures.Tincture;
 public class ImageSourceLocator {
 
 	private final Shield shield;
+	private Logger logger = Logger.getLogger("blazon");
 
 	public ImageSourceLocator(Shield shield) {
 		this.shield = shield;
@@ -28,9 +30,11 @@ public class ImageSourceLocator {
 		EntityManager entityManager = EMF.getInstance().createEntityManager();
 		try {
 	    	List<Charge> charges = shield.getCharges();
-	    	if (charges == null) {
+	    	if (charges == null || charges.isEmpty()) {
 	    		return shield;
 	    	}
+	    	logger.info("ImageSourceLocator.locateChargeSources called. Shield has " + charges.size() + " charge(s).");
+
 			for (Charge charge : charges) {
 	    		if (!charge.hasSource()) {
 	    			AdvancedCharge advCharge = (AdvancedCharge) charge;
@@ -40,6 +44,7 @@ public class ImageSourceLocator {
 	        			throw new NoImageForAdvancedChargeException(advCharge);
 	        		}
 	        		else if (resultList.size() == 1) {
+	        			logger.info("AdvancedCharge.setSource called with '" + resultList.get(0).getImageSource() + "' as parameter." );
 	        			advCharge.setSource(resultList.get(0).getImageSource());
 	        		}
 	        		else {
@@ -58,6 +63,7 @@ public class ImageSourceLocator {
 								persistedChargeWithFewestExtraBodyParts = persistedCharge; 
 	        				}
 						}
+	        			logger.info("AdvancedCharge.setSource called with '" + persistedChargeWithFewestExtraBodyParts.getImageSource() + "' as paramter." );
 	        			advCharge.setSource(persistedChargeWithFewestExtraBodyParts.getImageSource());
 	        		}
 	    		}
@@ -67,7 +73,7 @@ public class ImageSourceLocator {
 			entityManager.close();
 		}
 	}
-
+	
 	private Query buildQuery(AdvancedCharge charge, EntityManager entityManager) {
 		StringBuilder sb = new StringBuilder("SELECT FROM ");
 		sb.append(PersistedCharge.class.getName()).append(" c ");

@@ -24,7 +24,7 @@ public class OrdinaryTest {
 	public void testThatGettingCrossWithTinctureGulesReturnsCorrectOrdinaryObject() throws UnknownTinctureException {
 		Tincture t = new Tinctures().getTincture("gules");
 		GeometricCharge ordinary = GeometricCharge.build("cross", t, null);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(t)));
 	}
 	
@@ -32,7 +32,7 @@ public class OrdinaryTest {
 	public void testThatGettingCrossWithTinctureOrReturnsCorrectOrdinaryObject() throws UnknownTinctureException {
 		Tincture t = new Tinctures().getTincture("or");
 		GeometricCharge ordinary = GeometricCharge.build("cross", t, null);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(t)));
 	}
 	
@@ -40,7 +40,7 @@ public class OrdinaryTest {
 	public void testThatGettingBendSinisterWithTinctureGulesReturnsCorrectOrdinaryObject() throws UnknownTinctureException {
 		Tincture t = new Tinctures().getTincture("gules");
 		GeometricCharge ordinary = GeometricCharge.build("bend sinister", t, null);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BEND_SINISTER)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BEND_SINISTER)));
 		assertThat(ordinary.getTincture(), is(equalTo(t)));
 	}
 	
@@ -48,7 +48,7 @@ public class OrdinaryTest {
 	public void testThatGettingBendSinisterWithTinctureOrReturnsCorrectOrdinaryObject() throws UnknownTinctureException {
 		Tincture t = new Tinctures().getTincture("or");
 		GeometricCharge ordinary = GeometricCharge.build("bend sinister", t, null);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BEND_SINISTER)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BEND_SINISTER)));
 		assertThat(ordinary.getTincture(), is(equalTo(t)));
 	}
 	
@@ -59,7 +59,7 @@ public class OrdinaryTest {
 		GeometricCharge ordinary = GeometricCharge.build("blah", t, diags);
 		assertThat(ordinary, is(nullValue()));
 		assertThat(diags.size(), is(1));
-		assertThat(diags.get(0).getSeverity(), is(LogLevel.WARN));
+		assertThat(diags.get(0).getSeverity(), is(LogLevel.WARNING));
 		assertThat(diags.get(0).getMessage(), is(equalTo("Unknown geometric charge 'BLAH'. No geometric charge used.")));
 	}
 	

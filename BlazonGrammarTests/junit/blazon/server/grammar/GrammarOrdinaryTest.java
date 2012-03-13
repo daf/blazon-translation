@@ -26,7 +26,7 @@ public class GrammarOrdinaryTest {
 		BlazonParser parser = new ParserCreator().createParser("chief gules");
 		Tinctures tinctures = new Tinctures(); 
 		GeometricCharge ordinary = parser.single_geometric_charge(tinctures, TinctureType.OTHER);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CHIEF)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CHIEF)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 	}
 	
@@ -35,7 +35,7 @@ public class GrammarOrdinaryTest {
 		BlazonParser parser = new ParserCreator().createParser("base or");
 		Tinctures tinctures = new Tinctures(); 
 		GeometricCharge ordinary = parser.single_geometric_charge(tinctures, TinctureType.OTHER);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BASE)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BASE)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("or"))));
 	}
 	
@@ -44,7 +44,7 @@ public class GrammarOrdinaryTest {
 		BlazonParser parser = new ParserCreator().createParser("bend gules");
 		Tinctures tinctures = new Tinctures(); 
 		GeometricCharge ordinary = parser.single_geometric_charge(tinctures, TinctureType.OTHER);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BEND)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BEND)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 	}
 	
@@ -54,10 +54,10 @@ public class GrammarOrdinaryTest {
 		BlazonParser parser = new ParserCreator().createParser("bend gules", diags );
 		Tinctures tinctures = new Tinctures(); 
 		GeometricCharge ordinary = parser.single_geometric_charge(tinctures, TinctureType.COLOUR);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BEND)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BEND)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 		assertThat(diags.size(), is(1));
-		assertThat(diags.get(0).getSeverity(), is(ShieldDiagnostic.LogLevel.WARN));
+		assertThat(diags.get(0).getSeverity(), is(ShieldDiagnostic.LogLevel.WARNING));
 		assertThat(diags.get(0).getMessage(), is("You are not obeying the rule of tincture. You can not put a colour on a colour, or a metal on a metal"));
 	}
 	
@@ -67,10 +67,10 @@ public class GrammarOrdinaryTest {
 		BlazonParser parser = new ParserCreator().createParser("bend or", diags );
 		Tinctures tinctures = new Tinctures(); 
 		GeometricCharge ordinary = parser.single_geometric_charge(tinctures, TinctureType.METAL);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BEND)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BEND)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("or"))));
 		assertThat(diags.size(), is(1));
-		assertThat(diags.get(0).getSeverity(), is(ShieldDiagnostic.LogLevel.WARN));
+		assertThat(diags.get(0).getSeverity(), is(ShieldDiagnostic.LogLevel.WARNING));
 		assertThat(diags.get(0).getMessage(), is("You are not obeying the rule of tincture. You can not put a colour on a colour, or a metal on a metal"));
 	}
 	
@@ -80,7 +80,7 @@ public class GrammarOrdinaryTest {
 		BlazonParser parser = new ParserCreator().createParser("bend vair", diags );
 		Tinctures tinctures = new Tinctures(); 
 		GeometricCharge ordinary = parser.single_geometric_charge(tinctures, TinctureType.OTHER);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BEND)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BEND)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("vair"))));
 		assertThat(diags.size(), is(0));
 	}
@@ -90,7 +90,7 @@ public class GrammarOrdinaryTest {
 		BlazonParser parser = new ParserCreator().createParser("bend sinister gules");
 		Tinctures tinctures = new Tinctures(); 
 		GeometricCharge ordinary = parser.single_geometric_charge(tinctures, TinctureType.OTHER);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BEND_SINISTER)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BEND_SINISTER)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 	}
 	

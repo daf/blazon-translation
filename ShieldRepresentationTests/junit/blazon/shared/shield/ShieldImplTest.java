@@ -247,7 +247,7 @@ public class ShieldImplTest {
 		List<ShieldDiagnostic> list = new ArrayList<ShieldDiagnostic>();
 		ShieldDiagnostic diag = ShieldDiagnostic.build(LogLevel.ERROR, "hello");
 		list.add(diag);
-		diag = ShieldDiagnostic.build(LogLevel.WARN, "hello world");
+		diag = ShieldDiagnostic.build(LogLevel.WARNING, "hello world");
 		list.add(diag);
 		shield.addDiagnostics(list);
 		List<ShieldDiagnostic> actual = shield.getShieldDiagnostics();
@@ -263,7 +263,7 @@ public class ShieldImplTest {
 		List<ShieldDiagnostic> list = new ArrayList<ShieldDiagnostic>();
 		ShieldDiagnostic diag = ShieldDiagnostic.build(LogLevel.ERROR, "hello");
 		list.add(diag);
-		diag = ShieldDiagnostic.build(LogLevel.WARN, "hello world");
+		diag = ShieldDiagnostic.build(LogLevel.WARNING, "hello world");
 		list.add(diag);
 		shield.addDiagnostics(list);
 		List<ShieldDiagnostic> actual = shield.getShieldDiagnostics();
@@ -286,7 +286,7 @@ public class ShieldImplTest {
 		List<ShieldDiagnostic> list1 = new ArrayList<ShieldDiagnostic>();
 		ShieldDiagnostic diag = ShieldDiagnostic.build(LogLevel.ERROR, "hello");
 		list1.add(diag);
-		diag = ShieldDiagnostic.build(LogLevel.WARN, "hello world");
+		diag = ShieldDiagnostic.build(LogLevel.WARNING, "hello world");
 		list1.add(diag);
 		shield.addDiagnostics(list1);
 
@@ -299,7 +299,7 @@ public class ShieldImplTest {
 		List<ShieldDiagnostic> list2 = new ArrayList<ShieldDiagnostic>();
 		diag = ShieldDiagnostic.build(LogLevel.INFO, "third item");
 		list2.add(diag);
-		diag = ShieldDiagnostic.build(LogLevel.WARN, "fourth item");
+		diag = ShieldDiagnostic.build(LogLevel.WARNING, "fourth item");
 		list2.add(diag);
 		shield.addDiagnostics(list2);
 		

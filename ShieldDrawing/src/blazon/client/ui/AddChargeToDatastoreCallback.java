@@ -1,10 +1,10 @@
 package blazon.client.ui;
 
-import blazon.client.ui.widget.DialogBoxDisplayer;
-
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public class AddChargeToDatastoreCallback<T> implements AsyncCallback<Void> {
+import blazon.client.ui.widget.DialogBoxDisplayer;
+
+public class AddChargeToDatastoreCallback implements AsyncCallback<Void> {
 
 	private final PanelController panelController;
 
@@ -18,7 +18,7 @@ public class AddChargeToDatastoreCallback<T> implements AsyncCallback<Void> {
 		if (caught instanceof IllegalArgumentException) {
 			errorMessage = "Some of the necessary data needed about the charge was not specified";
 		}
-		DialogBoxDisplayer dialogBox = new DialogBoxDisplayer("Adding Charge Failed", "The charge you specified was not added to the datastore.\n" + errorMessage, caught);
+		DialogBoxDisplayer dialogBox = new DialogBoxDisplayer("Adding Charge Failed", "The charge you specified was not added to the datastore.<br />" + errorMessage, caught);
 		dialogBox.displayDialogBox();
 	}
 

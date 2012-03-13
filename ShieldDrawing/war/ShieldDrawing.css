@@ -184,7 +184,7 @@ h1,h2,h3,h4,h5,h6 {
 	margin-bottom: 0.3em;
 }
 
-h4,h5,h6 {
+ h5,h6 {
 	font-weight: bold;
 }
 
@@ -448,18 +448,9 @@ ul.tabbed a {
 	padding: 24px;
 }
 
-div#information {
-	text-align: justify;
-	float: left;
-	width: 47%;
-}
-
-div#application {
-	float: right;
-	width: 47%;
-}
-
 div#svgPanel {
+	float: left;
+	width: 46%;
 	margin-bottom: 20px;
 	padding: 13px;
 	border-style: solid;
@@ -468,6 +459,8 @@ div#svgPanel {
 }
 
 div#chargeAddingPanel {
+	float: right;
+	width: 46%;
 	margin-bottom: 20px;
 	padding: 13px;
 	border-style: solid;
@@ -621,4 +614,10 @@ div.diagPanel {
   width: 12px;
   height: 12px;
   overflow: hidden;
+}
+
+.gwt-DialogBox .showDetailsLink {
+	text-decoration: underline;
+	color: #0000FF;
+	cursor: pointer;
 }

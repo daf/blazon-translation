@@ -33,7 +33,8 @@ public class Main implements EntryPoint {
 	private void createShieldDrawingUI(Panel svgPanel) {
     	final SVGPanelController svgPanelController = new SVGPanelController(svgPanel);
     	svgPanelController.addLabelledTextBox("Enter Blazon", "blazonLabel", "blazonTextBox");
-    	svgPanelController.addButtonToPanel("Draw Shield", "blazonButton", new DrawShieldButtonClickHandler(svgPanelController));
+    	svgPanelController.setFocusOfTextBox("Enter Blazon");
+    	svgPanelController.addButtonToPanel("Draw Shield", "blazonButton", new DrawShieldButtonClickHandler(svgPanelController), true);
     	svgPanelController.createShieldSVGElement();
     	
 	}

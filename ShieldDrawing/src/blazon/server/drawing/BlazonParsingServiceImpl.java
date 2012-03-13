@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import org.antlr.runtime.CharStream;
 import org.antlr.runtime.CommonTokenStream;
@@ -30,11 +31,16 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class BlazonParsingServiceImpl extends RemoteServiceServlet implements BlazonParsingService {
 	private static final long serialVersionUID = -1112781771348351096L;
 
+	private final Logger logger = Logger.getLogger("blazon");
+
+	
 	@Override
 	public Shield createShieldRepresentation(String blazon) throws IllegalArgumentException {
-		if (blazon == null || blazon.isEmpty()) {
+		logger.info("BlazonParsingServiceImpl called with parameter: '" + blazon + "'");
+		if (blazon == null || blazon.trim().isEmpty()) {
 			throw new IllegalArgumentException("Can not draw shield for empty or null Blazon");
 		}
+		blazon = blazon.trim().toLowerCase();
 		CharStream input = new ANTLRNoCaseStringStream(blazon);
 		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
 		BlazonLexer lexer = new BlazonLexer(input, diags);
@@ -50,6 +56,9 @@ public class BlazonParsingServiceImpl extends RemoteServiceServlet implements Bl
 	}
 	
 	private void checkForMultipleOrdinaries(Shield shield) {
+		if (shield.getCharges() == null) {
+			return;
+		}
 		Set<GeometricChargeNames> ordinariesInUse = new HashSet<GeometricChargeNames>();
 		for (Charge charge: shield.getCharges()) {
 			if (charge instanceof GeometricCharge) {

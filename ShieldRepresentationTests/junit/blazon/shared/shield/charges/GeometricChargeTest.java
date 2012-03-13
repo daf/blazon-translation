@@ -39,7 +39,7 @@ public class GeometricChargeTest {
 		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
 		assertThat(GeometricCharge.build("blah", t.getTincture("or"), diags), is(nullValue()));
 		assertThat(diags.size(), is(equalTo(1)));
-		assertThat(diags.get(0).getSeverity(), is(ShieldDiagnostic.LogLevel.WARN));
+		assertThat(diags.get(0).getSeverity(), is(ShieldDiagnostic.LogLevel.WARNING));
 		assertThat(diags.get(0).getMessage(), is(equalTo("Unknown geometric charge 'BLAH'. No geometric charge used.")));
 	}
 	

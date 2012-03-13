@@ -12,7 +12,6 @@ import blazon.client.drawing.charges.geometric.mobile.SVGMobileChargeDrawer;
 import blazon.client.drawing.shapes.CubicBezierCurve;
 import blazon.shared.shield.charges.AdvancedCharge;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic;
-import blazon.shared.shield.diagnostic.ShieldDiagnostic.LogLevel;
 import blazon.shared.shield.tinctures.Tincture;
 
 public class SVGAdvancedChargeDrawer extends SVGMobileChargeDrawer {
@@ -37,19 +36,12 @@ public class SVGAdvancedChargeDrawer extends SVGMobileChargeDrawer {
 	@Override
 	public OMSVGGElement drawCharge(CubicBezierCurve curve) {
 		OMSVGGElement charges = doc.createSVGGElement();
-		String imageSource = charge.getSource();
-		int retryCount = 0;
-		int currentWidth;
-		int currentHeight;
-		do {
-			Image image = new Image(imageSource);
-			currentWidth = image.getWidth();
-			currentHeight = image.getHeight();
-		}
-		while (currentHeight == 0 && currentWidth == 0 && retryCount++ < 5);
-
-		if (retryCount == 5) {
-			diags.add(ShieldDiagnostic.build(LogLevel.ERROR, "Could not load the image for the charge " + charge.getTextDescription() + " at URL '" + imageSource + "'"));
+		Image image = new Image(charge.getSource());
+		int currentWidth = image.getWidth();
+		int currentHeight = image.getHeight();
+		if (currentWidth == 0 && currentHeight == 0) {
+			currentWidth = 400;
+			currentHeight = 400;
 		}
 		float hToWRatio = currentHeight / (float) currentWidth;
 		final float chargeHeight = getYDiff()*0.8f / (float)(occurrences);
@@ -60,8 +52,7 @@ public class SVGAdvancedChargeDrawer extends SVGMobileChargeDrawer {
 	
 	@Override
 	protected void drawMobileCharge(OMSVGGElement charges, float column, float row, float chargeWidth, float chargeHeight, Tincture tincture, CubicBezierCurve curve) {
-		String imageSource = charge.getSource();
-		OMSVGImageElement imageElement = doc.createSVGImageElement(column - chargeWidth/2, row - chargeHeight/2, chargeWidth, chargeHeight, imageSource);
+		OMSVGImageElement imageElement = doc.createSVGImageElement(column - chargeWidth/2, row - chargeHeight/2, chargeWidth, chargeHeight, charge.getSource());
 		charges.appendChild(imageElement);
 	}
 }

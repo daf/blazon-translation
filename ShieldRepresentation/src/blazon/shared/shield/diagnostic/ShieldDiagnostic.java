@@ -22,9 +22,9 @@ public class ShieldDiagnostic implements Serializable {
 		 */
 		INFO,
 		/**
-		 * WARN - middle severity diagnostic, can continue to draw shield.
+		 * WARNING - middle severity diagnostic, can continue to draw shield.
 		 */
-		WARN,
+		WARNING,
 		/**
 		 * ERROR - most severe diagnostic, can not continue to draw shield.
 		 */
@@ -72,8 +72,7 @@ public class ShieldDiagnostic implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("ShieldDiagnostic{level=").append(level);
-		sb.append(":message=").append(message).append("}");
+		sb.append(level).append(": ").append(message);
 		return sb.toString();
 	}
 }

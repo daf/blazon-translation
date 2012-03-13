@@ -28,7 +28,7 @@ public class GrammarChargesTest {
 		Tinctures tinctures = new Tinctures(); 
 		List<Charge> charges = parser.charges(TinctureType.OTHER);
 		GeometricCharge ordinary = (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CHIEF)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CHIEF)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 	}
 	
@@ -38,7 +38,7 @@ public class GrammarChargesTest {
 		Tinctures tinctures = new Tinctures(); 
 		List<Charge> charges = parser.charges(TinctureType.OTHER);
 		GeometricCharge ordinary = (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BASE)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BASE)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("or"))));
 	}
 	
@@ -48,7 +48,7 @@ public class GrammarChargesTest {
 		Tinctures tinctures = new Tinctures(); 
 		List<Charge> charges = parser.charges(TinctureType.OTHER);
 		GeometricCharge ordinary = (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BEND)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BEND)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 	}
 	
@@ -59,10 +59,10 @@ public class GrammarChargesTest {
 		Tinctures tinctures = new Tinctures(); 
 		List<Charge> charges = parser.charges(TinctureType.COLOUR);
 		GeometricCharge ordinary = (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BEND)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BEND)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 		assertThat(diags.size(), is(1));
-		assertThat(diags.get(0).getSeverity(), is(LogLevel.WARN));
+		assertThat(diags.get(0).getSeverity(), is(LogLevel.WARNING));
 		assertThat(diags.get(0).getMessage(), is("You are not obeying the rule of tincture. You can not put a colour on a colour, or a metal on a metal"));
 	}
 	
@@ -73,10 +73,10 @@ public class GrammarChargesTest {
 		Tinctures tinctures = new Tinctures(); 
 		List<Charge> charges = parser.charges(TinctureType.METAL);
 		GeometricCharge ordinary = (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BEND)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BEND)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("or"))));
 		assertThat(diags.size(), is(1));
-		assertThat(diags.get(0).getSeverity(), is(LogLevel.WARN));
+		assertThat(diags.get(0).getSeverity(), is(LogLevel.WARNING));
 		assertThat(diags.get(0).getMessage(), is(equalTo("You are not obeying the rule of tincture. You can not put a colour on a colour, or a metal on a metal")));
 	}
 	
@@ -87,7 +87,7 @@ public class GrammarChargesTest {
 		Tinctures tinctures = new Tinctures(); 
 		List<Charge> charges = parser.charges(TinctureType.OTHER);
 		GeometricCharge ordinary = (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.PALL)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.PALL)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("vair"))));
 		assertThat(diags.size(), is(0));
 	}
@@ -98,7 +98,7 @@ public class GrammarChargesTest {
 		Tinctures tinctures = new Tinctures(); 
 		List<Charge> charges = parser.charges(TinctureType.OTHER);
 		GeometricCharge ordinary = (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.PILE_REVERSED)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.PILE_REVERSED)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 	}
 	
@@ -109,10 +109,10 @@ public class GrammarChargesTest {
 		Tinctures tinctures = new Tinctures(); 
 		List<Charge> charges = parser.charges(TinctureType.OTHER);
 		GeometricCharge ordinary = (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.ORLE)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.ORLE)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 		assertThat(diags.size(), is(1));
-		assertThat(diags.get(0).getSeverity(), is(LogLevel.WARN));
+		assertThat(diags.get(0).getSeverity(), is(LogLevel.WARNING));
 		assertThat(diags.get(0).getMessage(), is(equalTo("You have asked for the charge 'a orle'. A charge starting with a vowel should be preceded by 'an' i.e. 'an orle'.")));
 	}
 	
@@ -123,10 +123,10 @@ public class GrammarChargesTest {
 		Tinctures tinctures = new Tinctures(); 
 		List<Charge> charges = parser.charges(TinctureType.OTHER);
 		GeometricCharge ordinary = (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BEND)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BEND)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 		assertThat(diags.size(), is(1));
-		assertThat(diags.get(0).getSeverity(), is(LogLevel.WARN));
+		assertThat(diags.get(0).getSeverity(), is(LogLevel.WARNING));
 		assertThat(diags.get(0).getMessage(), is(equalTo("You have asked for the charge 'an bend'. A charge starting with a consonants should be preceded by 'a' i.e. 'a bend'.")));
 	}
 	
@@ -137,7 +137,7 @@ public class GrammarChargesTest {
 		Tinctures tinctures = new Tinctures(); 
 		List<Charge> charges = parser.charges(TinctureType.OTHER);
 		GeometricCharge ordinary = (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.ORLE)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.ORLE)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 		assertThat(diags.size(), is(0));
 	}
@@ -150,7 +150,7 @@ public class GrammarChargesTest {
 		List<Charge> charges = parser.charges(TinctureType.OTHER);
 		assertThat(charges.size(), is(1));
 		GeometricCharge ordinary = (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CHEVRONEL)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CHEVRONEL)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 		assertThat(diags.size(), is(0));
 	}
@@ -163,10 +163,10 @@ public class GrammarChargesTest {
 		List<Charge> charges = parser.charges(TinctureType.OTHER);
 		assertThat(charges.size(), is(1));
 		GeometricCharge ordinary = (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CHEVRONEL)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CHEVRONEL)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 		assertThat(diags.size(), is(1));
-		assertThat(diags.get(0).getSeverity(), is(LogLevel.WARN));
+		assertThat(diags.get(0).getSeverity(), is(LogLevel.WARNING));
 		assertThat(diags.get(0).getMessage(), is(equalTo("You have specified that there is only one of a charge, but used the plural. Changing 'chevronels' to 'chevronel'.")));
 	}
 	
@@ -178,13 +178,13 @@ public class GrammarChargesTest {
 		List<Charge> charges = parser.charges(TinctureType.OTHER);
 		assertThat(charges.size(), is(2));
 		GeometricCharge ordinary = (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BENDLET)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BENDLET)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 		ordinary = (GeometricCharge) charges.get(1);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BENDLET)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BENDLET)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 		assertThat(diags.size(), is(1));
-		assertThat(diags.get(0).getSeverity(), is(LogLevel.WARN));
+		assertThat(diags.get(0).getSeverity(), is(LogLevel.WARNING));
 		assertThat(diags.get(0).getMessage(), is(equalTo("You have specified that there is more than one of a charge, but not used the plural. Changing 'bendlet' to 'bendlets'.")));
 	}
 	
@@ -196,10 +196,10 @@ public class GrammarChargesTest {
 		List<Charge> charges = parser.charges(TinctureType.OTHER);
 		assertThat(charges.size(), is(2));
 		GeometricCharge ordinary = (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BENDLET)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BENDLET)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 		ordinary = (GeometricCharge) charges.get(1);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BENDLET)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BENDLET)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 		assertThat(diags.size(), is(0));
 	}
@@ -212,10 +212,10 @@ public class GrammarChargesTest {
 		List<Charge> charges = parser.charges(TinctureType.OTHER);
 		assertThat(charges.size(), is(2));
 		GeometricCharge ordinary = (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BENDLET)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BENDLET)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 		ordinary = (GeometricCharge) charges.get(1);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BENDLET)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BENDLET)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 		assertThat(diags.size(), is(0));
 	}
@@ -228,7 +228,7 @@ public class GrammarChargesTest {
 		List<Charge> charges = parser.charges(TinctureType.OTHER);
 		assertThat(charges.size(), is(1));
 		GeometricCharge ordinary = (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BENDLET_SINISTER)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BENDLET_SINISTER)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 		assertThat(diags.size(), is(0));
 	}
@@ -241,10 +241,10 @@ public class GrammarChargesTest {
 		List<Charge> charges = parser.charges(TinctureType.OTHER);
 		assertThat(charges.size(), is(2));
 		GeometricCharge ordinary = (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BENDLET_SINISTER)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BENDLET_SINISTER)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 		ordinary = (GeometricCharge) charges.get(1);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BENDLET_SINISTER)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BENDLET_SINISTER)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 		assertThat(diags.size(), is(0));
 	}
@@ -270,7 +270,7 @@ public class GrammarChargesTest {
 		Tinctures tinctures = new Tinctures(); 
 		List<Charge> charges = parser.charges(TinctureType.OTHER);
 		GeometricCharge ordinary = (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.BEND)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BEND)));
 		assertThat(ordinary.getTincture(), is(tinctures.getTincture("gules")));
 	}
 }
