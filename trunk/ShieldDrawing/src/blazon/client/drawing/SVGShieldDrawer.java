@@ -2,11 +2,11 @@ package blazon.client.drawing;
 
 import java.util.List;
 
+import org.vectomatic.dom.svg.OMSVGClipPathElement;
 import org.vectomatic.dom.svg.OMSVGDefsElement;
 import org.vectomatic.dom.svg.OMSVGDocument;
 import org.vectomatic.dom.svg.OMSVGGElement;
 import org.vectomatic.dom.svg.OMSVGLength;
-import org.vectomatic.dom.svg.OMSVGMaskElement;
 import org.vectomatic.dom.svg.OMSVGPathElement;
 import org.vectomatic.dom.svg.OMSVGPathSegList;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
@@ -54,7 +54,8 @@ public class SVGShieldDrawer {
 	    	svg.appendChild(shieldContainer);
 	    	OMSVGDefsElement defs = doc.createSVGDefsElement();
 	    	svg.appendChild(defs);
-	    	shieldContainer.setAttribute(SVGConstants.SVG_MASK_ATTRIBUTE, "url(#ShieldMask)");
+	    	shieldContainer.setAttribute(SVGConstants.CSS_CLIP_PATH_PROPERTY, "url(#ShieldMask)");
+
 	        SVGFieldDrawer fieldDrawer = new SVGFieldDrawerFactory().createDrawer(shield.getField(), defs, width, height);
 	        shieldContainer.appendChild(fieldDrawer.drawField(curve));
 	        List<SVGChargeDrawer> chargeDrawers = new SVGChargeDrawerFactory().createDrawers(shield, defs, width, height);
@@ -88,11 +89,11 @@ public class SVGShieldDrawer {
         return path;
     }
     
-    private OMSVGMaskElement createShieldShapeMask() {
-        OMSVGMaskElement mask = doc.createSVGMaskElement();
-        mask.setId("ShieldMask");
-        mask.appendChild(createShieldShapePath());
-        return mask;
+    private OMSVGClipPathElement createShieldShapeMask() {
+        OMSVGClipPathElement clipPath = doc.createSVGClipPathElement();
+        clipPath.setId("ShieldMask");
+        clipPath.appendChild(createShieldShapePath());
+        return clipPath;
     }
     
 	private void addTitleAndDescriptionToSVG(String blazon, OMSVGSVGElement svg) {

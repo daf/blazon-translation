@@ -27,7 +27,7 @@ public class ShieldDiagnosticTest {
 	
 	@Test
 	public void testThatYouCanRetrieveTheMessageHelloFromAShieldDiagnostic() {
-		ShieldDiagnostic diag = ShieldDiagnostic.build(LogLevel.WARN, "hello");
+		ShieldDiagnostic diag = ShieldDiagnostic.build(LogLevel.WARNING, "hello");
 		assertThat(diag.getMessage(), is(equalTo("hello")));
 	}
 	
@@ -45,8 +45,8 @@ public class ShieldDiagnosticTest {
 	
 	@Test
 	public void testThatYouCanRetrieveWarningSeverityLevelFromAShieldDiagnostic() {
-		ShieldDiagnostic diag = ShieldDiagnostic.build(LogLevel.WARN, "hello");
-		assertThat(diag.getSeverity(), is(equalTo(LogLevel.WARN)));
+		ShieldDiagnostic diag = ShieldDiagnostic.build(LogLevel.WARNING, "hello");
+		assertThat(diag.getSeverity(), is(equalTo(LogLevel.WARNING)));
 	}
 	
 	@Test
@@ -65,7 +65,7 @@ public class ShieldDiagnosticTest {
 	@Test
 	public void testThatShieldDiagnosticLogLevelParsesWarnToCorrectEnumValue() {
 		LogLevel logLevel = LogLevel.valueOf("WARN");
-		assertThat(logLevel, is(equalTo(LogLevel.WARN)));
+		assertThat(logLevel, is(equalTo(LogLevel.WARNING)));
 	}
 	
 	@Test

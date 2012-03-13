@@ -243,7 +243,7 @@ public class GrammarShieldTest {
 		List<Charge> charges = shield.getCharges();
 		assertThat((GeometricCharge) (GeometricCharge) charges.get(0), is(notNullValue()));
 		GeometricCharge ordinary = (GeometricCharge) (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(gules)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -267,7 +267,7 @@ public class GrammarShieldTest {
 		List<Charge> charges = shield.getCharges();
 		assertThat((GeometricCharge) (GeometricCharge) charges.get(0), is(notNullValue()));
 		GeometricCharge ordinary = (GeometricCharge) (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(gules)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -291,10 +291,10 @@ public class GrammarShieldTest {
 		List<Charge> charges = shield.getCharges();
 		assertThat((GeometricCharge) (GeometricCharge) charges.get(0), is(notNullValue()));
 		GeometricCharge ordinary = (GeometricCharge) (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(gules)));
 		assertThat(shield.getShieldDiagnostics().size(), is(1));
-		assertThat(shield.getShieldDiagnostics().get(0).getSeverity(), is(ShieldDiagnostic.LogLevel.WARN));
+		assertThat(shield.getShieldDiagnostics().get(0).getSeverity(), is(ShieldDiagnostic.LogLevel.WARNING));
 		assertThat(shield.getShieldDiagnostics().get(0).getMessage(), is(equalTo("You are not obeying the rule of tincture. You can not put a colour on a colour, or a metal on a metal")));
 	}
 	
@@ -317,7 +317,7 @@ public class GrammarShieldTest {
 		List<Charge> charges = shield.getCharges();
 		assertThat((GeometricCharge) (GeometricCharge) charges.get(0), is(notNullValue()));
 		GeometricCharge ordinary = (GeometricCharge) (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(or)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -341,7 +341,7 @@ public class GrammarShieldTest {
 		List<Charge> charges = shield.getCharges();
 		assertThat((GeometricCharge) (GeometricCharge) charges.get(0), is(notNullValue()));
 		GeometricCharge ordinary = (GeometricCharge) (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(or)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -365,10 +365,10 @@ public class GrammarShieldTest {
 		List<Charge> charges = shield.getCharges();
 		assertThat((GeometricCharge) (GeometricCharge) charges.get(0), is(notNullValue()));
 		GeometricCharge ordinary = (GeometricCharge) (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(argent)));
 		assertThat(shield.getShieldDiagnostics().size(), is(1));
-		assertThat(shield.getShieldDiagnostics().get(0).getSeverity(), is(ShieldDiagnostic.LogLevel.WARN));
+		assertThat(shield.getShieldDiagnostics().get(0).getSeverity(), is(ShieldDiagnostic.LogLevel.WARNING));
 		assertThat(shield.getShieldDiagnostics().get(0).getMessage(), is(equalTo("You are not obeying the rule of tincture. You can not put a colour on a colour, or a metal on a metal")));
 	}
 	
@@ -391,7 +391,7 @@ public class GrammarShieldTest {
 		List<Charge> charges = shield.getCharges();
 		assertThat((GeometricCharge) (GeometricCharge) charges.get(0), is(notNullValue()));
 		GeometricCharge ordinary = (GeometricCharge) (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(vair)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -415,7 +415,7 @@ public class GrammarShieldTest {
 		List<Charge> charges = shield.getCharges();
 		assertThat((GeometricCharge) (GeometricCharge) charges.get(0), is(notNullValue()));
 		GeometricCharge ordinary = (GeometricCharge) (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(vair)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -439,7 +439,7 @@ public class GrammarShieldTest {
 		List<Charge> charges = shield.getCharges();
 		assertThat((GeometricCharge) (GeometricCharge) charges.get(0), is(notNullValue()));
 		GeometricCharge ordinary = (GeometricCharge) (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(vair)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -467,7 +467,7 @@ public class GrammarShieldTest {
 		List<Charge> charges = shield.getCharges();
 		assertThat((GeometricCharge) (GeometricCharge) charges.get(0), is(notNullValue()));
 		GeometricCharge ordinary = (GeometricCharge) (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(vair)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -495,7 +495,7 @@ public class GrammarShieldTest {
 		List<Charge> charges = shield.getCharges();
 		assertThat((GeometricCharge) (GeometricCharge) charges.get(0), is(notNullValue()));
 		GeometricCharge ordinary = (GeometricCharge) (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(or)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -523,10 +523,10 @@ public class GrammarShieldTest {
 		List<Charge> charges = shield.getCharges();
 		assertThat((GeometricCharge) (GeometricCharge) charges.get(0), is(notNullValue()));
 		GeometricCharge ordinary = (GeometricCharge) (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(azure)));
 		assertThat(shield.getShieldDiagnostics().size(), is(1));
-		assertThat(shield.getShieldDiagnostics().get(0).getSeverity(), is(ShieldDiagnostic.LogLevel.WARN));
+		assertThat(shield.getShieldDiagnostics().get(0).getSeverity(), is(ShieldDiagnostic.LogLevel.WARNING));
 		assertThat(shield.getShieldDiagnostics().get(0).getMessage(), is(equalTo("You are not obeying the rule of tincture. You can not put a colour on a colour, or a metal on a metal")));
 	}
 	
@@ -553,7 +553,7 @@ public class GrammarShieldTest {
 		List<Charge> charges = shield.getCharges();
 		assertThat((GeometricCharge) (GeometricCharge) charges.get(0), is(notNullValue()));
 		GeometricCharge ordinary = (GeometricCharge) (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(vair)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -581,7 +581,7 @@ public class GrammarShieldTest {
 		List<Charge> charges = shield.getCharges();
 		assertThat((GeometricCharge) (GeometricCharge) charges.get(0), is(notNullValue()));
 		GeometricCharge ordinary = (GeometricCharge) (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(gules)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -608,10 +608,10 @@ public class GrammarShieldTest {
 		List<Charge> charges = shield.getCharges();
 		assertThat((GeometricCharge) (GeometricCharge) charges.get(0), is(notNullValue()));
 		GeometricCharge ordinary = (GeometricCharge) (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(or)));
 		assertThat(shield.getShieldDiagnostics().size(), is(1));
-		assertThat(shield.getShieldDiagnostics().get(0).getSeverity(), is(ShieldDiagnostic.LogLevel.WARN));
+		assertThat(shield.getShieldDiagnostics().get(0).getSeverity(), is(ShieldDiagnostic.LogLevel.WARNING));
 		assertThat(shield.getShieldDiagnostics().get(0).getMessage(), is(equalTo("You are not obeying the rule of tincture. You can not put a colour on a colour, or a metal on a metal")));
 	}
 	
@@ -638,7 +638,7 @@ public class GrammarShieldTest {
 		List<Charge> charges = shield.getCharges();
 		assertThat((GeometricCharge) (GeometricCharge) charges.get(0), is(notNullValue()));
 		GeometricCharge ordinary = (GeometricCharge) (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(vairEnPale)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -666,7 +666,7 @@ public class GrammarShieldTest {
 		List<Charge> charges = shield.getCharges();
 		assertThat((GeometricCharge) (GeometricCharge) charges.get(0), is(notNullValue()));
 		GeometricCharge ordinary = (GeometricCharge) (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(gules)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -694,7 +694,7 @@ public class GrammarShieldTest {
 		List<Charge> charges = shield.getCharges();
 		assertThat((GeometricCharge) charges.get(0), is(notNullValue()));
 		GeometricCharge ordinary = (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(or)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -722,7 +722,7 @@ public class GrammarShieldTest {
 		List<Charge> charges = shield.getCharges();
 		assertThat((GeometricCharge) charges.get(0), is(notNullValue()));
 		GeometricCharge ordinary = (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(or)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -750,7 +750,7 @@ public class GrammarShieldTest {
 		List<Charge> charges = shield.getCharges();
 		assertThat((GeometricCharge) charges.get(0), is(notNullValue()));
 		GeometricCharge ordinary = (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(sable)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -778,7 +778,7 @@ public class GrammarShieldTest {
 		List<Charge> charges = shield.getCharges();
 		assertThat((GeometricCharge) charges.get(0), is(notNullValue()));
 		GeometricCharge ordinary = (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(potent)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -806,7 +806,7 @@ public class GrammarShieldTest {
 		List<Charge> charges = shield.getCharges();
 		assertThat((GeometricCharge) charges.get(0), is(notNullValue()));
 		GeometricCharge ordinary = (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(or)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -834,7 +834,7 @@ public class GrammarShieldTest {
 		List<Charge> charges = shield.getCharges();
 		assertThat((GeometricCharge) charges.get(0), is(notNullValue()));
 		GeometricCharge ordinary = (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(sable)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -862,7 +862,7 @@ public class GrammarShieldTest {
 		List<Charge> charges = shield.getCharges();
 		assertThat((GeometricCharge) charges.get(0), is(notNullValue()));
 		GeometricCharge ordinary = (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(potent)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -890,7 +890,7 @@ public class GrammarShieldTest {
 		List<Charge> charges = shield.getCharges();
 		assertThat((GeometricCharge) charges.get(0), is(notNullValue()));
 		GeometricCharge ordinary = (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(or)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -918,7 +918,7 @@ public class GrammarShieldTest {
 		List<Charge> charges = shield.getCharges();
 		assertThat((GeometricCharge) charges.get(0), is(notNullValue()));
 		GeometricCharge ordinary = (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(sable)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}
@@ -946,7 +946,7 @@ public class GrammarShieldTest {
 		List<Charge> charges = shield.getCharges();
 		assertThat((GeometricCharge) charges.get(0), is(notNullValue()));
 		GeometricCharge ordinary = (GeometricCharge) charges.get(0);
-		assertThat(ordinary.getName(), is(equalTo(GeometricChargeNames.CROSS)));
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.CROSS)));
 		assertThat(ordinary.getTincture(), is(equalTo(potent)));
 		assertThat(shield.getShieldDiagnostics().size(), is(0));
 	}

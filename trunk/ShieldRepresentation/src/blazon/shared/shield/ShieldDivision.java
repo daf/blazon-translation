@@ -153,44 +153,44 @@ public class ShieldDivision implements Serializable {
 
 					if (divTypeName.equals(GYRONNY)) {
 						if (numSections < 4) {
-							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have gyronny of less than 4; using division NONE"));
+							errorsList.add(ShieldDiagnostic.build(LogLevel.WARNING, "Can't have gyronny of less than 4; using division NONE"));
 							return map.get(NONE);
 						} else if (numSections == 4) {
-							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have gyronny of less than 6; using division CROSS"));
+							errorsList.add(ShieldDiagnostic.build(LogLevel.WARNING, "Can't have gyronny of less than 6; using division CROSS"));
 							return map.get(CROSS);
 						}
 					}
 					
 					if (numSections < 2) {
-						errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have " + divTypeName + " of less than 2; using division NONE"));
+						errorsList.add(ShieldDiagnostic.build(LogLevel.WARNING, "Can't have " + divTypeName + " of less than 2; using division NONE"));
 						return map.get(NONE);
 					}
 					
 					if (numSections == 2) {
 						if (divTypeName.equals(BARRY)) {
-							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have barry less than 4; using division FESS"));
+							errorsList.add(ShieldDiagnostic.build(LogLevel.WARNING, "Can't have barry less than 4; using division FESS"));
 							return map.get(FESS);
 						} else if (divTypeName.equals(PALY) && numSections == 2) {
-							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have pall less than 4; using division PALE"));
+							errorsList.add(ShieldDiagnostic.build(LogLevel.WARNING, "Can't have pall less than 4; using division PALE"));
 							return map.get(PALE);
 						} else if (divTypeName.equals(BENDY) && numSections == 2) {
-							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have bendy less than 4; using division BEND"));
+							errorsList.add(ShieldDiagnostic.build(LogLevel.WARNING, "Can't have bendy less than 4; using division BEND"));
 							return map.get(BEND);
 						} else if (divTypeName.equals(BENDY_SINISTER) && numSections == 2) {
-							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have bendy sinister less than 4; using division BEND_SINISTER"));
+							errorsList.add(ShieldDiagnostic.build(LogLevel.WARNING, "Can't have bendy sinister less than 4; using division BEND_SINISTER"));
 							return map.get(BEND_SINISTER);
 						} else if (divTypeName.equals(CHEVRONNY) && numSections == 2) {
-							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have chevronny less than 4; using division CHEVRON"));
+							errorsList.add(ShieldDiagnostic.build(LogLevel.WARNING, "Can't have chevronny less than 4; using division CHEVRON"));
 							return map.get(CHEVRON);
 						} else if (divTypeName.equals(CHEVRONNY_REVERSED) && numSections == 2) {
-							errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have chevronny reversed less than 4; using division CHEVRONNY_REVERSED"));
+							errorsList.add(ShieldDiagnostic.build(LogLevel.WARNING, "Can't have chevronny reversed less than 4; using division CHEVRONNY_REVERSED"));
 							return map.get(CHEVRON_REVERSED);
 						}
 					}
 					
 					if (numSections % 2 != 0) {
 						numSections++;
-						errorsList.add(ShieldDiagnostic.build(LogLevel.WARN, "Can't have division of an odd number; using division of "
+						errorsList.add(ShieldDiagnostic.build(LogLevel.WARNING, "Can't have division of an odd number; using division of "
 								+ numSections));
 					}
 					

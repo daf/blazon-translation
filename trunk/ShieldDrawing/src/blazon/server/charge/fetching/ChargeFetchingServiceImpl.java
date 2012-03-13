@@ -1,5 +1,7 @@
 package blazon.server.charge.fetching;
 
+import java.util.logging.Logger;
+
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import blazon.client.charge.fetching.ChargeFetchingService;
@@ -10,8 +12,11 @@ public class ChargeFetchingServiceImpl extends RemoteServiceServlet implements C
 
 	private static final long serialVersionUID = 380031744539198592L;
 
+	private final Logger logger = Logger.getLogger("blazon");
+	
 	@Override
 	public Shield fetchImagesForCharges(Shield shield) throws NoImageForAdvancedChargeException {
+		logger.info("ChargeFetchingServiceImpl called");
 		ImageSourceLocator locator = new ImageSourceLocator(shield);
 		Shield shieldWithLocations = locator.locateChargeSources();
 		return shieldWithLocations;

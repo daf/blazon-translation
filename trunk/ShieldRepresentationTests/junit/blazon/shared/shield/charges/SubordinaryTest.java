@@ -24,7 +24,7 @@ public class SubordinaryTest {
 	public void testThatGettingpallWithTinctureGulesReturnsCorrectSubordinaryObject() throws UnknownTinctureException {
 		Tincture t = new Tinctures().getTincture("gules");
 		GeometricCharge subordinary = GeometricCharge.build("pall", t, null);
-		assertThat(subordinary.getName(), is(equalTo(GeometricChargeNames.PALL)));
+		assertThat(subordinary.getType(), is(equalTo(GeometricChargeNames.PALL)));
 		assertThat(subordinary.getTincture(), is(equalTo(t)));
 	}
 	
@@ -32,7 +32,7 @@ public class SubordinaryTest {
 	public void testThatGettingpallWithTinctureOrReturnsCorrectSubordinaryObject() throws UnknownTinctureException {
 		Tincture t = new Tinctures().getTincture("or");
 		GeometricCharge subordinary = GeometricCharge.build("pall", t, null);
-		assertThat(subordinary.getName(), is(equalTo(GeometricChargeNames.PALL)));
+		assertThat(subordinary.getType(), is(equalTo(GeometricChargeNames.PALL)));
 		assertThat(subordinary.getTincture(), is(equalTo(t)));
 	}
 	
@@ -40,7 +40,7 @@ public class SubordinaryTest {
 	public void testThatGettingPileReversedWithTinctureGulesReturnsCorrectSubordinaryObject() throws UnknownTinctureException {
 		Tincture t = new Tinctures().getTincture("gules");
 		GeometricCharge subordinary = GeometricCharge.build("pile reversed", t, null);
-		assertThat(subordinary.getName(), is(equalTo(GeometricChargeNames.PILE_REVERSED)));
+		assertThat(subordinary.getType(), is(equalTo(GeometricChargeNames.PILE_REVERSED)));
 		assertThat(subordinary.getTincture(), is(equalTo(t)));
 	}
 	
@@ -48,7 +48,7 @@ public class SubordinaryTest {
 	public void testThatGettingPileReversedWithTinctureOrReturnsCorrectSubordinaryObject() throws UnknownTinctureException {
 		Tincture t = new Tinctures().getTincture("or");
 		GeometricCharge subordinary = GeometricCharge.build("pile reversed", t, null);
-		assertThat(subordinary.getName(), is(equalTo(GeometricChargeNames.PILE_REVERSED)));
+		assertThat(subordinary.getType(), is(equalTo(GeometricChargeNames.PILE_REVERSED)));
 		assertThat(subordinary.getTincture(), is(equalTo(t)));
 	}
 	
@@ -59,7 +59,7 @@ public class SubordinaryTest {
 		GeometricCharge subordinary = GeometricCharge.build("blah", t, diags);
 		assertThat(subordinary, is(nullValue()));
 		assertThat(diags.size(), is(1));
-		assertThat(diags.get(0).getSeverity(), is(LogLevel.WARN));
+		assertThat(diags.get(0).getSeverity(), is(LogLevel.WARNING));
 		assertThat(diags.get(0).getMessage(), is(equalTo("Unknown geometric charge 'BLAH'. No geometric charge used.")));
 	}
 	

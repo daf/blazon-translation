@@ -67,7 +67,7 @@ private void diagnoseRuleOfTincture(Tincture t,
 		if (thisTinctureType == TinctureType.COLOUR
 				|| thisTinctureType == TinctureType.METAL) {
 			diags.add(ShieldDiagnostic
-					.build(LogLevel.WARN,
+					.build(LogLevel.WARNING,
 							"You are not obeying the rule of tincture. You can not put a colour on a colour, or a metal on a metal"));
 		}
 	}
@@ -76,7 +76,7 @@ private void diagnoseRuleOfTincture(Tincture t,
 private String checkForPlurals(String text, int number) {
   if (number > 1) {
     if (!text.endsWith("s")) {
-      diags.add(ShieldDiagnostic.build(LogLevel.WARN, 
+      diags.add(ShieldDiagnostic.build(LogLevel.WARNING, 
           "You have specified that there is more than one of a charge, but not used the plural. Changing '"
            + text + "' to '" + text + "s'."));
     } else {
@@ -85,7 +85,7 @@ private String checkForPlurals(String text, int number) {
   } else if (number == 1) {
     if (text.endsWith("s")) {
       text = text.substring(0, text.length() - 1);
-      diags.add(ShieldDiagnostic.build(LogLevel.WARN,
+      diags.add(ShieldDiagnostic.build(LogLevel.WARNING,
           "You have specified that there is only one of a charge, but used the plural. Changing '"
            + text + "s' to '" + text + "'."));
     }
@@ -147,13 +147,19 @@ shield returns [Shield s]
   {
     $s.addDiagnostics(diags);
   };
-catch [MismatchedSetException me] {
-  displayRecognitionError(this.getTokenNames(), me);
+catch [RecognitionException e] {
+  displayRecognitionError(this.getTokenNames(), e);
   return InvalidShield.build(diags);
 }
-catch [RecognitionException re] {
-  return InvalidShield.build(diags);
-}
+//catch [MismatchedSetException me] {
+//  displayRecognitionError(this.getTokenNames(), me);
+//  return InvalidShield.build(diags);
+//}
+//catch [RecognitionException re] {
+//  displayRecognitionError(this.getTokenNames(), me);
+//
+//  return InvalidShield.build(diags);
+//}
 
 field returns [Field field]
   :
@@ -186,7 +192,7 @@ charges[TinctureType underLayerTinctureType] returns [List<Charge> charges]
 				if ("a".equals($DETERMINER.text)) {
 					String chargeName = $single_geometric_charge.charge.getName().toString().toLowerCase();
 					if (startsWithAVowel(chargeName)) {
-						diags.add(ShieldDiagnostic.build(LogLevel.WARN,
+						diags.add(ShieldDiagnostic.build(LogLevel.WARNING,
 										"You have asked for the charge '" + $DETERMINER.text + " " + chargeName
 												+ "'. A charge starting with a vowel should be preceded by 'an' i.e. 'an "
 												+ chargeName + "'."));
@@ -194,7 +200,7 @@ charges[TinctureType underLayerTinctureType] returns [List<Charge> charges]
 				} else if ("an".equals($DETERMINER.text)) {
 					String chargeName = $single_geometric_charge.charge.getName().toString().toLowerCase();
 					if (!startsWithAVowel(chargeName)) {
-						diags.add(ShieldDiagnostic.build(LogLevel.WARN,
+						diags.add(ShieldDiagnostic.build(LogLevel.WARNING,
 										"You have asked for the charge '" + $DETERMINER.text + " " + chargeName
 											  + "'. A charge starting with a consonants should be preceded by 'a' i.e. 'a "
 												+ chargeName + "'."));
@@ -337,7 +343,7 @@ div returns [ShieldDivisionType division]
         int gyronnyOf = convertNumber($number_digits_or_words.text);
         if (gyronnyOf \% 2 != 0) {
             gyronnyOf++;
-            diags.add(ShieldDiagnostic.build(LogLevel.WARN, "Parsing rule 'div'.  '" + $VARIABLE_DIV.text 
+            diags.add(ShieldDiagnostic.build(LogLevel.WARNING, "Parsing rule 'div'.  '" + $VARIABLE_DIV.text 
                     + "' can only be of an even number; incremented number of sections to " + gyronnyOf));
         }
         text += " " + gyronnyOf;

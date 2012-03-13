@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -39,19 +40,14 @@ public class InvalidShieldTest {
 		assertTrue(shield.getShieldDiagnostics().isEmpty());
 	}
 	
-	@Test(expected=UnsupportedOperationException.class)
-	public void testThatGettingFieldFromInvalidShieldThrowsUnsuportedOperationException() {
-		InvalidShield.build().getField();
+	@Test
+	public void testThatGettingFieldFromInvalidShieldReturnsNull() {
+		assertNull(InvalidShield.build().getField());
 	}
 	
-	@Test(expected=UnsupportedOperationException.class)
-	public void testThatGettingChargesFromAnInvalidShieldThrowsUnsupportedOperationException() {
-		InvalidShield.build().getCharges();
-	}
-	
-	@Test(expected=UnsupportedOperationException.class)
-	public void testThatAddingChargesToAnInvalidShieldThrowsUnsupportedOperationException() {
-		InvalidShield.build().addCharges(null);
+	@Test
+	public void testThatGettingChargesFromAnInvalidShieldReturnsNull() {
+		assertNull(InvalidShield.build().getCharges());
 	}
 	
 	@Test
@@ -268,7 +264,7 @@ public class InvalidShieldTest {
 		List<ShieldDiagnostic> list = new ArrayList<ShieldDiagnostic>();
 		ShieldDiagnostic diag = ShieldDiagnostic.build(LogLevel.ERROR, "hello");
 		list.add(diag);
-		diag = ShieldDiagnostic.build(LogLevel.WARN, "hello world");
+		diag = ShieldDiagnostic.build(LogLevel.WARNING, "hello world");
 		list.add(diag);
 		shield.addDiagnostics(list);
 		List<ShieldDiagnostic> actual = shield.getShieldDiagnostics();
@@ -284,7 +280,7 @@ public class InvalidShieldTest {
 		List<ShieldDiagnostic> list = new ArrayList<ShieldDiagnostic>();
 		ShieldDiagnostic diag = ShieldDiagnostic.build(LogLevel.ERROR, "hello");
 		list.add(diag);
-		diag = ShieldDiagnostic.build(LogLevel.WARN, "hello world");
+		diag = ShieldDiagnostic.build(LogLevel.WARNING, "hello world");
 		list.add(diag);
 		shield.addDiagnostics(list);
 		List<ShieldDiagnostic> actual = shield.getShieldDiagnostics();
@@ -307,7 +303,7 @@ public class InvalidShieldTest {
 		List<ShieldDiagnostic> list1 = new ArrayList<ShieldDiagnostic>();
 		ShieldDiagnostic diag = ShieldDiagnostic.build(LogLevel.ERROR, "hello");
 		list1.add(diag);
-		diag = ShieldDiagnostic.build(LogLevel.WARN, "hello world");
+		diag = ShieldDiagnostic.build(LogLevel.WARNING, "hello world");
 		list1.add(diag);
 		shield.addDiagnostics(list1);
 
@@ -320,7 +316,7 @@ public class InvalidShieldTest {
 		List<ShieldDiagnostic> list2 = new ArrayList<ShieldDiagnostic>();
 		diag = ShieldDiagnostic.build(LogLevel.INFO, "third item");
 		list2.add(diag);
-		diag = ShieldDiagnostic.build(LogLevel.WARN, "fourth item");
+		diag = ShieldDiagnostic.build(LogLevel.WARNING, "fourth item");
 		list2.add(diag);
 		shield.addDiagnostics(list2);
 		

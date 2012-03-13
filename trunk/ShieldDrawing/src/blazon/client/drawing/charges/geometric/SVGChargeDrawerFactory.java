@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.vectomatic.dom.svg.OMSVGDefsElement;
 
@@ -26,6 +27,8 @@ import blazon.shared.shield.charges.GeometricCharge;
 
 public class SVGChargeDrawerFactory {
 	
+	private final Logger logger = Logger.getLogger("blazon");
+	
 	public List<SVGChargeDrawer> createDrawers(Shield shield, OMSVGDefsElement defs, int shieldWidth, int shieldHeight) {
 		List<SVGChargeDrawer> chargeDrawers = new ArrayList<SVGChargeDrawer>();
 		if (shield == null) {
@@ -41,7 +44,9 @@ public class SVGChargeDrawerFactory {
 		int sameChargeCounter = 1;
 		boolean chargesToProcess = true;
 		EnumSet<ChargeOffset> chargeOffsetFlag = EnumSet.noneOf(ChargeOffset.class);
+		logger.info("SVGChargeDrawerFactory.createDrawers called.");
 		while (chargesToProcess || iterator.hasNext()) {
+			logger.info("Creating drawer for charge named: '" + currentCharge.getName() + "' and source: '" + currentCharge.getSource() + "'");
 			Charge nextCharge = null;
 			if (iterator.hasNext()) {
 				nextCharge = iterator.next();
