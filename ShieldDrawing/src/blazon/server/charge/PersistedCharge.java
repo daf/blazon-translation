@@ -37,9 +37,11 @@ public class PersistedCharge {
 		this.tincture = tincture;
 		this.imageSource = new Link(imageSource);
 		this.dateOfSourceAccess = new Date();
-		this.bodyPartsWithTincture = bodyPartsSet;
 		StringBuilder sb = new StringBuilder(charge).append(" ").append(attitude).append(" ").append(attitudeModifier).append(" ").append(tincture);
-		sb.append(" ").append(bodyPartsSet);
+		if (bodyPartsSet != null && !bodyPartsSet.isEmpty()) {
+			this.bodyPartsWithTincture = bodyPartsSet;
+			sb.append(" ").append(bodyPartsSet);
+		}
 		this.key = KeyFactory.createKey(PersistedCharge.class.getSimpleName(), sb.toString());
 	}
 	

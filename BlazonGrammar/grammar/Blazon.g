@@ -25,9 +25,29 @@ public BlazonLexer(CharStream input, RecognizerSharedState state,
 private List<ShieldDiagnostic> diags;
 
 @Override
-public void recover(RecognitionException re) {
-	diags.add(ShieldDiagnostic.build(LogLevel.ERROR, getErrorHeader(re) + ":"
-			+ getErrorMessage(re, getTokenNames())));
+public void recover(RecognitionException re) {//TODO change this to make errors better!
+	     int currentPosition = re.charPositionInLine;
+      char charAtCurrentPosition = input.substring(currentPosition, currentPosition).toCharArray()[0];
+      int valueOfCharacter = Character.getNumericValue(charAtCurrentPosition);
+      while (--currentPosition >= 0 &&
+          (valueOfCharacter != -1 || charAtCurrentPosition != 9
+              || valueOfCharacter != 10 || valueOfCharacter != 13)) {
+        input.seek(currentPosition);
+        charAtCurrentPosition = input.substring(currentPosition, currentPosition).toCharArray()[0];
+          valueOfCharacter = Character.getNumericValue(charAtCurrentPosition);
+      }
+      currentPosition++;
+      StringBuilder sb = new StringBuilder();
+      sb.append("The application does not recognise the word '");
+      do {
+        input.seek(currentPosition);
+        charAtCurrentPosition = input.substring(currentPosition, currentPosition).toCharArray()[0];
+        sb.append(charAtCurrentPosition);
+        valueOfCharacter = Character.getNumericValue(charAtCurrentPosition);
+      } while (++currentPosition < input.size() && (valueOfCharacter != -1 || charAtCurrentPosition != 9
+              || valueOfCharacter != 10 || valueOfCharacter != 13));
+      sb.append("'");
+      diags.add(ShieldDiagnostic.build(LogLevel.ERROR, sb.toString()));
 	input.consume();
 }
 }
@@ -151,15 +171,6 @@ catch [RecognitionException e] {
   displayRecognitionError(this.getTokenNames(), e);
   return InvalidShield.build(diags);
 }
-//catch [MismatchedSetException me] {
-//  displayRecognitionError(this.getTokenNames(), me);
-//  return InvalidShield.build(diags);
-//}
-//catch [RecognitionException re] {
-//  displayRecognitionError(this.getTokenNames(), me);
-//
-//  return InvalidShield.build(diags);
-//}
 
 field returns [Field field]
   :
@@ -267,8 +278,9 @@ multiple_geometric_charges[Tinctures tinctures, TinctureType underLayerTinctureT
 advanced_charge[Tinctures tinctures, TinctureType underLayerTinctureType, int number] returns [List <Charge> charges]
   : 
   (
-    beast = BEAST attitude = ATTITUDE
-  | beast = FLYING_BEAST attitude = FLYING_ATTITUDE
+    beast = (BEAST | WINGED_BEAST) attitude = ATTITUDE
+  | beast = (WINGED_BEAST | BIRD_FLYING_INSECT) attitude = FLYING_ATTITUDE
+  | beast = SWIMMING_BEAST attitude = SWIMMING_ATTITUDE
   )
   ATTITUDE_MODIFIER?
   tincture[tinctures]
@@ -518,7 +530,6 @@ BEAST
   :
   (
     'lion'
-    | 'dragon'
 	  | 'bear'
 	  | 'wolf'
 	  | 'stag'
@@ -529,7 +540,7 @@ BEAST
   's'?
   ;
   
-FLYING_BEAST
+BIRD_FLYING_INSECT
   :
   (
     'owl'
@@ -538,12 +549,29 @@ FLYING_BEAST
   )
   's'?
   ;
+  
+WINGED_BEAST
+  :
+  'griffin'
+  | 'dragon'
+  ;
+ 
+SWIMMING_BEAST
+  :
+  'fish'
+  | 'dolphin'
+  ;
 
 ATTITUDE
   :
   'rampant'
   | 'sejant'
   | 'passant'
+  | 'couchant'
+  | 'courant'
+  | 'dormant'
+  | 'salient'
+  | 'statant'
   ;
   
 FLYING_ATTITUDE
@@ -551,8 +579,16 @@ FLYING_ATTITUDE
   'volant'
   | 'displayed'
   | 'trussed'
+  | 'rising'
+  | 'vigilant'
   ;
-
+  
+SWIMMING_ATTITUDE
+  :
+    'naiant'
+  | 'hauriant'
+  ;
+  
 ATTITUDE_MODIFIER
   :
   'guardant'
