@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:50:56 C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g 2012-03-14 17:29:42
+// $ANTLR 3.3 Nov 30, 2010 12:50:56 C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g 2012-03-14 17:54:07
 
 package blazon.server.grammar;
 
@@ -59,7 +59,7 @@ public class BlazonLexer extends Lexer {
     private List<ShieldDiagnostic> diags;
 
     @Override
-    public void recover(RecognitionException re) {//TODO change this to make errors better!
+    public void recover(RecognitionException re) {
     	     int currentPosition = re.charPositionInLine;
           char charAtCurrentPosition = input.substring(currentPosition, currentPosition).toCharArray()[0];
           int valueOfCharacter = Character.getNumericValue(charAtCurrentPosition);
