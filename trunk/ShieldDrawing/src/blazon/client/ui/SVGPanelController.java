@@ -52,5 +52,5 @@ public class SVGPanelController extends PanelController {
 		OMSVGSVGElement svg = createAndInitializeSVGElement();
 		shieldDrawer.draw(shield, svg);
 		element.appendChild(svg.getElement());
-	}
+	}	
 }
