@@ -2,7 +2,6 @@ package blazon.client.ui;
 
 import java.util.List;
 
-import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import blazon.client.ui.widget.DialogBoxDisplayer;
@@ -14,9 +13,9 @@ import blazon.shared.shield.diagnostic.ShieldDiagnostic.LogLevel;
 public class ChargeFetchingServiceCallback implements AsyncCallback<Shield> {
 
 	private SVGPanelController svgPanelController;
-	private final JavaScriptObject spinner;
+	private final ProgressSpinner spinner;
 	
-	public ChargeFetchingServiceCallback(SVGPanelController svgPanelController, JavaScriptObject spinner) {
+	public ChargeFetchingServiceCallback(SVGPanelController svgPanelController, ProgressSpinner spinner) {
 		this.svgPanelController = svgPanelController;
 		this.spinner = spinner;
 	}
@@ -38,7 +37,7 @@ public class ChargeFetchingServiceCallback implements AsyncCallback<Shield> {
 	@Override
 	public void onSuccess(final Shield result) {
 		svgPanelController.displayShield(result);
-		stopProgressSpin();
+		spinner.stop();
     	List<ShieldDiagnostic> diags = result.getShieldDiagnostics();
     	if (diags != null && !diags.isEmpty()) {
     		DialogBoxDisplayer dialogBox;
@@ -56,8 +55,4 @@ public class ChargeFetchingServiceCallback implements AsyncCallback<Shield> {
     		dialogBox.displayDialogBox();
     	}
 	}
-	
-	private native void stopProgressSpin()/*-{
-		this.@blazon.client.ui.ChargeFetchingServiceCallback::spinner.stop();
-	}-*/;
 }

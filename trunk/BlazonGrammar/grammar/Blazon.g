@@ -25,7 +25,7 @@ public BlazonLexer(CharStream input, RecognizerSharedState state,
 private List<ShieldDiagnostic> diags;
 
 @Override
-public void recover(RecognitionException re) {//TODO change this to make errors better!
+public void recover(RecognitionException re) {
 	     int currentPosition = re.charPositionInLine;
       char charAtCurrentPosition = input.substring(currentPosition, currentPosition).toCharArray()[0];
       int valueOfCharacter = Character.getNumericValue(charAtCurrentPosition);
