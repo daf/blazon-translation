@@ -6,11 +6,9 @@ import org.vectomatic.dom.svg.OMSVGClipPathElement;
 import org.vectomatic.dom.svg.OMSVGDefsElement;
 import org.vectomatic.dom.svg.OMSVGDocument;
 import org.vectomatic.dom.svg.OMSVGGElement;
-import org.vectomatic.dom.svg.OMSVGLength;
 import org.vectomatic.dom.svg.OMSVGPathElement;
 import org.vectomatic.dom.svg.OMSVGPathSegList;
 import org.vectomatic.dom.svg.OMSVGSVGElement;
-import org.vectomatic.dom.svg.OMSVGTextElement;
 import org.vectomatic.dom.svg.utils.OMSVGParser;
 import org.vectomatic.dom.svg.utils.SVGConstants;
 
@@ -41,7 +39,6 @@ public class SVGShieldDrawer {
 
 	public void drawInitialShield(OMSVGSVGElement svg) {
 		svg.appendChild(createShieldShapePath());
-		addInitialTextToShield(svg);
 	}
 
     public void draw(Shield shield, OMSVGSVGElement svg) {
@@ -100,11 +97,4 @@ public class SVGShieldDrawer {
     	svg.appendChild(doc.createSVGTitleElement(blazon));
     	svg.appendChild(doc.createSVGDescElement("This is a shield described as '" + blazon + "'."));
     }
-    
-    private void addInitialTextToShield(OMSVGSVGElement svg) {
-    	OMSVGTextElement initialText = doc.createSVGTextElement(20, 190, OMSVGLength.SVG_LENGTHTYPE_PX, "Please Enter Blazon");
-    	initialText.setAttribute(SVGConstants.SVG_FILL_ATTRIBUTE, SVGConstants.CSS_BLACK_VALUE);
-    	initialText.setAttribute(SVGConstants.SVG_FONT_SIZE_ATTRIBUTE, "40");
-    	svg.appendChild(initialText);		
-	}
 }
