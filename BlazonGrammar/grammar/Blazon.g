@@ -29,13 +29,12 @@ public void recover(RecognitionException re) {
 	     int currentPosition = re.charPositionInLine;
       char charAtCurrentPosition = input.substring(currentPosition, currentPosition).toCharArray()[0];
       int valueOfCharacter = Character.getNumericValue(charAtCurrentPosition);
-      while (--currentPosition >= 0 &&
-          (valueOfCharacter != -1 || charAtCurrentPosition != 9
-              || valueOfCharacter != 10 || valueOfCharacter != 13)) {
+      while (--currentPosition >= 0 && valueOfCharacter != -1) {
         input.seek(currentPosition);
         charAtCurrentPosition = input.substring(currentPosition, currentPosition).toCharArray()[0];
           valueOfCharacter = Character.getNumericValue(charAtCurrentPosition);
       }
+      currentPosition++;
       currentPosition++;
       StringBuilder sb = new StringBuilder();
       sb.append("The application does not recognise the word '");
@@ -44,8 +43,7 @@ public void recover(RecognitionException re) {
         charAtCurrentPosition = input.substring(currentPosition, currentPosition).toCharArray()[0];
         sb.append(charAtCurrentPosition);
         valueOfCharacter = Character.getNumericValue(charAtCurrentPosition);
-      } while (++currentPosition < input.size() && (valueOfCharacter != -1 || charAtCurrentPosition != 9
-              || valueOfCharacter != 10 || valueOfCharacter != 13));
+      } while (++currentPosition < input.size() && valueOfCharacter != -1);
       sb.append("'");
       diags.add(ShieldDiagnostic.build(LogLevel.ERROR, sb.toString()));
 	input.consume();
