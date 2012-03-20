@@ -22,6 +22,7 @@ public class ChargeFetchingServiceCallback implements AsyncCallback<Shield> {
 
 	@Override
 	public void onFailure(Throwable caught) {
+		spinner.stop();
 		if (caught instanceof NoImageForAdvancedChargeException) {
 			String message = "The application was unable to find an image for one of your specified charges.<br />";
 			message += "You may want to refine your search or add an image to the database below.<br />";
