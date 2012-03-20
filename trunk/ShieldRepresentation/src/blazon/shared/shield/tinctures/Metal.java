@@ -58,8 +58,7 @@ public class Metal extends AbstractTincture {
 			return false;
 		}
 		Metal other = (Metal)obj;
-		return (name == other.name || name.equals(other.name))
-			&& (colour == other.colour || colour.equals(other.colour));
+		return name.equals(other.name) && colour.equals(other.colour);
 	}
 	
 	@Override

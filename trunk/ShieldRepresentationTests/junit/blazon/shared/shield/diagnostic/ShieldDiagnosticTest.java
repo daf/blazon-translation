@@ -52,7 +52,7 @@ public class ShieldDiagnosticTest {
 	@Test
 	public void testThatShieldDiagnosticWithErrorSeverityLevelAndHelloAsMessageHasExpectedToString() {
 		ShieldDiagnostic diag = ShieldDiagnostic.build(LogLevel.ERROR, "hello");
-		String expected = "ShieldDiagnostic{level=ERROR:message=hello}";
+		String expected = "ERROR: hello";
 		assertThat(diag.toString(), is(equalTo(expected)));
 	}
 	
@@ -64,7 +64,7 @@ public class ShieldDiagnosticTest {
 	
 	@Test
 	public void testThatShieldDiagnosticLogLevelParsesWarnToCorrectEnumValue() {
-		LogLevel logLevel = LogLevel.valueOf("WARN");
+		LogLevel logLevel = LogLevel.valueOf("WARNING");
 		assertThat(logLevel, is(equalTo(LogLevel.WARNING)));
 	}
 	

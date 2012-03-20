@@ -13,9 +13,12 @@ import java.util.List;
 
 import org.junit.Test;
 
+import blazon.shared.shield.charges.Charge;
+import blazon.shared.shield.charges.GeometricCharge;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic.LogLevel;
 import blazon.shared.shield.tinctures.Tinctures;
+import blazon.shared.shield.tinctures.UnknownTinctureException;
 
 public class InvalidShieldTest {
 
@@ -76,7 +79,7 @@ public class InvalidShieldTest {
 	@Test
 	public void testThatAnInvalidShieldCanNotBeEqualToAShieldImpl() {
 		Shield invalid = InvalidShield.build();
-		Field field = Field.buildUndividedShieldLayer(new Tinctures());
+		Field field = FieldImpl.buildUndividedShieldLayer(new Tinctures());
 		Shield valid = ShieldImpl.build(field, null);
 		assertThat(invalid.equals(valid), is(false));
 	}
@@ -225,7 +228,7 @@ public class InvalidShieldTest {
 		ShieldDiagnostic diag = ShieldDiagnostic.build(LogLevel.ERROR, "hello");
 		list.add(diag);
 		Shield shield = InvalidShield.build(list);
-		String expected = "InvalidShield{diagnostics=[ShieldDiagnostic{level=ERROR:message=hello}]}";
+		String expected = "InvalidShield{diagnostics=[ERROR: hello]}";
 		assertThat(shield.toString(), is(equalTo(expected)));
 	}
 	
@@ -244,6 +247,16 @@ public class InvalidShieldTest {
 		shield.addDiagnostics(new ArrayList<ShieldDiagnostic>());
 		assertThat(shield.getShieldDiagnostics(), is(notNullValue()));
 		assertTrue(shield.getShieldDiagnostics().isEmpty());
+	}
+	
+	@Test
+	public void testThatIfYouAddADiagnosticToAShieldWithNoDiagnosticsGetDiagnosticsReturnsAListWithTheSameItem() {
+		Shield shield = InvalidShield.build();
+		ShieldDiagnostic diag = ShieldDiagnostic.build(LogLevel.ERROR, "hello");
+		shield.addDiagnostic(diag);
+		List<ShieldDiagnostic> actual = shield.getShieldDiagnostics();
+		assertThat(actual.size(), is(equalTo(1)));
+		assertThat(actual.get(0), is(equalTo(diag)));
 	}
 	
 	@Test
@@ -328,6 +341,26 @@ public class InvalidShieldTest {
 		assertThat(actual.get(2), is(equalTo(list2.get(0))));
 		assertThat(actual.get(3), is(equalTo(list2.get(1))));
 		
+	}
+	
+	@Test(expected=UnsupportedOperationException.class)
+	public void testThatInvalidShieldCanNotAddNullChargesList() {
+		Shield shield = InvalidShield.build();
+		shield.addCharges(null);
+	}
+	
+	@Test(expected=UnsupportedOperationException.class)
+	public void testThatInvalidShieldCanNotAddEmptyChargesList() {
+		Shield shield = InvalidShield.build();
+		shield.addCharges(new ArrayList<Charge>());
+	}
+	
+	@Test(expected=UnsupportedOperationException.class)
+	public void testThatInvalidShieldCanNotAddChargesList() throws UnknownTinctureException {
+		Shield shield = InvalidShield.build();
+		ArrayList<Charge> charges = new ArrayList<Charge>();
+		charges.add(GeometricCharge.build("cross", new Tinctures().getTincture("or"), null));
+		shield.addCharges(charges);
 	}
 }
 

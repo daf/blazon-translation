@@ -20,9 +20,8 @@ public class Ordinary extends GeometricCharge implements Serializable {
 		if (!(obj instanceof Ordinary))
 			return false;
 		Ordinary other = (Ordinary) obj;
-		boolean nameMatch = name == other.name || name.equals(other.name);
-		boolean tinctureMatch = tincture == other.tincture
-				|| tincture.equals(other.tincture);
+		boolean nameMatch = name.equals(other.name);
+		boolean tinctureMatch = tincture.equals(other.tincture);
 		return nameMatch && tinctureMatch;
 	}
 }

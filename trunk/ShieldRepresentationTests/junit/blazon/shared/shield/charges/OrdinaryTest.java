@@ -12,7 +12,10 @@ import blazon.shared.shield.tinctures.Tinctures;
 import blazon.shared.shield.tinctures.UnknownTinctureException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -50,6 +53,13 @@ public class OrdinaryTest {
 		GeometricCharge ordinary = GeometricCharge.build("bend sinister", t, null);
 		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BEND_SINISTER)));
 		assertThat(ordinary.getTincture(), is(equalTo(t)));
+	}
+	
+	@Test
+	public void testThatOrdinaryTypeIsOrdinaryMethodReturnsTrue() throws UnknownTinctureException {
+		Tincture t = new Tinctures().getTincture("or");
+		GeometricCharge ordinary = GeometricCharge.build("bend sinister", t, null);
+		assertTrue(ordinary.getType().isOrdinary());
 	}
 	
 	@Test
@@ -153,5 +163,89 @@ public class OrdinaryTest {
 		GeometricCharge ordinary2 = GeometricCharge.build("bend sinister", t2, null);
 
 		assertThat(ordinary1.equals(ordinary2), is(false));
+	}
+	
+	@Test
+	public void testThatBendSinisterHasSourceReturnsTrue() throws UnknownTinctureException {
+		Tincture t = new Tinctures().getTincture("or");
+		GeometricCharge ordinary = GeometricCharge.build("bend sinister", t, null);
+		assertTrue(ordinary.hasSource());
+	}
+	
+	@Test
+	public void testThatCrossHasSourceReturnsTrue() throws UnknownTinctureException {
+		Tincture t = new Tinctures().getTincture("or");
+		GeometricCharge ordinary = GeometricCharge.build("cross", t, null);
+		assertTrue(ordinary.hasSource());
+	}
+	
+	@Test
+	public void testThatBendSinisterGetSourceReturnsNull() throws UnknownTinctureException {
+		Tincture t = new Tinctures().getTincture("or");
+		GeometricCharge ordinary = GeometricCharge.build("bend sinister", t, null);
+		assertNull(ordinary.getSource());
+	}
+	
+	@Test
+	public void testThatCrossGetSourceReturnsNull() throws UnknownTinctureException {
+		Tincture t = new Tinctures().getTincture("or");
+		GeometricCharge ordinary = GeometricCharge.build("cross", t, null);
+		assertNull(ordinary.getSource());
+	}
+	
+	@Test
+	public void testThatCrossSetSourceWithNullReturnsFalse() throws UnknownTinctureException {
+		Tincture t = new Tinctures().getTincture("or");
+		GeometricCharge ordinary = GeometricCharge.build("cross", t, null);
+		assertFalse(ordinary.setSource(null));
+	}
+	
+	@Test
+	public void testThatCrossSetSourceWithEmptyStringReturnsFalse() throws UnknownTinctureException {
+		Tincture t = new Tinctures().getTincture("or");
+		GeometricCharge ordinary = GeometricCharge.build("cross", t, null);
+		assertFalse(ordinary.setSource(""));
+	}
+	
+	@Test
+	public void testThatCrossSetSourceWithSomeURLStringReturnsFalse() throws UnknownTinctureException {
+		Tincture t = new Tinctures().getTincture("or");
+		GeometricCharge ordinary = GeometricCharge.build("cross", t, null);
+		assertFalse(ordinary.setSource("http://shielddrawing.appspot.com"));
+	}
+	
+	@Test
+	public void testThatBendGetNameReturnsBend() throws UnknownTinctureException {
+		Tincture t = new Tinctures().getTincture("or");
+		GeometricCharge ordinary = GeometricCharge.build("bend", t, null);
+		assertTrue(ordinary.getName().equalsIgnoreCase("bend"));
+	}
+	
+	@Test
+	public void testThatMulletGetTextDescriptionReturnsAsExpected() throws UnknownTinctureException {
+		Tincture t = new Tinctures().getTincture("gules");
+		GeometricCharge ordinary = GeometricCharge.build("mullet", t, null);
+		assertThat(ordinary.getTextDescription(), is(equalTo("'mullet gules'")));
+	}
+	
+	@Test
+	public void testThatBendGetTextDescriptionReturnsAsExpected() throws UnknownTinctureException {
+		Tincture t = new Tinctures().getTincture("gules");
+		GeometricCharge ordinary = GeometricCharge.build("bend", t, null);
+		assertThat(ordinary.getTextDescription(), is(equalTo("'bend gules'")));
+	}
+	
+	@Test
+	public void testThatCrossGetNameReturnsCross() throws UnknownTinctureException {
+		Tincture t = new Tinctures().getTincture("or");
+		GeometricCharge ordinary = GeometricCharge.build("cross", t, null);
+		assertTrue(ordinary.getName().equalsIgnoreCase("cross"));
+	}
+	
+	@Test
+	public void testThatCrossGetTextDescriptionReturnsAsExpected() throws UnknownTinctureException {
+		Tincture t = new Tinctures().getTincture("gules");
+		GeometricCharge ordinary = GeometricCharge.build("cross", t, null);
+		assertThat(ordinary.getTextDescription(), is(equalTo("'cross gules'")));
 	}
 }

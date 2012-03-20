@@ -65,7 +65,7 @@ public class ShieldImpl extends AbstractShield {
 	@Override
 	public int hashCode() {
 		int result = 17;
-		result = 31 * result + (field == null ? 0 : field.hashCode());
+		result = 31 * result + field.hashCode();
 		return result;
 	}
 

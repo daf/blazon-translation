@@ -39,35 +39,28 @@ public class InvalidShield extends AbstractShield {
 		}
 		InvalidShield other = (InvalidShield)obj;
 		List<ShieldDiagnostic> myDiagnostics = getShieldDiagnostics();
-		List<ShieldDiagnostic> otherDiagnostics = other.getShieldDiagnostics();
-		if (myDiagnostics == null && otherDiagnostics == null) {
-			return true;
-		} else if (myDiagnostics == null || otherDiagnostics == null) {
-			return false;
-		} else {
-			return myDiagnostics.equals(other.getShieldDiagnostics());
-		}
+		return myDiagnostics.equals(other.getShieldDiagnostics());
 	}
 	
 	@Override
 	public int hashCode() {
 		int result = 17;
-		result = 31 * result + (getShieldDiagnostics() == null ? 0 : getShieldDiagnostics().hashCode());
+		result = 31 * result + getShieldDiagnostics().hashCode();
 		return result;
 	}
 
 	@Override
 	public Field getField() {
-		return null;//throw new UnsupportedOperationException("An InvalidShield object does not have a field.");
+		return null;
 	}
 
 	@Override
 	public void addCharges(List<Charge> charges) {
-		//throw new UnsupportedOperationException("An InvalidShield object does not have charges.");
+		throw new UnsupportedOperationException("An InvalidShield object can not have charges.");
 	}
 
 	@Override
 	public List<Charge> getCharges() {
-		return null;//throw new UnsupportedOperationException("An InvalidShield object does not have charges.");
+		return null;
 	}
 }

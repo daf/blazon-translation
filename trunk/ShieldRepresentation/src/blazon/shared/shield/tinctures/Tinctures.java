@@ -95,11 +95,9 @@ public class Tinctures implements Serializable {
 		NumberToOrdinalConverter positionFinder = new NumberToOrdinalConverter();
 		try {
 			String position = positionFinder.convert(tincturesInUse.size() + 1);
-			if (!tincturesInUse.containsKey(position)) {
-				tincturesInUse.put(position, t);
-				boolean addedToTincturesOnLayerList = tincturesOnLayer.add(t);
-				return addedToTincturesOnLayerList;
-			}
+			tincturesInUse.put(position, t);
+			boolean addedToTincturesOnLayerList = tincturesOnLayer.add(t);
+			return addedToTincturesOnLayerList;
 		} catch (NumberConversionException e) {
 			System.err.println("Caught: " + e + "\nCould not add tincture '" + t + "'");
 		}
@@ -131,13 +129,13 @@ public class Tinctures implements Serializable {
 			return false;
 		}
 		Tinctures other = (Tinctures)obj;
-		return tincturesOnLayer == other.tincturesOnLayer || tincturesOnLayer.equals(other.tincturesOnLayer);
+		return tincturesOnLayer.equals(other.tincturesOnLayer);
 	}
 	
 	@Override
 	public int hashCode() {
 		int result = 17;
-		result = 31 * result + (tincturesOnLayer == null ? 0 : tincturesOnLayer.hashCode());
+		result = 31 * result + tincturesOnLayer.hashCode();
 		return result;
 	}
 }

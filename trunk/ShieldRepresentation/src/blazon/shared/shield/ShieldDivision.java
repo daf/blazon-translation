@@ -313,7 +313,7 @@ public class ShieldDivision implements Serializable {
 				return false;
 			}
 			ShieldDivisionType other = (ShieldDivisionType)obj;
-			boolean nameMatch = name == other.name || name.equals(other.name);
+			boolean nameMatch = name.equals(other.name);
 			boolean numberOfSectionsMatch = numberOfSections == other.numberOfSections;
 			boolean numberOfTincturesMatch = numberOfTinctures == other.numberOfTinctures;
 			return nameMatch && numberOfSectionsMatch && numberOfTincturesMatch;
@@ -322,7 +322,7 @@ public class ShieldDivision implements Serializable {
 		@Override
 		public int hashCode() {
 			int result = 17;
-			result = 31 * result + (name == null ? 0 : name.hashCode());
+			result = 31 * result + name.hashCode();
 			result = 31 * result + numberOfSections;
 			result = 31 * result + numberOfTinctures;
 			return result;

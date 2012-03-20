@@ -18,13 +18,13 @@ public class ShieldLayerTest {
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testThatBuildWithNullThrowsIllegalArgumentException() {
-		Field.buildUndividedShieldLayer(null);
+		FieldImpl.buildUndividedShieldLayer(null);
 	}
 	
 	@Test
 	public void testThatBuildWithEmptyTincturesSetsTincturesToBeEmpty() {
 		Tinctures t = new Tinctures();
-		ShieldLayer layer = Field.buildUndividedShieldLayer(t);
+		Field layer = FieldImpl.buildUndividedShieldLayer(t);
 		assertThat(layer.getTinctures(), is(equalTo(t)));
 	}
 	
@@ -34,7 +34,7 @@ public class ShieldLayerTest {
 		Tinctures t = new Tinctures();
 		t.addTincture(t.getTincture("or"));
 		t.addTincture(t.getTincture("vair"));
-		ShieldLayer layer = Field.buildUndividedShieldLayer(t);
+		Field layer = FieldImpl.buildUndividedShieldLayer(t);
 		assertThat(layer.getTinctures(), is(equalTo(t)));
 	}
 	
@@ -45,7 +45,7 @@ public class ShieldLayerTest {
 		t.addTincture(t.getTincture("or"));
 		ShieldDivision division = new ShieldDivision();
 		ShieldDivisionType divType = division.getDivisionType("NONE", new ArrayList<ShieldDiagnostic>());
-		ShieldLayer layer = Field.buildDividedShieldLayer(t, divType);
+		Field layer = FieldImpl.buildDividedShieldLayer(t, divType);
 		assertThat(layer.getShieldDivision(), is(equalTo(divType)));
 	}
 	
@@ -56,14 +56,14 @@ public class ShieldLayerTest {
 		t.addTincture(t.getTincture("or"));
 		ShieldDivision division = new ShieldDivision();
 		ShieldDivisionType divType = division.getDivisionType("FESS", new ArrayList<ShieldDiagnostic>());
-		ShieldLayer layer = Field.buildDividedShieldLayer(t, divType);
+		Field layer = FieldImpl.buildDividedShieldLayer(t, divType);
 		assertThat(layer.getShieldDivision(), is(equalTo(divType)));
 	}
 	
 	@Test
 	public void testThatGetTinctureTypeOfLayerWhenNothingOnLayerReturnsOther() throws UnknownTinctureException {
 		Tinctures tinctures = new Tinctures();
-		ShieldLayer layer = Field.buildUndividedShieldLayer(tinctures);
+		Field layer = FieldImpl.buildUndividedShieldLayer(tinctures);
 		assertThat(layer.getTinctureTypeOfLayer(), is(TinctureType.OTHER));
 	}
 	
@@ -71,7 +71,7 @@ public class ShieldLayerTest {
 	public void testThatGetTinctureTypeOfLayerWhenOnlyAColourOnLayerReturnsColour() throws UnknownTinctureException {
 		Tinctures tinctures = new Tinctures();
 		tinctures.addTincture(tinctures.getTincture("sable"));
-		ShieldLayer layer = Field.buildUndividedShieldLayer(tinctures);
+		Field layer = FieldImpl.buildUndividedShieldLayer(tinctures);
 		assertThat(layer.getTinctureTypeOfLayer(), is(TinctureType.COLOUR));
 	}
 	
@@ -79,7 +79,7 @@ public class ShieldLayerTest {
 	public void testThatGetTinctureTypeOfLayerWhenOnlyAMetalOnLayerReturnsMetal() throws UnknownTinctureException {
 		Tinctures tinctures = new Tinctures();
 		tinctures.addTincture(tinctures.getTincture("or"));
-		ShieldLayer layer = Field.buildUndividedShieldLayer(tinctures);
+		Field layer = FieldImpl.buildUndividedShieldLayer(tinctures);
 		assertThat(layer.getTinctureTypeOfLayer(), is(TinctureType.METAL));
 	}
 	
@@ -87,7 +87,7 @@ public class ShieldLayerTest {
 	public void testThatGetTinctureTypeOfLayerWhenOnlyAFurOnLayerReturnsOther() throws UnknownTinctureException {
 		Tinctures tinctures = new Tinctures();
 		tinctures.addTincture(tinctures.getTincture("vair"));
-		ShieldLayer layer = Field.buildUndividedShieldLayer(tinctures);
+		Field layer = FieldImpl.buildUndividedShieldLayer(tinctures);
 		assertThat(layer.getTinctureTypeOfLayer(), is(TinctureType.OTHER));
 	}
 	
@@ -96,7 +96,7 @@ public class ShieldLayerTest {
 		Tinctures tinctures = new Tinctures();
 		tinctures.addTincture(tinctures.getTincture("or"));
 		tinctures.addTincture(tinctures.getTincture("argent"));
-		ShieldLayer layer = Field.buildUndividedShieldLayer(tinctures);
+		Field layer = FieldImpl.buildUndividedShieldLayer(tinctures);
 		assertThat(layer.getTinctureTypeOfLayer(), is(TinctureType.METAL));
 	}
 	
@@ -105,7 +105,7 @@ public class ShieldLayerTest {
 		Tinctures tinctures = new Tinctures();
 		tinctures.addTincture(tinctures.getTincture("sable"));
 		tinctures.addTincture(tinctures.getTincture("gules"));
-		ShieldLayer layer = Field.buildUndividedShieldLayer(tinctures);
+		Field layer = FieldImpl.buildUndividedShieldLayer(tinctures);
 		assertThat(layer.getTinctureTypeOfLayer(), is(TinctureType.COLOUR));
 	}
 	
@@ -114,7 +114,7 @@ public class ShieldLayerTest {
 		Tinctures tinctures = new Tinctures();
 		tinctures.addTincture(tinctures.getTincture("sable"));
 		tinctures.addTincture(tinctures.getTincture("or"));
-		ShieldLayer layer = Field.buildUndividedShieldLayer(tinctures);
+		Field layer = FieldImpl.buildUndividedShieldLayer(tinctures);
 		assertThat(layer.getTinctureTypeOfLayer(), is(TinctureType.OTHER));
 	}
 	
@@ -123,7 +123,7 @@ public class ShieldLayerTest {
 		Tinctures tinctures = new Tinctures();
 		tinctures.addTincture(tinctures.getTincture("sable"));
 		tinctures.addTincture(tinctures.getTincture("vair"));
-		ShieldLayer layer = Field.buildUndividedShieldLayer(tinctures);
+		Field layer = FieldImpl.buildUndividedShieldLayer(tinctures);
 		assertThat(layer.getTinctureTypeOfLayer(), is(TinctureType.OTHER));
 	}
 	
@@ -132,15 +132,15 @@ public class ShieldLayerTest {
 		Tinctures tinctures = new Tinctures();
 		tinctures.addTincture(tinctures.getTincture("or"));
 		tinctures.addTincture(tinctures.getTincture("vair"));
-		ShieldLayer layer = Field.buildUndividedShieldLayer(tinctures);
+		Field layer = FieldImpl.buildUndividedShieldLayer(tinctures);
 		assertThat(layer.getTinctureTypeOfLayer(), is(TinctureType.OTHER));
 	}
 	
 	@Test
 	public void testThatToStringIsSetCorrectlyWithEmptyTincturesAndLayers() {
 		Tinctures tinctures = new Tinctures();
-		ShieldLayer layer = Field.buildUndividedShieldLayer(tinctures);
-		String expected = "ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfTinctures=1}:nextLayer=null}";
+		Field layer = FieldImpl.buildUndividedShieldLayer(tinctures);
+		String expected = "ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfTinctures=1}}";
 		assertThat(layer.toString(), is(equalTo(expected)));
 	}
 	
@@ -149,28 +149,28 @@ public class ShieldLayerTest {
 			throws UnknownTinctureException {
 		Tinctures tinctures = new Tinctures();
 		tinctures.addTincture(tinctures.getTincture("or"));
-		ShieldLayer layer = Field.buildUndividedShieldLayer(tinctures);
-		String expected = "ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[Tincture{name=or:fillText=gold}]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfTinctures=1}:nextLayer=null}";
+		Field layer = FieldImpl.buildUndividedShieldLayer(tinctures);
+		String expected = "ShieldLayer{tinctures=Tinctures{tincturesOnLayer=[Tincture{name=or:fillText=gold}]}:division=ShieldDivisionType{name=NONE:numberOfSections=1:numberOfTinctures=1}}";
 		assertThat(layer.toString(), is(equalTo(expected)));
 	}
 	
 	@Test
 	public void testThatShieldLayerEqualsNullReturnsFalse() {
-		ShieldLayer layer = Field.buildUndividedShieldLayer(new Tinctures());
+		Field layer = FieldImpl.buildUndividedShieldLayer(new Tinctures());
 		assertThat(layer.equals(null), is(false));
 	}
 	
 	@Test
 	public void testThatShieldLayerEqualsSelfReturnsTrue() {
-		ShieldLayer layer = Field.buildUndividedShieldLayer(new Tinctures());
+		Field layer = FieldImpl.buildUndividedShieldLayer(new Tinctures());
 		assertThat(layer.equals(layer), is(true));
 		assertThat(layer.hashCode(), is(equalTo(layer.hashCode())));
 	}
 	
 	@Test
 	public void testThatTwoShieldLayersWithNoTincturesEqualsReturnsTrue() {
-		ShieldLayer layer1 = Field.buildUndividedShieldLayer(new Tinctures());
-		ShieldLayer layer2 = Field.buildUndividedShieldLayer(new Tinctures());
+		Field layer1 = FieldImpl.buildUndividedShieldLayer(new Tinctures());
+		Field layer2 = FieldImpl.buildUndividedShieldLayer(new Tinctures());
 		assertThat(layer1.equals(layer2), is(true));
 		assertThat(layer1.hashCode(), is(equalTo(layer2.hashCode())));
 	}
@@ -179,8 +179,8 @@ public class ShieldLayerTest {
 	public void testThatTwoShieldLayersWithDifferentTincturesEqualsReturnsFalse() throws UnknownTinctureException {
 		Tinctures tincturesWithOr = new Tinctures();
 		tincturesWithOr.addTincture(tincturesWithOr.getTincture("or"));
-		ShieldLayer layer1 = Field.buildUndividedShieldLayer(tincturesWithOr);
-		ShieldLayer layer2 = Field.buildUndividedShieldLayer(new Tinctures());
+		Field layer1 = FieldImpl.buildUndividedShieldLayer(tincturesWithOr);
+		Field layer2 = FieldImpl.buildUndividedShieldLayer(new Tinctures());
 		assertThat(layer1.equals(layer2), is(false));
 	}
 	
@@ -188,8 +188,8 @@ public class ShieldLayerTest {
 	public void testThatTwoShieldLayersWithDifferentDivisionTypesEqualsReturnsFalse() {
 		ShieldDivisionType bend = new ShieldDivision().getDivisionType("bend", new ArrayList<ShieldDiagnostic>());
 		ShieldDivisionType fess = new ShieldDivision().getDivisionType("fess", new ArrayList<ShieldDiagnostic>());
-		ShieldLayer layer1 = Field.buildDividedShieldLayer(new Tinctures(), bend);
-		ShieldLayer layer2 = Field.buildDividedShieldLayer(new Tinctures(), fess);
+		Field layer1 = FieldImpl.buildDividedShieldLayer(new Tinctures(), bend);
+		Field layer2 = FieldImpl.buildDividedShieldLayer(new Tinctures(), fess);
 		assertThat(layer1.equals(layer2), is(false));
 	}
 	
@@ -197,8 +197,8 @@ public class ShieldLayerTest {
 	public void testThatTwoShieldLayersWithDifferentDivisionTypesEqualsReturnsFalseConsistently() {
 		ShieldDivisionType bend = new ShieldDivision().getDivisionType("bend", new ArrayList<ShieldDiagnostic>());
 		ShieldDivisionType fess = new ShieldDivision().getDivisionType("fess", new ArrayList<ShieldDiagnostic>());
-		ShieldLayer layer1 = Field.buildDividedShieldLayer(new Tinctures(), bend);
-		ShieldLayer layer2 = Field.buildDividedShieldLayer(new Tinctures(), fess);
+		Field layer1 = FieldImpl.buildDividedShieldLayer(new Tinctures(), bend);
+		Field layer2 = FieldImpl.buildDividedShieldLayer(new Tinctures(), fess);
 		assertThat(layer1.equals(layer2), is(false));
 	}
 	
@@ -208,8 +208,8 @@ public class ShieldLayerTest {
 		tincturesWithOr1.addTincture(tincturesWithOr1.getTincture("or"));
 		Tinctures tincturesWithOr2 = new Tinctures();
 		tincturesWithOr2.addTincture(tincturesWithOr2.getTincture("or"));
-		ShieldLayer layer1 = Field.buildUndividedShieldLayer(tincturesWithOr1);
-		ShieldLayer layer2 = Field.buildUndividedShieldLayer(tincturesWithOr2);
+		Field layer1 = FieldImpl.buildUndividedShieldLayer(tincturesWithOr1);
+		Field layer2 = FieldImpl.buildUndividedShieldLayer(tincturesWithOr2);
 		assertThat(layer1.equals(layer2), is(true));
 		assertThat(layer1.hashCode(), is(equalTo(layer2.hashCode())));
 	}
@@ -222,8 +222,8 @@ public class ShieldLayerTest {
 		tincturesWithOr2.addTincture(tincturesWithOr2.getTincture("or"));
 		ShieldDivisionType fess1 = new ShieldDivision().getDivisionType("fess", new ArrayList<ShieldDiagnostic>());
 		ShieldDivisionType fess2 = new ShieldDivision().getDivisionType("fess", new ArrayList<ShieldDiagnostic>());
-		ShieldLayer layer1 = Field.buildDividedShieldLayer(tincturesWithOr1, fess1);
-		ShieldLayer layer2 = Field.buildDividedShieldLayer(tincturesWithOr2, fess2);
+		Field layer1 = FieldImpl.buildDividedShieldLayer(tincturesWithOr1, fess1);
+		Field layer2 = FieldImpl.buildDividedShieldLayer(tincturesWithOr2, fess2);
 		assertThat(layer1.equals(layer2), is(true));
 		assertThat(layer1.hashCode(), is(equalTo(layer2.hashCode())));
 	}
@@ -236,8 +236,8 @@ public class ShieldLayerTest {
 		tincturesWithOr2.addTincture(tincturesWithOr2.getTincture("or"));
 		ShieldDivisionType fess1 = new ShieldDivision().getDivisionType("fess", new ArrayList<ShieldDiagnostic>());
 		ShieldDivisionType fess2 = new ShieldDivision().getDivisionType("fess", new ArrayList<ShieldDiagnostic>());
-		ShieldLayer layer1 = Field.buildDividedShieldLayer(tincturesWithOr1, fess1);
-		ShieldLayer layer2 = Field.buildDividedShieldLayer(tincturesWithOr2, fess2);
+		Field layer1 = FieldImpl.buildDividedShieldLayer(tincturesWithOr1, fess1);
+		Field layer2 = FieldImpl.buildDividedShieldLayer(tincturesWithOr2, fess2);
 		assertThat(layer1.equals(layer2), is(true));
 		assertThat(layer2.equals(layer1), is(true));
 		assertThat(layer1.hashCode(), is(equalTo(layer2.hashCode())));
@@ -252,8 +252,8 @@ public class ShieldLayerTest {
 		tincturesWithOr2.addTincture(tincturesWithOr2.getTincture("or"));
 		ShieldDivisionType fess1 = new ShieldDivision().getDivisionType("fess", new ArrayList<ShieldDiagnostic>());
 		ShieldDivisionType fess2 = new ShieldDivision().getDivisionType("fess", new ArrayList<ShieldDiagnostic>());
-		ShieldLayer layer1 = Field.buildDividedShieldLayer(tincturesWithOr1, fess1);
-		ShieldLayer layer2 = Field.buildDividedShieldLayer(tincturesWithOr2, fess2);
+		Field layer1 = FieldImpl.buildDividedShieldLayer(tincturesWithOr1, fess1);
+		Field layer2 = FieldImpl.buildDividedShieldLayer(tincturesWithOr2, fess2);
 		assertThat(layer1.equals(layer2), is(true));
 		assertThat(layer1.equals(layer2), is(true));
 		assertThat(layer1.equals(layer2), is(true));
@@ -273,9 +273,9 @@ public class ShieldLayerTest {
 		ShieldDivisionType fess1 = new ShieldDivision().getDivisionType("fess", new ArrayList<ShieldDiagnostic>());
 		ShieldDivisionType fess2 = new ShieldDivision().getDivisionType("fess", new ArrayList<ShieldDiagnostic>());
 		ShieldDivisionType fess3 = new ShieldDivision().getDivisionType("fess", new ArrayList<ShieldDiagnostic>());
-		ShieldLayer layer1 = Field.buildDividedShieldLayer(tincturesWithOr1, fess1);
-		ShieldLayer layer2 = Field.buildDividedShieldLayer(tincturesWithOr2, fess2);
-		ShieldLayer layer3 = Field.buildDividedShieldLayer(tincturesWithOr3, fess3);
+		Field layer1 = FieldImpl.buildDividedShieldLayer(tincturesWithOr1, fess1);
+		Field layer2 = FieldImpl.buildDividedShieldLayer(tincturesWithOr2, fess2);
+		Field layer3 = FieldImpl.buildDividedShieldLayer(tincturesWithOr3, fess3);
 		assertThat(layer1.equals(layer2), is(true));
 		assertThat(layer2.equals(layer3), is(true));
 		assertThat(layer1.equals(layer3), is(true));

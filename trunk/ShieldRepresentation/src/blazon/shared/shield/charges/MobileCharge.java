@@ -18,9 +18,8 @@ public class MobileCharge extends GeometricCharge {
 		if (!(obj instanceof MobileCharge))
 			return false;
 		MobileCharge other = (MobileCharge) obj;
-		boolean nameMatch = name == other.name || name.equals(other.name);
-		boolean tinctureMatch = tincture == other.tincture
-				|| tincture.equals(other.tincture);
+		boolean nameMatch = name.equals(other.name);
+		boolean tinctureMatch = tincture.equals(other.tincture);
 		return nameMatch && tinctureMatch;
 	}
 }

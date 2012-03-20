@@ -26,11 +26,7 @@ public abstract class AbstractShield implements Shield, Serializable {
 	}
 	
 	public void addDiagnostic(ShieldDiagnostic diagnostic) {
-		if (diagnostics == null) {
-			return;
-		} else {
-			this.diagnostics.add(diagnostic);
-		}
+		this.diagnostics.add(diagnostic);
 	}
 	
 	public final String getBlazon() {

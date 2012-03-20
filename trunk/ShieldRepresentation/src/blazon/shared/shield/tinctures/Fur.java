@@ -128,11 +128,9 @@ public class Fur extends AbstractTincture {
 		if (!(obj instanceof Fur)) {
 			return false;
 		}
-		Fur other = (Fur)obj;
-		return (name == other.name || name.equals(other.name))
-			&& (colour1 == other.colour1 || colour1.equals(other.colour1))
-			&& (colour2 == other.colour2 || colour2.equals(other.colour2))
-			&& (furType == other.furType);
+		Fur other = (Fur) obj;
+		return name.equals(other.name) && colour1.equals(other.colour1)
+			&& colour2.equals(other.colour2) && (furType == other.furType);
 	}
 	
 	@Override
