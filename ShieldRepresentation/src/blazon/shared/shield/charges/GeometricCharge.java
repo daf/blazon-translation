@@ -53,7 +53,7 @@ public abstract class GeometricCharge implements Charge, Serializable {
 	}
 	
 	public String getName() {
-		return name.toString();
+		return name.toString().toLowerCase();
 	}
 
 	public Tincture getTincture() {
@@ -63,8 +63,8 @@ public abstract class GeometricCharge implements Charge, Serializable {
 	@Override
 	public int hashCode() {
 		int result = 17;
-		result = 31 * result + (name == null ? 0 : name.hashCode());
-		result = 31 * result + (tincture == null ? 0 : tincture.hashCode());
+		result = 31 * result + name.hashCode();
+		result = 31 * result + tincture.hashCode();
 		return result;
 	}
 
@@ -73,12 +73,12 @@ public abstract class GeometricCharge implements Charge, Serializable {
 	}
 	
 	public String getTextDescription() {
-		StringBuilder sb = new StringBuilder("'").append(name);
+		StringBuilder sb = new StringBuilder("'").append(name.toString().toLowerCase());
 		sb.append(" ").append(tincture.getName()).append("'");
 		return sb.toString();		
 	}
 	
-	public String getSource() {
+	public final String getSource() {
 		return null;
 	}
 }

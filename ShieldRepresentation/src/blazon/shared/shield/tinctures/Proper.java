@@ -4,9 +4,13 @@ public class Proper extends AbstractTincture {
 
 	private static final long serialVersionUID = -6662404459781501132L;
 
+	private static final Proper instance = new Proper();
+	
 	private static final String PROPER = "proper";
 	
-	private Proper() {};
+	private Proper() { 
+		this.name = PROPER; 
+	}
 	
 	@Override
 	public String getFillText() {
@@ -24,7 +28,11 @@ public class Proper extends AbstractTincture {
 	}
 
 	public static Tincture build() {
-		return new Proper();
+		return instance;
 	}
-
+	
+	@Override
+	public boolean equals(Object obj) {
+		return obj instanceof Proper;
+	}
 }

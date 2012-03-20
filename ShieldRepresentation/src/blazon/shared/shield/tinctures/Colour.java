@@ -59,8 +59,7 @@ public class Colour extends AbstractTincture {
 			return false;
 		}
 		Colour other = (Colour)obj;
-		return (name == other.name || name.equals(other.name))
-			&& (colour == other.colour || colour.equals(other.colour));
+		return name.equals(other.name) && colour.equals(other.colour);
 	}
 	
 	@Override

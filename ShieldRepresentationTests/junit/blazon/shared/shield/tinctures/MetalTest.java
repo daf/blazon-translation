@@ -149,23 +149,23 @@ public class MetalTest {
 	
 	@Test
 	public void testThatEqualsReturnsFalseWhenConstructedWithDifferentNames() {
-		Tincture t1 = Colour.build("or", "yellow");
-		Tincture t2 = Colour.build("yellow", "yellow");
+		Tincture t1 = Metal.build("or", "yellow");
+		Tincture t2 = Metal.build("yellow", "yellow");
 		assertThat(t1.equals(t2), is(false));
 	}
 	
 	@Test
 	public void testThatEqualsReturnsFalseConsistentlyWhenConstructedWithDifferentNames() {
-		Tincture t1 = Colour.build("or", "yellow");
-		Tincture t2 = Colour.build("yellow", "yellow");
+		Tincture t1 = Metal.build("or", "yellow");
+		Tincture t2 = Metal.build("yellow", "yellow");
 		assertThat(t1.equals(t2), is(false));
 		assertThat(t1.equals(t2), is(false));
 	}
 	
 	@Test
 	public void testThatEqualsReturnsFalseWhenConstructedWithDifferentColour() {
-		Tincture t1 = Colour.build("or", "yellow");
-		Tincture t2 = Colour.build("or", "or");
+		Tincture t1 = Metal.build("or", "yellow");
+		Tincture t2 = Metal.build("or", "or");
 		assertThat(t1.equals(t2), is(false));
 	}
 }

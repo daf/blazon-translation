@@ -21,9 +21,8 @@ public class Subordinary extends GeometricCharge implements Serializable {
 		if (!(obj instanceof Subordinary))
 			return false;
 		Subordinary other = (Subordinary) obj;
-		boolean nameMatch = name == other.name || name.equals(other.name);
-		boolean tinctureMatch = tincture == other.tincture
-				|| tincture.equals(other.tincture);
+		boolean nameMatch = name.equals(other.name);
+		boolean tinctureMatch = tincture.equals(other.tincture);
 		return nameMatch && tinctureMatch;
 	}
 }

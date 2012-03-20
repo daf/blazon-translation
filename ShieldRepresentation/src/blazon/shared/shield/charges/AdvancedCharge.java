@@ -15,7 +15,12 @@ public class AdvancedCharge implements Charge, Serializable {
 	private String imageSource;
 	private Map<String, Tincture> bodyParts;
 	
+	private AdvancedCharge() {}
+	
 	public static AdvancedCharge build(final String name, final String attitude, final String attitudeModifier, final Tincture tincture, final Map<String, Tincture> bodyParts) {
+		if (name == null || name.isEmpty() || attitude == null || attitude.isEmpty() || tincture == null) {
+			throw new IllegalArgumentException("Can not create AdvancedCharge with null parameter for name, attitude, or tincture.");
+		}
 		AdvancedCharge ac = new AdvancedCharge();
 		ac.name = name;
 		ac.attitude = attitude;
@@ -63,10 +68,13 @@ public class AdvancedCharge implements Charge, Serializable {
 	public String getTextDescription() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("'").append(name).append(" ").append(attitude).append(" ");
-		sb.append(tincture == null ? "proper" : tincture.getName()).append(" ");
+		if (attitudeModifier != null) {
+			sb.append(attitudeModifier).append(" ");
+		}
+		sb.append(tincture.getName());
 		if (bodyParts != null) {
 			for (Map.Entry<String, Tincture> bodyPart : bodyParts.entrySet()) {
-				sb.append(bodyPart.getKey()).append(" ").append(bodyPart.getValue().getName()).append(" ");
+				sb.append(" ").append(bodyPart.getKey()).append(" ").append(bodyPart.getValue().getName());
 			}
 		}
 		return sb.append("'").toString();

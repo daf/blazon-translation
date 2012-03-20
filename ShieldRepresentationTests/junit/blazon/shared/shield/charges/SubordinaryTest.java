@@ -12,7 +12,10 @@ import blazon.shared.shield.tinctures.Tinctures;
 import blazon.shared.shield.tinctures.UnknownTinctureException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -21,7 +24,7 @@ import static org.hamcrest.CoreMatchers.nullValue;
 public class SubordinaryTest {
 	
 	@Test
-	public void testThatGettingpallWithTinctureGulesReturnsCorrectSubordinaryObject() throws UnknownTinctureException {
+	public void testThatGettingPallWithTinctureGulesReturnsCorrectSubordinaryObject() throws UnknownTinctureException {
 		Tincture t = new Tinctures().getTincture("gules");
 		GeometricCharge subordinary = GeometricCharge.build("pall", t, null);
 		assertThat(subordinary.getType(), is(equalTo(GeometricChargeNames.PALL)));
@@ -29,7 +32,7 @@ public class SubordinaryTest {
 	}
 	
 	@Test
-	public void testThatGettingpallWithTinctureOrReturnsCorrectSubordinaryObject() throws UnknownTinctureException {
+	public void testThatGettingPallWithTinctureOrReturnsCorrectSubordinaryObject() throws UnknownTinctureException {
 		Tincture t = new Tinctures().getTincture("or");
 		GeometricCharge subordinary = GeometricCharge.build("pall", t, null);
 		assertThat(subordinary.getType(), is(equalTo(GeometricChargeNames.PALL)));
@@ -50,6 +53,13 @@ public class SubordinaryTest {
 		GeometricCharge subordinary = GeometricCharge.build("pile reversed", t, null);
 		assertThat(subordinary.getType(), is(equalTo(GeometricChargeNames.PILE_REVERSED)));
 		assertThat(subordinary.getTincture(), is(equalTo(t)));
+	}
+	
+	@Test
+	public void testThatSubordinaryTypeIsOrdinaryMethodReturnsFalse() throws UnknownTinctureException {
+		Tincture t = new Tinctures().getTincture("or");
+		GeometricCharge subordinary = GeometricCharge.build("pile reversed", t, null);
+		assertFalse(subordinary.getType().isOrdinary());
 	}
 	
 	@Test
@@ -153,5 +163,82 @@ public class SubordinaryTest {
 		GeometricCharge subordinary2 = GeometricCharge.build("pile reversed", t2, null);
 
 		assertThat(subordinary1.equals(subordinary2), is(false));
+	}
+	
+	@Test
+	public void testThatPallReversedHasSourceReturnsTrue() throws UnknownTinctureException {
+		Tincture t = new Tinctures().getTincture("or");
+		GeometricCharge ordinary = GeometricCharge.build("pall reversed", t, null);
+		assertTrue(ordinary.hasSource());
+	}
+	
+	@Test
+	public void testThatPileHasSourceReturnsTrue() throws UnknownTinctureException {
+		Tincture t = new Tinctures().getTincture("or");
+		GeometricCharge ordinary = GeometricCharge.build("pile", t, null);
+		assertTrue(ordinary.hasSource());
+	}
+	
+	@Test
+	public void testThatPallReversedGetSourceReturnsNull() throws UnknownTinctureException {
+		Tincture t = new Tinctures().getTincture("or");
+		GeometricCharge ordinary = GeometricCharge.build("pall reversed", t, null);
+		assertNull(ordinary.getSource());
+	}
+	
+	@Test
+	public void testThatPileGetSourceReturnsNull() throws UnknownTinctureException {
+		Tincture t = new Tinctures().getTincture("or");
+		GeometricCharge ordinary = GeometricCharge.build("pile", t, null);
+		assertNull(ordinary.getSource());
+	}
+	
+	@Test
+	public void testThatPileSetSourceWithNullReturnsFalse() throws UnknownTinctureException {
+		Tincture t = new Tinctures().getTincture("or");
+		GeometricCharge ordinary = GeometricCharge.build("pile", t, null);
+		assertFalse(ordinary.setSource(null));
+	}
+	
+	@Test
+	public void testThatPileSetSourceWithEmptyStringReturnsFalse() throws UnknownTinctureException {
+		Tincture t = new Tinctures().getTincture("or");
+		GeometricCharge ordinary = GeometricCharge.build("pile", t, null);
+		assertFalse(ordinary.setSource(""));
+	}
+	
+	@Test
+	public void testThatPileSetSourceWithSomeURLStringReturnsFalse() throws UnknownTinctureException {
+		Tincture t = new Tinctures().getTincture("or");
+		GeometricCharge ordinary = GeometricCharge.build("pile", t, null);
+		assertFalse(ordinary.setSource("http://shielddrawing.appspot.com"));
+	}
+	
+	@Test
+	public void testThatPileGetTextDescriptionReturnsAsExpected() throws UnknownTinctureException {
+		Tincture t = new Tinctures().getTincture("gules");
+		GeometricCharge ordinary = GeometricCharge.build("pile", t, null);
+		assertThat(ordinary.getTextDescription(), is(equalTo("'pile gules'")));
+	}
+	
+	@Test
+	public void testThatPileGetNameReturnsPile() throws UnknownTinctureException {
+		Tincture t = new Tinctures().getTincture("or");
+		GeometricCharge ordinary = GeometricCharge.build("pile", t, null);
+		assertTrue(ordinary.getName().equalsIgnoreCase("pile"));
+	}
+	
+	@Test
+	public void testThatPallGetTextDescriptionReturnsAsExpected() throws UnknownTinctureException {
+		Tincture t = new Tinctures().getTincture("gules");
+		GeometricCharge ordinary = GeometricCharge.build("pall", t, null);
+		assertThat(ordinary.getTextDescription(), is(equalTo("'pall gules'")));
+	}
+	
+	@Test
+	public void testThatPallGetNameReturnsPall() throws UnknownTinctureException {
+		Tincture t = new Tinctures().getTincture("or");
+		GeometricCharge ordinary = GeometricCharge.build("pall", t, null);
+		assertTrue(ordinary.getName().equalsIgnoreCase("pall"));
 	}
 }
