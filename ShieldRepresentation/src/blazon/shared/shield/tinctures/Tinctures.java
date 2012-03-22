@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import blazon.shared.numberconversion.NumberConversionException;
-import blazon.shared.numberconversion.NumberToOrdinalConverter;
 import blazon.shared.shield.Field;
 
 /**
@@ -55,11 +53,6 @@ public class Tinctures implements Serializable {
 	}
 
 	/**
-	 * A map of all of the tinctures that are currently in use on all layers.
-	 * Used to refer to the tinctures as, e.g. "of the first"
-	 */
-	private static Map<String, Tincture> tincturesInUse = new HashMap<String, Tincture>();
-	/**
 	 * A list of tinctures that are on this layer.
 	 */
 	private List<Tincture> tincturesOnLayer = new ArrayList<Tincture>();
@@ -92,16 +85,8 @@ public class Tinctures implements Serializable {
 		if (t == null) {
 			return false;
 		}
-		NumberToOrdinalConverter positionFinder = new NumberToOrdinalConverter();
-		try {
-			String position = positionFinder.convert(tincturesInUse.size() + 1);
-			tincturesInUse.put(position, t);
-			boolean addedToTincturesOnLayerList = tincturesOnLayer.add(t);
-			return addedToTincturesOnLayerList;
-		} catch (NumberConversionException e) {
-			System.err.println("Caught: " + e + "\nCould not add tincture '" + t + "'");
-		}
-		return false;
+		boolean addedToTincturesOnLayerList = tincturesOnLayer.add(t);
+		return addedToTincturesOnLayerList;
 	}
 
 	/**
