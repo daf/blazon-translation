@@ -249,6 +249,41 @@ public class GrammarChargesTest {
 		assertThat(diags.size(), is(0));
 	}
 	
+	@Test
+	public void testThat3BendletsGulesReturnsTheCorrectObject() throws RecognitionException, UnknownTinctureException {
+		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
+		BlazonParser parser = new ParserCreator().createParser("3 bendlets gules", diags);
+		Tinctures tinctures = new Tinctures(); 
+		List<Charge> charges = parser.charges(TinctureType.OTHER);
+		assertThat(charges.size(), is(3));
+		GeometricCharge ordinary = (GeometricCharge) charges.get(0);
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BENDLET)));
+		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
+		ordinary = (GeometricCharge) (GeometricCharge) charges.get(1);
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BENDLET)));
+		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
+		ordinary = (GeometricCharge) (GeometricCharge) charges.get(2);
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BENDLET)));
+		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
+		assertThat(diags.size(), is(0));
+	}
+	
+	@Test
+	public void testThat2BendletsSinisterGulesReturnsTheCorrectObject() throws RecognitionException, UnknownTinctureException {
+		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
+		BlazonParser parser = new ParserCreator().createParser("2 bendlets sinister gules", diags);
+		Tinctures tinctures = new Tinctures(); 
+		List<Charge> charges = parser.charges(TinctureType.OTHER);
+		assertThat(charges.size(), is(2));
+		GeometricCharge ordinary = (GeometricCharge) (GeometricCharge) charges.get(0);
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BENDLET_SINISTER)));
+		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
+		ordinary = (GeometricCharge) (GeometricCharge) charges.get(1);
+		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BENDLET_SINISTER)));
+		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
+		assertThat(diags.size(), is(0));
+	}
+	
 	@Test(expected=NoViableAltException.class)
 	public void testThatABlahGulesThrowsAMismatchedSetException() throws RecognitionException {
 		List<ShieldDiagnostic> diags = new ArrayList<ShieldDiagnostic>();
@@ -273,4 +308,5 @@ public class GrammarChargesTest {
 		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BEND)));
 		assertThat(ordinary.getTincture(), is(tinctures.getTincture("gules")));
 	}
+	
 }

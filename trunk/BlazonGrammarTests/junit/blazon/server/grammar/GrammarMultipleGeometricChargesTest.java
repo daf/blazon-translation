@@ -7,6 +7,7 @@ import static org.junit.Assert.assertThat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.antlr.runtime.MismatchedSetException;
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 
@@ -110,5 +111,17 @@ public class GrammarMultipleGeometricChargesTest {
 		assertThat(ordinary.getType(), is(equalTo(GeometricChargeNames.BENDLET_SINISTER)));
 		assertThat(ordinary.getTincture(), is(equalTo(tinctures.getTincture("gules"))));
 		assertThat(diags.size(), is(0));
+	}
+	
+	@Test(expected=MismatchedSetException.class)
+	public void testThatBlahIsRejected() throws RecognitionException {
+		BlazonParser parser = new ParserCreator().createParser("blah", new ArrayList<ShieldDiagnostic>());
+		parser.multiple_geometric_charges(new Tinctures(), TinctureType.OTHER, 2);
+	}
+	
+	@Test(expected=MismatchedSetException.class)
+	public void testThatABendIsRejected() throws RecognitionException {
+		BlazonParser parser = new ParserCreator().createParser("a bend", new ArrayList<ShieldDiagnostic>());
+		parser.multiple_geometric_charges(new Tinctures(), TinctureType.OTHER, 2);
 	}
 }

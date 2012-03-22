@@ -9,15 +9,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.antlr.runtime.CharStream;
+import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.TokenStream;
 import org.junit.Test;
 
 import blazon.server.grammar.BlazonParser;
+import blazon.shared.shield.Field;
 import blazon.shared.shield.Shield;
 import blazon.shared.shield.ShieldImpl;
 import blazon.shared.shield.ShieldDivision;
 import blazon.shared.shield.ShieldDivision.ShieldDivisionType;
-import blazon.shared.shield.ShieldLayer;
 import blazon.shared.shield.charges.Charge;
 import blazon.shared.shield.charges.GeometricCharge;
 import blazon.shared.shield.charges.GeometricChargeNames;
@@ -30,6 +33,15 @@ import blazon.shared.shield.tinctures.UnknownTinctureException;
 public class GrammarShieldTest {
 
 	@Test
+	public void testThatGrammarNameMatchesInLexerAndParser() {
+		CharStream input = new ANTLRNoCaseStringStream("gules");
+		BlazonLexer lexer = new BlazonLexer(input);
+		TokenStream tokenStream = new CommonTokenStream(lexer);
+		BlazonParser parser = new BlazonParser(tokenStream);
+		assertThat(lexer.getGrammarFileName(), is(equalTo(parser.getGrammarFileName())));
+	}
+	
+	@Test
 	public void testThatGulesReturnsTheCorrectLayer() throws RecognitionException, UnknownTinctureException {
 		BlazonParser parser = new ParserCreator().createParser("gules");
 		ShieldImpl shield = (ShieldImpl) parser.shield();
@@ -40,7 +52,7 @@ public class GrammarShieldTest {
 		
 		assertThat(shield.getField(), is(notNullValue()));
 		
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(plain)));
 		Tincture tinctureOnLayer = layer.getTinctures().getTincturesOnLayer().iterator().next();
 		assertThat(tinctureOnLayer, is(equalTo(gules)));
@@ -57,7 +69,7 @@ public class GrammarShieldTest {
 		
 		assertThat(shield.getField(), is(notNullValue()));
 		
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(plain)));
 		Tincture tinctureOnLayer = layer.getTinctures().getTincturesOnLayer().iterator().next();
 		assertThat(tinctureOnLayer, is(equalTo(gules)));
@@ -86,7 +98,7 @@ public class GrammarShieldTest {
 		
 		assertThat(shield.getField(), is(notNullValue()));
 		
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(bend)));
 		Iterator<Tincture> tincturesOnLayer = layer.getTinctures().getTincturesOnLayer().iterator();
 		assertThat(tincturesOnLayer.next(), is(equalTo(gules)));
@@ -105,7 +117,7 @@ public class GrammarShieldTest {
 		
 		assertThat(shield.getField(), is(notNullValue()));
 		
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(bend)));
 		Iterator<Tincture> tincturesOnLayer = layer.getTinctures().getTincturesOnLayer().iterator();
 		assertThat(tincturesOnLayer.next(), is(equalTo(argent)));
@@ -124,7 +136,7 @@ public class GrammarShieldTest {
 		
 		assertThat(shield.getField(), is(notNullValue()));
 		
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(bend)));
 		Iterator<Tincture> tincturesOnLayer = layer.getTinctures().getTincturesOnLayer().iterator();
 		assertThat(tincturesOnLayer.next(), is(equalTo(gules)));
@@ -143,7 +155,7 @@ public class GrammarShieldTest {
 		
 		assertThat(shield.getField(), is(notNullValue()));
 		
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(bend)));
 		Iterator<Tincture> tincturesOnLayer = layer.getTinctures().getTincturesOnLayer().iterator();
 		assertThat(tincturesOnLayer.next(), is(equalTo(gules)));
@@ -177,7 +189,7 @@ public class GrammarShieldTest {
 
 		assertThat(shield.getField(), is(notNullValue()));
 		
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(bendSinister)));
 		Iterator<Tincture> tincturesOnLayer = layer.getTinctures().getTincturesOnLayer().iterator();
 		assertThat(tincturesOnLayer.next(), is(equalTo(gules)));
@@ -196,7 +208,7 @@ public class GrammarShieldTest {
 		
 		assertThat(shield.getField(), is(notNullValue()));
 		
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(gyronny)));
 		Iterator<Tincture> tincturesOnLayer = layer.getTinctures().getTincturesOnLayer().iterator();
 		assertThat(tincturesOnLayer.next(), is(equalTo(gules)));
@@ -215,7 +227,7 @@ public class GrammarShieldTest {
 		
 		assertThat(shield.getField(), is(notNullValue()));
 		
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(gyronny)));
 		Iterator<Tincture> tincturesOnLayer = layer.getTinctures().getTincturesOnLayer().iterator();
 		assertThat(tincturesOnLayer.next(), is(equalTo(gules)));
@@ -235,7 +247,7 @@ public class GrammarShieldTest {
 		ShieldDivisionType none = new ShieldDivision().getDivisionType("none", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(none)));
 		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(1));
 		assertThat(layer.getTinctures().getTincturesOnLayer().iterator().next(), is(equalTo(or)));
@@ -259,7 +271,7 @@ public class GrammarShieldTest {
 		ShieldDivisionType none = new ShieldDivision().getDivisionType("none", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(none)));
 		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(1));
 		assertThat(layer.getTinctures().getTincturesOnLayer().iterator().next(), is(equalTo(vair)));
@@ -283,7 +295,7 @@ public class GrammarShieldTest {
 		ShieldDivisionType none = new ShieldDivision().getDivisionType("none", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(none)));
 		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(1));
 		assertThat(layer.getTinctures().getTincturesOnLayer().iterator().next(), is(equalTo(sable)));
@@ -309,7 +321,7 @@ public class GrammarShieldTest {
 		ShieldDivisionType none = new ShieldDivision().getDivisionType("none", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(none)));
 		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(1));
 		assertThat(layer.getTinctures().getTincturesOnLayer().iterator().next(), is(equalTo(gules)));
@@ -333,7 +345,7 @@ public class GrammarShieldTest {
 		ShieldDivisionType none = new ShieldDivision().getDivisionType("none", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(none)));
 		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(1));
 		assertThat(layer.getTinctures().getTincturesOnLayer().iterator().next(), is(equalTo(vair)));
@@ -357,7 +369,7 @@ public class GrammarShieldTest {
 		ShieldDivisionType none = new ShieldDivision().getDivisionType("none", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(none)));
 		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(1));
 		assertThat(layer.getTinctures().getTincturesOnLayer().iterator().next(), is(equalTo(or)));
@@ -383,7 +395,7 @@ public class GrammarShieldTest {
 		ShieldDivisionType none = new ShieldDivision().getDivisionType("none", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(none)));
 		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(1));
 		assertThat(layer.getTinctures().getTincturesOnLayer().iterator().next(), is(equalTo(gules)));
@@ -407,7 +419,7 @@ public class GrammarShieldTest {
 		ShieldDivisionType none = new ShieldDivision().getDivisionType("none", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(none)));
 		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(1));
 		assertThat(layer.getTinctures().getTincturesOnLayer().iterator().next(), is(equalTo(potent)));
@@ -431,7 +443,7 @@ public class GrammarShieldTest {
 		ShieldDivisionType none = new ShieldDivision().getDivisionType("none", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(none)));
 		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(1));
 		assertThat(layer.getTinctures().getTincturesOnLayer().iterator().next(), is(equalTo(or)));
@@ -457,7 +469,7 @@ public class GrammarShieldTest {
 		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
 		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
 		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
@@ -485,7 +497,7 @@ public class GrammarShieldTest {
 		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
 		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
 		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
@@ -513,7 +525,7 @@ public class GrammarShieldTest {
 		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
 		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
 		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
@@ -543,7 +555,7 @@ public class GrammarShieldTest {
 		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
 		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
 		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
@@ -571,7 +583,7 @@ public class GrammarShieldTest {
 		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
 		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
 		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
@@ -598,7 +610,7 @@ public class GrammarShieldTest {
 		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
 		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
 		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
@@ -628,7 +640,7 @@ public class GrammarShieldTest {
 		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
 		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
 		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
@@ -656,7 +668,7 @@ public class GrammarShieldTest {
 		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
 		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
 		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
@@ -684,7 +696,7 @@ public class GrammarShieldTest {
 		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
 		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
 		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
@@ -712,7 +724,7 @@ public class GrammarShieldTest {
 		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
 		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
 		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
@@ -740,7 +752,7 @@ public class GrammarShieldTest {
 		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
 		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
 		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
@@ -768,7 +780,7 @@ public class GrammarShieldTest {
 		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
 		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
 		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
@@ -796,7 +808,7 @@ public class GrammarShieldTest {
 		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
 		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
 		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
@@ -824,7 +836,7 @@ public class GrammarShieldTest {
 		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
 		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
 		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
@@ -852,7 +864,7 @@ public class GrammarShieldTest {
 		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
 		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
 		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
@@ -880,7 +892,7 @@ public class GrammarShieldTest {
 		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
 		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
 		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
@@ -908,7 +920,7 @@ public class GrammarShieldTest {
 		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
 		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
 		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
@@ -936,7 +948,7 @@ public class GrammarShieldTest {
 		ShieldDivisionType cross = new ShieldDivision().getDivisionType("CROSS", new ArrayList<ShieldDiagnostic>());
 		
 		assertThat(shield.getField(), is(notNullValue()));
-		ShieldLayer layer = shield.getField();
+		Field layer = shield.getField();
 		assertThat(layer.getShieldDivision(), is(equalTo(cross)));
 		assertThat(layer.getTinctures().getTincturesOnLayer().size(), is(2));
 		Iterator<Tincture> it = layer.getTinctures().getTincturesOnLayer().iterator();
