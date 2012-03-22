@@ -141,6 +141,10 @@ protected void mismatch(IntStream input, int ttype, BitSet follow)
 public Object recoverFromMismatchedSet(IntStream input, RecognitionException e, BitSet follow) throws RecognitionException {
 	throw e;
 }
+
+public List<ShieldDiagnostic> getDiagnostics() {
+  return diags;
+}
 }
 
 @rulecatch {

@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:50:56 /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g 2012-03-22 07:55:55
+// $ANTLR 3.3 Nov 30, 2010 12:50:56 C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g 2012-03-22 14:50:03
 
 package blazon.server.grammar;
 import blazon.shared.shield.*;
@@ -70,7 +70,7 @@ public class BlazonParser extends Parser {
         
 
     public String[] getTokenNames() { return BlazonParser.tokenNames; }
-    public String getGrammarFileName() { return "/Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g"; }
+    public String getGrammarFileName() { return "C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g"; }
 
 
     public BlazonParser(TokenStream input, List<ShieldDiagnostic> diags) {
@@ -150,10 +150,14 @@ public class BlazonParser extends Parser {
     	throw e;
     }
 
+    public List<ShieldDiagnostic> getDiagnostics() {
+      return diags;
+    }
+
 
 
     // $ANTLR start "shield"
-    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:152:1: shield returns [Shield s] : field ( charges[$field.field.getTinctureTypeOfLayer()] )* EOF ;
+    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:156:1: shield returns [Shield s] : field ( charges[$field.field.getTinctureTypeOfLayer()] )* EOF ;
     public final Shield shield() throws RecognitionException {
         Shield s = null;
 
@@ -163,8 +167,8 @@ public class BlazonParser extends Parser {
 
 
         try {
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:153:3: ( field ( charges[$field.field.getTinctureTypeOfLayer()] )* EOF )
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:154:3: field ( charges[$field.field.getTinctureTypeOfLayer()] )* EOF
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:157:3: ( field ( charges[$field.field.getTinctureTypeOfLayer()] )* EOF )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:158:3: field ( charges[$field.field.getTinctureTypeOfLayer()] )* EOF
             {
 
                 String blazon = input.toString();
@@ -177,7 +181,7 @@ public class BlazonParser extends Parser {
 
                 s = ShieldImpl.build(field1, blazon);
               
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:160:3: ( charges[$field.field.getTinctureTypeOfLayer()] )*
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:164:3: ( charges[$field.field.getTinctureTypeOfLayer()] )*
             loop1:
             do {
                 int alt1=2;
@@ -190,7 +194,7 @@ public class BlazonParser extends Parser {
 
                 switch (alt1) {
             	case 1 :
-            	    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:161:5: charges[$field.field.getTinctureTypeOfLayer()]
+            	    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:165:5: charges[$field.field.getTinctureTypeOfLayer()]
             	    {
             	    pushFollow(FOLLOW_charges_in_shield85);
             	    charges2=charges(field1.getTinctureTypeOfLayer());
@@ -231,7 +235,7 @@ public class BlazonParser extends Parser {
 
 
     // $ANTLR start "field"
-    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:174:1: field returns [Field field] : ( div some_tinctures[tinctures, division] | tincture_or_fur[tinctures] ( 'plain' )? ) ;
+    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:178:1: field returns [Field field] : ( div some_tinctures[tinctures, division] | tincture_or_fur[tinctures] ( 'plain' )? ) ;
     public final Field field() throws RecognitionException {
         Field field = null;
 
@@ -241,13 +245,13 @@ public class BlazonParser extends Parser {
 
 
         try {
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:175:3: ( ( div some_tinctures[tinctures, division] | tincture_or_fur[tinctures] ( 'plain' )? ) )
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:176:3: ( div some_tinctures[tinctures, division] | tincture_or_fur[tinctures] ( 'plain' )? )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:179:3: ( ( div some_tinctures[tinctures, division] | tincture_or_fur[tinctures] ( 'plain' )? ) )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:180:3: ( div some_tinctures[tinctures, division] | tincture_or_fur[tinctures] ( 'plain' )? )
             {
 
                 Tinctures tinctures = new Tinctures();
               
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:179:3: ( div some_tinctures[tinctures, division] | tincture_or_fur[tinctures] ( 'plain' )? )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:183:3: ( div some_tinctures[tinctures, division] | tincture_or_fur[tinctures] ( 'plain' )? )
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -265,7 +269,7 @@ public class BlazonParser extends Parser {
             }
             switch (alt3) {
                 case 1 :
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:180:5: div some_tinctures[tinctures, division]
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:184:5: div some_tinctures[tinctures, division]
                     {
                     pushFollow(FOLLOW_div_in_field134);
                     div3=div();
@@ -287,14 +291,14 @@ public class BlazonParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:187:5: tincture_or_fur[tinctures] ( 'plain' )?
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:191:5: tincture_or_fur[tinctures] ( 'plain' )?
                     {
                     pushFollow(FOLLOW_tincture_or_fur_in_field155);
                     tincture_or_fur(tinctures);
 
                     state._fsp--;
 
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:187:32: ( 'plain' )?
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:191:32: ( 'plain' )?
                     int alt2=2;
                     int LA2_0 = input.LA(1);
 
@@ -303,7 +307,7 @@ public class BlazonParser extends Parser {
                     }
                     switch (alt2) {
                         case 1 :
-                            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:187:32: 'plain'
+                            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:191:32: 'plain'
                             {
                             match(input,35,FOLLOW_35_in_field158); 
 
@@ -337,7 +341,7 @@ public class BlazonParser extends Parser {
 
 
     // $ANTLR start "charges"
-    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:192:1: charges[TinctureType underLayerTinctureType] returns [List<Charge> charges] : ( DETERMINER single_geometric_charge[tinctures, underLayerTinctureType] | geometricCount= number_digits_or_words multiple_geometric_charges[tinctures, underLayerTinctureType, convertNumber($geometricCount.text)] | advancedCount= number_digits_or_words advanced_charge[tinctures, underLayerTinctureType, convertNumber($advancedCount.text)] ) ;
+    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:196:1: charges[TinctureType underLayerTinctureType] returns [List<Charge> charges] : ( DETERMINER single_geometric_charge[tinctures, underLayerTinctureType] | geometricCount= number_digits_or_words multiple_geometric_charges[tinctures, underLayerTinctureType, convertNumber($geometricCount.text)] | advancedCount= number_digits_or_words advanced_charge[tinctures, underLayerTinctureType, convertNumber($advancedCount.text)] ) ;
     public final List<Charge> charges(TinctureType underLayerTinctureType) throws RecognitionException {
         List<Charge> charges = null;
 
@@ -354,19 +358,19 @@ public class BlazonParser extends Parser {
 
 
         try {
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:193:3: ( ( DETERMINER single_geometric_charge[tinctures, underLayerTinctureType] | geometricCount= number_digits_or_words multiple_geometric_charges[tinctures, underLayerTinctureType, convertNumber($geometricCount.text)] | advancedCount= number_digits_or_words advanced_charge[tinctures, underLayerTinctureType, convertNumber($advancedCount.text)] ) )
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:194:3: ( DETERMINER single_geometric_charge[tinctures, underLayerTinctureType] | geometricCount= number_digits_or_words multiple_geometric_charges[tinctures, underLayerTinctureType, convertNumber($geometricCount.text)] | advancedCount= number_digits_or_words advanced_charge[tinctures, underLayerTinctureType, convertNumber($advancedCount.text)] )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:197:3: ( ( DETERMINER single_geometric_charge[tinctures, underLayerTinctureType] | geometricCount= number_digits_or_words multiple_geometric_charges[tinctures, underLayerTinctureType, convertNumber($geometricCount.text)] | advancedCount= number_digits_or_words advanced_charge[tinctures, underLayerTinctureType, convertNumber($advancedCount.text)] ) )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:198:3: ( DETERMINER single_geometric_charge[tinctures, underLayerTinctureType] | geometricCount= number_digits_or_words multiple_geometric_charges[tinctures, underLayerTinctureType, convertNumber($geometricCount.text)] | advancedCount= number_digits_or_words advanced_charge[tinctures, underLayerTinctureType, convertNumber($advancedCount.text)] )
             {
 
                 Tinctures tinctures = new Tinctures();
                 charges = new ArrayList<Charge>();
               
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:198:3: ( DETERMINER single_geometric_charge[tinctures, underLayerTinctureType] | geometricCount= number_digits_or_words multiple_geometric_charges[tinctures, underLayerTinctureType, convertNumber($geometricCount.text)] | advancedCount= number_digits_or_words advanced_charge[tinctures, underLayerTinctureType, convertNumber($advancedCount.text)] )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:202:3: ( DETERMINER single_geometric_charge[tinctures, underLayerTinctureType] | geometricCount= number_digits_or_words multiple_geometric_charges[tinctures, underLayerTinctureType, convertNumber($geometricCount.text)] | advancedCount= number_digits_or_words advanced_charge[tinctures, underLayerTinctureType, convertNumber($advancedCount.text)] )
             int alt4=3;
             alt4 = dfa4.predict(input);
             switch (alt4) {
                 case 1 :
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:199:5: DETERMINER single_geometric_charge[tinctures, underLayerTinctureType]
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:203:5: DETERMINER single_geometric_charge[tinctures, underLayerTinctureType]
                     {
                     DETERMINER6=(Token)match(input,DETERMINER,FOLLOW_DETERMINER_in_charges192); 
                     pushFollow(FOLLOW_single_geometric_charge_in_charges194);
@@ -400,7 +404,7 @@ public class BlazonParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:221:4: geometricCount= number_digits_or_words multiple_geometric_charges[tinctures, underLayerTinctureType, convertNumber($geometricCount.text)]
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:225:4: geometricCount= number_digits_or_words multiple_geometric_charges[tinctures, underLayerTinctureType, convertNumber($geometricCount.text)]
                     {
                     pushFollow(FOLLOW_number_digits_or_words_in_charges204);
                     geometricCount=number_digits_or_words();
@@ -421,7 +425,7 @@ public class BlazonParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:226:4: advancedCount= number_digits_or_words advanced_charge[tinctures, underLayerTinctureType, convertNumber($advancedCount.text)]
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:230:4: advancedCount= number_digits_or_words advanced_charge[tinctures, underLayerTinctureType, convertNumber($advancedCount.text)]
                     {
                     pushFollow(FOLLOW_number_digits_or_words_in_charges216);
                     advancedCount=number_digits_or_words();
@@ -460,7 +464,7 @@ public class BlazonParser extends Parser {
 
 
     // $ANTLR start "single_geometric_charge"
-    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:233:1: single_geometric_charge[Tinctures tinctures, TinctureType underLayerTinctureType] returns [GeometricCharge charge] : ord= ( ORDINARY_DIV | OTHER_ORDINARY | SUBORDINARY_DIV | SUBORDINARY ) ( MODIFIER )? t= tincture_or_fur[tinctures] ;
+    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:237:1: single_geometric_charge[Tinctures tinctures, TinctureType underLayerTinctureType] returns [GeometricCharge charge] : ord= ( ORDINARY_DIV | OTHER_ORDINARY | SUBORDINARY_DIV | SUBORDINARY ) ( MODIFIER )? t= tincture_or_fur[tinctures] ;
     public final GeometricCharge single_geometric_charge(Tinctures tinctures, TinctureType underLayerTinctureType) throws RecognitionException {
         GeometricCharge charge = null;
 
@@ -470,8 +474,8 @@ public class BlazonParser extends Parser {
 
 
         try {
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:234:3: (ord= ( ORDINARY_DIV | OTHER_ORDINARY | SUBORDINARY_DIV | SUBORDINARY ) ( MODIFIER )? t= tincture_or_fur[tinctures] )
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:235:3: ord= ( ORDINARY_DIV | OTHER_ORDINARY | SUBORDINARY_DIV | SUBORDINARY ) ( MODIFIER )? t= tincture_or_fur[tinctures]
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:238:3: (ord= ( ORDINARY_DIV | OTHER_ORDINARY | SUBORDINARY_DIV | SUBORDINARY ) ( MODIFIER )? t= tincture_or_fur[tinctures] )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:239:3: ord= ( ORDINARY_DIV | OTHER_ORDINARY | SUBORDINARY_DIV | SUBORDINARY ) ( MODIFIER )? t= tincture_or_fur[tinctures]
             {
             ord=(Token)input.LT(1);
             if ( (input.LA(1)>=ORDINARY_DIV && input.LA(1)<=SUBORDINARY) ) {
@@ -486,7 +490,7 @@ public class BlazonParser extends Parser {
 
                 String text = (ord!=null?ord.getText():null);
               
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:244:3: ( MODIFIER )?
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:248:3: ( MODIFIER )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -495,7 +499,7 @@ public class BlazonParser extends Parser {
             }
             switch (alt5) {
                 case 1 :
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:245:5: MODIFIER
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:249:5: MODIFIER
                     {
                     MODIFIER9=(Token)match(input,MODIFIER,FOLLOW_MODIFIER_in_single_geometric_charge295); 
 
@@ -532,7 +536,7 @@ public class BlazonParser extends Parser {
 
 
     // $ANTLR start "multiple_geometric_charges"
-    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:254:1: multiple_geometric_charges[Tinctures tinctures, TinctureType underLayerTinctureType, int number] returns [List <Charge> charges] : ords= ( SUBORDINARY_MULTIPLE | MOBILE_CHARGE ) ( MODIFIER )? t= tincture_or_fur[tinctures] ;
+    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:258:1: multiple_geometric_charges[Tinctures tinctures, TinctureType underLayerTinctureType, int number] returns [List <Charge> charges] : ords= ( SUBORDINARY_MULTIPLE | MOBILE_CHARGE ) ( MODIFIER )? t= tincture_or_fur[tinctures] ;
     public final List <Charge> multiple_geometric_charges(Tinctures tinctures, TinctureType underLayerTinctureType, int number) throws RecognitionException {
         List <Charge> charges = null;
 
@@ -542,8 +546,8 @@ public class BlazonParser extends Parser {
 
 
         try {
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:255:3: (ords= ( SUBORDINARY_MULTIPLE | MOBILE_CHARGE ) ( MODIFIER )? t= tincture_or_fur[tinctures] )
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:256:3: ords= ( SUBORDINARY_MULTIPLE | MOBILE_CHARGE ) ( MODIFIER )? t= tincture_or_fur[tinctures]
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:259:3: (ords= ( SUBORDINARY_MULTIPLE | MOBILE_CHARGE ) ( MODIFIER )? t= tincture_or_fur[tinctures] )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:260:3: ords= ( SUBORDINARY_MULTIPLE | MOBILE_CHARGE ) ( MODIFIER )? t= tincture_or_fur[tinctures]
             {
             ords=(Token)input.LT(1);
             if ( (input.LA(1)>=SUBORDINARY_MULTIPLE && input.LA(1)<=MOBILE_CHARGE) ) {
@@ -558,7 +562,7 @@ public class BlazonParser extends Parser {
 
                 String text = checkForPlurals((ords!=null?ords.getText():null), number);
               
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:263:3: ( MODIFIER )?
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:267:3: ( MODIFIER )?
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -567,7 +571,7 @@ public class BlazonParser extends Parser {
             }
             switch (alt6) {
                 case 1 :
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:264:5: MODIFIER
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:268:5: MODIFIER
                     {
                     MODIFIER10=(Token)match(input,MODIFIER,FOLLOW_MODIFIER_in_multiple_geometric_charges364); 
 
@@ -608,7 +612,7 @@ public class BlazonParser extends Parser {
 
 
     // $ANTLR start "advanced_charge"
-    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:277:1: advanced_charge[Tinctures tinctures, TinctureType underLayerTinctureType, int number] returns [List <AdvancedCharge> charges] : (beast= ( BEAST | WINGED_BEAST ) attitude= ATTITUDE | beast= ( WINGED_BEAST | BIRD_FLYING_INSECT ) attitude= FLYING_ATTITUDE | beast= SWIMMING_BEAST attitude= SWIMMING_ATTITUDE ) ( ATTITUDE_MODIFIER )? tincture_or_proper[tinctures] ( body_parts[tinctures] )? ;
+    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:281:1: advanced_charge[Tinctures tinctures, TinctureType underLayerTinctureType, int number] returns [List <AdvancedCharge> charges] : (beast= ( BEAST | WINGED_BEAST ) attitude= ATTITUDE | beast= ( WINGED_BEAST | BIRD_FLYING_INSECT ) attitude= FLYING_ATTITUDE | beast= SWIMMING_BEAST attitude= SWIMMING_ATTITUDE ) ( ATTITUDE_MODIFIER )? tincture_or_proper[tinctures] ( body_parts[tinctures] )? ;
     public final List <AdvancedCharge> advanced_charge(Tinctures tinctures, TinctureType underLayerTinctureType, int number) throws RecognitionException {
         List <AdvancedCharge> charges = null;
 
@@ -621,10 +625,10 @@ public class BlazonParser extends Parser {
 
 
         try {
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:278:3: ( (beast= ( BEAST | WINGED_BEAST ) attitude= ATTITUDE | beast= ( WINGED_BEAST | BIRD_FLYING_INSECT ) attitude= FLYING_ATTITUDE | beast= SWIMMING_BEAST attitude= SWIMMING_ATTITUDE ) ( ATTITUDE_MODIFIER )? tincture_or_proper[tinctures] ( body_parts[tinctures] )? )
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:279:3: (beast= ( BEAST | WINGED_BEAST ) attitude= ATTITUDE | beast= ( WINGED_BEAST | BIRD_FLYING_INSECT ) attitude= FLYING_ATTITUDE | beast= SWIMMING_BEAST attitude= SWIMMING_ATTITUDE ) ( ATTITUDE_MODIFIER )? tincture_or_proper[tinctures] ( body_parts[tinctures] )?
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:282:3: ( (beast= ( BEAST | WINGED_BEAST ) attitude= ATTITUDE | beast= ( WINGED_BEAST | BIRD_FLYING_INSECT ) attitude= FLYING_ATTITUDE | beast= SWIMMING_BEAST attitude= SWIMMING_ATTITUDE ) ( ATTITUDE_MODIFIER )? tincture_or_proper[tinctures] ( body_parts[tinctures] )? )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:283:3: (beast= ( BEAST | WINGED_BEAST ) attitude= ATTITUDE | beast= ( WINGED_BEAST | BIRD_FLYING_INSECT ) attitude= FLYING_ATTITUDE | beast= SWIMMING_BEAST attitude= SWIMMING_ATTITUDE ) ( ATTITUDE_MODIFIER )? tincture_or_proper[tinctures] ( body_parts[tinctures] )?
             {
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:279:3: (beast= ( BEAST | WINGED_BEAST ) attitude= ATTITUDE | beast= ( WINGED_BEAST | BIRD_FLYING_INSECT ) attitude= FLYING_ATTITUDE | beast= SWIMMING_BEAST attitude= SWIMMING_ATTITUDE )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:283:3: (beast= ( BEAST | WINGED_BEAST ) attitude= ATTITUDE | beast= ( WINGED_BEAST | BIRD_FLYING_INSECT ) attitude= FLYING_ATTITUDE | beast= SWIMMING_BEAST attitude= SWIMMING_ATTITUDE )
             int alt7=3;
             switch ( input.LA(1) ) {
             case WINGED_BEAST:
@@ -669,7 +673,7 @@ public class BlazonParser extends Parser {
 
             switch (alt7) {
                 case 1 :
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:280:5: beast= ( BEAST | WINGED_BEAST ) attitude= ATTITUDE
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:284:5: beast= ( BEAST | WINGED_BEAST ) attitude= ATTITUDE
                     {
                     beast=(Token)input.LT(1);
                     if ( (input.LA(1)>=BEAST && input.LA(1)<=WINGED_BEAST) ) {
@@ -686,7 +690,7 @@ public class BlazonParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:281:5: beast= ( WINGED_BEAST | BIRD_FLYING_INSECT ) attitude= FLYING_ATTITUDE
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:285:5: beast= ( WINGED_BEAST | BIRD_FLYING_INSECT ) attitude= FLYING_ATTITUDE
                     {
                     beast=(Token)input.LT(1);
                     if ( input.LA(1)==WINGED_BEAST||input.LA(1)==BIRD_FLYING_INSECT ) {
@@ -703,7 +707,7 @@ public class BlazonParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:282:5: beast= SWIMMING_BEAST attitude= SWIMMING_ATTITUDE
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:286:5: beast= SWIMMING_BEAST attitude= SWIMMING_ATTITUDE
                     {
                     beast=(Token)match(input,SWIMMING_BEAST,FOLLOW_SWIMMING_BEAST_in_advanced_charge452); 
                     attitude=(Token)match(input,SWIMMING_ATTITUDE,FOLLOW_SWIMMING_ATTITUDE_in_advanced_charge458); 
@@ -713,7 +717,7 @@ public class BlazonParser extends Parser {
 
             }
 
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:284:3: ( ATTITUDE_MODIFIER )?
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:288:3: ( ATTITUDE_MODIFIER )?
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -722,7 +726,7 @@ public class BlazonParser extends Parser {
             }
             switch (alt8) {
                 case 1 :
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:284:3: ATTITUDE_MODIFIER
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:288:3: ATTITUDE_MODIFIER
                     {
                     ATTITUDE_MODIFIER12=(Token)match(input,ATTITUDE_MODIFIER,FOLLOW_ATTITUDE_MODIFIER_in_advanced_charge466); 
 
@@ -736,7 +740,7 @@ public class BlazonParser extends Parser {
 
             state._fsp--;
 
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:286:3: ( body_parts[tinctures] )?
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:290:3: ( body_parts[tinctures] )?
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -745,7 +749,7 @@ public class BlazonParser extends Parser {
             }
             switch (alt9) {
                 case 1 :
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:286:3: body_parts[tinctures]
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:290:3: body_parts[tinctures]
                     {
                     pushFollow(FOLLOW_body_parts_in_advanced_charge476);
                     body_parts13=body_parts(tinctures);
@@ -783,7 +787,7 @@ public class BlazonParser extends Parser {
 
 
     // $ANTLR start "body_parts"
-    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:296:1: body_parts[Tinctures tinctures] returns [Map<String, Tincture> bodyParts] : (bp1= BODY_PART t1= tincture[tinctures] | (bp2= BODY_PART t2= tincture[tinctures] )* AND bp3= BODY_PART t3= tincture[tinctures] ) ;
+    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:300:1: body_parts[Tinctures tinctures] returns [Map<String, Tincture> bodyParts] : (bp1= BODY_PART t1= tincture[tinctures] | (bp2= BODY_PART t2= tincture[tinctures] )* AND bp3= BODY_PART t3= tincture[tinctures] ) ;
     public final Map<String, Tincture> body_parts(Tinctures tinctures) throws RecognitionException {
         Map<String, Tincture> bodyParts = null;
 
@@ -798,13 +802,13 @@ public class BlazonParser extends Parser {
 
 
         try {
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:297:3: ( (bp1= BODY_PART t1= tincture[tinctures] | (bp2= BODY_PART t2= tincture[tinctures] )* AND bp3= BODY_PART t3= tincture[tinctures] ) )
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:298:3: (bp1= BODY_PART t1= tincture[tinctures] | (bp2= BODY_PART t2= tincture[tinctures] )* AND bp3= BODY_PART t3= tincture[tinctures] )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:301:3: ( (bp1= BODY_PART t1= tincture[tinctures] | (bp2= BODY_PART t2= tincture[tinctures] )* AND bp3= BODY_PART t3= tincture[tinctures] ) )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:302:3: (bp1= BODY_PART t1= tincture[tinctures] | (bp2= BODY_PART t2= tincture[tinctures] )* AND bp3= BODY_PART t3= tincture[tinctures] )
             {
 
                 bodyParts = new HashMap<String, Tincture>();
               
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:301:3: (bp1= BODY_PART t1= tincture[tinctures] | (bp2= BODY_PART t2= tincture[tinctures] )* AND bp3= BODY_PART t3= tincture[tinctures] )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:305:3: (bp1= BODY_PART t1= tincture[tinctures] | (bp2= BODY_PART t2= tincture[tinctures] )* AND bp3= BODY_PART t3= tincture[tinctures] )
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -861,7 +865,7 @@ public class BlazonParser extends Parser {
             }
             switch (alt11) {
                 case 1 :
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:302:5: bp1= BODY_PART t1= tincture[tinctures]
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:306:5: bp1= BODY_PART t1= tincture[tinctures]
                     {
                     bp1=(Token)match(input,BODY_PART,FOLLOW_BODY_PART_in_body_parts511); 
                     pushFollow(FOLLOW_tincture_in_body_parts515);
@@ -876,9 +880,9 @@ public class BlazonParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:306:5: (bp2= BODY_PART t2= tincture[tinctures] )* AND bp3= BODY_PART t3= tincture[tinctures]
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:310:5: (bp2= BODY_PART t2= tincture[tinctures] )* AND bp3= BODY_PART t3= tincture[tinctures]
                     {
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:306:5: (bp2= BODY_PART t2= tincture[tinctures] )*
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:310:5: (bp2= BODY_PART t2= tincture[tinctures] )*
                     loop10:
                     do {
                         int alt10=2;
@@ -891,7 +895,7 @@ public class BlazonParser extends Parser {
 
                         switch (alt10) {
                     	case 1 :
-                    	    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:307:7: bp2= BODY_PART t2= tincture[tinctures]
+                    	    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:311:7: bp2= BODY_PART t2= tincture[tinctures]
                     	    {
                     	    bp2=(Token)match(input,BODY_PART,FOLLOW_BODY_PART_in_body_parts541); 
                     	    pushFollow(FOLLOW_tincture_in_body_parts545);
@@ -943,7 +947,7 @@ public class BlazonParser extends Parser {
 
 
     // $ANTLR start "div"
-    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:316:1: div returns [ShieldDivisionType division] : ( ( TIERCED )? PARTYPER divType= ( ORDINARY_DIV | SUBORDINARY_DIV ) (divModifier1= MODIFIER )? | VARIABLE_DIV (divModifier2= MODIFIER )? ( OF number_digits_or_words )? | CONTINUOUS_DIV | QUARTER ) ;
+    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:320:1: div returns [ShieldDivisionType division] : ( ( TIERCED )? PARTYPER divType= ( ORDINARY_DIV | SUBORDINARY_DIV ) (divModifier1= MODIFIER )? | VARIABLE_DIV (divModifier2= MODIFIER )? ( OF number_digits_or_words )? | CONTINUOUS_DIV | QUARTER ) ;
     public final ShieldDivisionType div() throws RecognitionException {
         ShieldDivisionType division = null;
 
@@ -959,13 +963,13 @@ public class BlazonParser extends Parser {
 
 
         try {
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:317:3: ( ( ( TIERCED )? PARTYPER divType= ( ORDINARY_DIV | SUBORDINARY_DIV ) (divModifier1= MODIFIER )? | VARIABLE_DIV (divModifier2= MODIFIER )? ( OF number_digits_or_words )? | CONTINUOUS_DIV | QUARTER ) )
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:318:3: ( ( TIERCED )? PARTYPER divType= ( ORDINARY_DIV | SUBORDINARY_DIV ) (divModifier1= MODIFIER )? | VARIABLE_DIV (divModifier2= MODIFIER )? ( OF number_digits_or_words )? | CONTINUOUS_DIV | QUARTER )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:321:3: ( ( ( TIERCED )? PARTYPER divType= ( ORDINARY_DIV | SUBORDINARY_DIV ) (divModifier1= MODIFIER )? | VARIABLE_DIV (divModifier2= MODIFIER )? ( OF number_digits_or_words )? | CONTINUOUS_DIV | QUARTER ) )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:322:3: ( ( TIERCED )? PARTYPER divType= ( ORDINARY_DIV | SUBORDINARY_DIV ) (divModifier1= MODIFIER )? | VARIABLE_DIV (divModifier2= MODIFIER )? ( OF number_digits_or_words )? | CONTINUOUS_DIV | QUARTER )
             {
 
                 String text = "";
               
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:321:3: ( ( TIERCED )? PARTYPER divType= ( ORDINARY_DIV | SUBORDINARY_DIV ) (divModifier1= MODIFIER )? | VARIABLE_DIV (divModifier2= MODIFIER )? ( OF number_digits_or_words )? | CONTINUOUS_DIV | QUARTER )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:325:3: ( ( TIERCED )? PARTYPER divType= ( ORDINARY_DIV | SUBORDINARY_DIV ) (divModifier1= MODIFIER )? | VARIABLE_DIV (divModifier2= MODIFIER )? ( OF number_digits_or_words )? | CONTINUOUS_DIV | QUARTER )
             int alt16=4;
             switch ( input.LA(1) ) {
             case TIERCED:
@@ -998,9 +1002,9 @@ public class BlazonParser extends Parser {
 
             switch (alt16) {
                 case 1 :
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:322:5: ( TIERCED )? PARTYPER divType= ( ORDINARY_DIV | SUBORDINARY_DIV ) (divModifier1= MODIFIER )?
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:326:5: ( TIERCED )? PARTYPER divType= ( ORDINARY_DIV | SUBORDINARY_DIV ) (divModifier1= MODIFIER )?
                     {
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:322:5: ( TIERCED )?
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:326:5: ( TIERCED )?
                     int alt12=2;
                     int LA12_0 = input.LA(1);
 
@@ -1009,7 +1013,7 @@ public class BlazonParser extends Parser {
                     }
                     switch (alt12) {
                         case 1 :
-                            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:323:7: TIERCED
+                            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:327:7: TIERCED
                             {
                             TIERCED14=(Token)match(input,TIERCED,FOLLOW_TIERCED_in_div612); 
 
@@ -1035,7 +1039,7 @@ public class BlazonParser extends Parser {
 
                           text += (divType!=null?divType.getText():null);
                         
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:335:5: (divModifier1= MODIFIER )?
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:339:5: (divModifier1= MODIFIER )?
                     int alt13=2;
                     int LA13_0 = input.LA(1);
 
@@ -1044,7 +1048,7 @@ public class BlazonParser extends Parser {
                     }
                     switch (alt13) {
                         case 1 :
-                            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:336:7: divModifier1= MODIFIER
+                            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:340:7: divModifier1= MODIFIER
                             {
                             divModifier1=(Token)match(input,MODIFIER,FOLLOW_MODIFIER_in_div685); 
 
@@ -1060,13 +1064,13 @@ public class BlazonParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:341:5: VARIABLE_DIV (divModifier2= MODIFIER )? ( OF number_digits_or_words )?
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:345:5: VARIABLE_DIV (divModifier2= MODIFIER )? ( OF number_digits_or_words )?
                     {
                     VARIABLE_DIV15=(Token)match(input,VARIABLE_DIV,FOLLOW_VARIABLE_DIV_in_div705); 
 
                           text = (VARIABLE_DIV15!=null?VARIABLE_DIV15.getText():null);
                         
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:344:5: (divModifier2= MODIFIER )?
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:348:5: (divModifier2= MODIFIER )?
                     int alt14=2;
                     int LA14_0 = input.LA(1);
 
@@ -1075,7 +1079,7 @@ public class BlazonParser extends Parser {
                     }
                     switch (alt14) {
                         case 1 :
-                            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:345:7: divModifier2= MODIFIER
+                            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:349:7: divModifier2= MODIFIER
                             {
                             divModifier2=(Token)match(input,MODIFIER,FOLLOW_MODIFIER_in_div725); 
 
@@ -1087,7 +1091,7 @@ public class BlazonParser extends Parser {
 
                     }
 
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:349:5: ( OF number_digits_or_words )?
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:353:5: ( OF number_digits_or_words )?
                     int alt15=2;
                     int LA15_0 = input.LA(1);
 
@@ -1096,7 +1100,7 @@ public class BlazonParser extends Parser {
                     }
                     switch (alt15) {
                         case 1 :
-                            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:350:7: OF number_digits_or_words
+                            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:354:7: OF number_digits_or_words
                             {
                             OF16=(Token)match(input,OF,FOLLOW_OF_in_div748); 
 
@@ -1126,7 +1130,7 @@ public class BlazonParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:364:5: CONTINUOUS_DIV
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:368:5: CONTINUOUS_DIV
                     {
                     CONTINUOUS_DIV18=(Token)match(input,CONTINUOUS_DIV,FOLLOW_CONTINUOUS_DIV_in_div777); 
 
@@ -1136,7 +1140,7 @@ public class BlazonParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:368:5: QUARTER
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:372:5: QUARTER
                     {
                     QUARTER19=(Token)match(input,QUARTER,FOLLOW_QUARTER_in_div790); 
 
@@ -1171,18 +1175,18 @@ public class BlazonParser extends Parser {
 
 
     // $ANTLR start "some_tinctures"
-    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:381:1: some_tinctures[Tinctures tinctures, ShieldDivisionType division] returns [Field layer] : ( tincture_or_fur[tinctures] )+ AND tincture_or_fur[tinctures] ;
+    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:385:1: some_tinctures[Tinctures tinctures, ShieldDivisionType division] returns [Field layer] : ( tincture_or_fur[tinctures] )+ AND tincture_or_fur[tinctures] ;
     public final Field some_tinctures(Tinctures tinctures, ShieldDivisionType division) throws RecognitionException {
         Field layer = null;
 
         try {
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:382:3: ( ( tincture_or_fur[tinctures] )+ AND tincture_or_fur[tinctures] )
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:383:3: ( tincture_or_fur[tinctures] )+ AND tincture_or_fur[tinctures]
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:386:3: ( ( tincture_or_fur[tinctures] )+ AND tincture_or_fur[tinctures] )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:387:3: ( tincture_or_fur[tinctures] )+ AND tincture_or_fur[tinctures]
             {
 
                 int count = 0;
               
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:386:3: ( tincture_or_fur[tinctures] )+
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:390:3: ( tincture_or_fur[tinctures] )+
             int cnt17=0;
             loop17:
             do {
@@ -1196,7 +1200,7 @@ public class BlazonParser extends Parser {
 
                 switch (alt17) {
             	case 1 :
-            	    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:387:5: tincture_or_fur[tinctures]
+            	    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:391:5: tincture_or_fur[tinctures]
             	    {
             	    pushFollow(FOLLOW_tincture_or_fur_in_some_tinctures830);
             	    tincture_or_fur(tinctures);
@@ -1253,7 +1257,7 @@ public class BlazonParser extends Parser {
 
 
     // $ANTLR start "tincture"
-    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:404:1: tincture[Tinctures tinctures] returns [Tincture tincture] : ( COLOUR | METAL ) ;
+    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:408:1: tincture[Tinctures tinctures] returns [Tincture tincture] : ( COLOUR | METAL ) ;
     public final Tincture tincture(Tinctures tinctures) throws RecognitionException {
         Tincture tincture = null;
 
@@ -1261,13 +1265,13 @@ public class BlazonParser extends Parser {
         Token METAL21=null;
 
         try {
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:405:3: ( ( COLOUR | METAL ) )
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:406:3: ( COLOUR | METAL )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:409:3: ( ( COLOUR | METAL ) )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:410:3: ( COLOUR | METAL )
             {
 
                 String tinctureName = "";
               
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:409:3: ( COLOUR | METAL )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:413:3: ( COLOUR | METAL )
             int alt18=2;
             int LA18_0 = input.LA(1);
 
@@ -1285,7 +1289,7 @@ public class BlazonParser extends Parser {
             }
             switch (alt18) {
                 case 1 :
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:410:5: COLOUR
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:414:5: COLOUR
                     {
                     COLOUR20=(Token)match(input,COLOUR,FOLLOW_COLOUR_in_tincture874); 
 
@@ -1295,7 +1299,7 @@ public class BlazonParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:414:5: METAL
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:418:5: METAL
                     {
                     METAL21=(Token)match(input,METAL,FOLLOW_METAL_in_tincture886); 
 
@@ -1333,7 +1337,7 @@ public class BlazonParser extends Parser {
 
 
     // $ANTLR start "tincture_or_fur"
-    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:429:1: tincture_or_fur[Tinctures tinctures] returns [Tincture tincture] : ( COLOUR | METAL | FUR ) ;
+    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:433:1: tincture_or_fur[Tinctures tinctures] returns [Tincture tincture] : ( COLOUR | METAL | FUR ) ;
     public final Tincture tincture_or_fur(Tinctures tinctures) throws RecognitionException {
         Tincture tincture = null;
 
@@ -1342,13 +1346,13 @@ public class BlazonParser extends Parser {
         Token FUR24=null;
 
         try {
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:430:3: ( ( COLOUR | METAL | FUR ) )
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:431:3: ( COLOUR | METAL | FUR )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:434:3: ( ( COLOUR | METAL | FUR ) )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:435:3: ( COLOUR | METAL | FUR )
             {
 
                 String tinctureName = "";
               
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:434:3: ( COLOUR | METAL | FUR )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:438:3: ( COLOUR | METAL | FUR )
             int alt19=3;
             switch ( input.LA(1) ) {
             case COLOUR:
@@ -1375,7 +1379,7 @@ public class BlazonParser extends Parser {
 
             switch (alt19) {
                 case 1 :
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:435:5: COLOUR
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:439:5: COLOUR
                     {
                     COLOUR22=(Token)match(input,COLOUR,FOLLOW_COLOUR_in_tincture_or_fur925); 
 
@@ -1385,7 +1389,7 @@ public class BlazonParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:439:5: METAL
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:443:5: METAL
                     {
                     METAL23=(Token)match(input,METAL,FOLLOW_METAL_in_tincture_or_fur937); 
 
@@ -1395,7 +1399,7 @@ public class BlazonParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:443:5: FUR
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:447:5: FUR
                     {
                     FUR24=(Token)match(input,FUR,FOLLOW_FUR_in_tincture_or_fur949); 
 
@@ -1433,7 +1437,7 @@ public class BlazonParser extends Parser {
 
 
     // $ANTLR start "tincture_or_proper"
-    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:458:1: tincture_or_proper[Tinctures tinctures] returns [Tincture tincture] : ( COLOUR | METAL | PROPER ) ;
+    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:462:1: tincture_or_proper[Tinctures tinctures] returns [Tincture tincture] : ( COLOUR | METAL | PROPER ) ;
     public final Tincture tincture_or_proper(Tinctures tinctures) throws RecognitionException {
         Tincture tincture = null;
 
@@ -1442,13 +1446,13 @@ public class BlazonParser extends Parser {
         Token PROPER27=null;
 
         try {
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:459:3: ( ( COLOUR | METAL | PROPER ) )
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:460:3: ( COLOUR | METAL | PROPER )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:463:3: ( ( COLOUR | METAL | PROPER ) )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:464:3: ( COLOUR | METAL | PROPER )
             {
 
                 String tinctureName = "";
               
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:463:3: ( COLOUR | METAL | PROPER )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:467:3: ( COLOUR | METAL | PROPER )
             int alt20=3;
             switch ( input.LA(1) ) {
             case COLOUR:
@@ -1475,7 +1479,7 @@ public class BlazonParser extends Parser {
 
             switch (alt20) {
                 case 1 :
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:464:5: COLOUR
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:468:5: COLOUR
                     {
                     COLOUR25=(Token)match(input,COLOUR,FOLLOW_COLOUR_in_tincture_or_proper988); 
 
@@ -1485,7 +1489,7 @@ public class BlazonParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:468:5: METAL
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:472:5: METAL
                     {
                     METAL26=(Token)match(input,METAL,FOLLOW_METAL_in_tincture_or_proper1000); 
 
@@ -1495,7 +1499,7 @@ public class BlazonParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:471:5: PROPER
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:475:5: PROPER
                     {
                     PROPER27=(Token)match(input,PROPER,FOLLOW_PROPER_in_tincture_or_proper1008); 
 
@@ -1535,13 +1539,13 @@ public class BlazonParser extends Parser {
     };
 
     // $ANTLR start "number_digits_or_words"
-    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:486:1: number_digits_or_words : ( DIGITS | NUMWORDS ( ( AND )? NUMWORDS )* | DETERMINER );
+    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:490:1: number_digits_or_words : ( DIGITS | NUMWORDS ( ( AND )? NUMWORDS )* | DETERMINER );
     public final BlazonParser.number_digits_or_words_return number_digits_or_words() throws RecognitionException {
         BlazonParser.number_digits_or_words_return retval = new BlazonParser.number_digits_or_words_return();
         retval.start = input.LT(1);
 
         try {
-            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:487:3: ( DIGITS | NUMWORDS ( ( AND )? NUMWORDS )* | DETERMINER )
+            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:491:3: ( DIGITS | NUMWORDS ( ( AND )? NUMWORDS )* | DETERMINER )
             int alt23=3;
             switch ( input.LA(1) ) {
             case DIGITS:
@@ -1568,17 +1572,17 @@ public class BlazonParser extends Parser {
 
             switch (alt23) {
                 case 1 :
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:488:3: DIGITS
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:492:3: DIGITS
                     {
                     match(input,DIGITS,FOLLOW_DIGITS_in_number_digits_or_words1030); 
 
                     }
                     break;
                 case 2 :
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:489:5: NUMWORDS ( ( AND )? NUMWORDS )*
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:493:5: NUMWORDS ( ( AND )? NUMWORDS )*
                     {
                     match(input,NUMWORDS,FOLLOW_NUMWORDS_in_number_digits_or_words1036); 
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:490:5: ( ( AND )? NUMWORDS )*
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:494:5: ( ( AND )? NUMWORDS )*
                     loop22:
                     do {
                         int alt22=2;
@@ -1591,9 +1595,9 @@ public class BlazonParser extends Parser {
 
                         switch (alt22) {
                     	case 1 :
-                    	    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:491:7: ( AND )? NUMWORDS
+                    	    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:495:7: ( AND )? NUMWORDS
                     	    {
-                    	    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:491:7: ( AND )?
+                    	    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:495:7: ( AND )?
                     	    int alt21=2;
                     	    int LA21_0 = input.LA(1);
 
@@ -1602,7 +1606,7 @@ public class BlazonParser extends Parser {
                     	    }
                     	    switch (alt21) {
                     	        case 1 :
-                    	            // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:491:7: AND
+                    	            // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:495:7: AND
                     	            {
                     	            match(input,AND,FOLLOW_AND_in_number_digits_or_words1051); 
 
@@ -1625,7 +1629,7 @@ public class BlazonParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // /Users/luketorjussen/Documents/workspace2/BlazonGrammar/grammar/Blazon.g:493:5: DETERMINER
+                    // C:\\Users\\Luke\\Dropbox\\project\\workspace2\\BlazonGrammar\\grammar\\Blazon.g:497:5: DETERMINER
                     {
                     match(input,DETERMINER,FOLLOW_DETERMINER_in_number_digits_or_words1067); 
 
@@ -1704,7 +1708,7 @@ public class BlazonParser extends Parser {
             this.transition = DFA4_transition;
         }
         public String getDescription() {
-            return "198:3: ( DETERMINER single_geometric_charge[tinctures, underLayerTinctureType] | geometricCount= number_digits_or_words multiple_geometric_charges[tinctures, underLayerTinctureType, convertNumber($geometricCount.text)] | advancedCount= number_digits_or_words advanced_charge[tinctures, underLayerTinctureType, convertNumber($advancedCount.text)] )";
+            return "202:3: ( DETERMINER single_geometric_charge[tinctures, underLayerTinctureType] | geometricCount= number_digits_or_words multiple_geometric_charges[tinctures, underLayerTinctureType, convertNumber($geometricCount.text)] | advancedCount= number_digits_or_words advanced_charge[tinctures, underLayerTinctureType, convertNumber($advancedCount.text)] )";
         }
     }
  

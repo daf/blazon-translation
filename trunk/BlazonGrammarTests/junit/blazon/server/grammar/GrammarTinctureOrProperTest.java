@@ -5,7 +5,6 @@ import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 
 import blazon.shared.shield.tinctures.Colour;
-import blazon.shared.shield.tinctures.Fur;
 import blazon.shared.shield.tinctures.Metal;
 import blazon.shared.shield.tinctures.Proper;
 import blazon.shared.shield.tinctures.Tincture;
