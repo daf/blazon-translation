@@ -161,7 +161,8 @@ shield returns [Shield s]
     charges[$field.field.getTinctureTypeOfLayer()] {
       $s.addCharges($charges.charges);
     }
-  )* 
+  )*
+  EOF 
   {
     $s.addDiagnostics(diags);
   };
@@ -183,8 +184,8 @@ field returns [Field field]
       $field = $some_tinctures.layer;
     }
   |
-    tincture[tinctures] 'plain'? {
-	    $field = Field.buildUndividedShieldLayer(tinctures);
+    tincture_or_fur[tinctures] 'plain'? {
+	    $field = FieldImpl.buildUndividedShieldLayer(tinctures);
 	  }
   );
 
@@ -245,7 +246,7 @@ single_geometric_charge[Tinctures tinctures, TinctureType underLayerTinctureType
       text += "_" + $MODIFIER.text;
     }
   )?
-  t=tincture[tinctures] {
+  t=tincture_or_fur[tinctures] {
   diagnoseRuleOfTincture(t, underLayerTinctureType);
   $charge = GeometricCharge.build(text, t, diags);
   };
@@ -264,7 +265,7 @@ multiple_geometric_charges[Tinctures tinctures, TinctureType underLayerTinctureT
       text += "_" + $MODIFIER.text;
     }
   )?
-  t=tincture[tinctures] {
+  t=tincture_or_fur[tinctures] {
   diagnoseRuleOfTincture(t, underLayerTinctureType);
   $charges = new ArrayList<Charge>();
   for (int i = 0; i < number; i++) {
@@ -273,7 +274,7 @@ multiple_geometric_charges[Tinctures tinctures, TinctureType underLayerTinctureT
   }
   };
 
-advanced_charge[Tinctures tinctures, TinctureType underLayerTinctureType, int number] returns [List <Charge> charges]
+advanced_charge[Tinctures tinctures, TinctureType underLayerTinctureType, int number] returns [List <AdvancedCharge> charges]
   : 
   (
     beast = (BEAST | WINGED_BEAST) attitude = ATTITUDE
@@ -281,12 +282,12 @@ advanced_charge[Tinctures tinctures, TinctureType underLayerTinctureType, int nu
   | beast = SWIMMING_BEAST attitude = SWIMMING_ATTITUDE
   )
   ATTITUDE_MODIFIER?
-  tincture[tinctures]
+  tincture_or_proper[tinctures]
   body_parts[tinctures]? {
-  diagnoseRuleOfTincture($tincture.tincture, underLayerTinctureType);
+  diagnoseRuleOfTincture($tincture_or_proper.tincture, underLayerTinctureType);
   String beastName = checkForPlurals($beast.text, number);
-  AdvancedCharge charge = AdvancedCharge.build(beastName, $attitude.text, $ATTITUDE_MODIFIER.text, $tincture.tincture, $body_parts.bodyParts);
-  $charges = new ArrayList<Charge>();
+  AdvancedCharge charge = AdvancedCharge.build(beastName, $attitude.text, $ATTITUDE_MODIFIER.text, $tincture_or_proper.tincture, $body_parts.bodyParts);
+  $charges = new ArrayList<AdvancedCharge>();
   for (int i = 0; i < number; i++) {
     $charges.add(charge);
   }
@@ -383,11 +384,11 @@ some_tinctures[Tinctures tinctures, ShieldDivisionType division] returns [Field 
     int count = 0;
   }
   (
-    tincture[tinctures] {
+    tincture_or_fur[tinctures] {
       count++;
     }
   )+
-  AND tincture[tinctures] {
+  AND tincture_or_fur[tinctures] {
     count++;
     int numberOfTinctures = division.getNumberOfTinctures();
     if (numberOfTinctures != count) {
@@ -397,10 +398,35 @@ some_tinctures[Tinctures tinctures, ShieldDivisionType division] returns [Field 
 				+ numberOfTinctures + " but found " + count));
 		  throw new RecognitionException(this.input);
 		}
-    $layer = Field.buildDividedShieldLayer(tinctures, division);
+    $layer = FieldImpl.buildDividedShieldLayer(tinctures, division);
   };
 
 tincture[Tinctures tinctures] returns [Tincture tincture]
+  :
+  {
+    String tinctureName = "";
+  }
+  (
+    COLOUR {
+      tinctureName = $COLOUR.text;
+    }
+  |
+    METAL {
+      tinctureName = $METAL.text;
+    }
+  )
+  {
+    try {
+	    $tincture = tinctures.getTincture(tinctureName);
+	    $tinctures.addTincture($tincture);
+    } catch (UnknownTinctureException e) {
+	    diags.add(ShieldDiagnostic.build(LogLevel.ERROR,
+			  "Unknown tincture found. Caught: " + e));
+	    throw new RecognitionException(this.input);
+    }
+  };
+  
+tincture_or_fur[Tinctures tinctures] returns [Tincture tincture]
   :
   {
     String tinctureName = "";
@@ -417,18 +443,43 @@ tincture[Tinctures tinctures] returns [Tincture tincture]
     FUR {
       tinctureName = $FUR.text;
     }
+  )
+  {
+    try {
+      $tincture = tinctures.getTincture(tinctureName);
+      $tinctures.addTincture($tincture);
+    } catch (UnknownTinctureException e) {
+      diags.add(ShieldDiagnostic.build(LogLevel.ERROR,
+        "Unknown tincture found. Caught: " + e));
+      throw new RecognitionException(this.input);
+    }
+  };
+  
+tincture_or_proper[Tinctures tinctures] returns [Tincture tincture]
+  :
+  {
+    String tinctureName = "";
+  }
+  (
+    COLOUR {
+      tinctureName = $COLOUR.text;
+    }
+  |
+    METAL {
+      tinctureName = $METAL.text;
+    }
   | PROPER {
       tinctureName = $PROPER.text;
     }
   )
   {
     try {
-	    $tincture = tinctures.getTincture(tinctureName);
-	    $tinctures.addTincture($tincture);
+      $tincture = tinctures.getTincture(tinctureName);
+      $tinctures.addTincture($tincture);
     } catch (UnknownTinctureException e) {
-	    diags.add(ShieldDiagnostic.build(LogLevel.ERROR,
-			  "Unknown tincture found. Caught: " + e));
-	    throw new RecognitionException(this.input);
+      diags.add(ShieldDiagnostic.build(LogLevel.ERROR,
+        "Unknown tincture found. Caught: " + e));
+      throw new RecognitionException(this.input);
     }
   };
 
@@ -550,14 +601,20 @@ BIRD_FLYING_INSECT
   
 WINGED_BEAST
   :
-  'griffin'
-  | 'dragon'
+  (
+    'griffin'
+    | 'dragon'
+  )
+  's'?
   ;
  
 SWIMMING_BEAST
   :
-  'fish'
-  | 'dolphin'
+  (
+	  'fish'
+	  | 'dolphin'
+  )
+  's'?
   ;
 
 ATTITUDE
