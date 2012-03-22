@@ -1,11 +1,13 @@
 package blazon.server.grammar;
 
+import org.antlr.runtime.NoViableAltException;
 import org.antlr.runtime.RecognitionException;
 import org.junit.Test;
 
 import blazon.shared.shield.tinctures.Colour;
 import blazon.shared.shield.tinctures.Fur;
 import blazon.shared.shield.tinctures.Metal;
+import blazon.shared.shield.tinctures.Proper;
 import blazon.shared.shield.tinctures.Tincture;
 import blazon.shared.shield.tinctures.Tinctures;
 
@@ -60,7 +62,8 @@ public class GrammarTinctureTest {
 		assertThat(tinctures.getTincturesOnLayer().size(), is(1));
 	}
 	
-	@Test public void testThatCreatedTinctureIsFurVairAndIsAddedToTinctures() throws RecognitionException {
+	@Test(expected=NoViableAltException.class)
+	public void testThatVairThrowsException() throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("vair");
 		Tinctures tinctures = new Tinctures();
 		assertThat(tinctures.getTincturesOnLayer().size(), is(0));
@@ -71,13 +74,25 @@ public class GrammarTinctureTest {
 		assertThat(tinctures.getTincturesOnLayer().size(), is(1));
 	}
 	
-	@Test public void testThatCreatedTinctureIsFurCounterPotentAndIsAddedToTinctures() throws RecognitionException {
+	@Test(expected=NoViableAltException.class)
+	public void testThatCounterPotentThrowsException() throws RecognitionException {
 		BlazonParser parser = new ParserCreator().createParser("counter-potent");
 		Tinctures tinctures = new Tinctures();
 		assertThat(tinctures.getTincturesOnLayer().size(), is(0));
 		Tincture tincture = parser.tincture(tinctures);
 		assertThat(tincture, is(instanceOf(Fur.class)));
 		assertThat(tincture.getName(), is(equalTo("counter-potent")));
+		assertThat(tinctures.getTincturesOnLayer().size(), is(1));
+	}
+	
+	@Test(expected=NoViableAltException.class)
+	public void testThatProperThrowsException() throws RecognitionException {
+		BlazonParser parser = new ParserCreator().createParser("proper");
+		Tinctures tinctures = new Tinctures();
+		assertThat(tinctures.getTincturesOnLayer().size(), is(0));
+		Tincture tincture = parser.tincture(tinctures);
+		assertThat(tincture, is(instanceOf(Proper.class)));
+		assertThat(tincture.getName(), is(equalTo("proper")));
 		assertThat(tinctures.getTincturesOnLayer().size(), is(1));
 	}
 	

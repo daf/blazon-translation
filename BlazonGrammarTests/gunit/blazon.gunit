@@ -53,9 +53,30 @@ SUBORDINARY_MULTIPLE
             "pallet"      OK
             "pallets"     OK
             "bend"        FAIL
-            "bends"        FAIL
+            "bends"       FAIL
             "pale"        FAIL
             "pales"       FAIL
+            "blah"        FAIL
+            "xyz"         FAIL
+
+MOBILE_CHARGE : "billet"        OK
+                "lozenge"       OK
+                "mascle"        OK
+                "fusil"         OK
+                "rustre"        OK
+                "roundel"       OK
+                "annulet"       OK
+                "mullet"        OK
+                "mullets"       OK
+                "star"          OK
+                "stars"         OK
+                "escutcheon"    OK
+                "inescutcheon"  OK
+                "xyz"           FAIL
+                "lion"          FAIL
+                "round"         FAIL
+                "roundelss"     FAIL
+
 
 TIERCED :   "tierced"  OK
             "tierc"    FAIL
@@ -124,7 +145,83 @@ FUR     :   "ermine"            OK
             "pean-en-pale"      FAIL
             "ermine-en-point"   FAIL
             "gules"             FAIL
-        
+            
+PROPER  :   "proper"  OK
+            "or"      FAIL
+            "per"     FAIL
+            
+BODY_PART : "langued" OK
+            "armed"   OK
+            "eyed"    OK
+            "lion"    FAIL
+            "are"     FAIL
+            "blah"    FAIL
+            
+BEAST   :   "lion"    OK
+            "lions"   OK
+            "bear"    OK
+            "wolf"    OK
+            "stag"    OK
+            "leopard" OK
+            "horse"   OK
+            "unicorn" OK
+            "lionss"  FAIL
+            "loins"   FAIL
+            "owl"     FAIL
+            "griffin" FAIL
+            "lizard"  FAIL
+            
+BIRD_FLYING_INSECT  :   "owl"     OK
+                        "peacock" OK
+                        "bee"     OK
+                        "bees"    OK
+                        "beess"   FAIL
+                        "lion"    FAIL
+            
+WINGED_BEAST  :   "griffin"     OK
+                  "dragon"      OK
+                  "dragons"     OK
+                  "dragonss"    FAIL
+                  "lion"        FAIL
+
+SWIMMING_BEAST  : "fish"        OK
+                  "dolphin"     OK
+                  "dolphins"    OK
+                  "dolphinss"   FAIL
+                  "lion"        FAIL
+
+ATTITUDE  : "rampant"   OK
+            "statant"   OK
+            "sejant"    OK
+            "passant"   OK
+            "couchant"  OK
+            "courant"   OK
+            "salient"   OK
+            "dormant"   OK
+            "volant"    FAIL
+            "blah"      FAIL
+            "standing"  FAIL
+
+ATTITUDE_MODIFIER :   "guardant"    OK
+                      "reguardant"  OK
+                      "affronty"    OK
+                      "blah"        FAIL
+                      "front"       FAIL
+                      "guarding"    FAIL
+                      
+FLYING_ATTITUDE   :   "volant"      OK
+                      "vigilant"    OK
+                      "displayed"   OK
+                      "rising"      OK
+                      "trussed"     OK
+                      "rampant"     FAIL
+                      "blah"        FAIL
+                      "vsdrgc"      FAIL
+                      
+SWIMMING_ATTITUDE :   "naiant"      OK
+                      "hauriant"    OK
+                      "rampant"     FAIL
+
 AND     :   "and"       OK
             "&"         FAIL
             "+"         FAIL
@@ -183,9 +280,11 @@ NUMWORDS
             "seventyeen"    FAIL
             
 WS      :   " "             OK
-            "    "          OK
+            "  "            OK
+            "   "           OK
             "\t"            OK
             "\t\t"          OK
             "\t \t   "      OK
             "blah"          FAIL
             " a "           FAIL
+            "\tblah"        FAIL     

@@ -15,7 +15,6 @@ import blazon.server.grammar.BlazonParser;
 import blazon.shared.shield.ShieldDivision;
 import blazon.shared.shield.Field;
 import blazon.shared.shield.ShieldDivision.ShieldDivisionType;
-import blazon.shared.shield.ShieldLayer;
 import blazon.shared.shield.diagnostic.ShieldDiagnostic;
 import blazon.shared.shield.tinctures.Tincture;
 import blazon.shared.shield.tinctures.Tinctures;
@@ -27,7 +26,7 @@ public class GrammarFieldTest {
 	@Test
 	public void testThatGulesReturnsTheCorrectLayer() throws RecognitionException, UnknownTinctureException {
 		BlazonParser parser = new ParserCreator().createParser("gules");
-		ShieldLayer layer = parser.field();
+		Field layer = parser.field();
 		
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
@@ -41,7 +40,7 @@ public class GrammarFieldTest {
 	@Test
 	public void testThatGulesPlainReturnsTheCorrectLayer() throws RecognitionException, UnknownTinctureException {
 		BlazonParser parser = new ParserCreator().createParser("gules plain");
-		ShieldLayer layer = parser.field();
+		Field layer = parser.field();
 		
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
@@ -72,7 +71,7 @@ public class GrammarFieldTest {
 	@Test
 	public void testThatPerBendGulesAndArgentGivesTheCorrectLayer() throws RecognitionException, UnknownTinctureException {
 		BlazonParser parser = new ParserCreator().createParser("per bend gules and argent");
-		ShieldLayer layer = parser.field();
+		Field layer = parser.field();
 		
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
@@ -88,7 +87,7 @@ public class GrammarFieldTest {
 	@Test
 	public void testThatPerBendArgentAndGulesGivesTheCorrectLayer() throws RecognitionException, UnknownTinctureException {
 		BlazonParser parser = new ParserCreator().createParser("per bend argent and gules");
-		ShieldLayer layer = parser.field();
+		Field layer = parser.field();
 		
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
@@ -104,7 +103,7 @@ public class GrammarFieldTest {
 	@Test
 	public void testThatPartyPerBendGulesAndArgentGivesTheCorrectLayer() throws RecognitionException, UnknownTinctureException {
 		BlazonParser parser = new ParserCreator().createParser("party per bend gules and argent");
-		ShieldLayer layer = parser.field();
+		Field layer = parser.field();
 		
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
@@ -120,7 +119,7 @@ public class GrammarFieldTest {
 	@Test
 	public void testThatPartedPerBendGulesAndArgentGivesTheCorrectLayer() throws RecognitionException, UnknownTinctureException {
 		BlazonParser parser = new ParserCreator().createParser("parted per bend gules and argent");
-		ShieldLayer layer = parser.field();
+		Field layer = parser.field();
 		
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
@@ -151,7 +150,7 @@ public class GrammarFieldTest {
 	@Test
 	public void testThatPerBendSinisterGulesAndArgentGivesTheCorrectLayer() throws RecognitionException, UnknownTinctureException {
 		BlazonParser parser = new ParserCreator().createParser("per bend sinister gules and argent");
-		ShieldLayer layer = parser.field();
+		Field layer = parser.field();
 		
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
@@ -167,7 +166,7 @@ public class GrammarFieldTest {
 	@Test
 	public void testThatGyronnyGulesAndArgentGivesTheCorrectLayer() throws RecognitionException, UnknownTinctureException {
 		BlazonParser parser = new ParserCreator().createParser("gyronny gules and argent");
-		ShieldLayer layer = parser.field();
+		Field layer = parser.field();
 		
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
@@ -183,7 +182,7 @@ public class GrammarFieldTest {
 	@Test
 	public void testThatGyronnyOfSixteenGulesAndArgentGivesTheCorrectLayer() throws RecognitionException, UnknownTinctureException {
 		BlazonParser parser = new ParserCreator().createParser("gyronny of sixteen gules and argent");
-		ShieldLayer layer = parser.field();
+		Field layer = parser.field();
 		
 		Tinctures tinctures = new Tinctures();
 		Tincture gules = tinctures.getTincture("gules");
@@ -211,7 +210,7 @@ public class GrammarFieldTest {
 	@Test
 	public void testThatPerBendVairEnPaleAndArgentGivesTheCorrectLayer() throws RecognitionException, UnknownTinctureException {
 		BlazonParser parser = new ParserCreator().createParser("per bend vair-en-pale and argent");
-		ShieldLayer layer = parser.field();
+		Field layer = parser.field();
 		
 		Tinctures tinctures = new Tinctures();
 		Tincture vairEnPale = tinctures.getTincture("vair-en-pale");
@@ -227,7 +226,7 @@ public class GrammarFieldTest {
 	@Test
 	public void testThatPerBendArgentAndVairEnPointGivesTheCorrectLayer() throws RecognitionException, UnknownTinctureException {
 		BlazonParser parser = new ParserCreator().createParser("per bend argent and vair-en-point");
-		ShieldLayer layer = parser.field();
+		Field layer = parser.field();
 		
 		Tinctures tinctures = new Tinctures();
 		Tincture vairEnPoint = tinctures.getTincture("vair-en-point");
@@ -243,7 +242,7 @@ public class GrammarFieldTest {
 	@Test
 	public void testThatPartyPerBendPotentEnPaleAndArgentGivesTheCorrectLayer() throws RecognitionException, UnknownTinctureException {
 		BlazonParser parser = new ParserCreator().createParser("party per bend potent-en-pale and argent");
-		ShieldLayer layer = parser.field();
+		Field layer = parser.field();
 		
 		Tinctures tinctures = new Tinctures();
 		Tincture potentEnPale = tinctures.getTincture("potent-en-pale");
@@ -259,7 +258,7 @@ public class GrammarFieldTest {
 	@Test
 	public void testThatPartedPerBendPotentEnPointAndArgentGivesTheCorrectLayer() throws RecognitionException, UnknownTinctureException {
 		BlazonParser parser = new ParserCreator().createParser("parted per bend potent-en-point and argent");
-		ShieldLayer layer = parser.field();
+		Field layer = parser.field();
 		
 		Tinctures tinctures = new Tinctures();
 		Tincture potentEnPoint = tinctures.getTincture("potent-en-point");
@@ -275,7 +274,7 @@ public class GrammarFieldTest {
 	@Test
 	public void testThatGyronnyCounterVairAndArgentGivesTheCorrectLayer() throws RecognitionException, UnknownTinctureException {
 		BlazonParser parser = new ParserCreator().createParser("gyronny counter-vair and argent");
-		ShieldLayer layer = parser.field();
+		Field layer = parser.field();
 		
 		Tinctures tinctures = new Tinctures();
 		Tincture counterVair = tinctures.getTincture("counter-vair");
